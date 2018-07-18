@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native'
-import LocalizedStrings from 'react-native-localization';
+import LocalizedStrings from 'react-native-localization'
 
 const strings = new LocalizedStrings({
   en: require('../translations/en.json'),
@@ -13,7 +13,7 @@ const Translate = ({keyName}) => (
 )
 
 Translate.propTypes = {
-  keyName: PropTypes.string.isRequired
+  keyName: PropTypes.string.isRequired,
 }
 
 export default Translate

@@ -15,7 +15,7 @@ export default class Onboarding extends Component {
   render () {
     return (
       <View>
-        <Button title="to subscription" onPress={this.onPress} />
+        <Button title='to subscription' onPress={this.onPress} />
         <Text>Onboarding</Text>
         <Translate keyName='hello' />
       </View>

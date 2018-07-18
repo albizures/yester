@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StatusBar, View, AsyncStorage } from 'react-native'
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
+import { StatusBar, View } from 'react-native'
+import { createStackNavigator } from 'react-navigation'
 
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
@@ -8,21 +8,21 @@ import Subscription from './screens/Subscription'
 
 const RootStack = createStackNavigator({
   Onboarding: {
-    screen: Onboarding
+    screen: Onboarding,
   },
   Login: {
-    screen: Login
+    screen: Login,
   },
   Subscription: {
-    screen: Subscription
-  }
+    screen: Subscription,
+  },
 }, {
   navigationOptions: {
-    gesturesEnabled: false
+    gesturesEnabled: false,
   },
   initialRouteName: 'Onboarding',
   mode: 'modal',
-  headerMode: 'none'
+  headerMode: 'none',
 })
 
 export default class App extends Component {
