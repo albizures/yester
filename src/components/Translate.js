@@ -4,11 +4,11 @@ import { Text } from 'react-native'
 import LocalizedStrings from 'react-native-localization';
 
 const strings = new LocalizedStrings({
-  en: require('../translations/en.json'),
-  es: require('../translations/es.json'),
+  en: require('../translations/en'),
+  es: require('../translations/es'),
 })
 
-const Translate = ({keyName}) => (
+const Translate = (keyName) => (
   <Text>{strings[keyName]}</Text>
 )
 
