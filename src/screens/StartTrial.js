@@ -5,52 +5,78 @@ import {
     TouchableHighlight,
     Text, View, Dimensions
   } from 'react-native'
+  import PropTypes from 'prop-types'
 
   import Translate from '../components/Translate'
   import styles from '../styles/common'
   
   class StartTrial extends Component {
-  
+    static propTypes = {
+      navigation: PropTypes.object.isRequired,
+    }
+
     constructor(props) {
       super(props)
     }
   
     componentWillUnmount() {
-      
+    }
+
+    _onPressSubsciption = () => {
+      this.props.navigation.navigate('Subscription')
+    }
+
+    _onPressLogin = () => {
+      this.props.navigation.navigate('Login')
     }
   
     render() {
       return (
         <View style={localStyles.container2}>
           <ScrollView style={[localStyles.container]}>
-            <Text style={[styles.display2, localStyles.marginB]}>YESTER</Text>
-            <Text style={[styles.title, localStyles.marginB]}>{Translate('before_lbl1_1')}
-              <Text style={{fontWeight: 'bold',}}>{Translate('before_lbl1_2')}
+            <Text style={[styles.display2, localStyles.marginB]}>
+              <Translate keyName='caps_title1' />
+            </Text>
+            <Text style={[styles.title, localStyles.marginB]}>
+              <Translate keyName='before_lbl1_1'/>
+              <Text style={{fontWeight: 'bold',}}>
+                <Translate keyName='before_lbl1_2'/>
               </Text>
             </Text>
-            <Text style={[styles.title, localStyles.marginB]}>{Translate('before_lbl2')}
+            <Text style={[styles.title, localStyles.marginB]}>
+              <Translate keyName='before_lbl2'/>
             </Text>
-
-            <TouchableHighlight onPress={this._handleAdd} 
+            <TouchableHighlight onPress={this._onPressSubsciption} 
             style={[styles.button, styles.filledButton]}>
-              <Text style={[styles.buttonText, ]}>START FREE TRIAL</Text>
+              <Text style={[styles.buttonText, ]}>
+                <Translate keyName='before_lbl7'/>
+              </Text>
             </TouchableHighlight>
 
-            <Text style={[styles.body1, localStyles.marginB]}>{Translate('before_lbl3')}
+            <Text style={[styles.body1, localStyles.marginB]}>
+              <Translate keyName='before_lbl3'/>
             </Text>
 
-            <TouchableHighlight onPress={this._handleAdd} 
+            <TouchableHighlight onPress={this._onPressLogin} 
             style={[styles.button, styles.outlinedButton, localStyles.marginB]}>
-              <Text style={[styles.buttonText, styles.notColor]}>Log In</Text>
+              <Text style={[styles.buttonText, styles.notColor]}>
+               <Translate keyName='before_lbl8'/>
+              </Text>
             </TouchableHighlight>
 
             <View style={[styles.separator, localStyles.marginB]}/>
-            <Text style={[styles.body2, {textAlign: 'left',marginBottom: height * 0.01,}]}>Cancel Anytime</Text>
-            <Text style={[styles.body1, {textAlign: 'left'}]}>At Tatalapp is recurring subscription. If you decide to purchase a subcription, an initial payment will be...</Text>
+            <Text style={[styles.body2, {textAlign: 'left',marginBottom: height * 0.01,}]}>
+              <Translate keyName='before_lbl4'/>
+            </Text>
+            <Text style={[styles.body1, {textAlign: 'left'}]}>
+             <Translate keyName='before_lbl5'/>
+            </Text>
           </ScrollView>
           <View style={localStyles.container3}> 
-            <Text style={[styles.title, {textAlign: 'center'} ]}>{Translate('before_lbl6_1')}
-            <Text style={[{fontWeight: 'bold', textDecorationLine:'underline'}]}>{Translate('before_lbl6_2')}
+            <Text style={[styles.title, {textAlign: 'center'} ]}>
+              <Translate keyName='before_lbl6_1'/>
+            <Text style={[{fontWeight: 'bold', textDecorationLine:'underline'}]}>
+              <Translate keyName='before_lbl6_2'/>
             </Text>
             </Text>
           </View>
@@ -68,10 +94,10 @@ import {
       flex: 1,
       flexDirection: 'column',
       zIndex: 0,
-      
     },
     container2: {
-      position: 'absolute'
+      position: 'absolute',
+      backgroundColor: '#fff',
     },
     container3: {
       position: 'absolute',

@@ -8,7 +8,7 @@ const strings = new LocalizedStrings({
   es: require('../translations/es'),
 })
 
-const Translate = (keyName) => (
+const Translate = ({keyName}) => (
   <Text>{strings[keyName]}</Text>
 )
 

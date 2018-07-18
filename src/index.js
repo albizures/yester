@@ -24,7 +24,7 @@ const RootStack = createStackNavigator({
   navigationOptions: {
     gesturesEnabled: false
   },
-  initialRouteName: 'StartTrial',
+  initialRouteName: 'Onboarding',
   mode: 'modal',
   headerMode: 'none'
 })
