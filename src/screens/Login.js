@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, WebView } from 'react-native'
+import { WebView } from 'react-native'
 
 export default class Login extends Component {
   render () {
