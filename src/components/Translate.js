@@ -8,8 +8,8 @@ const strings = new LocalizedStrings({
   es: require('../translations/es'),
 })
 
-const Translate = ({keyName}) => (
-  <Text>{strings[keyName]}</Text>
+const Translate = (props) => (
+  <Text {...props}>{strings[props.keyName]}</Text>
 )
 
 Translate.propTypes = {
