@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, View, Button } from 'react-native'
 
 import Translate from '../../components/Translate'
+
 export default class Onboarding extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
@@ -15,7 +16,7 @@ export default class Onboarding extends Component {
   render () {
     return (
       <View>
-        <Button title="to start free trial" onPress={this.onPress} />
+        <Button title='to start free trial' onPress={this.onPress} />
         <Text>Onboarding</Text>
         <Translate keyName='hello' />
       </View>

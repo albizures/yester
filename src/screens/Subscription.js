@@ -14,7 +14,7 @@ export default class Subscription extends Component {
   render () {
     return (
       <View>
-        <Button title="to login" onPress={this.onPress} />
+        <Button title='to login' onPress={this.onPress} />
         <Text>Subscription</Text>
       </View>
     )
