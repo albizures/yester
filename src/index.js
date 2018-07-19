@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation'
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
 import Subscription from './screens/Subscription'
+import StartTrial from './screens/StartTrial'
 
 const RootStack = createStackNavigator({
   Onboarding: {
@@ -15,6 +16,9 @@ const RootStack = createStackNavigator({
   },
   Subscription: {
     screen: Subscription,
+  },
+  StartTrial: {
+    screen: StartTrial,
   },
 }, {
   navigationOptions: {

@@ -9,13 +9,13 @@ export default class Onboarding extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('Subscription')
+    this.props.navigation.navigate('StartTrial')
   }
 
   render () {
     return (
       <View>
-        <Button title='to subscription' onPress={this.onPress} />
+        <Button title='to start free trial' onPress={this.onPress} />
         <Text>Onboarding</Text>
         <Translate keyName='hello' />
       </View>
