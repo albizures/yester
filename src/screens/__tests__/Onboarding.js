@@ -15,13 +15,13 @@ describe('src/screens/Onboarding.js', () => {
   })
 
   describe('when button to free trail is pressed', () => {
-    it('should navigate to StartTrial screen', () => {
+    it('should navigate to SignUp screen', () => {
       const shallowLogin = shallow(<Onboarding navigation={navigation} />)
       const shallowButton = shallowLogin.find(Button)
       shallowButton.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('StartTrial')
+      expect(navigation.navigate).toHaveBeenCalledWith('SignUp')
     })
   })
 })

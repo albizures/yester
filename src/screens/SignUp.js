@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import Translate from '../components/Translate'
 import styles from '../styles/common'
 
-class StartTrial extends Component {
+class SignUp extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -31,45 +31,45 @@ class StartTrial extends Component {
             <Translate keyName='common.upperTitle' />
           </Text>
           <Text style={[styles.title, localStyles.margin]}>
-            <Translate keyName='startTrial.weKnow' />
+            <Translate keyName='signUp.weKnow' />
             <Text style={{fontWeight: 'bold'}}>
-              <Translate keyName='startTrial.weWant' />
+              <Translate keyName='signUp.weWant' />
             </Text>
           </Text>
           <Text style={[styles.title, localStyles.margin]}>
-            <Translate keyName='startTrial.receive' />
+            <Translate keyName='signUp.receive' />
           </Text>
           <TouchableHighlight onPress={this.onPressSubsciption}
             style={[styles.button, styles.filledButton]}>
             <Text style={[styles.buttonText]}>
-              <Translate keyName='startTrial.start' />
+              <Translate keyName='signUp.start' />
             </Text>
           </TouchableHighlight>
 
           <Text style={[styles.body1, localStyles.margin]}>
-            <Translate keyName='startTrial.price' />
+            <Translate keyName='signUp.price' />
           </Text>
 
           <TouchableHighlight onPress={this.onPressLogin}
             style={[styles.button, styles.outlinedButton, localStyles.margin]}>
             <Text style={[styles.buttonText, styles.notColor]}>
-              <Translate keyName='startTrial.logIn' />
+              <Translate keyName='signUp.logIn' />
             </Text>
           </TouchableHighlight>
 
           <View style={[styles.separator, localStyles.margin]} />
           <Text style={[styles.body2, {textAlign: 'left', marginBottom: height * 0.01}]}>
-            <Translate keyName='startTrial.cancel' />
+            <Translate keyName='signUp.cancel' />
           </Text>
           <Text style={[styles.body1, {textAlign: 'left'}]}>
-            <Translate keyName='startTrial.recurring' />
+            <Translate keyName='signUp.recurring' />
           </Text>
         </ScrollView>
         <View style={localStyles.container3}>
           <Text style={[styles.title, {textAlign: 'center'}]}>
-            <Translate keyName='startTrial.already' />
+            <Translate keyName='signUp.already' />
             <Text style={[{fontWeight: 'bold', textDecorationLine: 'underline'}]}>
-              <Translate keyName='startTrial.restore' />
+              <Translate keyName='signUp.restore' />
             </Text>
           </Text>
         </View>
@@ -108,4 +108,4 @@ const localStyles = StyleSheet.create({
   },
 })
 
-export default StartTrial
+export default SignUp

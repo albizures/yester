@@ -15,7 +15,7 @@ describe('src/screens/Subscription.js', () => {
   })
 
   describe('when button to free trail is pressed', () => {
-    it('should navigate to StartTrial screen', () => {
+    it('should navigate to SignUp screen', () => {
       const shallowSubscription = shallow(<Subscription navigation={navigation} />)
       const shallowButton = shallowSubscription.find(Button)
       shallowButton.prop('onPress')()
