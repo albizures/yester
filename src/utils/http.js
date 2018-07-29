@@ -5,7 +5,7 @@ export const instance = axios.create({
   baseURL: HOST,
 })
 
-const isFullUrl = (url) => url.startsWith('http')
+export const isFullUrl = (url) => url.startsWith('http')
 
 const getInstance = (url) => isFullUrl(url) ? axios : instance
 
