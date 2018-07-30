@@ -6,6 +6,7 @@ import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
 import Subscription from './screens/Subscription'
 import SignUp from './screens/SignUp'
+import CreateAccount from './screens/CreateAccount'
 import Topics from './screens/Topics'
 
 const RootStack = createStackNavigator({
@@ -20,6 +21,9 @@ const RootStack = createStackNavigator({
   },
   SignUp: {
     screen: SignUp,
+  },
+  CreateAccount: {
+    screen: CreateAccount,
   },
   Topics: {
     screen: Topics,

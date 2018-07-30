@@ -14,7 +14,7 @@ describe('src/screens/SignUp.js', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  describe('when button to free trail is pressed', () => {
+  describe('when button to free trial is pressed', () => {
     it('should navigate to SignUp screen', () => {
       const shallowLogin = shallow(<SignUp navigation={navigation} />)
       const shallowTouchableHighlights = shallowLogin.find(TouchableHighlight)

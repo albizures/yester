@@ -15,7 +15,7 @@ class SignUp extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPressSubsciption = () => {
+  onPressSubscription = () => {
     this.props.navigation.navigate('Subscription')
   }
 
@@ -39,7 +39,7 @@ class SignUp extends Component {
           <Text style={[styles.title, localStyles.margin]}>
             <Translate keyName='signUp.receive' />
           </Text>
-          <TouchableHighlight onPress={this.onPressSubsciption}
+          <TouchableHighlight onPress={this.onPressSubscription}
             style={[styles.button, styles.filledButton]}>
             <Text style={[styles.buttonText]}>
               <Translate keyName='signUp.start' />

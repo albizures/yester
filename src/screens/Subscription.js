@@ -7,15 +7,21 @@ export default class Subscription extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPress = () => {
+  onPressLogin = () => {
     this.props.navigation.navigate('Login')
+  }
+
+  onPressCreateAccount = () => {
+    this.props.navigation.navigate('CreateAccount')
   }
 
   render () {
     return (
       <View>
-        <Button title='to login' onPress={this.onPress} />
+        <Button title='to login' onPress={this.onPressLogin} />
         <Text>Subscription</Text>
+        <Button title='to Create Account' onPress={this.onPressCreateAccount} />
+        
       </View>
     )
   }
