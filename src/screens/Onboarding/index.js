@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Text, View, Button } from 'react-native'
 
 import Translate from '../../components/Translate'
+import OurButton from '../../components/OurButton'
 
 export default class Onboarding extends Component {
   static propTypes = {
@@ -23,7 +24,7 @@ export default class Onboarding extends Component {
         <Button title='to Sign Up' onPress={this.onPress} />
         <Text>Onboarding</Text>
         <Translate keyName='hello' />
-        <Button title='to Topics' onPress={this.onPressTopics} />
+        <OurButton title='to Topics' onPress={this.onPressTopics} />
       </View>
     )
   }

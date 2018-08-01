@@ -5,14 +5,10 @@ import { createStackNavigator } from 'react-navigation'
 import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
 import Subscription from './screens/Subscription'
-<<<<<<< HEAD
 import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
 import Topics from './screens/Topics'
-=======
-import StartTrial from './screens/StartTrial'
 import http from './utils/http'
->>>>>>> master
 
 const RootStack = createStackNavigator({
   Onboarding: {
