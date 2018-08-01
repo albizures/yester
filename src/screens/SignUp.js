@@ -16,11 +16,11 @@ class SignUp extends Component {
   }
 
   onPressSubscription = () => {
-    this.props.navigation.navigate('Subscription')
+    this.props.navigation.navigate('SignUp2')
   }
 
   onPressLogin = () => {
-    this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('LogIn')
   }
 
   render () {

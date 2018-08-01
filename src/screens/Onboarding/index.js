@@ -14,17 +14,16 @@ export default class Onboarding extends Component {
     this.props.navigation.navigate('SignUp')
   }
 
-  onPressTopics = () => {
-    this.props.navigation.navigate('Topics')
+  onPressHome = () => {
+    this.props.navigation.navigate('Home')
   }
 
   render () {
     return (
       <View>
+        <Text style={[{textAlign: 'center', marginTop: 40}]}>ON BOARDING</Text>
         <Button title='to Sign Up' onPress={this.onPress} />
-        <Text>Onboarding</Text>
-        <Translate keyName='hello' />
-        <OurButton title='to Topics' onPress={this.onPressTopics} />
+        <OurButton title='to Home' onPress={this.onPressHome} />
       </View>
     )
   }

@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Text, View, Button } from 'react-native'
 
-export default class Subscription extends Component {
+export default class SignUp2 extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
   onPressLogin = () => {
-    this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('LogIn')
   }
 
   onPressCreateAccount = () => {
@@ -18,10 +18,8 @@ export default class Subscription extends Component {
   render () {
     return (
       <View>
-        <Button title='to login' onPress={this.onPressLogin} />
-        <Text>Subscription</Text>
+        <Text style={[{textAlign: 'center', marginTop: 40}]}>SignUp-2</Text>
         <Button title='to Create Account' onPress={this.onPressCreateAccount} />
-        
       </View>
     )
   }
