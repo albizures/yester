@@ -24,6 +24,7 @@ import Settings from './screens/Settings'
 import Language from './screens/Language'
 import Notifications from './screens/Notifications'
 import Terms from './screens/Terms'
+import Facebook from './screens/Facebook'
 import http from './utils/http'
 
 const RootStack = createStackNavigator({
@@ -92,6 +93,9 @@ const RootStack = createStackNavigator({
   },
   Terms: {
     screen: Terms,
+  },
+  Facebook: {
+    screen: Facebook,
   },
 }, {
   navigationOptions: {

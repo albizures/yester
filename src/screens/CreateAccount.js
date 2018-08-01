@@ -12,12 +12,12 @@ export default class CreateAccount extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPressSubsciption = () => {
-    this.props.navigation.navigate('Subscription')
+  onPressFB = () => {
+    this.props.navigation.navigate('Facebook')
   }
 
-  onPressLogin = () => {
-    this.props.navigation.navigate('Login')
+  onPressSignIn = () => {
+    this.props.navigation.navigate('SignIn')
   }
 
   render () {
@@ -29,7 +29,7 @@ export default class CreateAccount extends Component {
         <Text style={[styles.title, localStyles.margin, {fontWeight: 'bold', textAlign: 'center'}]}>
           <Translate keyName='createAccount.begin' />
         </Text>
-        <TouchableHighlight onPress={this.onPressSubsciption}
+        <TouchableHighlight onPress={this.onPressFB}
           style={[styles.button, styles.filledButton]}>
           <Text style={[styles.buttonText]}>
             <Translate keyName='createAccount.continue' />
@@ -44,7 +44,7 @@ export default class CreateAccount extends Component {
           <Translate keyName='createAccount.or' />
           <View style={[styles.divider, {width: 30}]} />
         </View>
-        <TouchableHighlight onPress={this.onPressLogin}
+        <TouchableHighlight onPress={this.onPressSignIn}
           style={[styles.button, styles.outlinedButton, localStyles.margin]}>
           <Text style={[styles.buttonText, styles.notColor]}>
             <Translate keyName='createAccount.create' />

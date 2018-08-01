@@ -20,7 +20,7 @@ OurButton.propTypes = {
   title: PropTypes.string.isRequired,
 }
 
-let { height, width } = Dimensions.get('window')
+let { height } = Dimensions.get('window')
 const styles = {
   gradient: {
     flex: 1,
