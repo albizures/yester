@@ -63,4 +63,11 @@ export default StyleSheet.create({
     borderBottomColor: '#309BF8',
     borderBottomWidth: 1,
   },
+  divider: {
+    height: height * 0.01,
+    backgroundColor: '#A6D5FC',
+    borderRadius: height * 0.04,
+    borderWidth: 1,
+    borderColor: '#A6D5FC',
+  },
 })

@@ -3,23 +3,99 @@ import { StatusBar, View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 
 import Onboarding from './screens/Onboarding'
-import Login from './screens/Login'
-import Subscription from './screens/Subscription'
-import StartTrial from './screens/StartTrial'
+import LogIn from './screens/LogIn'
+import SignUp from './screens/SignUp'
+import SignUp2 from './screens/SignUp-2'
+import CreateAccount from './screens/CreateAccount'
+import Setup from './screens/Setup'
+import Setup1 from './screens/Setup-1'
+import Setup2 from './screens/Setup-2'
+import SignIn from './screens/SignIn'
+import ConfirmEmail from './screens/ConfirmEmail'
+import Home from './screens/Home'
+import Home2 from './screens/Home-2'
+import Home3 from './screens/Home-3'
+import Question from './screens/Question'
+import Question2 from './screens/Question-2'
+import Writing from './screens/Writing'
+import Reading from './screens/Reading'
+import Profile from './screens/Profile'
+import Settings from './screens/Settings'
+import Language from './screens/Language'
+import Notifications from './screens/Notifications'
+import Terms from './screens/Terms'
+import Facebook from './screens/Facebook'
 import http from './utils/http'
 
 const RootStack = createStackNavigator({
   Onboarding: {
     screen: Onboarding,
   },
-  Login: {
-    screen: Login,
+  LogIn: {
+    screen: LogIn,
   },
-  Subscription: {
-    screen: Subscription,
+  SignUp: {
+    screen: SignUp,
   },
-  StartTrial: {
-    screen: StartTrial,
+  SignUp2: {
+    screen: SignUp2,
+  },
+  CreateAccount: {
+    screen: CreateAccount,
+  },
+  Setup: {
+    screen: Setup,
+  },
+  Setup1: {
+    screen: Setup1,
+  },
+  Setup2: {
+    screen: Setup2,
+  },
+  SignIn: {
+    screen: SignIn,
+  },
+  ConfirmEmail: {
+    screen: ConfirmEmail,
+  },
+  Home: {
+    screen: Home,
+  },
+  Home2: {
+    screen: Home2,
+  },
+  Home3: {
+    screen: Home3,
+  },
+  Question: {
+    screen: Question,
+  },
+  Question2: {
+    screen: Question2,
+  },
+  Writing: {
+    screen: Writing,
+  },
+  Reading: {
+    screen: Reading,
+  },
+  Profile: {
+    screen: Profile,
+  },
+  Settings: {
+    screen: Settings,
+  },
+  Language: {
+    screen: Language,
+  },
+  Notifications: {
+    screen: Notifications,
+  },
+  Terms: {
+    screen: Terms,
+  },
+  Facebook: {
+    screen: Facebook,
   },
 }, {
   navigationOptions: {

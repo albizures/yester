@@ -10,66 +10,66 @@ import PropTypes from 'prop-types'
 import Translate from '../components/Translate'
 import styles from '../styles/common'
 
-class StartTrial extends Component {
+class SignUp extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPressSubsciption = () => {
-    this.props.navigation.navigate('Subscription')
+  onPressSubscription = () => {
+    this.props.navigation.navigate('SignUp2')
   }
 
   onPressLogin = () => {
-    this.props.navigation.navigate('Login')
+    this.props.navigation.navigate('LogIn')
   }
 
   render () {
     return (
       <View style={localStyles.container2}>
         <ScrollView style={[localStyles.container]}>
-          <Text style={[styles.display2, localStyles.marginB]}>
-            <Translate keyName='caps_title1' />
+          <Text style={[styles.display2, localStyles.margin]}>
+            <Translate keyName='common.upperTitle' />
           </Text>
-          <Text style={[styles.title, localStyles.marginB]}>
-            <Translate keyName='before_lbl1_1' />
+          <Text style={[styles.title, localStyles.margin]}>
+            <Translate keyName='signUp.weKnow' />
             <Text style={{fontWeight: 'bold'}}>
-              <Translate keyName='before_lbl1_2' />
+              <Translate keyName='signUp.weWant' />
             </Text>
           </Text>
-          <Text style={[styles.title, localStyles.marginB]}>
-            <Translate keyName='before_lbl2' />
+          <Text style={[styles.title, localStyles.margin]}>
+            <Translate keyName='signUp.receive' />
           </Text>
-          <TouchableHighlight onPress={this.onPressSubsciption}
+          <TouchableHighlight onPress={this.onPressSubscription}
             style={[styles.button, styles.filledButton]}>
             <Text style={[styles.buttonText]}>
-              <Translate keyName='before_lbl7' />
+              <Translate keyName='signUp.start' />
             </Text>
           </TouchableHighlight>
 
-          <Text style={[styles.body1, localStyles.marginB]}>
-            <Translate keyName='before_lbl3' />
+          <Text style={[styles.body1, localStyles.margin]}>
+            <Translate keyName='signUp.price' />
           </Text>
 
           <TouchableHighlight onPress={this.onPressLogin}
-            style={[styles.button, styles.outlinedButton, localStyles.marginB]}>
+            style={[styles.button, styles.outlinedButton, localStyles.margin]}>
             <Text style={[styles.buttonText, styles.notColor]}>
-              <Translate keyName='before_lbl8' />
+              <Translate keyName='signUp.logIn' />
             </Text>
           </TouchableHighlight>
 
-          <View style={[styles.separator, localStyles.marginB]} />
+          <View style={[styles.separator, localStyles.margin]} />
           <Text style={[styles.body2, {textAlign: 'left', marginBottom: height * 0.01}]}>
-            <Translate keyName='before_lbl4' />
+            <Translate keyName='signUp.cancel' />
           </Text>
           <Text style={[styles.body1, {textAlign: 'left'}]}>
-            <Translate keyName='before_lbl5' />
+            <Translate keyName='signUp.recurring' />
           </Text>
         </ScrollView>
         <View style={localStyles.container3}>
           <Text style={[styles.title, {textAlign: 'center'}]}>
-            <Translate keyName='before_lbl6_1' />
+            <Translate keyName='signUp.already' />
             <Text style={[{fontWeight: 'bold', textDecorationLine: 'underline'}]}>
-              <Translate keyName='before_lbl6_2' />
+              <Translate keyName='signUp.restore' />
             </Text>
           </Text>
         </View>
@@ -103,9 +103,9 @@ const localStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  marginB: {
+  margin: {
     marginBottom: height * 0.03,
   },
 })
 
-export default StartTrial
+export default SignUp

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Text, View, Button } from 'react-native'
 
-export default class LogIn extends Component {
+export default class SignIn extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -14,7 +14,7 @@ export default class LogIn extends Component {
   render () {
     return (
       <View>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>LOG IN</Text>
+        <Text style={[{textAlign: 'center', marginTop: 40}]}>SIGN IN</Text>
         <Button title='to Home' onPress={this.onPress} />
       </View>
     )
