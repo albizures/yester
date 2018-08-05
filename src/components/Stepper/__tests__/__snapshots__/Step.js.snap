@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/screens/Step.js should render a portrait version 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "column",
+      },
+      Object {
+        "height": 50,
+        "justifyContent": "center",
+        "paddingTop": 0,
+        "width": 40,
+      },
+    ]
+  }
+>
+  <div>
+    test
+  </div>
+</View>
+`;
+
+exports[`src/screens/Step.js when it´s landscape mode should render a landscape version 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "column",
+      },
+      Object {
+        "height": 40,
+        "justifyContent": "flex-start",
+        "paddingTop": 10,
+        "width": 50,
+      },
+    ]
+  }
+>
+  <div>
+    test
+  </div>
+</View>
+`;
