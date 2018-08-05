@@ -1,0 +1,613 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/screens/Onboarding should render 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "paddingTop": 20,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <RCTScrollView
+      data={
+        Array [
+          [Function],
+          [Function],
+          [Function],
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={true}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      onViewableItemsChanged={[Function]}
+      pagingEnabled={true}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      showsHorizontalScrollIndicator={false}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={
+        Array [
+          Object {
+            "onViewableItemsChanged": [Function],
+            "viewabilityConfig": undefined,
+          },
+        ]
+      }
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "column",
+                },
+                Object {
+                  "height": 1334,
+                  "justifyContent": "center",
+                  "paddingTop": 0,
+                  "width": 750,
+                },
+              ]
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../src/assets/300x300.png",
+                }
+              }
+            />
+            <Text
+              keyName="onboarding.step1.title"
+            >
+              We cant't wait to hear your story
+            </Text>
+            <Text
+              keyName="onboarding.step1.description"
+            >
+              Everyone has a story to tell. We know yours is definitely a really interesting one.
+            </Text>
+            <View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#000",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#c3c3c3",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#c3c3c3",
+                    },
+                  ]
+                }
+              />
+            </View>
+            <View
+              accessibilityComponentType="button"
+              accessibilityTraits={
+                Array [
+                  "button",
+                ]
+              }
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {},
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#007AFF",
+                        "fontSize": 18,
+                        "padding": 8,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  Skip
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityComponentType="button"
+              accessibilityTraits={
+                Array [
+                  "button",
+                ]
+              }
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {},
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#007AFF",
+                        "fontSize": 18,
+                        "padding": 8,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  Continue
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "column",
+                },
+                Object {
+                  "height": 1334,
+                  "justifyContent": "center",
+                  "paddingTop": 0,
+                  "width": 750,
+                },
+              ]
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../src/assets/300x300.png",
+                }
+              }
+            />
+            <Text
+              keyName="onboarding.step2.title"
+            >
+              One day, one story
+            </Text>
+            <Text
+              keyName="onboarding.step2.description"
+            >
+              We'll guide you through daily question that will help us to get the conversation to get started.
+            </Text>
+            <View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#c3c3c3",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#000",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#c3c3c3",
+                    },
+                  ]
+                }
+              />
+            </View>
+            <View
+              accessibilityComponentType="button"
+              accessibilityTraits={
+                Array [
+                  "button",
+                ]
+              }
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {},
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#007AFF",
+                        "fontSize": 18,
+                        "padding": 8,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  Skip
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityComponentType="button"
+              accessibilityTraits={
+                Array [
+                  "button",
+                ]
+              }
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {},
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#007AFF",
+                        "fontSize": 18,
+                        "padding": 8,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  Continue
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Array [
+              Object {
+                "flexDirection": "row",
+              },
+              null,
+            ]
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "flexDirection": "column",
+                },
+                Object {
+                  "height": 1334,
+                  "justifyContent": "center",
+                  "paddingTop": 0,
+                  "width": 750,
+                },
+              ]
+            }
+          >
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../src/assets/300x300.png",
+                }
+              }
+            />
+            <Text
+              keyName="onboarding.step3.title"
+            >
+              You own your information
+            </Text>
+            <Text
+              keyName="onboarding.step3.description"
+            >
+              As you, we want to protect your personal information, so you decide when and with who you share it. Always!
+            </Text>
+            <View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#c3c3c3",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#c3c3c3",
+                    },
+                  ]
+                }
+              />
+              <View
+                style={
+                  Array [
+                    Object {
+                      "borderRadius": 5,
+                      "height": 10,
+                      "marginHorizontal": 5,
+                      "width": 10,
+                    },
+                    Object {
+                      "backgroundColor": "#000",
+                    },
+                  ]
+                }
+              />
+            </View>
+            <View
+              accessibilityComponentType="button"
+              accessibilityTraits={
+                Array [
+                  "button",
+                ]
+              }
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {},
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#007AFF",
+                        "fontSize": 18,
+                        "padding": 8,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  Skip
+                </Text>
+              </View>
+            </View>
+            <View
+              accessibilityComponentType="button"
+              accessibilityTraits={
+                Array [
+                  "button",
+                ]
+              }
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "opacity": 1,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {},
+                  ]
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#007AFF",
+                        "fontSize": 18,
+                        "padding": 8,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  Continue
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

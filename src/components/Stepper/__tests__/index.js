@@ -19,7 +19,7 @@ const render = () => (
   </Stepper>
 )
 
-describe.only('src/screens/Stepper', () => {
+describe('src/screens/Stepper', () => {
   it('should render', () => {
     const tree = renderer.create(render()).toJSON()
     expect(tree).toMatchSnapshot()
@@ -40,6 +40,24 @@ describe.only('src/screens/Stepper', () => {
       expect(instance.flatList.current.scrollToIndex).toHaveBeenCalledWith({
         animated: true,
         index: 1,
+      })
+    })
+    describe('when the current step is the last one', () => {
+      it('shouldn´t do nothing', () => {
+        const shallowStepper = shallow(render())
+        const instance = shallowStepper.instance()
+
+        instance.state = {
+          currentStep: 2,
+          previousStep: 1,
+        }
+        instance.flatList.current = {
+          scrollToIndex: jest.fn(),
+        }
+
+        instance.next()
+
+        expect(instance.flatList.current.scrollToIndex).toHaveBeenCalledTimes(0)
       })
     })
   })

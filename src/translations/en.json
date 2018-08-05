@@ -25,8 +25,6 @@
   "tellus_lbl1": "Tell us about yourself",
   "lorem_lbl1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt mi ligula. Phasellus erat metus, dictum.",
   "excepteur_lbl1": "Excepteur sint occaeuiecat",
-  "intro_title1": "We cant't wait to hear your story",
-  "intro_subt1": "Everyone has a story to tell. We know yours is definitely a really interesting one.",
   "intro_title2": "One day, one story",
   "intro_subt2": "We'll guide you through daily question that will help us to get the conversation to get started.",
   "intro_title3": "You own your information",
@@ -64,5 +62,13 @@
   "or_lbl7": "Or",
   "or_lbl8": "Or",
   "or_lbl9": "Or",
-  "or_lbl10": "Or"
+  "or_lbl10": "Or",
+  "onboarding.step1.title": "We cant't wait to hear your story",
+  "onboarding.step1.description": "Everyone has a story to tell. We know yours is definitely a really interesting one.",
+  "onboarding.step2.title": "One day, one story",
+  "onboarding.step2.description": "We'll guide you through daily question that will help us to get the conversation to get started.",
+  "onboarding.step3.title": "You own your information",
+  "onboarding.step3.description": "As you, we want to protect your personal information, so you decide when and with who you share it. Always!",
+  "onboarding.next": "Continue",
+  "onboarding.skip": "Skip"
 }

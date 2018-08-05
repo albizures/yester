@@ -29,7 +29,12 @@ export default class Stepper extends Component {
 
   next = () => {
     const { current: flatList } = this.flatList
+    const { children } = this.props
     const { currentStep } = this.state
+
+    if (currentStep >= children.length - 1) {
+      return
+    }
 
     flatList.scrollToIndex({
       animated: true,
