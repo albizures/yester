@@ -39,14 +39,6 @@
   "tellus_lbl1": "Tell us about yourself",
   "lorem_lbl1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tincidunt mi ligula. Phasellus erat metus, dictum.",
   "excepteur_lbl1": "Excepteur sint occaeuiecat",
-<<<<<<< HEAD
-  "intro_title1": "We cant't wait to hear your story",
-  "intro_subt1": "Everyone has a story to tell. We know yours is definitely a really interesting one.",
-  "intro_title2": "One day, one story",
-  "intro_subt2": "We'll guide you through daily question that will help us to get the conversation to get started.",
-  "intro_title3": "You own your information",
-  "intro_subt3": "As you, we want to protect your personal information, so you decide when and with who you share it. Always!",
-=======
   "before_lbl1_1": "Sabemos que tienes una hermosa e interesante historia. ",
   "before_lbl1_2": "Queremos ayudarte a escribirla.",
   "before_lbl2": "Recibe un tema de conversación al día. Pruébanos GRATIS por un mes (luego solo $4.99/mes).",
@@ -60,7 +52,6 @@
   "beforereg_lbl1": "Start it's simple. \nLet's begin with your account.",
   "beforereg_lbl2": "Recommended, to speed things up.",
   "beforereg_bttn2": "CREATE ACCOUNT",
->>>>>>> 86f0f9298ef50446041eb3837047130d7f3ac093
   "regbirth_lbl1": "Hi ",
   "regbirth_lbl2": "That's a great name! Now, let's meet properly to get you started.",
   "regbirth_lbl3": "When did you saw this beautiful Earth for the first time?",

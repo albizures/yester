@@ -3,7 +3,7 @@ import { StatusBar, View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 
 import Onboarding from './screens/Onboarding'
-import LogIn from './screens/LogIn'
+import LogIn from './screens/Login'
 import SignUp from './screens/SignUp'
 import SignUp2 from './screens/SignUp-2'
 import CreateAccount from './screens/CreateAccount'
