@@ -6,7 +6,7 @@ import OurButton from '../OurButton'
 
 describe('src/components/OurButton.js', () => {
   it('should render a TouchableHighlight', () => {
-    const shallowTranslate = shallow(<OurButton />)
+    const shallowTranslate = shallow(<OurButton title='Button' />)
     expect(shallowTranslate.type()).toBe(TouchableHighlight)
   })
 })
