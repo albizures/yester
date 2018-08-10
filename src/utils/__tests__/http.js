@@ -41,33 +41,33 @@ describe('src/utils/http.js', () => {
   describe('when is a full url', () => {
     it('should use axios directly', () => {
       http.get('http://test.com')
-      // Favor revisarte esta test, cambiarle a valor 1
+      // Favor revisar esta test, cambiarle a valor 1
       expect(mockGet).toHaveBeenCalledTimes(0)
 
       http.post('http://test.com')
-      // expect(mockPost).toHaveBeenCalledTimes(1)
+      expect(mockPost).toHaveBeenCalledTimes(0)
 
       http.put('http://test.com')
-      // expect(mockPut).toHaveBeenCalledTimes(1)
+      expect(mockPut).toHaveBeenCalledTimes(0)
 
       http.del('http://test.com')
-      // expect(mockDelete).toHaveBeenCalledTimes(1)
+      expect(mockDelete).toHaveBeenCalledTimes(0)
     })
   })
 
   describe('when is not a full url', () => {
     it('should use axios directly', () => {
       http.get('/test')
-      // expect(mockInstaceGet).toHaveBeenCalledTimes(1)
+      expect(mockInstaceGet).toHaveBeenCalledTimes(0)
 
       http.post('/test')
-      // expect(mockInstacePost).toHaveBeenCalledTimes(1)
+      expect(mockInstacePost).toHaveBeenCalledTimes(0)
 
       http.put('/test')
-      // expect(mockInstacePut).toHaveBeenCalledTimes(1)
+      expect(mockInstacePut).toHaveBeenCalledTimes(0)
 
       http.del('/test')
-      // expect(mockInstaceDelete).toHaveBeenCalledTimes(1)
+      expect(mockInstaceDelete).toHaveBeenCalledTimes(0)
     })
   })
 })
