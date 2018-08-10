@@ -20,7 +20,7 @@ class SignUp extends Component {
   }
 
   onPressLogin = () => {
-    this.props.navigation.navigate('LogIn')
+    this.props.navigation.navigate('Login')
   }
 
   render () {
