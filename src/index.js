@@ -6,11 +6,15 @@ import Onboarding from './screens/Onboarding'
 import Login from './screens/Login'
 import Subscription from './screens/Subscription'
 import StartTrial from './screens/StartTrial'
+import AccountSetup from './screens/AccountSetup'
 import http from './utils/http'
 
 const RootStack = createStackNavigator({
   Onboarding: {
     screen: Onboarding,
+  },
+  AccountSetup: {
+    screen: AccountSetup,
   },
   Login: {
     screen: Login,
@@ -25,7 +29,7 @@ const RootStack = createStackNavigator({
   navigationOptions: {
     gesturesEnabled: false,
   },
-  initialRouteName: 'Onboarding',
+  initialRouteName: 'AccountSetup',
   mode: 'modal',
   headerMode: 'none',
 })

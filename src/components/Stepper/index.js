@@ -6,6 +6,7 @@ import Step from './Step'
 
 export default class Stepper extends Component {
   static propTypes = {
+    scrollEnabled: PropTypes.bool,
     children: PropTypes.arrayOf(PropTypes.func).isRequired,
   }
 
@@ -66,7 +67,7 @@ export default class Stepper extends Component {
   )
 
   render () {
-    const { children } = this.props
+    const { children, scrollEnabled } = this.props
     return (
       <View style={styles.container}>
         <FlatList
@@ -78,6 +79,7 @@ export default class Stepper extends Component {
           data={children}
           renderItem={this.renderItem}
           keyExtractor={this.keyExtractor}
+          scrollEnabled={scrollEnabled}
         />
       </View>
     )

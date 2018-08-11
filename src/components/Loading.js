@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { ActivityIndicator } from 'react-native'
+import { ActivityIndicator, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 
@@ -18,7 +18,7 @@ Loading.propTypes = {
   top: PropTypes.number,
 }
 
-const styles = {
+const styles = StyleSheet.create({
   loader: {
     position: 'absolute',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -27,6 +27,6 @@ const styles = {
     top: 0,
     left: 0,
   },
-}
+})
 
 export default Loading

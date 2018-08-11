@@ -70,5 +70,13 @@
   "onboarding.step3.title": "You own your information",
   "onboarding.step3.description": "As you, we want to protect your personal information, so you decide when and with who you share it. Always!",
   "onboarding.next": "Continue",
-  "onboarding.skip": "Skip"
+  "onboarding.skip": "Skip",
+  "setup.age.greeting": "Hi {name} 👋",
+  "setup.age.greeting.subtitle": "That's a great name! Now, let's meet properly to get you started",
+  "setup.age.question": "When di you saw this beautiful Earth for the first time?",
+  "setup.age.month": "Month",
+  "setup.age.day": "Day",
+  "setup.age.year": "Year",
+  "setup.age.disclaimer": "We collect this information to set your experience within the app",
+  "continue": "continue"
 }
