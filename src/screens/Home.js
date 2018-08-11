@@ -13,7 +13,7 @@ export default class Home extends Component {
   }
 
   componentDidMount () {
-    return fetch('https://my-json-server.typicode.com/gluix20/treasure/db')
+    return () => (fetch('https://my-json-server.typicode.com/gluix20/treasure/db')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -25,6 +25,7 @@ export default class Home extends Component {
       .catch((error) => {
         console.error(error)
       })
+    )
   }
 
   onPress = () => {
@@ -36,6 +37,7 @@ export default class Home extends Component {
       return (
         <View style={{flex: 1, padding: 20}}>
           <ActivityIndicator />
+          <Button title='to Home-2' onPress={this.onPress} />
         </View>
       )
     }

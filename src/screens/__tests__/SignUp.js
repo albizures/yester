@@ -26,6 +26,7 @@ describe('src/screens/SignUp.js', () => {
 
       expect(navigation.navigate).toHaveBeenCalledTimes(2)
       expect(navigation.navigate).toHaveBeenCalledWith('SignUp2')
+      expect(navigation.navigate).toHaveBeenCalledWith('Login')
     })
   })
 })

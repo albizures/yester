@@ -7,10 +7,6 @@ export default class SignUp2 extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPressLogin = () => {
-    this.props.navigation.navigate('LogIn')
-  }
-
   onPressCreateAccount = () => {
     this.props.navigation.navigate('CreateAccount')
   }

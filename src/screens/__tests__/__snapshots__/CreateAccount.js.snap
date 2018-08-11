@@ -1,0 +1,231 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/screens/CreateAccount.js should render 1`] = `
+<RCTScrollView
+  style={
+    Array [
+      Object {
+        "alignContent": "center",
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "flexDirection": "column",
+        "paddingHorizontal": 60,
+        "paddingTop": 100.05,
+      },
+    ]
+  }
+>
+  <View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#309BF8",
+            "fontSize": 36,
+            "fontWeight": "bold",
+            "textAlign": "left",
+          },
+          Object {
+            "marginBottom": 40.019999999999996,
+          },
+          Object {
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      <Text
+        keyName="common.upperTitle"
+      >
+        YESTER
+      </Text>
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#309BF8",
+            "fontSize": 20,
+            "textAlign": "left",
+          },
+          Object {
+            "marginBottom": 40.019999999999996,
+          },
+          Object {
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      <Text
+        keyName="createAccount.begin"
+      >
+        Start it's simple. 
+Let's begin with your account.
+      </Text>
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "padding": 26.68,
+          },
+          Object {
+            "backgroundColor": "#309BF8",
+            "borderColor": "#309BF8",
+            "borderRadius": 53.36,
+            "borderWidth": 2,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#fff",
+              "fontSize": 18,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        <Text
+          keyName="createAccount.continue"
+        >
+          CONTINUE WITH FACEBOOK
+        </Text>
+      </Text>
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#309BF8",
+            "fontSize": 16,
+            "textAlign": "center",
+          },
+          Object {
+            "marginBottom": 40.019999999999996,
+          },
+        ]
+      }
+    >
+      <Text
+        keyName="createAccount.recommendation"
+      >
+        Recommended, to speed things up.
+      </Text>
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#fff",
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "width": 225,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#A6D5FC",
+              "borderColor": "#A6D5FC",
+              "borderRadius": 53.36,
+              "borderWidth": 1,
+              "height": 13.34,
+            },
+            Object {
+              "width": 30,
+            },
+          ]
+        }
+      />
+      <Text
+        keyName="createAccount.or"
+      >
+        Or
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#A6D5FC",
+              "borderColor": "#A6D5FC",
+              "borderRadius": 53.36,
+              "borderWidth": 1,
+              "height": 13.34,
+            },
+            Object {
+              "width": 30,
+            },
+          ]
+        }
+      />
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "padding": 26.68,
+          },
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "#309BF8",
+            "borderRadius": 53.36,
+            "borderWidth": 2,
+          },
+          Object {
+            "marginBottom": 40.019999999999996,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#fff",
+              "fontSize": 18,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            },
+            Object {
+              "color": "#309BF8",
+            },
+          ]
+        }
+      >
+        <Text
+          keyName="createAccount.create"
+        >
+          CREATE ACCOUNT
+        </Text>
+      </Text>
+    </View>
+  </View>
+</RCTScrollView>
+`;
