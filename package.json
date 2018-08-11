@@ -20,7 +20,8 @@
     "react-native": "0.56.0",
     "react-native-localization": "^1.0.11",
     "react-navigation": "^2.6.2",
-    "react-navigation-tabs": "^0.5.1"
+    "react-navigation-tabs": "^0.5.1",
+    "suppplant": "^1.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
