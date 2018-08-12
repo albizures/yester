@@ -39,9 +39,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="caps_title1"
-        >
+        <Text>
           YESTER
         </Text>
       </Text>
@@ -59,9 +57,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="before_lbl1_1"
-        >
+        <Text>
           We know you have beautiful and interesting story. 
         </Text>
         <Text
@@ -71,9 +67,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
             }
           }
         >
-          <Text
-            keyName="before_lbl1_2"
-          >
+          <Text>
             We want to help you, writing yours.
           </Text>
         </Text>
@@ -92,9 +86,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="before_lbl2"
-        >
+        <Text>
           Receive one conversation starter a day. Try it for FREE a month (then just $4.99/month).
         </Text>
       </Text>
@@ -133,9 +125,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
             ]
           }
         >
-          <Text
-            keyName="before_lbl7"
-          >
+          <Text>
             START FREE TRIAL
           </Text>
         </Text>
@@ -154,9 +144,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="before_lbl3"
-        >
+        <Text>
           $4.99/month after trial ends.
         </Text>
       </Text>
@@ -201,9 +189,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
             ]
           }
         >
-          <Text
-            keyName="before_lbl8"
-          >
+          <Text>
             Log In
           </Text>
         </Text>
@@ -237,9 +223,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="before_lbl4"
-        >
+        <Text>
           Cancel Anytime
         </Text>
       </Text>
@@ -257,9 +241,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="before_lbl5"
-        >
+        <Text>
           At Yester is recurring subscription. If you decide to purchase a subscription, an initial payment will be...
         </Text>
       </Text>
@@ -294,9 +276,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
         ]
       }
     >
-      <Text
-        keyName="before_lbl6_1"
-      >
+      <Text>
         Already purchased? 
       </Text>
       <Text
@@ -309,9 +289,7 @@ exports[`src/screens/StartTrial.js should render 1`] = `
           ]
         }
       >
-        <Text
-          keyName="before_lbl6_2"
-        >
+        <Text>
           Restore
         </Text>
       </Text>

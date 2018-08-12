@@ -19,21 +19,26 @@ export default class AccountSetup extends Component {
     this.setState({})
   }
 
-  render () {
-    const { current: stepper } = this.stepper
+  getBottomBar = (options) => {
+    const { next } = options
 
     return (
+      <View style={styles.footer}>
+        <Button style={styles.button} title='Continue' onPress={next} />
+      </View>
+    )
+  }
+
+  render () {
+    return (
       <Container>
-        <Stepper ref={this.stepper} scrollEnabled={false}>
+        <Stepper ref={this.stepper} scrollEnabled={false} bottomBar={this.getBottomBar}>
           {[
-            () => <AgeSetup name='test' />,
-            () => <DoneSetup name='test' />,
-            () => <PlaceSetup name='test' />,
+            <AgeSetup name='test' />,
+            <DoneSetup name='test' />,
+            <PlaceSetup name='test' />,
           ]}
         </Stepper>
-        <View style={styles.footer}>
-          {stepper && <Button style={styles.button} title={'Continue'} onPress={stepper.next} />}
-        </View>
       </Container>
     )
   }
