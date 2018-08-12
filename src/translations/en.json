@@ -78,5 +78,10 @@
   "setup.age.day": "Day",
   "setup.age.year": "Year",
   "setup.age.disclaimer": "We collect this information to set your experience within the app",
+  "setup.place.title": "The {year}'s! Awesome! 🙌",
+  "setup.place.subtitle": "What a great era for this legend to begin.",
+  "setup.place.form.title": "Where in the world did you happen to born?",
+  "setup.done.title": "Alrighty, {name} from {place}, Nice to meet you 🤝",
+  "setup.done.subtitle": "This is where we start our journey of writing your incredible story",
   "continue": "continue"
 }

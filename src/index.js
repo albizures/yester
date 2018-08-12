@@ -29,7 +29,7 @@ const RootStack = createStackNavigator({
   navigationOptions: {
     gesturesEnabled: false,
   },
-  initialRouteName: 'Onboarding',
+  initialRouteName: 'AccountSetup',
   mode: 'modal',
   headerMode: 'none',
 })
