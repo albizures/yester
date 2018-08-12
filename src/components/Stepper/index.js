@@ -7,7 +7,8 @@ import Step from './Step'
 export default class Stepper extends Component {
   static propTypes = {
     scrollEnabled: PropTypes.bool,
-    children: PropTypes.arrayOf(PropTypes.func).isRequired,
+    children: PropTypes.arrayOf(PropTypes.node).isRequired,
+    bottomBar: PropTypes.func,
   }
 
   flatList = React.createRef()
@@ -57,7 +58,7 @@ export default class Stepper extends Component {
 
   renderItem = ({ item, index }) => (
     <Step index={index}>
-      {item({
+      {React.cloneElement(item, {
         ...this.state,
         index,
         skip: this.skip,
@@ -67,7 +68,8 @@ export default class Stepper extends Component {
   )
 
   render () {
-    const { children, scrollEnabled } = this.props
+    const { children, bottomBar, scrollEnabled } = this.props
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -81,6 +83,11 @@ export default class Stepper extends Component {
           keyExtractor={this.keyExtractor}
           scrollEnabled={scrollEnabled}
         />
+        {bottomBar && bottomBar({
+          skip: this.skip,
+          next: this.next,
+          ...this.state,
+        })}
       </View>
     )
   }

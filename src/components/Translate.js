@@ -15,7 +15,7 @@ const Translate = ({ keyName, data, ...props }) => (
 
 Translate.propTypes = {
   keyName: PropTypes.string.isRequired,
-  data: PropTypes.object.isRequired,
+  data: PropTypes.object,
 }
 
 export default Translate
