@@ -1,8 +1,12 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { View, Button } from 'react-native'
+import { Button } from 'react-native'
 
+import agesFixture from './__fixtures__/ages.json'
+import topicsFixture from './__fixtures__/topics.json'
+
+import Container from '../../components/Container'
 import Home from '../Home'
 const navigation = {
   navigate: jest.fn(),
@@ -24,17 +28,100 @@ describe('src/screens/Home.js', () => {
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
       expect(navigation.navigate).toHaveBeenCalledWith('Home2')
-      expect(shallowHome.type()).toBe(View)
+      expect(shallowHome.type()).toBe(Container)
+    })
+  })
 
-      /* shallowHome.setState({ isLoading: false })
-      const shallowTouchableHighlights2 = shallowHome.find(Button)
-      const shallowButtonToHome22 = shallowTouchableHighlights2.at(0)
+  // shallowHome.setState({
+  //   isLoading: false,
+  //   dataSource: {
+  //     age: agesFixture,
+  //     topics: topicsFixture,
+  //   },
+  // })
 
-      shallowButtonToHome22.prop('onPress')()
+  describe('#getAgesItems', () => {
+    it('should render a View', () => {
+      const age = agesFixture[0]
+      const shallowHome = shallow(<Home navigation={navigation} />)
+      const home = shallowHome.instance()
 
-      expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('Home2')
-      expect(shallowHome.type()).toBe(View) */
+      shallowHome.setState({
+        isLoading: false,
+        age: agesFixture,
+        topics: topicsFixture,
+      })
+
+      const shallowItem = shallow(home.getAgesItems({ item: age }))
+      expect(shallowItem.type()).toBe('View')
+    })
+  })
+
+  describe('#getTopicsItems', () => {
+    it('should render a View', () => {
+      const topic = topicsFixture[0]
+      const shallowHome = shallow(<Home navigation={navigation} />)
+      const home = shallowHome.instance()
+
+      shallowHome.setState({
+        isLoading: false,
+        age: agesFixture,
+        topics: topicsFixture,
+      })
+
+      const shallowItem = shallow(home.getTopicsItems({ item: topic }))
+      expect(shallowItem.type()).toBe('View')
+    })
+  })
+
+  describe('#renderAgeItem', () => {
+    it('should render a View', () => {
+      const age = agesFixture[0]
+      const shallowHome = shallow(<Home navigation={navigation} />)
+      const home = shallowHome.instance()
+
+      shallowHome.setState({
+        isLoading: false,
+        age: agesFixture,
+        topics: topicsFixture,
+      })
+
+      const shallowItem = shallow(home.renderAgeItem({ item: age }))
+      expect(shallowItem.type()).toBe('View')
+    })
+  })
+
+  describe('#renderTopicItem', () => {
+    it('should render a View', () => {
+      const topic = topicsFixture[0]
+      const shallowHome = shallow(<Home navigation={navigation} />)
+      const home = shallowHome.instance()
+
+      shallowHome.setState({
+        isLoading: false,
+        age: agesFixture,
+        topics: topicsFixture,
+      })
+
+      const shallowItem = shallow(home.renderTopicItem({ item: topic }))
+      expect(shallowItem.type()).toBe('View')
+    })
+  })
+
+  describe('#keyExtractor', () => {
+    it('should render a View', () => {
+      const topic = topicsFixture[0]
+      const shallowHome = shallow(<Home navigation={navigation} />)
+      const home = shallowHome.instance()
+
+      shallowHome.setState({
+        isLoading: false,
+        age: agesFixture,
+        topics: topicsFixture,
+      })
+
+      expect(home.keyExtractor(topic, 0)).toBe('0')
+      expect(home.keyExtractor(topic, 0)).toHaveLength(1)
     })
   })
 })

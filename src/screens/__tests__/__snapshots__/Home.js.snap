@@ -4,17 +4,24 @@ exports[`src/screens/Home.js should render 1`] = `
 <View
   style={
     Object {
+      "backgroundColor": "#fff",
       "flex": 1,
-      "padding": 20,
+      "paddingTop": 20,
     }
   }
 >
-  <ActivityIndicator
-    animating={true}
-    color="#999999"
-    hidesWhenStopped={true}
-    size="small"
-  />
+  <Text
+    style={
+      Array [
+        Object {
+          "marginTop": 40,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    HOME
+  </Text>
   <View
     accessibilityComponentType="button"
     accessibilityTraits={
@@ -59,5 +66,54 @@ exports[`src/screens/Home.js should render 1`] = `
       </Text>
     </View>
   </View>
+  <View>
+    <RCTScrollView
+      data={Array []}
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View />
+    </RCTScrollView>
+  </View>
+  <ActivityIndicator
+    animating={true}
+    color="#000"
+    hidesWhenStopped={true}
+    size="large"
+    style={
+      Array [
+        Object {
+          "backgroundColor": "rgba(0, 0, 0, 0.5)",
+          "height": "100%",
+          "left": 0,
+          "position": "absolute",
+          "top": 0,
+          "width": "100%",
+        },
+        Object {
+          "top": 20,
+        },
+      ]
+    }
+  />
 </View>
 `;

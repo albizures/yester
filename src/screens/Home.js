@@ -1,68 +1,91 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
+import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
+
+import Container from '../components/Container'
+import http from '../utils/http'
 
 export default class Home extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  constructor (props) {
-    super(props)
-    this.state = { isLoading: true }
+  state = {
+    isLoading: true,
+    ages: [],
+    topics: [],
   }
 
-  componentDidMount () {
-    return () => (fetch('https://my-json-server.typicode.com/gluix20/treasure/db')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        }, function () {
-        })
+  async componentDidMount () {
+    try {
+      const { data } = await http.get('https://my-json-server.typicode.com/gluix20/treasure/db')
+      this.setState({
+        isLoading: false,
+        ...data,
       })
-      .catch((error) => {
-        console.error(error)
-      })
-    )
+    } catch (error) {
+      Alert.alert('Error', error.message)
+    }
   }
 
   onPress = () => {
     this.props.navigation.navigate('Home2')
   }
 
-  render () {
-    if (this.state.isLoading) {
-      return (
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator />
-          <Button title='to Home-2' onPress={this.onPress} />
-        </View>
-      )
-    }
+  renderAgeItem = ({item}) => (
+    <View>
+      <Text style={localStyles.sectionHeader}>{item.text}</Text>
+      {this.getTopicsItems()}
+    </View>
+  )
 
+  renderTopicItem = ({item}) => (
+    <View>
+      <Text style={localStyles.item}>
+        {item.text}
+      </Text>
+    </View>
+
+  )
+
+  keyExtractor = (item, index) => {
+    return index.toString()
+  }
+
+  getAgesItems = () => (
+    <View>
+      <FlatList
+        data={this.state.ages}
+        renderItem={this.renderAgeItem}
+        keyExtractor={this.keyExtractor}
+      />
+    </View>
+  )
+
+  getTopicsItems = () => (
+    <View>
+      <FlatList
+        data={this.state.topics}
+        renderItem={this.renderTopicItem}
+        keyExtractor={this.keyExtractor}
+      />
+    </View>
+  )
+
+  render () {
+    const { isLoading } = this.state
     return (
-      <View style={localStyles.container}>
+      <Container isLoading={isLoading} style={localStyles.container}>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
         <Button title='to Home-2' onPress={this.onPress} />
-        <FlatList
-          data={this.state.dataSource.ages}
-
-          renderItem={({item}) =>
-            <View>
-              <Text style={localStyles.sectionHeader}>{item.text}</Text>
-              <FlatList
-                data={this.state.dataSource.topics}
-                renderItem={({item}) => <Text style={localStyles.item}>
-                  {item.text}</Text>}
-                keyExtractor={(item, index) => index.toString()}
-              />
-            </View>
-          }
+        {/* <FlatList
+          data={ages}
+          renderItem={this.getAgesItems}
           keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
+        /> */}
+
+        {this.getAgesItems()}
+      </Container>
     )
   }
 }
