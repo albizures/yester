@@ -5,7 +5,7 @@ import LinearGradient from 'react-native-linear-gradient'
 
 const gradientColors = ['#4444B2', '#37D0D0']
 
-const OurButton = (props) => {
+const Button = (props) => {
   return (
     <TouchableHighlight {...props} elevation={10} style={[props.style, styles.button]}>
       <LinearGradient start={{x: 0.0, y: 1.0}} end={{x: 1.0, y: 1.0}} style={styles.gradient} colors={gradientColors}>
@@ -15,7 +15,7 @@ const OurButton = (props) => {
   )
 }
 
-OurButton.propTypes = {
+Button.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
 }
@@ -48,4 +48,4 @@ const styles = {
   },
 }
 
-export default OurButton
+export default Button
