@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
 
-import Container from '../components/Container'
-import http from '../utils/http'
+import Container from '../../components/Container'
+import http from '../../utils/http'
 
 export default class Home extends Component {
   static propTypes = {

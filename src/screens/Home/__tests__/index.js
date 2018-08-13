@@ -6,8 +6,8 @@ import { Button } from 'react-native'
 import agesFixture from './__fixtures__/ages.json'
 import topicsFixture from './__fixtures__/topics.json'
 
-import Container from '../../components/Container'
-import Home from '../Home'
+import Container from '../../../components/Container'
+import Home from '../'
 const navigation = {
   navigate: jest.fn(),
 }
