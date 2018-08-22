@@ -4,6 +4,7 @@ import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
 
 import Container from '../../components/Container'
 import http from '../../utils/http'
+import QuestionList from './QuestionList'
 
 export default class Home extends Component {
   static propTypes = {
@@ -78,13 +79,15 @@ export default class Home extends Component {
       <Container isLoading={isLoading} style={localStyles.container}>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
         <Button title='to Home-2' onPress={this.onPress} />
+        <QuestionList ages={this.state.ages} topics={this.state.topics} />
         {/* <FlatList
           data={ages}
           renderItem={this.getAgesItems}
           keyExtractor={(item, index) => index.toString()}
         /> */}
 
-        {this.getAgesItems()}
+        {// this.getAgesItems()
+        }
       </Container>
     )
   }
