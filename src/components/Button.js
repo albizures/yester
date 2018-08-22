@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TouchableHighlight, ViewPropTypes, Text, Dimensions } from 'react-native'
+import { TouchableHighlight, ViewPropTypes, Dimensions } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import colors from '../utils/colors'
 import Translate from '../components/Translate'
