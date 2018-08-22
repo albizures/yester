@@ -76,7 +76,7 @@ export default class Home extends Component {
   render () {
     const { isLoading } = this.state
     return (
-      <Container isLoading={isLoading} style={localStyles.container}>
+      <Container isLoading={isLoading} >
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
         <Button title='to Home-2' onPress={this.onPress} />
         <QuestionList ages={this.state.ages} topics={this.state.topics} />
@@ -94,10 +94,6 @@ export default class Home extends Component {
 }
 
 const localStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22,
-  },
   sectionHeader: {
     paddingTop: 2,
     paddingLeft: 10,
