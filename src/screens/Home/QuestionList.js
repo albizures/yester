@@ -42,10 +42,6 @@ TopicList.propTypes = {
 }
 
 const localStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: 22,
-  },
   sectionHeader: {
     paddingTop: 2,
     paddingLeft: 10,
