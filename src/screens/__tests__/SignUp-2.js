@@ -21,7 +21,7 @@ describe('src/screens/SignUp-2.js', () => {
       shallowButton.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('LogIn')
+      expect(navigation.navigate).toHaveBeenCalledWith('CreateAccount')
     })
   })
 })

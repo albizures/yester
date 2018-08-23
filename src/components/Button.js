@@ -1,21 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TouchableHighlight, ViewPropTypes, Text, Dimensions } from 'react-native'
+import { TouchableHighlight, ViewPropTypes, Dimensions } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
+import colors from '../utils/colors'
+import Translate from '../components/Translate'
 
-const gradientColors = ['#4444B2', '#37D0D0']
+const gradientColors = [colors.gradient1, colors.gradient2]
 
-const OurButton = (props) => {
+const Button = (props) => {
   return (
     <TouchableHighlight {...props} elevation={10} style={[props.style, styles.button]}>
       <LinearGradient start={{x: 0.0, y: 1.0}} end={{x: 1.0, y: 1.0}} style={styles.gradient} colors={gradientColors}>
-        <Text style={styles.text}>{props.title}</Text>
+        <Translate style={styles.text} keyName={props.title} />
       </LinearGradient>
     </TouchableHighlight>
   )
 }
 
-OurButton.propTypes = {
+Button.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
 }
@@ -48,4 +50,4 @@ const styles = {
   },
 }
 
-export default OurButton
+export default Button

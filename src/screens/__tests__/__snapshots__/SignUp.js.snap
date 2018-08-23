@@ -40,7 +40,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="caps_title1"
+          keyName="common.upperTitle"
         >
           YESTER
         </Text>
@@ -60,7 +60,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="before_lbl1_1"
+          keyName="signUp.weKnow"
         >
           We know you have beautiful and interesting story. 
         </Text>
@@ -72,7 +72,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           }
         >
           <Text
-            keyName="before_lbl1_2"
+            keyName="signUp.weWant"
           >
             We want to help you, writing yours.
           </Text>
@@ -93,7 +93,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="before_lbl2"
+          keyName="signUp.receive"
         >
           Receive one conversation starter a day. Try it for FREE a month (then just $4.99/month).
         </Text>
@@ -134,7 +134,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           }
         >
           <Text
-            keyName="before_lbl7"
+            keyName="signUp.start"
           >
             START FREE TRIAL
           </Text>
@@ -155,7 +155,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="before_lbl3"
+          keyName="signUp.price"
         >
           $4.99/month after trial ends.
         </Text>
@@ -202,7 +202,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           }
         >
           <Text
-            keyName="before_lbl8"
+            keyName="signUp.logIn"
           >
             Log In
           </Text>
@@ -238,7 +238,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="before_lbl4"
+          keyName="signUp.cancel"
         >
           Cancel Anytime
         </Text>
@@ -258,7 +258,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="before_lbl5"
+          keyName="signUp.recurring"
         >
           At Yester is recurring subscription. If you decide to purchase a subscription, an initial payment will be...
         </Text>
@@ -295,7 +295,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
       }
     >
       <Text
-        keyName="before_lbl6_1"
+        keyName="signUp.already"
       >
         Already purchased? 
       </Text>
@@ -310,7 +310,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         }
       >
         <Text
-          keyName="before_lbl6_2"
+          keyName="signUp.restore"
         >
           Restore
         </Text>

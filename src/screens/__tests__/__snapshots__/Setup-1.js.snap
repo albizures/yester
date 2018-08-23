@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`src/screens/Subscription.js should render 1`] = `
+exports[`src/screens/Setup-1.js should render 1`] = `
 <View>
+  <Text
+    style={
+      Array [
+        Object {
+          "marginTop": 40,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    SETUP-1
+  </Text>
   <View
     accessibilityComponentType="button"
     accessibilityTraits={
@@ -42,12 +54,9 @@ exports[`src/screens/Subscription.js should render 1`] = `
           ]
         }
       >
-        to login
+        to Setup-2
       </Text>
     </View>
   </View>
-  <Text>
-    Subscription
-  </Text>
 </View>
 `;

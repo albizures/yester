@@ -1,9 +1,4 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
-import PropTypes from 'prop-types'
-import { Text, View, Button } from 'react-native'
-import OurButton from '../../components/OurButton'
-=======
 import { Button } from 'react-native'
 // import PropTypes from 'prop-types'
 
@@ -12,7 +7,6 @@ import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
 import Step from './Step'
 import Dots from './Dots'
->>>>>>> 86f0f9298ef50446041eb3837047130d7f3ac093
 
 export default class Onboarding extends Component {
   state = {
@@ -31,14 +25,6 @@ export default class Onboarding extends Component {
     }],
   }
 
-<<<<<<< HEAD
-  onPress = () => {
-    this.props.navigation.navigate('SignUp')
-  }
-
-  onPressHome = () => {
-    this.props.navigation.navigate('Home')
-=======
   createStep = (customProp) => (stepperProps) => {
     const { steps } = this.state
     const { skip, next, index } = stepperProps
@@ -55,7 +41,6 @@ export default class Onboarding extends Component {
         <Button title='Continue' onPress={next} />
       </Step>
     )
->>>>>>> 86f0f9298ef50446041eb3837047130d7f3ac093
   }
 
   render () {
@@ -63,19 +48,11 @@ export default class Onboarding extends Component {
 
     console.log(require('../../assets/300x300.png'))
     return (
-<<<<<<< HEAD
-      <View>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>ON BOARDING</Text>
-        <Button title='to Sign Up' onPress={this.onPress} />
-        <OurButton title='to Home' onPress={this.onPressHome} />
-      </View>
-=======
       <Container>
         <Stepper>
           {steps.map(this.createStep)}
         </Stepper>
       </Container>
->>>>>>> 86f0f9298ef50446041eb3837047130d7f3ac093
     )
   }
 }
