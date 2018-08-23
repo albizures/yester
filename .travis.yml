@@ -6,4 +6,4 @@ cache:
     - node_modules
 script:
   - echo "HOST=http://example.com" > .env
-  - npm t
+  - npm t -- -u
