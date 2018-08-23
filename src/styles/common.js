@@ -1,7 +1,11 @@
 import { StyleSheet, Dimensions } from 'react-native'
+import colors from '../utils/colors'
 
-let { height, width } = Dimensions.get('window')
-let fontColor = '#309BF8'
+const { height, width } = Dimensions.get('window')
+const fontColor = colors.fontColor
+const mainColor = colors.mainColor
+const white = colors.white
+const blurColor = colors.blurColor
 
 export default StyleSheet.create({
   container: {
@@ -24,7 +28,7 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#fff',
+    color: white,
   },
   body1: {
     color: fontColor,
@@ -38,36 +42,36 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   notColor: {
-    color: '#309BF8',
+    color: mainColor,
   },
   button: {
     padding: height * 0.02,
   },
   filledButton: {
-    backgroundColor: '#309BF8',
+    backgroundColor: mainColor,
     borderRadius: height * 0.04,
     borderWidth: 2,
-    borderColor: '#309BF8',
+    borderColor: mainColor,
   },
   outlinedButton: {
-    backgroundColor: '#fff',
+    backgroundColor: white,
     borderRadius: height * 0.04,
     borderWidth: 2,
-    borderColor: '#309BF8',
+    borderColor: mainColor,
   },
   centering: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   separator: {
-    borderBottomColor: '#309BF8',
+    borderBottomColor: mainColor,
     borderBottomWidth: 1,
   },
   divider: {
     height: height * 0.01,
-    backgroundColor: '#A6D5FC',
+    backgroundColor: blurColor,
     borderRadius: height * 0.04,
     borderWidth: 1,
-    borderColor: '#A6D5FC',
+    borderColor: blurColor,
   },
 })

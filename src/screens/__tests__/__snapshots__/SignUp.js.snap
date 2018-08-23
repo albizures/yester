@@ -9,21 +9,29 @@ exports[`src/screens/SignUp.js should render 1`] = `
     }
   }
 >
-  <RCTScrollView
+  <View
     style={
-      Array [
-        Object {
-          "flex": 1,
-          "flexDirection": "column",
-          "height": 1227.28,
-          "paddingHorizontal": 60,
-          "paddingTop": 100.05,
-          "zIndex": 0,
-        },
-      ]
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "paddingTop": 20,
+      }
     }
   >
-    <View>
+    <View
+      style={
+        Array [
+          Object {
+            "flex": 1,
+            "flexDirection": "column",
+            "height": 1227.28,
+            "paddingHorizontal": 60,
+            "paddingTop": 100.05,
+            "zIndex": 0,
+          },
+        ]
+      }
+    >
       <Text
         style={
           Array [
@@ -264,7 +272,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         </Text>
       </Text>
     </View>
-  </RCTScrollView>
+  </View>
   <View
     style={
       Object {
