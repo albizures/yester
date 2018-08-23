@@ -4,7 +4,7 @@ import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
 
 import Container from '../../components/Container'
 import http from '../../utils/http'
-import QuestionList from './QuestionList'
+import { indexToString } from '../../utils'
 
 export default class Home extends Component {
   static propTypes = {
@@ -18,6 +18,9 @@ export default class Home extends Component {
   }
 
   async componentDidMount () {
+    this.setState({
+      isLoading: true,
+    })
     try {
       const { data } = await http.get('https://my-json-server.typicode.com/gluix20/treasure/db')
       this.setState({
@@ -49,16 +52,12 @@ export default class Home extends Component {
 
   )
 
-  keyExtractor = (item, index) => {
-    return index.toString()
-  }
-
   getAgesItems = () => (
     <View>
       <FlatList
         data={this.state.ages}
         renderItem={this.renderAgeItem}
-        keyExtractor={this.keyExtractor}
+        keyExtractor={indexToString}
       />
     </View>
   )
@@ -68,7 +67,7 @@ export default class Home extends Component {
       <FlatList
         data={this.state.topics}
         renderItem={this.renderTopicItem}
-        keyExtractor={this.keyExtractor}
+        keyExtractor={indexToString}
       />
     </View>
   )
@@ -79,15 +78,7 @@ export default class Home extends Component {
       <Container isLoading={isLoading} >
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
         <Button title='to Home-2' onPress={this.onPress} />
-        <QuestionList ages={this.state.ages} topics={this.state.topics} />
-        {/* <FlatList
-          data={ages}
-          renderItem={this.getAgesItems}
-          keyExtractor={(item, index) => index.toString()}
-        /> */}
-
-        {// this.getAgesItems()
-        }
+        { this.getAgesItems() }
       </Container>
     )
   }

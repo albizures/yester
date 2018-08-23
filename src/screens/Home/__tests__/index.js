@@ -1,12 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { Button } from 'react-native'
+import { Button, Alert } from 'react-native'
 
 import agesFixture from './__fixtures__/ages.json'
 import topicsFixture from './__fixtures__/topics.json'
 
 import Container from '../../../components/Container'
+import http from '../../../utils/http'
 import Home from '../'
 const navigation = {
   navigate: jest.fn(),
@@ -108,20 +109,25 @@ describe('src/screens/Home.js', () => {
     })
   })
 
-  describe('#keyExtractor', () => {
-    it('should render a View', () => {
-      const topic = topicsFixture[0]
+  describe('#componentDidMount', () => {
+    it('should render a View', async () => {
+      http.get = jest.fn().mockResolvedValue({data: {value: 'test'}})
       const shallowHome = shallow(<Home navigation={navigation} />)
       const home = shallowHome.instance()
 
-      shallowHome.setState({
-        isLoading: false,
-        age: agesFixture,
-        topics: topicsFixture,
-      })
+      await home.componentDidMount()
+      expect(shallowHome.state()).toMatchObject({isLoading: false, value: 'test'})
+    })
 
-      expect(home.keyExtractor(topic, 0)).toBe('0')
-      expect(home.keyExtractor(topic, 0)).toHaveLength(1)
+    describe('when the request fail', () => {
+      it('should display an alert', async () => {
+        http.get = jest.fn().mockRejectedValue(new Error('Error test'))
+        Alert.alert = jest.fn()
+        const shallowHome = shallow(<Home navigation={navigation} />)
+        const home = shallowHome.instance()
+        await home.componentDidMount()
+        expect(Alert.alert).toBeCalledWith('Error', 'Error test')
+      })
     })
   })
 })
