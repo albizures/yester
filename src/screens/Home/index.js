@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
+import QuestionItem from './QuestionItem'
 
 import Container from '../../components/Container'
 import http from '../../utils/http'
@@ -44,9 +45,7 @@ export default class Home extends Component {
   )
 
   renderTopicItem = ({item}) => (
-    <Text style={localStyles.item}>
-      {item.text}
-    </Text>
+    <QuestionItem item={item} />
   )
 
   getAgesItems = () => (
