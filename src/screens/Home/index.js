@@ -44,32 +44,25 @@ export default class Home extends Component {
   )
 
   renderTopicItem = ({item}) => (
-    <View>
-      <Text style={localStyles.item}>
-        {item.text}
-      </Text>
-    </View>
-
+    <Text style={localStyles.item}>
+      {item.text}
+    </Text>
   )
 
   getAgesItems = () => (
-    <View>
-      <FlatList
-        data={this.state.ages}
-        renderItem={this.renderAgeItem}
-        keyExtractor={indexToString}
-      />
-    </View>
+    <FlatList
+      data={this.state.ages}
+      renderItem={this.renderAgeItem}
+      keyExtractor={indexToString}
+    />
   )
 
   getTopicsItems = () => (
-    <View>
-      <FlatList
-        data={this.state.topics}
-        renderItem={this.renderTopicItem}
-        keyExtractor={indexToString}
-      />
-    </View>
+    <FlatList
+      data={this.state.topics}
+      renderItem={this.renderTopicItem}
+      keyExtractor={indexToString}
+    />
   )
 
   render () {

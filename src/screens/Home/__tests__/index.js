@@ -70,7 +70,8 @@ describe('src/screens/Home/index.js', () => {
       })
 
       const shallowItem = shallow(home.getAgesItems({ item: age }))
-      expect(shallowItem.type()).toBe('View')
+      console.log(JSON.stringify(shallowItem))
+      expect(shallowItem.length).toBe(1)
     })
   })
 
@@ -87,7 +88,7 @@ describe('src/screens/Home/index.js', () => {
       })
 
       const shallowItem = shallow(home.getTopicsItems({ item: topic }))
-      expect(shallowItem.type()).toBe('View')
+      expect(shallowItem.length).toBe(1)
     })
   })
 
@@ -121,7 +122,7 @@ describe('src/screens/Home/index.js', () => {
       })
 
       const shallowItem = shallow(home.renderTopicItem({ item: topic }))
-      expect(shallowItem.type()).toBe('View')
+      expect(shallowItem.type()).toBe('Text')
     })
   })
 })
