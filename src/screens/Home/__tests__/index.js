@@ -17,6 +17,31 @@ describe('src/screens/Home/index.js', () => {
   it('should render', () => {
     const tree = renderer.create(<Home navigation={navigation} />).toJSON()
     expect(tree).toMatchSnapshot()
+
+    const shallowHome = shallow(<Home navigation={navigation} />)
+    expect(shallowHome.type()).toBe(Container)
+  })
+
+  describe('#componentDidMount', () => {
+    it('should return an object with data', async () => {
+      http.get = jest.fn().mockResolvedValue({data: {value: 'test'}})
+      const shallowHome = shallow(<Home navigation={navigation} />)
+      const home = shallowHome.instance()
+
+      await home.componentDidMount()
+      expect(shallowHome.state()).toMatchObject({isLoading: false, value: 'test'})
+    })
+
+    describe('when the request failed', () => {
+      it('should display an alert', async () => {
+        http.get = jest.fn().mockRejectedValue(new Error('Error test'))
+        Alert.alert = jest.fn()
+        const shallowHome = shallow(<Home navigation={navigation} />)
+        const home = shallowHome.instance()
+        await home.componentDidMount()
+        expect(Alert.alert).toBeCalledWith('Error', 'Error test')
+      })
+    })
   })
 
   describe('when button is pressed', () => {
@@ -29,17 +54,8 @@ describe('src/screens/Home/index.js', () => {
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
       expect(navigation.navigate).toHaveBeenCalledWith('Home2')
-      expect(shallowHome.type()).toBe(Container)
     })
   })
-
-  // shallowHome.setState({
-  //   isLoading: false,
-  //   dataSource: {
-  //     age: agesFixture,
-  //     topics: topicsFixture,
-  //   },
-  // })
 
   describe('#getAgesItems', () => {
     it('should render a View', () => {
@@ -106,28 +122,6 @@ describe('src/screens/Home/index.js', () => {
 
       const shallowItem = shallow(home.renderTopicItem({ item: topic }))
       expect(shallowItem.type()).toBe('View')
-    })
-  })
-
-  describe('#componentDidMount', () => {
-    it('should render a View', async () => {
-      http.get = jest.fn().mockResolvedValue({data: {value: 'test'}})
-      const shallowHome = shallow(<Home navigation={navigation} />)
-      const home = shallowHome.instance()
-
-      await home.componentDidMount()
-      expect(shallowHome.state()).toMatchObject({isLoading: false, value: 'test'})
-    })
-
-    describe('when the request fail', () => {
-      it('should display an alert', async () => {
-        http.get = jest.fn().mockRejectedValue(new Error('Error test'))
-        Alert.alert = jest.fn()
-        const shallowHome = shallow(<Home navigation={navigation} />)
-        const home = shallowHome.instance()
-        await home.componentDidMount()
-        expect(Alert.alert).toBeCalledWith('Error', 'Error test')
-      })
     })
   })
 })

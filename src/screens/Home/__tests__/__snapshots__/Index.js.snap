@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`src/screens/Home.js should render 1`] = `
+exports[`src/screens/Home/index.js should render 1`] = `
 <View
   style={
     Object {
