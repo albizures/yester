@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: height * 0.1,
     width: width,
-    paddingHorizontal: width * 0.1,
+    paddingHorizontal: width * 0.08,
     backgroundColor: colors.white,
   },
   margin: {
     marginBottom: height * 0.01,
   },
   itemImage: {width: 40, height: 40, tintColor: colors.mainColor},
-  itemArrow: {width: 13.15, height: 24.5, tintColor: colors.mainColor, paddingLeft: width * 0.25},
-  questionText: {flex: 1, width: width * 0.4},
+  questionText: {flex: 1, paddingLeft: width * 0.05},
+  itemArrow: {width: 13.15, height: 24.5, tintColor: colors.mainColor},
 })
