@@ -13,7 +13,7 @@ const navigation = {
   navigate: jest.fn(),
 }
 
-describe('src/screens/Home.js', () => {
+describe('src/screens/Home/index.js', () => {
   it('should render', () => {
     const tree = renderer.create(<Home navigation={navigation} />).toJSON()
     expect(tree).toMatchSnapshot()
