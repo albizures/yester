@@ -5,6 +5,7 @@ import QuestionItem from './QuestionItem'
 
 import Container from '../../components/Container'
 import http from '../../utils/http'
+import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
 
 export default class Home extends Component {
@@ -40,7 +41,9 @@ export default class Home extends Component {
   renderAgeItem = ({item}) => (
     <View>
       <Text style={localStyles.sectionHeader}>{item.text}</Text>
-      {this.getTopicsItems()}
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        {this.getTopicsItems()}
+      </View>
     </View>
   )
 
@@ -84,11 +87,6 @@ const localStyles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 14,
     fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    backgroundColor: colors.mischka,
   },
 })

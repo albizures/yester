@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
-import commonStyles from '../../styles/common'
 import colors from '../../utils/colors'
+import icons from '../../utils/icons'
+import common from '../../styles/common'
 import Translate from '../../components/Translate'
 
 const QuestionItem = (props) => (
   <View style={styles.container} >
-    <View style={[commonStyles.separator, styles.margin]} />
     <View style={styles.row}>
       <Image source={require('../../assets/square.png')} style={styles.itemImage} />
       <View style={styles.questionText}>
-        <Text style={styles.item}>
+        <Text style={common.h3}>
           {props.item.text}
         </Text>
         <Translate keyName='questionItem.completed' />
       </View>
-      <Image source={require('../../assets/right-arrow.png')} style={styles.itemArrow} />
+      <Image source={icons.buttonPlus} style={styles.itemArrow} />
     </View>
   </View>
 )
@@ -25,26 +25,32 @@ QuestionItem.propTypes = {
 }
 export default QuestionItem
 
-const { height, width } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  item: {
-    fontSize: 18,
+  container: {
+    flex: 1,
+    height: 75,
+    width: 340,
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: colors.white,
+    marginBottom: 12,
+    shadowColor: colors.mischka,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowRadius: 10,
+    shadowOpacity: 1.0,
   },
   row: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-    height: height * 0.1,
-    width: width,
-    paddingHorizontal: width * 0.08,
     backgroundColor: colors.white,
   },
-  margin: {
-    marginBottom: height * 0.01,
-  },
   itemImage: {width: 40, height: 40, tintColor: colors.governorBay},
-  questionText: {flex: 1, paddingLeft: width * 0.05},
-  itemArrow: {width: 13.15, height: 24.5, tintColor: colors.governorBay},
+  questionText: {flex: 1, paddingLeft: width * 0.02},
+  itemArrow: {width: 35, height: 35},
 })
