@@ -121,8 +121,8 @@ exports[`src/screens/SignUp.js should render 1`] = `
               "padding": 26.68,
             },
             Object {
-              "backgroundColor": "#309BF8",
-              "borderColor": "#309BF8",
+              "backgroundColor": "#4241B3",
+              "borderColor": "#4241B3",
               "borderRadius": 53.36,
               "borderWidth": 2,
             },

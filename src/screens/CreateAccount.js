@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableHighlight, Dimensions, View } from 'react-native'
+import { StyleSheet, Dimensions, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Translate from '../components/Translate'
 import Container from '../components/Container'
+import Button from '../components/Button'
 import styles from '../styles/common'
 import colors from '../utils/colors'
+import icons from '../utils/icons'
 
 export default class CreateAccount extends Component {
   static propTypes = {
@@ -29,11 +31,8 @@ export default class CreateAccount extends Component {
           <Translate style={[styles.title, localStyles.margin, {fontWeight: 'bold', textAlign: 'center'}]}
             keyName='createAccount.begin' />
 
-          <TouchableHighlight onPress={this.onPressFB}
-            style={[styles.button, styles.filledButton]}>
-            <Translate style={[styles.buttonText]}
-              keyName='createAccount.continue' />
-          </TouchableHighlight>
+          <Button onPress={this.onPressFB}
+            title={'createAccount.continue'} type={'filled'} size='normal' icon={icons.fb} />
 
           <Translate style={[styles.body1, localStyles.margin]}
             keyName='createAccount.recommendation' />
@@ -44,11 +43,8 @@ export default class CreateAccount extends Component {
             <View style={[styles.divider, {width: 30}]} />
           </View>
 
-          <TouchableHighlight onPress={this.onPressSignIn}
-            style={[styles.button, styles.outlinedButton, localStyles.margin]}>
-            <Translate style={[styles.buttonText, styles.notColor]}
-              keyName='createAccount.create' />
-          </TouchableHighlight>
+          <Button onPress={this.onPressSignIn}
+            title={'createAccount.create'} type={'outlined'} size='normal' icon={0} />
 
         </View>
       </Container>
