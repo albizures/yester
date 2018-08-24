@@ -12,47 +12,30 @@ export default StyleSheet.create({
     flexDirection: 'column',
   },
   display2: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 36,
     fontWeight: 'bold',
     textAlign: 'left',
   },
   title: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 20,
     textAlign: 'left',
   },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: colors.white,
-  },
   body1: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 16,
     textAlign: 'center',
   },
   body2: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
-  },
-  button: {
-    padding: height * 0.02,
-  },
-  filledButton: {
-    backgroundColor: colors.governorBay,
-    borderRadius: height * 0.04,
-    borderWidth: 2,
-    borderColor: colors.governorBay,
-  },
-  outlinedButton: {
-    backgroundColor: colors.white,
-    borderRadius: height * 0.04,
-    borderWidth: 2,
-    borderColor: mainColor,
   },
   centering: {
     alignItems: 'center',
