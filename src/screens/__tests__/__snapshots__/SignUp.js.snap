@@ -37,6 +37,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 36,
               "fontWeight": "bold",
               "textAlign": "left",
@@ -58,6 +59,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 20,
               "textAlign": "left",
             },
@@ -91,6 +93,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 20,
               "textAlign": "left",
             },
@@ -171,6 +174,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 16,
               "textAlign": "center",
             },
@@ -264,6 +268,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 16,
               "fontWeight": "bold",
               "textAlign": "center",
@@ -286,6 +291,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 16,
               "textAlign": "center",
             },
@@ -323,6 +329,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         Array [
           Object {
             "color": "#313131",
+            "fontFamily": "Karla-Regular",
             "fontSize": 20,
             "textAlign": "left",
           },

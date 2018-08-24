@@ -31,6 +31,7 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
         Array [
           Object {
             "color": "#313131",
+            "fontFamily": "Karla-Regular",
             "fontSize": 36,
             "fontWeight": "bold",
             "textAlign": "left",
@@ -52,6 +53,7 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
         Array [
           Object {
             "color": "#313131",
+            "fontFamily": "Karla-Regular",
             "fontSize": 20,
             "textAlign": "left",
           },
@@ -153,6 +155,7 @@ Let's begin with your account.
         Array [
           Object {
             "color": "#313131",
+            "fontFamily": "Karla-Regular",
             "fontSize": 16,
             "textAlign": "center",
           },
@@ -199,6 +202,7 @@ Let's begin with your account.
           Array [
             Object {
               "color": "#313131",
+              "fontFamily": "Karla-Regular",
               "fontSize": 20,
               "textAlign": "left",
             },
