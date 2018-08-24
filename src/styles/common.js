@@ -2,10 +2,8 @@ import { StyleSheet, Dimensions } from 'react-native'
 import colors from '../utils/colors'
 
 const { height, width } = Dimensions.get('window')
-const fontColor = colors.fontColor
-const mainColor = colors.mainColor
-const white = colors.white
-const blurColor = colors.blurColor
+const fontColor = colors.mineShaft
+const mainColor = colors.governorBay
 
 export default StyleSheet.create({
   container: {
@@ -28,7 +26,7 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: white,
+    color: colors.white,
   },
   body1: {
     color: fontColor,
@@ -41,9 +39,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
-  notColor: {
-    color: mainColor,
-  },
   button: {
     padding: height * 0.02,
   },
@@ -54,7 +49,7 @@ export default StyleSheet.create({
     borderColor: colors.governorBay,
   },
   outlinedButton: {
-    backgroundColor: white,
+    backgroundColor: colors.white,
     borderRadius: height * 0.04,
     borderWidth: 2,
     borderColor: mainColor,
@@ -69,9 +64,9 @@ export default StyleSheet.create({
   },
   divider: {
     height: height * 0.01,
-    backgroundColor: blurColor,
+    backgroundColor: colors.mischka,
     borderRadius: height * 0.04,
     borderWidth: 1,
-    borderColor: blurColor,
+    borderColor: colors.mischka,
   },
 })
