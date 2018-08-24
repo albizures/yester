@@ -48,10 +48,10 @@ export default StyleSheet.create({
     padding: height * 0.02,
   },
   filledButton: {
-    backgroundColor: mainColor,
+    backgroundColor: colors.governorBay,
     borderRadius: height * 0.04,
     borderWidth: 2,
-    borderColor: mainColor,
+    borderColor: colors.governorBay,
   },
   outlinedButton: {
     backgroundColor: white,

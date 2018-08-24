@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   margin: {
     marginBottom: height * 0.01,
   },
-  itemImage: {width: 40, height: 40, tintColor: colors.mainColor},
+  itemImage: {width: 40, height: 40, tintColor: colors.governorBay},
   questionText: {flex: 1, paddingLeft: width * 0.05},
-  itemArrow: {width: 13.15, height: 24.5, tintColor: colors.mainColor},
+  itemArrow: {width: 13.15, height: 24.5, tintColor: colors.governorBay},
 })
