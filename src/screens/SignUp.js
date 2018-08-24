@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import {
   StyleSheet,
-  TouchableHighlight,
   Text, View, Dimensions,
 } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import Container from '../components/Container'
 import Translate from '../components/Translate'
+import Button from '../components/Button'
 import styles from '../styles/common'
 
 class SignUp extends Component {
@@ -41,25 +41,19 @@ class SignUp extends Component {
             <Text style={[styles.title, localStyles.margin]}>
               <Translate keyName='signUp.receive' />
             </Text>
-            <TouchableHighlight onPress={this.onPressSubscription}
-              style={[styles.button, styles.filledButton]}>
-              <Text style={[styles.buttonText]}>
-                <Translate keyName='signUp.start' />
-              </Text>
-            </TouchableHighlight>
+
+            <Button onPress={this.onPressSubscription}
+              title='signUp.start' type='filled' size='normal' icon={0} />
 
             <Text style={[styles.body1, localStyles.margin]}>
               <Translate keyName='signUp.price' />
             </Text>
 
-            <TouchableHighlight onPress={this.onPressLogin}
-              style={[styles.button, styles.outlinedButton, localStyles.margin]}>
-              <Text style={[styles.buttonText, styles.notColor]}>
-                <Translate keyName='signUp.logIn' />
-              </Text>
-            </TouchableHighlight>
+            <Button onPress={this.onPressLogin}
+              title='signUp.logIn' type='outlined' size='normal' icon={0} />
 
             <View style={[styles.separator, localStyles.margin]} />
+
             <Text style={[styles.body2, {textAlign: 'left', marginBottom: height * 0.01}]}>
               <Translate keyName='signUp.cancel' />
             </Text>
@@ -85,30 +79,30 @@ class SignUp extends Component {
 let { height, width } = Dimensions.get('window')
 const localStyles = StyleSheet.create({
   container: {
-    height: height * 0.92,
-    paddingTop: height * 0.075,
-    paddingHorizontal: width * 0.08,
     flex: 1,
     flexDirection: 'column',
     zIndex: 0,
+    height: height * 0.92,
+    paddingTop: height * 0.075,
+    paddingHorizontal: width * 0.08,
   },
   container2: {
     position: 'absolute',
     backgroundColor: colors.white,
   },
   container3: {
+    flex: 1,
     position: 'absolute',
+    zIndex: 2,
     marginTop: height * 0.92,
     height: height * 0.08,
     width: width,
-    zIndex: 2,
-    backgroundColor: colors.restoreColor,
-    flex: 1,
+    backgroundColor: colors.athensGray,
     justifyContent: 'center',
     alignItems: 'center',
   },
   margin: {
-    marginBottom: height * 0.03,
+    marginVertical: height * 0.03,
   },
 })
 

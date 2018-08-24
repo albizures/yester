@@ -30,7 +30,7 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
       style={
         Array [
           Object {
-            "color": "#309BF8",
+            "color": "#313131",
             "fontSize": 36,
             "fontWeight": "bold",
             "textAlign": "left",
@@ -51,7 +51,7 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
       style={
         Array [
           Object {
-            "color": "#309BF8",
+            "color": "#313131",
             "fontSize": 20,
             "textAlign": "left",
           },
@@ -152,7 +152,7 @@ Let's begin with your account.
       style={
         Array [
           Object {
-            "color": "#309BF8",
+            "color": "#313131",
             "fontSize": 16,
             "textAlign": "center",
           },
@@ -181,8 +181,8 @@ Let's begin with your account.
         style={
           Array [
             Object {
-              "backgroundColor": "#A6D5FC",
-              "borderColor": "#A6D5FC",
+              "backgroundColor": "#D5D3DD",
+              "borderColor": "#D5D3DD",
               "borderRadius": 53.36,
               "borderWidth": 1,
               "height": 13.34,
@@ -198,7 +198,7 @@ Let's begin with your account.
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 20,
               "textAlign": "left",
             },
@@ -211,8 +211,8 @@ Let's begin with your account.
         style={
           Array [
             Object {
-              "backgroundColor": "#A6D5FC",
-              "borderColor": "#A6D5FC",
+              "backgroundColor": "#D5D3DD",
+              "borderColor": "#D5D3DD",
               "borderRadius": 53.36,
               "borderWidth": 1,
               "height": 13.34,

@@ -36,13 +36,13 @@ exports[`src/screens/SignUp.js should render 1`] = `
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 36,
               "fontWeight": "bold",
               "textAlign": "left",
             },
             Object {
-              "marginBottom": 40.019999999999996,
+              "marginVertical": 40.019999999999996,
             },
           ]
         }
@@ -57,12 +57,12 @@ exports[`src/screens/SignUp.js should render 1`] = `
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 20,
               "textAlign": "left",
             },
             Object {
-              "marginBottom": 40.019999999999996,
+              "marginVertical": 40.019999999999996,
             },
           ]
         }
@@ -90,12 +90,12 @@ exports[`src/screens/SignUp.js should render 1`] = `
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 20,
               "textAlign": "left",
             },
             Object {
-              "marginBottom": 40.019999999999996,
+              "marginVertical": 40.019999999999996,
             },
           ]
         }
@@ -117,47 +117,65 @@ exports[`src/screens/SignUp.js should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            undefined,
             Object {
-              "padding": 26.68,
+              "borderRadius": 24,
+              "borderWidth": 2,
+              "height": 50,
+              "justifyContent": "center",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+              "width": 300,
             },
             Object {
               "backgroundColor": "#4241B3",
               "borderColor": "#4241B3",
-              "borderRadius": 53.36,
-              "borderWidth": 2,
             },
           ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "color": "#fff",
-                "fontSize": 18,
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-            ]
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
           }
         >
           <Text
             keyName="signUp.start"
+            style={
+              Array [
+                Object {
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#fff",
+                },
+              ]
+            }
           >
-            START FREE TRIAL
+            Start free trial
           </Text>
-        </Text>
+        </View>
       </View>
       <Text
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 16,
               "textAlign": "center",
             },
             Object {
-              "marginBottom": 40.019999999999996,
+              "marginVertical": 40.019999999999996,
             },
           ]
         }
@@ -179,52 +197,64 @@ exports[`src/screens/SignUp.js should render 1`] = `
         onStartShouldSetResponder={[Function]}
         style={
           Array [
+            undefined,
             Object {
-              "padding": 26.68,
+              "borderRadius": 24,
+              "borderWidth": 2,
+              "height": 50,
+              "justifyContent": "center",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+              "width": 300,
             },
             Object {
               "backgroundColor": "#fff",
-              "borderColor": "#309BF8",
-              "borderRadius": 53.36,
-              "borderWidth": 2,
-            },
-            Object {
-              "marginBottom": 40.019999999999996,
+              "borderColor": "#4241B3",
             },
           ]
         }
       >
-        <Text
+        <View
           style={
-            Array [
-              Object {
-                "color": "#fff",
-                "fontSize": 18,
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              Object {
-                "color": "#309BF8",
-              },
-            ]
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
           }
         >
           <Text
             keyName="signUp.logIn"
+            style={
+              Array [
+                Object {
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#4241B3",
+                },
+              ]
+            }
           >
             Log In
           </Text>
-        </Text>
+        </View>
       </View>
       <View
         style={
           Array [
             Object {
-              "borderBottomColor": "#309BF8",
+              "borderBottomColor": "#4241B3",
               "borderBottomWidth": 1,
             },
             Object {
-              "marginBottom": 40.019999999999996,
+              "marginVertical": 40.019999999999996,
             },
           ]
         }
@@ -233,7 +263,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 16,
               "fontWeight": "bold",
               "textAlign": "center",
@@ -255,7 +285,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
         style={
           Array [
             Object {
-              "color": "#309BF8",
+              "color": "#313131",
               "fontSize": 16,
               "textAlign": "center",
             },
@@ -277,7 +307,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
     style={
       Object {
         "alignItems": "center",
-        "backgroundColor": "#BDE0FC",
+        "backgroundColor": "#F6F7F9",
         "flex": 1,
         "height": 106.72,
         "justifyContent": "center",
@@ -292,7 +322,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
       style={
         Array [
           Object {
-            "color": "#309BF8",
+            "color": "#313131",
             "fontSize": 20,
             "textAlign": "left",
           },
