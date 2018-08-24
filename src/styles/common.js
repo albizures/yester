@@ -11,11 +11,37 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  display2: {
+  h1: {
     fontFamily: 'Karla-Regular',
     color: fontColor,
-    fontSize: 36,
+    fontSize: 50,
     fontWeight: 'bold',
+    textAlign: 'left',
+  },
+  h2: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'left',
+  },
+  h3: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'left',
+  },
+  h4: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 18,
+    textAlign: 'left',
+  },
+  h5: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 16,
     textAlign: 'left',
   },
   title: {

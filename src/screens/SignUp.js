@@ -29,7 +29,7 @@ class SignUp extends Component {
         <Container>
           <View style={[localStyles.container]}>
 
-            <Text style={[styles.display2, localStyles.margin]}>
+            <Text style={[styles.h1, localStyles.margin]}>
               <Translate keyName='common.upperTitle' />
             </Text>
             <Text style={[styles.title, localStyles.margin]}>

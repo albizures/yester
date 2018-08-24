@@ -26,7 +26,7 @@ export default class CreateAccount extends Component {
     return (
       <Container>
         <View style={[localStyles.container]}>
-          <Translate style={[styles.display2, localStyles.margin, {textAlign: 'center'}]}
+          <Translate style={[styles.h1, localStyles.margin, {textAlign: 'center'}]}
             keyName='common.upperTitle' />
           <Translate style={[styles.title, localStyles.margin, {fontWeight: 'bold', textAlign: 'center'}]}
             keyName='createAccount.begin' />

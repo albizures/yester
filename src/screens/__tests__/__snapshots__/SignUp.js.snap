@@ -38,7 +38,7 @@ exports[`src/screens/SignUp.js should render 1`] = `
             Object {
               "color": "#313131",
               "fontFamily": "Karla-Regular",
-              "fontSize": 36,
+              "fontSize": 50,
               "fontWeight": "bold",
               "textAlign": "left",
             },
