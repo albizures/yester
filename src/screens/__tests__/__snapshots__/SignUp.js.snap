@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`src/screens/StartTrial.js should render 1`] = `
+exports[`src/screens/SignUp.js should render 1`] = `
 <View
   style={
     Object {

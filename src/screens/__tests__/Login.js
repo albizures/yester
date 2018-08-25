@@ -1,18 +1,28 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { WebView } from 'react-native'
+import renderer from 'react-test-renderer'
+import { Button } from 'react-native'
 
 import Login from '../Login'
 
-const uri = 'https://tatalapp.auth.us-east-2.amazoncognito.com/login?response_type=code&client_id=2u2fhefrj53r2fhrs967422d3l&redirect_uri=https://twitter.com'
+const navigation = { navigate: jest.fn() }
 
 describe('src/screens/Login.js', () => {
-  it('should render a WebView', () => {
-    const shallowApp = shallow(<Login />)
-    expect(shallowApp.type()).toBe(WebView)
+  it('should render', () => {
+    const tree = renderer.create(<Login navigation={navigation} />).toJSON()
+    expect(tree).toMatchSnapshot()
+  })
 
-    const props = shallowApp.props()
-    expect(props.source).toEqual({ uri })
-    expect(props.style).toEqual({ marginTop: 20 })
+  describe('when button to home is pressed', () => {
+    it('should navigate to Home screen', () => {
+      const shallowLogin = shallow(<Login navigation={navigation} />)
+      const shallowTouchableHighlights = shallowLogin.find(Button)
+      const shallowButtonToHome = shallowTouchableHighlights.at(0)
+
+      shallowButtonToHome.prop('onPress')()
+
+      expect(navigation.navigate).toHaveBeenCalledTimes(1)
+      expect(navigation.navigate).toHaveBeenCalledWith('Home')
+    })
   })
 })
