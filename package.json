@@ -47,7 +47,9 @@
     "setupFiles": [
       "./jest-setup.js"
     ],
-    "coverageReporters": ["html"],
+    "coverageReporters": [
+      "html"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 99,
@@ -62,9 +64,6 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.js"
-    ],
-    "coverageReporters": [
-      "html"
     ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
