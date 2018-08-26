@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Platform, ScrollView, RefreshControl } from 'react-native'
+import { View, Platform, ScrollView, RefreshControl, StyleSheet } from 'react-native'
 
 import ConditionalWrapper from './ConditionalWrapper'
 import Loading from './Loading'
@@ -42,7 +42,7 @@ Container.propTypes = {
   scroll: PropTypes.bool,
 }
 
-const styles = {
+const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
@@ -51,6 +51,6 @@ const styles = {
     paddingTop: top,
     flex: 1,
   },
-}
+})
 
 export default Container

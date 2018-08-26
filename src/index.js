@@ -3,6 +3,7 @@ import { StatusBar, View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 
 import Onboarding from './screens/Onboarding'
+import AccountSetup from './screens/AccountSetup'
 import LogIn from './screens/Login'
 import SignUp from './screens/SignUp'
 import SignUp2 from './screens/SignUp-2'
@@ -30,6 +31,9 @@ import http from './utils/http'
 const RootStack = createStackNavigator({
   Onboarding: {
     screen: Onboarding,
+  },
+  AccountSetup: {
+    screen: AccountSetup,
   },
   LogIn: {
     screen: LogIn,
@@ -101,7 +105,7 @@ const RootStack = createStackNavigator({
   navigationOptions: {
     gesturesEnabled: false,
   },
-  initialRouteName: 'Onboarding',
+  initialRouteName: 'AccountSetup',
   mode: 'modal',
   headerMode: 'none',
 })
