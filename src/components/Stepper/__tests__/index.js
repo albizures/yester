@@ -8,9 +8,9 @@ const Step = () => (
 )
 
 const children = [
-  () => <Step />,
-  () => <Step />,
-  () => <Step />,
+  <Step key={0} />,
+  <Step key={1} />,
+  <Step key={2} />,
 ]
 
 const render = () => (

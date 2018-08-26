@@ -9,7 +9,7 @@ export default class Step extends Component {
     cover: Image.propTypes.source.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
   }
   render () {
     const { cover, title, description, children } = this.props
