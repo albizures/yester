@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`src/screens/Onboarding should render 1`] = `
+exports[`src/screens/AccountSetup should render 1`] = `
 <View
   style={
     Object {
@@ -22,32 +22,15 @@ exports[`src/screens/Onboarding should render 1`] = `
     <RCTScrollView
       data={
         Array [
-          <Step
-            cover={
-              Object {
-                "testUri": "../../../src/assets/300x300.png",
-              }
-            }
-            description="onboarding.step1.description"
-            title="onboarding.step1.title"
+          <AgeSetup
+            name="John"
           />,
-          <Step
-            cover={
-              Object {
-                "testUri": "../../../src/assets/300x300.png",
-              }
-            }
-            description="onboarding.step2.description"
-            title="onboarding.step2.title"
+          <Done
+            year={60}
           />,
-          <Step
-            cover={
-              Object {
-                "testUri": "../../../src/assets/300x300.png",
-              }
-            }
-            description="onboarding.step3.description"
-            title="onboarding.step3.title"
+          <Done
+            name="John"
+            place="Roseville - California"
           />,
         ]
       }
@@ -69,6 +52,7 @@ exports[`src/screens/Onboarding should render 1`] = `
       onViewableItemsChanged={[Function]}
       pagingEnabled={true}
       renderItem={[Function]}
+      scrollEnabled={false}
       scrollEventThrottle={50}
       showsHorizontalScrollIndicator={false}
       stickyHeaderIndices={Array []}
@@ -112,19 +96,52 @@ exports[`src/screens/Onboarding should render 1`] = `
               ]
             }
           >
-            <Image
-              source={
+            <View
+              style={
                 Object {
-                  "testUri": "../../../src/assets/300x300.png",
+                  "alignItems": "center",
+                  "flex": 1,
+                  "margin": 10,
+                  "textAlign": "center",
                 }
               }
-            />
-            <Text>
-              We cant't wait to hear your story
-            </Text>
-            <Text>
-              Everyone has a story to tell. We know yours is definitely a really interesting one.
-            </Text>
+            >
+              <View
+                style={
+                  Object {
+                    "marginHorizontal": 50,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  Hi John 👋
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  That's a great name! Now, let's meet properly to get you started
+                </Text>
+              </View>
+              <Text
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                When di you saw this beautiful Earth for the first time?
+              </Text>
+            </View>
           </View>
         </View>
         <View
@@ -155,19 +172,17 @@ exports[`src/screens/Onboarding should render 1`] = `
               ]
             }
           >
-            <Image
-              source={
-                Object {
-                  "testUri": "../../../src/assets/300x300.png",
-                }
-              }
-            />
-            <Text>
-              One day, one story
-            </Text>
-            <Text>
-              We'll guide you through daily question that will help us to get the conversation to get started.
-            </Text>
+            <View>
+              <Text>
+                The 60's! Awesome! 🙌
+              </Text>
+              <Text>
+                What a great era for this legend to begin.
+              </Text>
+              <Text>
+                Where in the world did you happen to born?
+              </Text>
+            </View>
           </View>
         </View>
         <View
@@ -198,115 +213,28 @@ exports[`src/screens/Onboarding should render 1`] = `
               ]
             }
           >
-            <Image
-              source={
-                Object {
-                  "testUri": "../../../src/assets/300x300.png",
-                }
-              }
-            />
-            <Text>
-              You own your information
-            </Text>
-            <Text>
-              As you, we want to protect your personal information, so you decide when and with who you share it. Always!
-            </Text>
+            <View>
+              <Text>
+                Alrighty, John from Roseville - California, Nice to meet you 🤝
+              </Text>
+              <Text>
+                This is where we start our journey of writing your incredible story
+              </Text>
+            </View>
           </View>
         </View>
       </View>
     </RCTScrollView>
-    <View>
-      <View>
-        <View
-          style={
-            Array [
-              Object {
-                "borderRadius": 5,
-                "height": 10,
-                "marginHorizontal": 5,
-                "width": 10,
-              },
-              Object {
-                "backgroundColor": "#000",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Object {
-                "borderRadius": 5,
-                "height": 10,
-                "marginHorizontal": 5,
-                "width": 10,
-              },
-              Object {
-                "backgroundColor": "#c3c3c3",
-              },
-            ]
-          }
-        />
-        <View
-          style={
-            Array [
-              Object {
-                "borderRadius": 5,
-                "height": 10,
-                "marginHorizontal": 5,
-                "width": 10,
-              },
-              Object {
-                "backgroundColor": "#c3c3c3",
-              },
-            ]
-          }
-        />
-      </View>
-      <View
-        accessibilityComponentType="button"
-        accessibilityTraits={
-          Array [
-            "button",
-          ]
+    <View
+      style={
+        Object {
+          "backgroundColor": "#c3c3c3",
+          "height": 50,
+          "padding": 10,
+          "width": "100%",
         }
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Array [
-              Object {},
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "color": "#007AFF",
-                  "fontSize": 18,
-                  "padding": 8,
-                  "textAlign": "center",
-                },
-              ]
-            }
-          >
-            Skip
-          </Text>
-        </View>
-      </View>
+      }
+    >
       <View
         accessibilityComponentType="button"
         accessibilityTraits={

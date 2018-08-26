@@ -34,9 +34,7 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
         ]
       }
     >
-      <Text
-        keyName="common.upperTitle"
-      >
+      <Text>
         YESTER
       </Text>
     </Text>
@@ -58,9 +56,7 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
         ]
       }
     >
-      <Text
-        keyName="createAccount.begin"
-      >
+      <Text>
         Start it's simple. 
 Let's begin with your account.
       </Text>
@@ -100,9 +96,7 @@ Let's begin with your account.
           ]
         }
       >
-        <Text
-          keyName="createAccount.continue"
-        >
+        <Text>
           CONTINUE WITH FACEBOOK
         </Text>
       </Text>
@@ -121,9 +115,7 @@ Let's begin with your account.
         ]
       }
     >
-      <Text
-        keyName="createAccount.recommendation"
-      >
+      <Text>
         Recommended, to speed things up.
       </Text>
     </Text>
@@ -156,9 +148,7 @@ Let's begin with your account.
           ]
         }
       />
-      <Text
-        keyName="createAccount.or"
-      >
+      <Text>
         Or
       </Text>
       <View
@@ -219,9 +209,7 @@ Let's begin with your account.
           ]
         }
       >
-        <Text
-          keyName="createAccount.create"
-        >
+        <Text>
           CREATE ACCOUNT
         </Text>
       </Text>

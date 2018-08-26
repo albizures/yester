@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button } from 'react-native'
+import { Button, View } from 'react-native'
 // import PropTypes from 'prop-types'
 
 // import Translate from '../../components/Translate'
@@ -25,21 +25,23 @@ export default class Onboarding extends Component {
     }],
   }
 
-  createStep = (customProp) => (stepperProps) => {
+  createStep = (customProp, index) => {
+    return (
+      <Step key={index} {...customProp} />
+    )
+  }
+
+  getBottomBar = (options) => {
     const { steps } = this.state
-    const { skip, next, index } = stepperProps
-    const props = {
-      ...stepperProps,
-      ...customProp,
-    }
+    const { next, currentStep, skip } = options
 
     return (
-      <Step {...props} >
-        <Dots steps={steps.length} currentStep={index} />
+      <View>
+        <Dots steps={steps.length} currentStep={currentStep} />
         {/* TODO use our custom button here */}
         <Button title='Skip' onPress={skip} />
         <Button title='Continue' onPress={next} />
-      </Step>
+      </View>
     )
   }
 
@@ -49,7 +51,7 @@ export default class Onboarding extends Component {
     console.log(require('../../assets/300x300.png'))
     return (
       <Container>
-        <Stepper>
+        <Stepper bottomBar={this.getBottomBar}>
           {steps.map(this.createStep)}
         </Stepper>
       </Container>
