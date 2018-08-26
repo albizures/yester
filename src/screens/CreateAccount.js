@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import Translate from '../components/Translate'
 import Container from '../components/Container'
-import Button, {types, sizes} from '../components/Button'
+import Button, {types} from '../components/Button'
 import styles from '../styles/common'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
@@ -33,7 +33,7 @@ export default class CreateAccount extends Component {
 
           <Button onPress={this.onPressFB}
             title={'createAccount.continue'}
-            type={types.FILLED} size={sizes.NORMAL} icon={icons.fb} />
+            icon={icons.fb} />
 
           <Translate style={[styles.body1, localStyles.margin]}
             keyName='createAccount.recommendation' />
@@ -46,7 +46,7 @@ export default class CreateAccount extends Component {
 
           <Button onPress={this.onPressSignIn}
             title={'createAccount.create'}
-            type={types.OUTLINED} size={sizes.NORMAL} icon={0} />
+            type={types.OUTLINED} />
 
         </View>
       </Container>

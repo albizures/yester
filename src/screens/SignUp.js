@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import Container from '../components/Container'
 import Translate from '../components/Translate'
-import Button, {types, sizes} from '../components/Button'
+import Button, {types} from '../components/Button'
 import styles from '../styles/common'
 
 class SignUp extends Component {
@@ -43,8 +43,7 @@ class SignUp extends Component {
             </Text>
 
             <Button onPress={this.onPressSubscription}
-              title='signUp.start'
-              type={types.FILLED} size={sizes.NORMAL} icon={0} />
+              title='signUp.start' />
 
             <Text style={[styles.body1, localStyles.margin]}>
               <Translate keyName='signUp.price' />
@@ -52,7 +51,7 @@ class SignUp extends Component {
 
             <Button onPress={this.onPressLogin}
               title='signUp.logIn'
-              type={types.OUTLINED} size={sizes.NORMAL} icon={0} />
+              type={types.OUTLINED} />
 
             <View style={[styles.separator, localStyles.margin]} />
 

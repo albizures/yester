@@ -123,11 +123,13 @@ exports[`src/screens/SignUp.js should render 1`] = `
                 "height": 3,
                 "width": 0,
               },
-              "width": 300,
             },
             Object {
               "backgroundColor": "#4241B3",
               "borderColor": "#4241B3",
+            },
+            Object {
+              "width": 300,
             },
           ]
         }
@@ -143,7 +145,6 @@ exports[`src/screens/SignUp.js should render 1`] = `
           }
         >
           <Text
-            keyName="signUp.start"
             style={
               Array [
                 Object {
@@ -202,11 +203,13 @@ exports[`src/screens/SignUp.js should render 1`] = `
                 "height": 3,
                 "width": 0,
               },
-              "width": 300,
             },
             Object {
               "backgroundColor": "#fff",
               "borderColor": "#4241B3",
+            },
+            Object {
+              "width": 300,
             },
           ]
         }
@@ -222,7 +225,6 @@ exports[`src/screens/SignUp.js should render 1`] = `
           }
         >
           <Text
-            keyName="signUp.logIn"
             style={
               Array [
                 Object {

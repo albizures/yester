@@ -26,7 +26,6 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
     }
   >
     <Text
-      keyName="common.upperTitle"
       style={
         Array [
           Object {
@@ -48,7 +47,6 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
       YESTER
     </Text>
     <Text
-      keyName="createAccount.begin"
       style={
         Array [
           Object {
@@ -92,11 +90,13 @@ Let's begin with your account.
               "height": 3,
               "width": 0,
             },
-            "width": 300,
           },
           Object {
             "backgroundColor": "#4241B3",
             "borderColor": "#4241B3",
+          },
+          Object {
+            "width": 300,
           },
         ]
       }
@@ -124,13 +124,13 @@ Let's begin with your account.
                 "width": 20,
               },
               Object {
+                "marginRight": 9,
                 "tintColor": "#fff",
               },
             ]
           }
         />
         <Text
-          keyName="createAccount.continue"
           style={
             Array [
               Object {
@@ -140,7 +140,6 @@ Let's begin with your account.
               },
               Object {
                 "color": "#fff",
-                "paddingLeft": 9,
               },
             ]
           }
@@ -150,7 +149,6 @@ Let's begin with your account.
       </View>
     </View>
     <Text
-      keyName="createAccount.recommendation"
       style={
         Array [
           Object {
@@ -197,7 +195,6 @@ Let's begin with your account.
         }
       />
       <Text
-        keyName="createAccount.or"
         style={
           Array [
             Object {
@@ -250,11 +247,13 @@ Let's begin with your account.
               "height": 3,
               "width": 0,
             },
-            "width": 300,
           },
           Object {
             "backgroundColor": "#fff",
             "borderColor": "#4241B3",
+          },
+          Object {
+            "width": 300,
           },
         ]
       }
@@ -270,7 +269,6 @@ Let's begin with your account.
         }
       >
         <Text
-          keyName="createAccount.create"
           style={
             Array [
               Object {
