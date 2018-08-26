@@ -4,13 +4,23 @@ import { View, TouchableHighlight, Image, ViewPropTypes } from 'react-native'
 import colors from '../utils/colors'
 import Translate from '../components/Translate'
 
+export const types = {
+  FILLED: 'FILLED',
+  OUTLINED: 'OUTLINED',
+}
+
+export const sizes = {
+  NORMAL: 'NORMAL',
+  SMALL: 'SMALL',
+}
+
 const Button = (props) => {
   var specificButton = styles.filledButton
   var specificText = styles.filledButtonText
   var specificIcon = styles.filledButtonIcon
   var icon
 
-  if (props.type !== 'filled') {
+  if (props.type !== types.FILLED) {
     specificButton = styles.outlinedButton
     specificText = styles.outlinedButtonText
     specificIcon = styles.outlinedButtonIcon
@@ -19,7 +29,7 @@ const Button = (props) => {
     specificText.paddingLeft = 9
     icon = <Image source={props.icon} style={[styles.icon, specificIcon]} />
   }
-  if (props.size === 'small') {
+  if (props.size === sizes.SMALL) {
     specificButton.width = 150
   }
 
@@ -37,9 +47,9 @@ const Button = (props) => {
 Button.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(Object.keys(types)),
   icon: PropTypes.number.isRequired,
-  size: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(Object.keys(sizes)),
 }
 
 const styles = {
