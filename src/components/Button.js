@@ -15,9 +15,10 @@ export const sizes = {
 }
 
 const Button = (props) => {
-  const {title, type, size, icon} = props
-  const typeStyle = typeStyles[type]
+  const {title, type, size, icon, disabled} = props
+  const typeStyle = typeStyles[disabled][type]
   const sizeStyle = sizeStyles[size]
+
   var image
 
   if (icon !== 0) {
@@ -46,12 +47,14 @@ Button.propTypes = {
     PropTypes.object,
   ]),
   size: PropTypes.oneOf(Object.keys(sizes)),
+  disabled: PropTypes.bool,
 }
 
 Button.defaultProps = {
   type: types.FILLED,
   icon: 0,
   size: sizes.NORMAL,
+  disabled: false,
 }
 
 const styles = StyleSheet.create({
@@ -84,28 +87,56 @@ const styles = StyleSheet.create({
 })
 
 const typeStyles = {
-  [types.FILLED]: {
-    button: {
-      backgroundColor: colors.governorBay,
-      borderColor: colors.governorBay,
+  [false]: {
+    [types.FILLED]: {
+      button: {
+        backgroundColor: colors.governorBay,
+        borderColor: colors.governorBay,
+      },
+      text: {
+        color: colors.white,
+      },
+      icon: {
+        tintColor: colors.white,
+      },
     },
-    text: {
-      color: colors.white,
-    },
-    icon: {
-      tintColor: colors.white,
+    [types.OUTLINED]: {
+      button: {
+        backgroundColor: colors.white,
+        borderColor: colors.governorBay,
+      },
+      text: {
+        color: colors.governorBay,
+      },
+      icon: {
+        tintColor: colors.governorBay,
+      },
     },
   },
-  [types.OUTLINED]: {
-    button: {
-      backgroundColor: colors.white,
-      borderColor: colors.governorBay,
+  [true]: {
+    [types.FILLED]: {
+      button: {
+        backgroundColor: colors.mischka,
+        borderColor: colors.mischka,
+      },
+      text: {
+        color: colors.white,
+      },
+      icon: {
+        tintColor: colors.white,
+      },
     },
-    text: {
-      color: colors.governorBay,
-    },
-    icon: {
-      tintColor: colors.governorBay,
+    [types.OUTLINED]: {
+      button: {
+        backgroundColor: colors.white,
+        borderColor: colors.mischka,
+      },
+      text: {
+        color: colors.mischka,
+      },
+      icon: {
+        tintColor: colors.mischka,
+      },
     },
   },
 }
