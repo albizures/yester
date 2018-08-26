@@ -41,7 +41,10 @@ Button.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
   type: PropTypes.oneOf(Object.keys(types)),
-  icon: PropTypes.number,
+  icon: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.object,
+  ]),
   size: PropTypes.oneOf(Object.keys(sizes)),
 }
 
