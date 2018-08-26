@@ -13,9 +13,9 @@ exports[`src/screens/Stepper should render 1`] = `
   <RCTScrollView
     data={
       Array [
-        [Function],
-        [Function],
-        [Function],
+        <Step />,
+        <Step />,
+        <Step />,
       ]
     }
     disableVirtualization={false}
