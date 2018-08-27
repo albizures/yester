@@ -9,7 +9,7 @@ describe('src/components/Button.js', () => {
     expect(shallowButton.type()).toBe(TouchableHighlight)
   })
 
-  describe('when size button is small', () => {
+  describe('when size button is disabled', () => {
     it('should render a TouchableHighlight', () => {
       const shallowButton = shallow(<Button title='Button' disabled />)
       expect(shallowButton.type()).toBe(TouchableHighlight)
