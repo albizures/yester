@@ -14,15 +14,19 @@ export const sizes = {
   SMALL: 'SMALL',
 }
 
+const states = {
+  ENABLED: 'ENABLED',
+  DISABLED: 'DISABLED',
+}
+
 const Button = (props) => {
   const {title, type, size, icon, disabled} = props
-  const typeStyle = typeStyles[disabled][type]
+  const typeStyle = typeStyles[disabled ? states.DISABLED : states.ENABLED][type]
   const sizeStyle = sizeStyles[size]
 
   var image
 
-  if (icon !== 0) {
-    typeStyle.icon.marginRight = 9
+  if (icon != null) {
     image = <Image source={icon} style={[styles.icon, typeStyle.icon]} />
   }
 
@@ -52,7 +56,6 @@ Button.propTypes = {
 
 Button.defaultProps = {
   type: types.FILLED,
-  icon: 0,
   size: sizes.NORMAL,
   disabled: false,
 }
@@ -83,11 +86,12 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
+    marginRight: 9,
   },
 })
 
 const typeStyles = {
-  [false]: {
+  [states.ENABLED]: {
     [types.FILLED]: {
       button: {
         backgroundColor: colors.governorBay,
@@ -113,7 +117,7 @@ const typeStyles = {
       },
     },
   },
-  [true]: {
+  [states.DISABLED]: {
     [types.FILLED]: {
       button: {
         backgroundColor: colors.mischka,

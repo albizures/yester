@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { TouchableHighlight } from 'react-native'
-import Button, {sizes} from '../Button'
+import Button from '../Button'
 
 describe('src/components/Button.js', () => {
   it('should render a TouchableHighlight', () => {
@@ -11,7 +11,7 @@ describe('src/components/Button.js', () => {
 
   describe('when size button is small', () => {
     it('should render a TouchableHighlight', () => {
-      const shallowButton = shallow(<Button title='Button' size={sizes.SMALL} />)
+      const shallowButton = shallow(<Button title='Button' disabled />)
       expect(shallowButton.type()).toBe(TouchableHighlight)
     })
   })

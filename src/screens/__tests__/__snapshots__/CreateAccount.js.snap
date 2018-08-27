@@ -121,10 +121,10 @@ Let's begin with your account.
             Array [
               Object {
                 "height": 20,
+                "marginRight": 9,
                 "width": 20,
               },
               Object {
-                "marginRight": 9,
                 "tintColor": "#fff",
               },
             ]
