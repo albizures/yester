@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
+import QuestionItem from './QuestionItem'
 
 import Container from '../../components/Container'
 import http from '../../utils/http'
+import common from '../../styles/common'
+import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
 
 export default class Home extends Component {
@@ -38,15 +41,15 @@ export default class Home extends Component {
 
   renderAgeItem = ({item}) => (
     <View>
-      <Text style={localStyles.sectionHeader}>{item.text}</Text>
-      {this.getTopicsItems()}
+      <Text style={[localStyles.sectionHeader, common.h3]}>{item.text}</Text>
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        {this.getTopicsItems()}
+      </View>
     </View>
   )
 
   renderTopicItem = ({item}) => (
-    <Text style={localStyles.item}>
-      {item.text}
-    </Text>
+    <QuestionItem text={item.text} />
   )
 
   getAgesItems = () => (
@@ -83,13 +86,6 @@ const localStyles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
-  },
-  item: {
-    padding: 10,
-    fontSize: 18,
-    height: 44,
+    backgroundColor: colors.mischka,
   },
 })

@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { Button, Alert } from 'react-native'
+import { View, Button, Alert } from 'react-native'
 
 import agesFixture from './__fixtures__/ages.json'
 import topicsFixture from './__fixtures__/topics.json'
@@ -122,7 +122,7 @@ describe('src/screens/Home/index.js', () => {
       })
 
       const shallowItem = shallow(home.renderTopicItem({ item: topic }))
-      expect(shallowItem.type()).toBe('Text')
+      expect(shallowItem.type()).toBe(View)
     })
   })
 })

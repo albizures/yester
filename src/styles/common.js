@@ -1,7 +1,9 @@
 import { StyleSheet, Dimensions } from 'react-native'
+import colors from '../utils/colors'
 
-let { height, width } = Dimensions.get('window')
-let fontColor = '#309BF8'
+const { height, width } = Dimensions.get('window')
+const fontColor = colors.mineShaft
+const mainColor = colors.governorBay
 
 export default StyleSheet.create({
   container: {
@@ -9,65 +11,71 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
-  display2: {
+  h1: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
-    fontSize: 36,
+    fontSize: 50,
     fontWeight: 'bold',
     textAlign: 'left',
   },
+  h2: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 25,
+    fontWeight: 'bold',
+    textAlign: 'left',
+  },
+  h3: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'left',
+  },
+  h4: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 18,
+    textAlign: 'left',
+  },
+  h5: {
+    fontFamily: 'Karla-Regular',
+    color: fontColor,
+    fontSize: 16,
+    textAlign: 'left',
+  },
   title: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 20,
     textAlign: 'left',
   },
-  buttonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#fff',
-  },
   body1: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 16,
     textAlign: 'center',
   },
   body2: {
+    fontFamily: 'Karla-Regular',
     color: fontColor,
     fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
-  },
-  notColor: {
-    color: '#309BF8',
-  },
-  button: {
-    padding: height * 0.02,
-  },
-  filledButton: {
-    backgroundColor: '#309BF8',
-    borderRadius: height * 0.04,
-    borderWidth: 2,
-    borderColor: '#309BF8',
-  },
-  outlinedButton: {
-    backgroundColor: '#fff',
-    borderRadius: height * 0.04,
-    borderWidth: 2,
-    borderColor: '#309BF8',
   },
   centering: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   separator: {
-    borderBottomColor: '#309BF8',
+    borderBottomColor: mainColor,
     borderBottomWidth: 1,
   },
   divider: {
     height: height * 0.01,
-    backgroundColor: '#A6D5FC',
+    backgroundColor: colors.mischka,
     borderRadius: height * 0.04,
     borderWidth: 1,
-    borderColor: '#A6D5FC',
+    borderColor: colors.mischka,
   },
 })
