@@ -1,31 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import common from '../../styles/common'
 import Translate from '../../components/Translate'
 
-const QuestionItem = (props) => (
-  <View style={styles.container} >
-    <View style={styles.row}>
-      <Image source={require('../../assets/square.png')} style={styles.itemImage} />
-      <View style={styles.questionText}>
-        <Text style={common.h3}>
-          {props.item.text}
-        </Text>
-        <Translate keyName='questionItem.completed' />
+const QuestionItem = (props) => {
+  const {text} = props
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.row}>
+        <View style={styles.questionText}>
+          <Text style={common.h3}>
+            {text}
+          </Text>
+          <Translate keyName='questionItem.completed' />
+        </View>
+        <Image source={icons.buttonPlus} resizeMode='cover' style={styles.buttonPlus} />
       </View>
-      <Image source={icons.buttonPlus} style={styles.itemArrow} />
     </View>
-  </View>
-)
+  )
+}
+
 QuestionItem.propTypes = {
-  item: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
 }
 export default QuestionItem
 
-const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -34,14 +37,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 0.5,
     borderColor: colors.white,
-    marginBottom: 12,
+    marginTop: 10,
+    marginBottom: 10,
     shadowColor: colors.mischka,
     shadowOffset: {
       width: 0,
       height: 8,
     },
-    shadowRadius: 10,
+    shadowRadius: 15,
     shadowOpacity: 1.0,
+    elevation: 8,
   },
   row: {
     flex: 1,
@@ -49,8 +54,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: colors.white,
+    borderRadius: 10,
   },
-  itemImage: {width: 40, height: 40, tintColor: colors.governorBay},
-  questionText: {flex: 1, paddingLeft: width * 0.02},
-  itemArrow: {width: 35, height: 35},
+  questionText: {
+    flex: 1,
+    height: 42,
+    width: 220,
+    marginLeft: 30,
+  },
+  buttonPlus: {
+  // Specfile dice 35x35 pero el SVG no viene en la posicion 0,0
+    width: 50,
+    height: 50,
+    marginRight: 17,
+  },
 })

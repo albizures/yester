@@ -5,6 +5,7 @@ import QuestionItem from './QuestionItem'
 
 import Container from '../../components/Container'
 import http from '../../utils/http'
+import common from '../../styles/common'
 import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
 
@@ -40,7 +41,7 @@ export default class Home extends Component {
 
   renderAgeItem = ({item}) => (
     <View>
-      <Text style={localStyles.sectionHeader}>{item.text}</Text>
+      <Text style={[localStyles.sectionHeader, common.h3]}>{item.text}</Text>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         {this.getTopicsItems()}
       </View>
@@ -48,7 +49,7 @@ export default class Home extends Component {
   )
 
   renderTopicItem = ({item}) => (
-    <QuestionItem item={item} />
+    <QuestionItem text={item.text} />
   )
 
   getAgesItems = () => (
@@ -85,8 +86,6 @@ const localStyles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 2,
-    fontSize: 14,
-    fontWeight: 'bold',
     backgroundColor: colors.mischka,
   },
 })
