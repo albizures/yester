@@ -13,8 +13,8 @@ describe('src/screens/Setup.js', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  describe('when button to setup 1 is pressed', () => {
-    it('should navigate to Setup1 screen', () => {
+  describe('when button to Home is pressed', () => {
+    it('should navigate to Home screen', () => {
       const shallowSetup = shallow(<Setup navigation={navigation} />)
       const shallowTouchableHighlights = shallowSetup.find(Button)
       const shallowButtonToHome = shallowTouchableHighlights.at(0)
@@ -22,7 +22,7 @@ describe('src/screens/Setup.js', () => {
       shallowButtonToHome.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('Setup1')
+      expect(navigation.navigate).toHaveBeenCalledWith('Home')
     })
   })
 })

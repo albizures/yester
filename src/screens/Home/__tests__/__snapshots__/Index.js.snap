@@ -62,7 +62,7 @@ exports[`src/screens/Home/index.js should render 1`] = `
           ]
         }
       >
-        to Home-2
+        to Question
       </Text>
     </View>
   </View>

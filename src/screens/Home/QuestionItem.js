@@ -4,7 +4,6 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import common from '../../styles/common'
-import Translate from '../../components/Translate'
 
 const QuestionItem = (props) => {
   const {text} = props
@@ -13,10 +12,9 @@ const QuestionItem = (props) => {
     <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.questionText}>
-          <Text style={common.h3}>
+          <Text numberOfLines={2} style={[common.h4, {flexWrap: 'wrap'}]}>
             {text}
           </Text>
-          <Translate keyName='questionItem.completed' />
         </View>
         <Image source={icons.buttonPlus} resizeMode='cover' style={styles.buttonPlus} />
       </View>
@@ -58,9 +56,10 @@ const styles = StyleSheet.create({
   },
   questionText: {
     flex: 1,
-    height: 42,
+    height: 50,
     width: 220,
     marginLeft: 30,
+    justifyContent: 'center',
   },
   buttonPlus: {
   // Specfile dice 35x35 pero el SVG no viene en la posicion 0,0

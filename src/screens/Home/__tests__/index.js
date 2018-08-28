@@ -45,7 +45,7 @@ describe('src/screens/Home/index.js', () => {
   })
 
   describe('when button is pressed', () => {
-    it('should navigate to Home2 screen', () => {
+    it('should navigate to Question screen', () => {
       const shallowHome = shallow(<Home navigation={navigation} />)
       const shallowTouchableHighlights = shallowHome.find(Button)
       const shallowButtonToHome2 = shallowTouchableHighlights.at(0)
@@ -53,7 +53,7 @@ describe('src/screens/Home/index.js', () => {
       shallowButtonToHome2.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('Home2')
+      expect(navigation.navigate).toHaveBeenCalledWith('Question')
     })
   })
 

@@ -8,14 +8,14 @@ export default class Writing extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('Question2')
+    this.props.navigation.navigate('Reading')
   }
 
   render () {
     return (
       <View>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>WRITING</Text>
-        <Button title='to Question-2' onPress={this.onPress} />
+        <Button title='to Reading' onPress={this.onPress} />
       </View>
     )
   }

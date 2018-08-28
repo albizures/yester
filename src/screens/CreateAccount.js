@@ -18,8 +18,8 @@ export default class CreateAccount extends Component {
     this.props.navigation.navigate('Facebook')
   }
 
-  onPressSignIn = () => {
-    this.props.navigation.navigate('SignIn')
+  onPressSetup = () => {
+    this.props.navigation.navigate('Setup')
   }
 
   render () {
@@ -44,7 +44,7 @@ export default class CreateAccount extends Component {
             <View style={[styles.divider, {width: 30}]} />
           </View>
 
-          <Button onPress={this.onPressSignIn}
+          <Button onPress={this.onPressSetup}
             title={'createAccount.create'}
             type={types.OUTLINED} />
 

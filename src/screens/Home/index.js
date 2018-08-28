@@ -6,7 +6,6 @@ import QuestionItem from './QuestionItem'
 import Container from '../../components/Container'
 import http from '../../utils/http'
 import common from '../../styles/common'
-import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
 
 export default class Home extends Component {
@@ -36,12 +35,14 @@ export default class Home extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('Home2')
+    this.props.navigation.navigate('Question')
   }
 
   renderAgeItem = ({item}) => (
     <View>
-      <Text style={[localStyles.sectionHeader, common.h3]}>{item.text}</Text>
+      <Text style={[common.h3, localStyles.sectionHeader]}>
+        {item.text}
+      </Text>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         {this.getTopicsItems()}
       </View>
@@ -62,7 +63,7 @@ export default class Home extends Component {
 
   getTopicsItems = () => (
     <FlatList
-      data={this.state.topics}
+      data={this.state.questions}
       renderItem={this.renderTopicItem}
       keyExtractor={indexToString}
     />
@@ -73,7 +74,7 @@ export default class Home extends Component {
     return (
       <Container isLoading={isLoading} >
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
-        <Button title='to Home-2' onPress={this.onPress} />
+        <Button title='to Question' onPress={this.onPress} />
         { this.getAgesItems() }
       </Container>
     )
@@ -82,10 +83,8 @@ export default class Home extends Component {
 
 const localStyles = StyleSheet.create({
   sectionHeader: {
-    paddingTop: 2,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 2,
-    backgroundColor: colors.mischka,
+    paddingTop: 5,
+    paddingBottom: 5,
+    textAlign: 'center',
   },
 })

@@ -27,8 +27,8 @@ describe('src/screens/CreateAccount.js', () => {
     })
   })
 
-  describe('when button Sign In is pressed', () => {
-    it('should navigate to Sign In screen', () => {
+  describe('when button Create Account is pressed', () => {
+    it('should navigate to Setuo screen', () => {
       const shallowCreateAccount = shallow(<CreateAccount navigation={navigation} />)
       const shallowTouchableHighlights = shallowCreateAccount.find(Button)
       const shallowButtonToSignIn = shallowTouchableHighlights.at(1)
@@ -36,7 +36,7 @@ describe('src/screens/CreateAccount.js', () => {
       shallowButtonToSignIn.prop('onPress')()
 
       // expect(navigation.navigate).toHaveBeenCalledTimes(2)
-      expect(navigation.navigate).toHaveBeenCalledWith('SignIn')
+      expect(navigation.navigate).toHaveBeenCalledWith('Setup')
     })
   })
 })
