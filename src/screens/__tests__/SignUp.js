@@ -15,14 +15,14 @@ describe('src/screens/SignUp.js', () => {
   })
 
   describe('when button to free trial is pressed', () => {
-    it('should navigate to SignUp2 screen', () => {
+    it('should navigate to CreateAccount screen', () => {
       const shallowLogin = shallow(<SignUp navigation={navigation} />)
       const shallowTouchableHighlights = shallowLogin.find(Button)
       const shallowButtonToSubscription = shallowTouchableHighlights.at(0)
       shallowButtonToSubscription.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('SignUp2')
+      expect(navigation.navigate).toHaveBeenCalledWith('CreateAccount')
     })
   })
 

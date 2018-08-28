@@ -54,7 +54,7 @@ exports[`src/screens/Writing.js should render 1`] = `
           ]
         }
       >
-        to Question-2
+        to Reading
       </Text>
     </View>
   </View>

@@ -13,8 +13,8 @@ describe('src/screens/Writing.js', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  describe('when button to question 2 is pressed', () => {
-    it('should navigate to Question 2 screen', () => {
+  describe('when button to Reading is pressed', () => {
+    it('should navigate to Reading screen', () => {
       const shallowWriting = shallow(<Writing navigation={navigation} />)
       const shallowTouchableHighlights = shallowWriting.find(Button)
       const shallowButtonToHome = shallowTouchableHighlights.at(0)
@@ -22,7 +22,7 @@ describe('src/screens/Writing.js', () => {
       shallowButtonToHome.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('Question2')
+      expect(navigation.navigate).toHaveBeenCalledWith('Reading')
     })
   })
 })

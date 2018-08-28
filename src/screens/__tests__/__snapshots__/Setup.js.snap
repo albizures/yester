@@ -54,7 +54,7 @@ exports[`src/screens/Setup.js should render 1`] = `
           ]
         }
       >
-        to Setup-1
+        to Home
       </Text>
     </View>
   </View>

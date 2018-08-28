@@ -54,7 +54,7 @@ exports[`src/screens/Reading.js should render 1`] = `
           ]
         }
       >
-        to Questions-2
+        to Home
       </Text>
     </View>
   </View>

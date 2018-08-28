@@ -35,7 +35,7 @@ export default class Home extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('Home2')
+    this.props.navigation.navigate('Question')
   }
 
   renderAgeItem = ({item}) => (
@@ -74,7 +74,7 @@ export default class Home extends Component {
     return (
       <Container isLoading={isLoading} >
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
-        <Button title='to Home-2' onPress={this.onPress} />
+        <Button title='to Question' onPress={this.onPress} />
         { this.getAgesItems() }
       </Container>
     )
