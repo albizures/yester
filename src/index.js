@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation'
 
 import Onboarding from './screens/Onboarding'
 import AccountSetup from './screens/AccountSetup'
-import LogIn from './screens/Login'
+import Login from './screens/Login'
 import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
 import Setup from './screens/Setup'
@@ -29,8 +29,8 @@ const RootStack = createStackNavigator({
   AccountSetup: {
     screen: AccountSetup,
   },
-  LogIn: {
-    screen: LogIn,
+  Login: {
+    screen: Login,
   },
   SignUp: {
     screen: SignUp,

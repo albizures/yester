@@ -12,7 +12,7 @@ exports[`src/screens/Login.js should render 1`] = `
       ]
     }
   >
-    LOG IN
+    LOGIN
   </Text>
   <View
     accessibilityComponentType="button"
