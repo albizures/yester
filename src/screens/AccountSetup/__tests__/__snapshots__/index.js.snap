@@ -139,7 +139,7 @@ exports[`src/screens/AccountSetup should render 1`] = `
                   }
                 }
               >
-                When di you saw this beautiful Earth for the first time?
+                When did you saw this beautiful Earth for the first time?
               </Text>
             </View>
           </View>
