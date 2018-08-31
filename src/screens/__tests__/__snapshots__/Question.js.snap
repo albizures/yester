@@ -58,5 +58,218 @@ exports[`src/screens/ConfirmEmail.js should render 1`] = `
       </Text>
     </View>
   </View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "borderColor": "#fff",
+          "borderRadius": 30,
+          "borderWidth": 0.5,
+          "elevation": 8,
+          "flex": 1,
+          "height": 520,
+          "marginBottom": 10,
+          "marginTop": 10,
+          "shadowColor": "#D5D3DD",
+          "shadowOffset": Object {
+            "height": 8,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 15,
+          "width": 340,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderRadius": 30,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-evenly",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "height": 50,
+              "justifyContent": "center",
+              "marginLeft": 30,
+              "width": 220,
+            }
+          }
+        >
+          <Text
+            numberOfLines={2}
+            style={
+              Array [
+                Object {
+                  "color": "#313131",
+                  "fontFamily": "Karla-Regular",
+                  "fontSize": 18,
+                  "textAlign": "left",
+                },
+                Object {
+                  "flexWrap": "wrap",
+                },
+              ]
+            }
+          >
+            Question Card
+          </Text>
+        </View>
+        <Image
+          resizeMode="cover"
+          source={
+            Object {
+              "testUri": "../../../src/assets/button-plus.png",
+            }
+          }
+          style={
+            Object {
+              "height": 50,
+              "marginRight": 17,
+              "width": 50,
+            }
+          }
+        />
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            undefined,
+            Object {
+              "borderRadius": 24,
+              "borderWidth": 2,
+              "height": 50,
+              "justifyContent": "center",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+            },
+            Object {
+              "backgroundColor": "#4241B3",
+              "borderColor": "#4241B3",
+            },
+            Object {
+              "width": 300,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#fff",
+                },
+              ]
+            }
+          >
+            Primary
+          </Text>
+        </View>
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            undefined,
+            Object {
+              "borderRadius": 24,
+              "borderWidth": 2,
+              "height": 50,
+              "justifyContent": "center",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+            },
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#4241B3",
+            },
+            Object {
+              "width": 300,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#4241B3",
+                },
+              ]
+            }
+          >
+            Secundary
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;
