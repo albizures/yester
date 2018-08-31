@@ -98,7 +98,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.yester"
+        applicationId "com.puchicapps.yester"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -137,6 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fbsdk')
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile project(':react-native-fbsdk')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-localization')
     compile fileTree(dir: "libs", include: ["*.jar"])
