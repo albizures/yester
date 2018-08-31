@@ -50,5 +50,7 @@
   "setup.place.form.title": "Where in the world did you happen to born?",
   "setup.done.title": "Alrighty, {name} from {place}, Nice to meet you 🤝",
   "setup.done.subtitle": "This is where we start our journey of writing your incredible story",
-  "continue": "continue"
+  "continue": "continue",
+  "questionCard.primary": "Primary",
+  "questionCard.secundary": "Secundary"
 }
