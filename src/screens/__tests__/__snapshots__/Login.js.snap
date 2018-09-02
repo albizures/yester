@@ -54,7 +54,7 @@ exports[`src/screens/Login.js should render 1`] = `
           ]
         }
       >
-        to Home
+        Login with Facebook
       </Text>
     </View>
   </View>
