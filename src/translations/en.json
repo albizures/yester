@@ -52,5 +52,9 @@
   "setup.done.subtitle": "This is where we start our journey of writing your incredible story",
   "continue": "continue",
   "questionCard.primary": "Primary",
-  "questionCard.secundary": "Secundary"
+  "questionCard.secundary": "Secundary",
+  "signin.firstName": "First Name",
+  "signin.lastName": "Last Name",
+  "signin.email": "Email",
+  "signin.password": "Password"
 }
