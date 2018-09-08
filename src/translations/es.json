@@ -91,5 +91,7 @@
   "setup.place.title": "The {year}'s! Awesome! 🙌",
   "setup.place.subtitle": "What a great era for this legend to begin.",
   "setup.place.form.title": "Where in the world did you happen to born?",
-  "continue": "continue"
+  "continue": "continue",
+  "signin.title": "Sign in",
+  "signin.submit": "Create Account"
 }
