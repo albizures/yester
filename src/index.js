@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
+import Amplify, { Auth } from 'aws-amplify'
+import {
+  AWS_REGION,
+  AWS_IDENTITY_POOL_ID,
+  AWS_USER_POOL_ID,
+  AWS_USER_CLIENT_POOL_ID,
+} from 'react-native-dotenv'
 
 import Onboarding from './screens/Onboarding'
 import AccountSetup from './screens/AccountSetup'
@@ -12,7 +19,7 @@ import Setup from './screens/Setup'
 import Setup1 from './screens/Setup-1'
 import Setup2 from './screens/Setup-2'
 import SignIn from './screens/SignIn'
-import ConfirmEmail from './screens/ConfirmEmail'
+import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
 import Home2 from './screens/Home-2'
 import Home3 from './screens/Home-3'
@@ -27,6 +34,30 @@ import Notifications from './screens/Notifications'
 import Terms from './screens/Terms'
 import Facebook from './screens/Facebook'
 import http from './utils/http'
+
+Amplify.configure({
+  Auth: {
+    identityPoolId: AWS_IDENTITY_POOL_ID,
+    region: AWS_REGION,
+    userPoolId: AWS_USER_POOL_ID,
+    userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
+  },
+  API: {
+    endpoints: [
+      {
+        name: 'dev',
+        endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
+        custom_header: async () => {
+          const currentSession = await Auth.currentSession()
+          console.log('currentSession', currentSession)
+          return {
+            Authorization: currentSession.idToken.jwtToken,
+          }
+        },
+      },
+    ],
+  },
+})
 
 const RootStack = createStackNavigator({
   Onboarding: {
@@ -59,8 +90,8 @@ const RootStack = createStackNavigator({
   SignIn: {
     screen: SignIn,
   },
-  ConfirmEmail: {
-    screen: ConfirmEmail,
+  ConfirmAccount: {
+    screen: ConfirmAccount,
   },
   Home: {
     screen: Home,
@@ -105,7 +136,7 @@ const RootStack = createStackNavigator({
   navigationOptions: {
     gesturesEnabled: false,
   },
-  initialRouteName: 'Login',
+  initialRouteName: 'SignIn',
   mode: 'modal',
   headerMode: 'none',
 })
