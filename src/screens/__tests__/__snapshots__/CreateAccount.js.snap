@@ -1,27 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`src/screens/CreateAccount.js should render 1`] = `
-<RCTScrollView
+<View
   style={
-    Array [
-      Object {
-        "alignContent": "center",
-        "backgroundColor": "#fff",
-        "flex": 1,
-        "flexDirection": "column",
-        "paddingHorizontal": 60,
-        "paddingTop": 100.05,
-      },
-    ]
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+      "paddingTop": 20,
+    }
   }
 >
-  <View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignContent": "center",
+          "backgroundColor": "#fff",
+          "flex": 1,
+          "flexDirection": "column",
+          "paddingBottom": 333.5,
+          "paddingHorizontal": 60,
+          "paddingTop": 100.05,
+        },
+      ]
+    }
+  >
     <Text
       style={
         Array [
           Object {
-            "color": "#309BF8",
-            "fontSize": 36,
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
+            "fontSize": 50,
             "fontWeight": "bold",
             "textAlign": "left",
           },
@@ -34,15 +44,14 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
         ]
       }
     >
-      <Text>
-        YESTER
-      </Text>
+      YESTER
     </Text>
     <Text
       style={
         Array [
           Object {
-            "color": "#309BF8",
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
             "fontSize": 20,
             "textAlign": "left",
           },
@@ -56,10 +65,8 @@ exports[`src/screens/CreateAccount.js should render 1`] = `
         ]
       }
     >
-      <Text>
-        Start it's simple. 
+      Start it's simple. 
 Let's begin with your account.
-      </Text>
     </Text>
     <View
       accessible={true}
@@ -72,40 +79,81 @@ Let's begin with your account.
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          undefined,
           Object {
-            "padding": 26.68,
+            "borderRadius": 24,
+            "borderWidth": 2,
+            "height": 50,
+            "justifyContent": "center",
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 3,
+              "width": 0,
+            },
           },
           Object {
-            "backgroundColor": "#309BF8",
-            "borderColor": "#309BF8",
-            "borderRadius": 53.36,
-            "borderWidth": 2,
+            "backgroundColor": "#4241B3",
+            "borderColor": "#4241B3",
+          },
+          Object {
+            "width": 300,
           },
         ]
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "color": "#fff",
-              "fontSize": 18,
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-          ]
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
         }
       >
-        <Text>
-          CONTINUE WITH FACEBOOK
+        <Image
+          source={
+            Object {
+              "testUri": "../../../src/assets/fb-no-oficial.png",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "height": 20,
+                "marginRight": 9,
+                "width": 20,
+              },
+              Object {
+                "tintColor": "#fff",
+              },
+            ]
+          }
+        />
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              Object {
+                "color": "#fff",
+              },
+            ]
+          }
+        >
+          Continue with Facebook
         </Text>
-      </Text>
+      </View>
     </View>
     <Text
       style={
         Array [
           Object {
-            "color": "#309BF8",
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
             "fontSize": 16,
             "textAlign": "center",
           },
@@ -115,29 +163,26 @@ Let's begin with your account.
         ]
       }
     >
-      <Text>
-        Recommended, to speed things up.
-      </Text>
+      Recommended, to speed things up.
     </Text>
     <View
       style={
-        Array [
-          Object {
-            "backgroundColor": "#fff",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "width": 225,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": 225,
+        }
       }
     >
       <View
         style={
           Array [
             Object {
-              "backgroundColor": "#A6D5FC",
-              "borderColor": "#A6D5FC",
+              "backgroundColor": "#D5D3DD",
+              "borderColor": "#D5D3DD",
               "borderRadius": 53.36,
               "borderWidth": 1,
               "height": 13.34,
@@ -148,15 +193,26 @@ Let's begin with your account.
           ]
         }
       />
-      <Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#313131",
+              "fontFamily": "Karla-Regular",
+              "fontSize": 20,
+              "textAlign": "left",
+            },
+          ]
+        }
+      >
         Or
       </Text>
       <View
         style={
           Array [
             Object {
-              "backgroundColor": "#A6D5FC",
-              "borderColor": "#A6D5FC",
+              "backgroundColor": "#D5D3DD",
+              "borderColor": "#D5D3DD",
               "borderRadius": 53.36,
               "borderWidth": 1,
               "height": 13.34,
@@ -179,41 +235,56 @@ Let's begin with your account.
       onStartShouldSetResponder={[Function]}
       style={
         Array [
+          undefined,
           Object {
-            "padding": 26.68,
+            "borderRadius": 24,
+            "borderWidth": 2,
+            "height": 50,
+            "justifyContent": "center",
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 3,
+              "width": 0,
+            },
           },
           Object {
             "backgroundColor": "#fff",
-            "borderColor": "#309BF8",
-            "borderRadius": 53.36,
-            "borderWidth": 2,
+            "borderColor": "#4241B3",
           },
           Object {
-            "marginBottom": 40.019999999999996,
+            "width": 300,
           },
         ]
       }
     >
-      <Text
+      <View
         style={
-          Array [
-            Object {
-              "color": "#fff",
-              "fontSize": 18,
-              "fontWeight": "bold",
-              "textAlign": "center",
-            },
-            Object {
-              "color": "#309BF8",
-            },
-          ]
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
         }
       >
-        <Text>
-          CREATE ACCOUNT
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "bold",
+                "textAlign": "center",
+              },
+              Object {
+                "color": "#4241B3",
+              },
+            ]
+          }
+        >
+          Create account
         </Text>
-      </Text>
+      </View>
     </View>
   </View>
-</RCTScrollView>
+</View>
 `;

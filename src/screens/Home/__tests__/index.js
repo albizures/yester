@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { Button, Alert } from 'react-native'
+import { View, Button, Alert } from 'react-native'
 
 import agesFixture from './__fixtures__/ages.json'
 import topicsFixture from './__fixtures__/topics.json'
@@ -45,7 +45,7 @@ describe('src/screens/Home/index.js', () => {
   })
 
   describe('when button is pressed', () => {
-    it('should navigate to Home2 screen', () => {
+    it('should navigate to Question screen', () => {
       const shallowHome = shallow(<Home navigation={navigation} />)
       const shallowTouchableHighlights = shallowHome.find(Button)
       const shallowButtonToHome2 = shallowTouchableHighlights.at(0)
@@ -53,7 +53,7 @@ describe('src/screens/Home/index.js', () => {
       shallowButtonToHome2.prop('onPress')()
 
       expect(navigation.navigate).toHaveBeenCalledTimes(1)
-      expect(navigation.navigate).toHaveBeenCalledWith('Home2')
+      expect(navigation.navigate).toHaveBeenCalledWith('Question')
     })
   })
 
@@ -122,7 +122,7 @@ describe('src/screens/Home/index.js', () => {
       })
 
       const shallowItem = shallow(home.renderTopicItem({ item: topic }))
-      expect(shallowItem.type()).toBe('Text')
+      expect(shallowItem.type()).toBe(View)
     })
   })
 })
