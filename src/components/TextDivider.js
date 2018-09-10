@@ -22,12 +22,17 @@ TextDivider.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
+    marginHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   section: {
     flex: 1,
   },
   divider: {
-    height: 1,
+    marginHorizontal: 11,
+    height: 0,
     borderWidth: 1,
     backgroundColor: colors.mischka,
     borderColor: colors.mischka,
