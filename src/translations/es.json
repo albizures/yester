@@ -17,6 +17,8 @@
   "createAccount.continue": "Continuar con Facebook",
   "createAccount.create": "Crear cuenta",
   "createAccount.or": "O",
+  "createAccount.member": "Already a member?",
+  "createAccount.login": "Log In",
   "questionItem.completed": "Completado",
   "email_valid1": "The E-mail Address must be a valid email address.",
   "password_valid1": "The Password must be at least 8 characters.",
