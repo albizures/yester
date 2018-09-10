@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Button, View } from 'react-native'
-// import PropTypes from 'prop-types'
 
 // import Translate from '../../components/Translate'
 import Container from '../../components/Container'
@@ -9,6 +9,10 @@ import Step from './Step'
 import Dots from './Dots'
 
 export default class Onboarding extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+  }
+
   state = {
     steps: [{
       cover: require('../../assets/300x300.png'),
@@ -31,16 +35,24 @@ export default class Onboarding extends Component {
     )
   }
 
+  toLogin = () => {
+    const { navigation } = this.props
+    navigation.navigate('CreateAccount')
+  }
+
   getBottomBar = (options) => {
     const { steps } = this.state
     const { next, currentStep, skip } = options
+    const nextScreen = (steps.length - 1 === currentStep)
+      ? this.toLogin
+      : next
 
     return (
       <View>
         <Dots steps={steps.length} currentStep={currentStep} />
         {/* TODO use our custom button here */}
         <Button title='Skip' onPress={skip} />
-        <Button title='Continue' onPress={next} />
+        <Button title='Continue' onPress={nextScreen} />
       </View>
     )
   }

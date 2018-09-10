@@ -63,16 +63,16 @@ export default class SignIn extends Component {
         <Translate keyName='signin.title' style={[{textAlign: 'center', marginTop: 40}]} />
         <Translate keyName='signin.subtitle' style={[{textAlign: 'center', marginTop: 40}]} />
         <View style={styles.input}>
-          <TextInput style={styles.borderColor} value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
+          <TextInput value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
         </View>
         <View style={styles.input}>
-          <TextInput style={styles.borderColor} value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
+          <TextInput value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
         </View>
         <View style={styles.input}>
-          <TextInput style={styles.borderColor} value={email} onChangeText={text => this.onChange(text, 'email')} />
+          <TextInput value={email} onChangeText={text => this.onChange(text, 'email')} />
         </View>
         <View style={styles.input}>
-          <TextInput secureTextEntry style={styles.borderColor} value={password} onChangeText={text => this.onChange(text, 'password')} />
+          <TextInput secureTextEntry value={password} onChangeText={text => this.onChange(text, 'password')} />
         </View>
         <Button title='signin.submit' onPress={this.onPress} />
       </Container>

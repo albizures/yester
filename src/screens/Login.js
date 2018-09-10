@@ -1,55 +1,76 @@
-import Amplify, { Auth } from 'aws-amplify'
-// import PropTypes from 'prop-types'
+import { Auth } from 'aws-amplify'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Text, View, Button, Alert, AsyncStorage } from 'react-native'
-import { LoginManager, AccessToken } from 'react-native-fbsdk'
-import {
-  AWS_REGION,
-  AWS_IDENTITY_POOL_ID,
-  AWS_USER_POOL_ID,
-  AWS_USER_CLIENT_POOL_ID,
-} from 'react-native-dotenv'
+import { Text, Alert, AsyncStorage, View, TextInput, StyleSheet } from 'react-native'
 
-import { getCurrentProfile } from '../utils/fbHelper'
+import icons from '../utils/icons'
+import colors from '../utils/colors'
 
-const permissions = ['email', 'public_profile']
+import Button from '../components/Button'
+import { Title } from '../components/Translate'
+import Container from '../components/Container'
+import withFBLogin from '../components/withFBLogin'
+import TextDivider from '../components/TextDivider'
 
-Amplify.configure({
-  Auth: {
-    identityPoolId: AWS_IDENTITY_POOL_ID,
-    region: AWS_REGION,
-    userPoolId: AWS_USER_POOL_ID,
-    userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
-  },
-})
+class Login extends Component {
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    onLoginWithFB: PropTypes.func.isRequired,
+  }
 
-export default class Login extends Component {
-  // static propTypes = {
-  //   navigation: PropTypes.object.isRequired,
-  // }
+  state = {
+    email: '',
+    password: '',
+  }
 
-  onPress = async () => {
+  onFBLogin = async () => {
+    const { onLoginWithFB, navigation } = this.props
+
     try {
-      const { isCancelled } = await LoginManager.logInWithReadPermissions(permissions)
-      if (isCancelled) {
-        throw new Error('Login cancelled')
-      }
-      const { accessToken: token, expirationTime: expires } = await AccessToken.getCurrentAccessToken()
-      const profile = await getCurrentProfile()
+      const { token, expires, profile } = onLoginWithFB()
       const { sessionToken } = await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
-      AsyncStorage.setItem('token', sessionToken)
+      AsyncStorage.setItem('userToken', sessionToken)
+      navigation.navigate('App')
     } catch (error) {
       console.log('Login', error)
       Alert.alert(error.message)
     }
   }
 
+  onChange = (value, name) => {
+    this.setState({
+      [name]: value,
+    })
+  }
+
   render () {
+    const { email, password } = this.state
     return (
-      <View>
+      <Container>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>LOG IN</Text>
-        <Button title='Login with Facebook' onPress={this.onPress} />
-      </View>
+        <Button onPress={this.onFBLogin} title='createAccount.continue' icon={icons.fb} />
+        <TextDivider>
+          <Title keyName='createAccount.or' />
+        </TextDivider>
+        <View style={styles.input}>
+          <TextInput value={email} onChangeText={text => this.onChange(text, 'email')} />
+        </View>
+        <View style={styles.input}>
+          <TextInput secureTextEntry value={password} onChangeText={text => this.onChange(text, 'password')} />
+        </View>
+        <Button onPress={this.onFBLogin} title='createAccount.login' type={Button.OUTLINED} />
+      </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  input: {
+    borderColor: colors.black,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    marginBottom: 10,
+  },
+})
+
+export default withFBLogin(Login)

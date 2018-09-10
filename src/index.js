@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import Amplify, { Auth } from 'aws-amplify'
 import {
   AWS_REGION,
@@ -25,6 +25,8 @@ import Profile from './screens/Profile'
 import Settings from './screens/Settings'
 import Language from './screens/Language'
 import Notifications from './screens/Notifications'
+import AppLoading from './screens/AppLoading'
+
 import Terms from './screens/Terms'
 import Facebook from './screens/Facebook'
 import http from './utils/http'
@@ -53,30 +55,9 @@ Amplify.configure({
   },
 })
 
-const RootStack = createStackNavigator({
+const AppStack = createStackNavigator({
   Onboarding: {
     screen: Onboarding,
-  },
-  AccountSetup: {
-    screen: AccountSetup,
-  },
-  Login: {
-    screen: Login,
-  },
-  SignUp: {
-    screen: SignUp,
-  },
-  CreateAccount: {
-    screen: CreateAccount,
-  },
-  Setup: {
-    screen: Setup,
-  },
-  SignIn: {
-    screen: SignIn,
-  },
-  ConfirmAccount: {
-    screen: ConfirmAccount,
   },
   Home: {
     screen: Home,
@@ -109,12 +90,44 @@ const RootStack = createStackNavigator({
     screen: Facebook,
   },
 }, {
-  navigationOptions: {
-    gesturesEnabled: false,
+  initialRouteName: 'Home',
+})
+
+const AuthStack = createStackNavigator({
+  Onboarding: {
+    screen: Onboarding,
   },
-  initialRouteName: 'SignIn',
-  mode: 'modal',
-  headerMode: 'none',
+  AccountSetup: {
+    screen: AccountSetup,
+  },
+  Login: {
+    screen: Login,
+  },
+  SignUp: {
+    screen: SignUp,
+  },
+  CreateAccount: {
+    screen: CreateAccount,
+  },
+  Setup: {
+    screen: Setup,
+  },
+  SignIn: {
+    screen: SignIn,
+  },
+  ConfirmAccount: {
+    screen: ConfirmAccount,
+  },
+}, {
+  initialRouteName: 'Onboarding',
+})
+
+const RootStack = createSwitchNavigator({
+  App: AppStack,
+  Auth: AuthStack,
+  AppLoading,
+}, {
+  initialRouteName: 'AppLoading',
 })
 
 const testUrl = 'https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22'
