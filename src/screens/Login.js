@@ -1,10 +1,11 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Text, Alert, AsyncStorage, View, TextInput, StyleSheet } from 'react-native'
+import { Text, Alert, View, TextInput, StyleSheet } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
+import { logIn, saveUserToken } from '../utils/session'
 
 import Button from '../components/Button'
 import { Title } from '../components/Translate'
@@ -28,8 +29,20 @@ class Login extends Component {
 
     try {
       const { token, expires, profile } = onLoginWithFB()
-      const { sessionToken } = await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
-      AsyncStorage.setItem('userToken', sessionToken)
+      await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
+      await saveUserToken()
+      navigation.navigate('App')
+    } catch (error) {
+      console.log('Login', error)
+      Alert.alert(error.message)
+    }
+  }
+
+  onLogin = async () => {
+    const { navigation } = this.props
+    const { email, password } = this.state
+    try {
+      await logIn(email, password)
       navigation.navigate('App')
     } catch (error) {
       console.log('Login', error)
@@ -58,7 +71,7 @@ class Login extends Component {
         <View style={styles.input}>
           <TextInput secureTextEntry value={password} onChangeText={text => this.onChange(text, 'password')} />
         </View>
-        <Button onPress={this.onFBLogin} title='createAccount.login' type={Button.OUTLINED} />
+        <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
       </Container>
     )
   }

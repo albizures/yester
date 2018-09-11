@@ -38,21 +38,6 @@ Amplify.configure({
     userPoolId: AWS_USER_POOL_ID,
     userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
   },
-  API: {
-    endpoints: [
-      {
-        name: 'dev',
-        endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
-        custom_header: async () => {
-          const currentSession = await Auth.currentSession()
-          console.log('currentSession', currentSession)
-          return {
-            Authorization: currentSession.idToken.jwtToken,
-          }
-        },
-      },
-    ],
-  },
 })
 
 const AppStack = createStackNavigator({
