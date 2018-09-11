@@ -8,14 +8,14 @@ export default class Setup extends Component {
   }
 
   onPress = () => {
-    this.props.navigation.navigate('Setup1')
+    this.props.navigation.navigate('Home')
   }
 
   render () {
     return (
       <View>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>SETUP</Text>
-        <Button title='to Setup-1' onPress={this.onPress} />
+        <Button title='to Home' onPress={this.onPress} />
       </View>
     )
   }

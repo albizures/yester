@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import renderer from 'react-test-renderer'
-import { TouchableHighlight } from 'react-native'
+import Button from '../../components/Button'
 
 import SignUp from '../SignUp'
 const navigation = {
@@ -15,17 +15,25 @@ describe('src/screens/SignUp.js', () => {
   })
 
   describe('when button to free trial is pressed', () => {
-    it('should navigate to SignUp screen', () => {
+    it('should navigate to CreateAccount screen', () => {
       const shallowLogin = shallow(<SignUp navigation={navigation} />)
-      const shallowTouchableHighlights = shallowLogin.find(TouchableHighlight)
+      const shallowTouchableHighlights = shallowLogin.find(Button)
       const shallowButtonToSubscription = shallowTouchableHighlights.at(0)
-      const shallowButtonToLogin = shallowTouchableHighlights.at(1)
-
-      shallowButtonToLogin.prop('onPress')()
       shallowButtonToSubscription.prop('onPress')()
 
+      expect(navigation.navigate).toHaveBeenCalledTimes(1)
+      expect(navigation.navigate).toHaveBeenCalledWith('CreateAccount')
+    })
+  })
+
+  describe('when button Log in is pressed', () => {
+    it('should navigate to Login screen', () => {
+      const shallowLogin = shallow(<SignUp navigation={navigation} />)
+      const shallowTouchableHighlights = shallowLogin.find(Button)
+      const shallowButtonToLogin = shallowTouchableHighlights.at(1)
+      shallowButtonToLogin.prop('onPress')()
+
       expect(navigation.navigate).toHaveBeenCalledTimes(2)
-      expect(navigation.navigate).toHaveBeenCalledWith('SignUp2')
       expect(navigation.navigate).toHaveBeenCalledWith('Login')
     })
   })

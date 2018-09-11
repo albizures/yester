@@ -6,18 +6,12 @@ import Onboarding from './screens/Onboarding'
 import AccountSetup from './screens/AccountSetup'
 import LogIn from './screens/Login'
 import SignUp from './screens/SignUp'
-import SignUp2 from './screens/SignUp-2'
 import CreateAccount from './screens/CreateAccount'
 import Setup from './screens/Setup'
-import Setup1 from './screens/Setup-1'
-import Setup2 from './screens/Setup-2'
 import SignIn from './screens/SignIn'
 import ConfirmEmail from './screens/ConfirmEmail'
 import Home from './screens/Home'
-import Home2 from './screens/Home-2'
-import Home3 from './screens/Home-3'
 import Question from './screens/Question'
-import Question2 from './screens/Question-2'
 import Writing from './screens/Writing'
 import Reading from './screens/Reading'
 import Profile from './screens/Profile'
@@ -41,20 +35,11 @@ const RootStack = createStackNavigator({
   SignUp: {
     screen: SignUp,
   },
-  SignUp2: {
-    screen: SignUp2,
-  },
   CreateAccount: {
     screen: CreateAccount,
   },
   Setup: {
     screen: Setup,
-  },
-  Setup1: {
-    screen: Setup1,
-  },
-  Setup2: {
-    screen: Setup2,
   },
   SignIn: {
     screen: SignIn,
@@ -65,17 +50,8 @@ const RootStack = createStackNavigator({
   Home: {
     screen: Home,
   },
-  Home2: {
-    screen: Home2,
-  },
-  Home3: {
-    screen: Home3,
-  },
   Question: {
     screen: Question,
-  },
-  Question2: {
-    screen: Question2,
   },
   Writing: {
     screen: Writing,
