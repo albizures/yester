@@ -70,7 +70,6 @@ describe('src/screens/Home/index.js', () => {
       })
 
       const shallowItem = shallow(home.getAgesItems({ item: age }))
-      console.log(JSON.stringify(shallowItem))
       expect(shallowItem.length).toBe(1)
     })
   })

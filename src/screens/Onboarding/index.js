@@ -60,7 +60,6 @@ export default class Onboarding extends Component {
   render () {
     const { steps } = this.state
 
-    console.log(require('../../assets/300x300.png'))
     return (
       <Container>
         <Stepper bottomBar={this.getBottomBar}>

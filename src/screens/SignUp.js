@@ -16,7 +16,6 @@ class SignUp extends Component {
   }
 
   onPressSubscription = () => {
-    console.log('Alert to confirm subscription!!')
     this.props.navigation.navigate('CreateAccount')
   }
 

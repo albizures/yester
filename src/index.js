@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
-import Amplify, { Auth } from 'aws-amplify'
+import Amplify from 'aws-amplify'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,

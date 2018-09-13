@@ -15,7 +15,7 @@ beforeEach(() => {
   Alert.alert.mockClear()
 })
 
-describe('src/screens/Login.js', () => {
+describe.skip('src/screens/Login.js', () => {
   it('should render', () => {
     const tree = renderer.create(<Login navigation={navigation} />).toJSON()
     expect(tree).toMatchSnapshot()
