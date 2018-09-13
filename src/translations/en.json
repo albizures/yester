@@ -17,6 +17,8 @@
   "createAccount.continue": "Continue with Facebook",
   "createAccount.create": "Create account",
   "createAccount.or": "Or",
+  "createAccount.member": "Already a member?",
+  "createAccount.login": "Log In",
   "questionItem.completed": "Completed",
   "email_valid1": "The E-mail Address must be a valid email address.",
   "password_valid1": "The Password must be at least 8 characters.",
@@ -25,7 +27,6 @@
   "pwd_hint1": "Password",
   "pwd_lbl1": "Password",
   "accept_terms1": "By continuing signing in you accept our Terms and conditions",
-  "signin_bttn1": "Sign in",
   "fb_bttn1": "CONTINUE WITH FACEBOOK",
   "signup_bttn1": "Not registered yet? Sign Up",
   "welcome_lbl1": "Welcome, .",
@@ -85,5 +86,13 @@
   "setup.place.form.title": "Where in the world did you happen to born?",
   "setup.done.title": "Alrighty, {name} from {place}, Nice to meet you 🤝",
   "setup.done.subtitle": "This is where we start our journey of writing your incredible story",
-  "continue": "continue"
+  "continue": "continue",
+  "signin.title": "Sign in",
+  "signin.subtitle": "Starting this journey is simpler, fast and secure!",
+  "signin.submit": "Create Account",
+  "confirm.title": "Success!",
+  "confirm.subtitle": "Thanks for signing into Yester.",
+  "confirm.label": "We have sent a confirming code to",
+  "confirm.note": "Please confirm by clicking on the link we have sent.",
+  "confirm.submit": "Log in Now"
 }

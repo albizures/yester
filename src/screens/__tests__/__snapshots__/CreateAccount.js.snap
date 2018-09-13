@@ -3,151 +3,304 @@
 exports[`src/screens/CreateAccount.js should render 1`] = `
 <View
   style={
-    Object {
-      "backgroundColor": "#fff",
-      "flex": 1,
-      "paddingTop": 20,
-    }
+    Array [
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+        "paddingTop": 20,
+      },
+      Object {
+        "alignContent": "center",
+        "backgroundColor": "#fff",
+        "flexDirection": "column",
+        "paddingBottom": 333.5,
+        "paddingHorizontal": 60,
+      },
+    ]
   }
 >
-  <View
+  <Text
     style={
       Array [
         Object {
-          "alignContent": "center",
-          "backgroundColor": "#fff",
-          "flex": 1,
-          "flexDirection": "column",
-          "paddingBottom": 333.5,
-          "paddingHorizontal": 60,
-          "paddingTop": 100.05,
+          "color": "#313131",
+          "fontFamily": "Karla-Regular",
+          "fontSize": 50,
+          "fontWeight": "bold",
+          "textAlign": "left",
+        },
+        Object {
+          "marginBottom": 40.019999999999996,
+        },
+        Object {
+          "textAlign": "center",
         },
       ]
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#313131",
-            "fontFamily": "Karla-Regular",
-            "fontSize": 50,
-            "fontWeight": "bold",
-            "textAlign": "left",
-          },
-          Object {
-            "marginBottom": 40.019999999999996,
-          },
-          Object {
-            "textAlign": "center",
-          },
-        ]
-      }
-    >
-      YESTER
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#313131",
-            "fontFamily": "Karla-Regular",
-            "fontSize": 20,
-            "textAlign": "left",
-          },
-          Object {
-            "marginBottom": 40.019999999999996,
-          },
-          Object {
-            "fontWeight": "bold",
-            "textAlign": "center",
-          },
-        ]
-      }
-    >
-      Start it's simple. 
+    YESTER
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#313131",
+          "fontSize": 20,
+          "textAlign": "left",
+        },
+        Object {
+          "marginBottom": 40.019999999999996,
+        },
+        Object {
+          "fontWeight": "bold",
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Start it's simple. 
 Let's begin with your account.
-    </Text>
+  </Text>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        undefined,
+        Object {
+          "borderRadius": 24,
+          "borderWidth": 2,
+          "height": 50,
+          "justifyContent": "center",
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 0,
+          },
+        },
+        Object {
+          "backgroundColor": "#4241B3",
+          "borderColor": "#4241B3",
+        },
+        Object {
+          "width": 300,
+        },
+      ]
+    }
+  >
     <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          undefined,
-          Object {
-            "borderRadius": 24,
-            "borderWidth": 2,
-            "height": 50,
-            "justifyContent": "center",
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 3,
-              "width": 0,
-            },
-          },
-          Object {
-            "backgroundColor": "#4241B3",
-            "borderColor": "#4241B3",
-          },
-          Object {
-            "width": 300,
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
       }
     >
-      <View
-        style={
+      <Image
+        source={
           Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "center",
+            "testUri": "../../../src/assets/fb-no-oficial.png",
           }
         }
-      >
-        <Image
-          source={
+        style={
+          Array [
             Object {
-              "testUri": "../../../src/assets/fb-no-oficial.png",
-            }
-          }
-          style={
-            Array [
-              Object {
-                "height": 20,
-                "marginRight": 9,
-                "width": 20,
-              },
-              Object {
-                "tintColor": "#fff",
-              },
-            ]
-          }
-        />
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 18,
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              Object {
-                "color": "#fff",
-              },
-            ]
-          }
-        >
-          Continue with Facebook
-        </Text>
-      </View>
+              "height": 20,
+              "marginRight": 9,
+              "width": 20,
+            },
+            Object {
+              "tintColor": "#fff",
+            },
+          ]
+        }
+      />
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 18,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            },
+            Object {
+              "color": "#fff",
+            },
+          ]
+        }
+      >
+        Continue with Facebook
+      </Text>
     </View>
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#313131",
+          "fontFamily": "Karla-Regular",
+          "fontSize": 16,
+          "textAlign": "center",
+        },
+        Object {
+          "marginBottom": 40.019999999999996,
+        },
+      ]
+    }
+  >
+    Recommended, to speed things up.
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginHorizontal": 10,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 1,
+            "height": 0,
+            "marginHorizontal": 11,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    />
+    <View
+      styles={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#313131",
+              "fontSize": 20,
+              "textAlign": "left",
+            },
+            undefined,
+          ]
+        }
+      >
+        Or
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 1,
+            "height": 0,
+            "marginHorizontal": 11,
+          },
+          Object {
+            "flex": 1,
+          },
+        ]
+      }
+    />
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        undefined,
+        Object {
+          "borderRadius": 24,
+          "borderWidth": 2,
+          "height": 50,
+          "justifyContent": "center",
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 0,
+          },
+        },
+        Object {
+          "backgroundColor": "#fff",
+          "borderColor": "#4241B3",
+        },
+        Object {
+          "width": 300,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 18,
+              "fontWeight": "bold",
+              "textAlign": "center",
+            },
+            Object {
+              "color": "#4241B3",
+            },
+          ]
+        }
+      >
+        Create account
+      </Text>
+    </View>
+  </View>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 1,
+            "height": 1,
+            "marginHorizontal": 22,
+            "padding": 0,
+          },
+          undefined,
+        ]
+      }
+    />
     <Text
       style={
         Array [
@@ -157,134 +310,26 @@ Let's begin with your account.
             "fontSize": 16,
             "textAlign": "center",
           },
-          Object {
-            "marginBottom": 40.019999999999996,
-          },
         ]
       }
     >
-      Recommended, to speed things up.
+      Already a member?
     </Text>
-    <View
-      style={
-        Object {
-          "alignItems": "center",
-          "alignSelf": "center",
-          "flex": 1,
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-          "width": 225,
-        }
-      }
-    >
-      <View
-        style={
-          Array [
-            Object {
-              "backgroundColor": "#D5D3DD",
-              "borderColor": "#D5D3DD",
-              "borderRadius": 53.36,
-              "borderWidth": 1,
-              "height": 13.34,
-            },
-            Object {
-              "width": 30,
-            },
-          ]
-        }
-      />
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "#313131",
-              "fontFamily": "Karla-Regular",
-              "fontSize": 20,
-              "textAlign": "left",
-            },
-          ]
-        }
-      >
-        Or
-      </Text>
-      <View
-        style={
-          Array [
-            Object {
-              "backgroundColor": "#D5D3DD",
-              "borderColor": "#D5D3DD",
-              "borderRadius": 53.36,
-              "borderWidth": 1,
-              "height": 13.34,
-            },
-            Object {
-              "width": 30,
-            },
-          ]
-        }
-      />
-    </View>
-    <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Text
+      onPress={[Function]}
       style={
         Array [
-          undefined,
           Object {
-            "borderRadius": 24,
-            "borderWidth": 2,
-            "height": 50,
-            "justifyContent": "center",
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 3,
-              "width": 0,
-            },
-          },
-          Object {
-            "backgroundColor": "#fff",
-            "borderColor": "#4241B3",
-          },
-          Object {
-            "width": 300,
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
+            "fontSize": 16,
+            "textAlign": "center",
           },
         ]
       }
     >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "center",
-          }
-        }
-      >
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 18,
-                "fontWeight": "bold",
-                "textAlign": "center",
-              },
-              Object {
-                "color": "#4241B3",
-              },
-            ]
-          }
-        >
-          Create account
-        </Text>
-      </View>
-    </View>
+      Log In
+    </Text>
   </View>
 </View>
 `;
