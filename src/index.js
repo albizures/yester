@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
 import {
   AWS_REGION,
@@ -28,7 +28,6 @@ import Notifications from './screens/Notifications'
 import AppLoading from './screens/AppLoading'
 
 import Terms from './screens/Terms'
-import Facebook from './screens/Facebook'
 import http from './utils/http'
 
 Amplify.configure({
@@ -40,75 +39,56 @@ Amplify.configure({
   },
 })
 
-const AppStack = createStackNavigator({
-  Onboarding: {
-    screen: Onboarding,
-  },
-  Home: {
-    screen: Home,
-  },
-  Question: {
-    screen: Question,
-  },
-  Writing: {
-    screen: Writing,
-  },
-  Reading: {
-    screen: Reading,
-  },
-  Profile: {
-    screen: Profile,
-  },
-  Settings: {
-    screen: Settings,
-  },
-  Language: {
-    screen: Language,
-  },
-  Notifications: {
-    screen: Notifications,
-  },
-  Terms: {
-    screen: Terms,
-  },
-  Facebook: {
-    screen: Facebook,
-  },
+const FeedStack = createStackNavigator({
+  Home,
+  Writing,
+  Reading,
+  Question,
 }, {
+  mode: 'modal',
+  headerMode: 'none',
   initialRouteName: 'Home',
 })
 
-const AuthStack = createStackNavigator({
-  Onboarding: {
-    screen: Onboarding,
-  },
-  AccountSetup: {
-    screen: AccountSetup,
-  },
-  Login: {
-    screen: Login,
-  },
-  SignUp: {
-    screen: SignUp,
-  },
-  CreateAccount: {
-    screen: CreateAccount,
-  },
-  Setup: {
-    screen: Setup,
-  },
-  SignIn: {
-    screen: SignIn,
-  },
-  ConfirmAccount: {
-    screen: ConfirmAccount,
-  },
+const SettingsStack = createStackNavigator({
+  SettingsHome: Settings,
+  Language,
+  Notifications,
+  Terms,
 }, {
+  mode: 'modal',
+  headerMode: 'none',
+  initialRouteName: 'SettingsHome',
+})
+
+const MainTab = createBottomTabNavigator({
+  Feed: FeedStack,
+  Profile,
+  Settings: SettingsStack,
+}, {
+  animationEnabled: true,
+  swipeEnabled: true,
+  initialRouteName: 'Feed',
+  headerMode: 'none',
+})
+
+const AuthStack = createStackNavigator({
+  Onboarding,
+  AccountSetup,
+  Login,
+  SignUp,
+  CreateAccount,
+  Setup,
+  SignIn,
+  ConfirmAccount,
+}, {
+  headerMode: 'none',
+  mode: 'modal',
   initialRouteName: 'Onboarding',
 })
 
 const RootStack = createSwitchNavigator({
-  App: AppStack,
+  App: MainTab,
   Auth: AuthStack,
   AppLoading,
 }, {

@@ -15,3 +15,8 @@ export const logIn = async (email, password) => {
   await Auth.signIn(email, password)
   await saveUserToken()
 }
+
+export const logOut = async () => {
+  await AsyncStorage.clear()
+  delete instance.defaults.headers.common['Authorization']
+}

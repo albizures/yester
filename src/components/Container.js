@@ -23,7 +23,7 @@ const Container = (props) => {
   }
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, style, !topBar ? { paddingTop: top } : undefined]}>
       <Loading top={top} isLoading={isLoading}>
         {topBar}
         <ConditionalWrapper component={ScrollView} condition={scroll} props={ScrollViewProps}>
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.white,
-    paddingTop: top,
     flex: 1,
   },
 })

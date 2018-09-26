@@ -96,5 +96,6 @@
   "setup.place.form.title": "Where in the world did you happen to born?",
   "continue": "continue",
   "signin.title": "Sign in",
-  "signin.submit": "Create Account"
+  "signin.submit": "Create Account",
+  "settings.title": "Settings"
 }
