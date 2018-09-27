@@ -1,9 +1,18 @@
 # yester
 
+## Setup
+### 1. Create .env file in the project root with the following variables:
+```
+HOST=*****
+AWS_REGION=*****
+AWS_IDENTITY_POOL_ID=*****
+AWS_USER_POOL_ID=*****
+AWS_USER_CLIENT_POOL_ID=*****
+```
+
 ## How to run it?
 
 ```sh
-echo "HOST=http://example.com" > .env
 npm install
 
 npm run start:ios

@@ -24,23 +24,19 @@ const Button = (props) => {
   const typeStyle = typeStyles[disabled ? states.DISABLED : states.ENABLED][type]
   const sizeStyle = sizeStyles[size]
 
-  var image
-
-  if (icon != null) {
-    image = <Image source={icon} style={[styles.icon, typeStyle.icon]} />
-  }
-
   return (
-    <TouchableHighlight {...props}
-      style={[props.style, styles.button, typeStyle.button, sizeStyle.button]}>
+    <TouchableHighlight {...props} style={[props.style, styles.button, typeStyle.button, sizeStyle.button]}>
       <View style={styles.row}>
-        {image}
-        <Translate keyName={title}
-          style={[styles.text, typeStyle.text]} />
+        {icon && (
+          <Image source={icon} style={[styles.icon, typeStyle.icon]} />
+        )}
+        <Translate keyName={title} style={[styles.text, typeStyle.text]} />
       </View>
     </TouchableHighlight>
   )
 }
+
+Object.assign(Button, types, sizes, states)
 
 Button.propTypes = {
   style: ViewPropTypes.style,
@@ -92,7 +88,7 @@ const styles = StyleSheet.create({
 
 const typeStyles = {
   [states.ENABLED]: {
-    [types.FILLED]: {
+    [types.FILLED]: StyleSheet.create({
       button: {
         backgroundColor: colors.governorBay,
         borderColor: colors.governorBay,
@@ -103,8 +99,8 @@ const typeStyles = {
       icon: {
         tintColor: colors.white,
       },
-    },
-    [types.OUTLINED]: {
+    }),
+    [types.OUTLINED]: StyleSheet.create({
       button: {
         backgroundColor: colors.white,
         borderColor: colors.governorBay,
@@ -115,10 +111,10 @@ const typeStyles = {
       icon: {
         tintColor: colors.governorBay,
       },
-    },
+    }),
   },
   [states.DISABLED]: {
-    [types.FILLED]: {
+    [types.FILLED]: StyleSheet.create({
       button: {
         backgroundColor: colors.mischka,
         borderColor: colors.mischka,
@@ -129,8 +125,8 @@ const typeStyles = {
       icon: {
         tintColor: colors.white,
       },
-    },
-    [types.OUTLINED]: {
+    }),
+    [types.OUTLINED]: StyleSheet.create({
       button: {
         backgroundColor: colors.white,
         borderColor: colors.mischka,
@@ -141,21 +137,21 @@ const typeStyles = {
       icon: {
         tintColor: colors.mischka,
       },
-    },
+    }),
   },
 }
 
 const sizeStyles = {
-  [sizes.NORMAL]: {
+  [sizes.NORMAL]: StyleSheet.create({
     button: {
       width: 300,
     },
-  },
-  [sizes.SMALL]: {
+  }),
+  [sizes.SMALL]: StyleSheet.create({
     button: {
       width: 150,
     },
-  },
+  }),
 }
 
 export default Button

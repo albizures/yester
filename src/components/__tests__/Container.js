@@ -88,7 +88,7 @@ describe('src/components/Container.js', () => {
 
     it('should add 20pt in the top as paddingTop', () => {
       const shallowContainer = render()
-      expect(shallowContainer.prop('style').paddingTop).toBe(20)
+      expect(shallowContainer.prop('style')[0].paddingTop).toBe(20)
     })
   })
   describe('when is android', () => {
@@ -105,7 +105,7 @@ describe('src/components/Container.js', () => {
 
     it('should add not 20pt in the top as paddingTop', () => {
       const shallowContainer = render()
-      expect(shallowContainer.prop('style').paddingTop).toBe(0)
+      expect(shallowContainer.prop('style')[0].paddingTop).toBe(0)
     })
   })
 })

@@ -11,11 +11,14 @@ exports[`src/screens/SignUp.js should render 1`] = `
 >
   <View
     style={
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-        "paddingTop": 20,
-      }
+      Array [
+        Object {
+          "backgroundColor": "#fff",
+          "flex": 1,
+          "paddingTop": 20,
+        },
+        undefined,
+      ]
     }
   >
     <View
