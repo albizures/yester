@@ -8,7 +8,7 @@ import Translate from './Translate'
 const top = Platform.OS === 'ios' ? 20 : 0
 
 const TopBar = ({ icon, title, onBack, modal }) => {
-  const backIcon = modal ? require('../assets/chevron-down.png') : require('../assets/chevron-left.png')
+  const backIcon = modal ? require('../assets/chevron/chevron-down.png') : require('../assets/chevron/chevron-left.png')
 
   return (
     <View style={styles.container}>
