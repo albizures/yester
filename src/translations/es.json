@@ -97,5 +97,6 @@
   "continue": "continue",
   "signin.title": "Sign in",
   "signin.submit": "Create Account",
-  "settings.title": "Settings"
+  "settings.title": "Settings",
+  "profile.title": "My Profile"
 }

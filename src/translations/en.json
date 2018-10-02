@@ -95,5 +95,6 @@
   "confirm.label": "We have sent a confirming code to",
   "confirm.note": "Please confirm by clicking on the link we have sent.",
   "confirm.submit": "Log in Now",
-  "settings.title": "Settings"
+  "settings.title": "Settings",
+  "profile.title": "My Profile"
 }
