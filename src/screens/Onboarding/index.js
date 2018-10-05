@@ -35,7 +35,7 @@ export default class Onboarding extends Component {
     )
   }
 
-  toLogin = () => {
+  toCreateAccount = () => {
     const { navigation } = this.props
     navigation.navigate('CreateAccount')
   }
@@ -44,7 +44,7 @@ export default class Onboarding extends Component {
     const { steps } = this.state
     const { next, currentStep, skip } = options
     const nextScreen = (steps.length - 1 === currentStep)
-      ? this.toLogin
+      ? this.toCreateAccount
       : next
 
     return (
