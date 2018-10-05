@@ -10,12 +10,13 @@ import {
 } from 'react-native-dotenv'
 
 import Onboarding from './screens/Onboarding'
-import AccountSetup from './screens/AccountSetup'
+import SetupBirthDate from './screens/Setup/BirthDate'
+import SetupPlace from './screens/Setup/Place'
+import SetupConfirmation from './screens/Setup/Confirmation'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
-import Setup from './screens/Setup'
-import SignIn from './screens/SignIn'
+import Suscription from './screens/Suscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
 import Question from './screens/Question'
@@ -39,6 +40,12 @@ Amplify.configure({
     userPoolId: AWS_USER_POOL_ID,
     userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
   },
+})
+
+const SetupStack = createStackNavigator({
+  SetupBirthDate,
+  SetupPlace,
+  SetupConfirmation,
 })
 
 const FeedStack = createStackNavigator({
@@ -107,12 +114,10 @@ const MainTab = createBottomTabNavigator({
 
 const AuthStack = createStackNavigator({
   Onboarding,
-  AccountSetup,
   Login,
   SignUp,
   CreateAccount,
-  Setup,
-  SignIn,
+  Suscription,
   ConfirmAccount,
 }, {
   headerMode: 'none',
@@ -124,6 +129,7 @@ const RootStack = createSwitchNavigator({
   App: MainTab,
   Auth: AuthStack,
   AppLoading,
+  SetupStack,
 }, {
   initialRouteName: 'AppLoading',
 })

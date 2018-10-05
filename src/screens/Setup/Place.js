@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
 
 import Trasnlate from '../../components/Translate'
+import Container from '../../components/Container'
 
 export default class Done extends Component {
   static propTypes = {
@@ -11,11 +11,11 @@ export default class Done extends Component {
   render () {
     const { year } = this.props
     return (
-      <View>
+      <Container>
         <Trasnlate keyName='setup.place.title' data={{ year }} />
         <Trasnlate keyName='setup.place.subtitle' />
         <Trasnlate keyName='setup.place.form.title' />
-      </View>
+      </Container>
     )
   }
 }

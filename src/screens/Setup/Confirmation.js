@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button } from 'react-native'
+import { Text, Button } from 'react-native'
 
-export default class Setup extends Component {
+import Container from '../../components/Container'
+
+export default class Reading extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -13,10 +15,10 @@ export default class Setup extends Component {
 
   render () {
     return (
-      <View>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>SETUP</Text>
+      <Container>
+        <Text style={[{textAlign: 'center', marginTop: 40}]}>READING</Text>
         <Button title='to Home' onPress={this.onPress} />
-      </View>
+      </Container>
     )
   }
 }
