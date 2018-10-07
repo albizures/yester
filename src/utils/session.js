@@ -7,9 +7,12 @@ import { instance } from './http'
 
 const debug = debugFactory('yester:session')
 
-const TOKEN_KEY = 'userToken'
+export const extractTokenFromSession = async () => {
+  const currentSession = await Auth.currentSession()
+  return currentSession.accessToken.jwtToken
+}
 
-export const getToken = () => AsyncStorage.getItem(TOKEN_KEY)
+export const getToken = () => extractTokenFromSession()
 
 export const setAuthHeader = async (token) => {
   token = token || (await getToken())
@@ -21,10 +24,7 @@ export const setAuthHeader = async (token) => {
 }
 
 export const saveUserToken = async () => {
-  const currentSession = await Auth.currentSession()
-  const userToken = currentSession.accessToken.jwtToken
-  await AsyncStorage.setItem(TOKEN_KEY, userToken)
-  await setAuthHeader(currentSession.accessToken.jwtToken)
+  await setAuthHeader()
 }
 
 export const logIn = async (email, password) => {
