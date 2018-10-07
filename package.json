@@ -11,14 +11,15 @@
     "test": "jest"
   },
   "dependencies": {
-    "aws-amplify": "^1.0.8",
-    "aws-sdk": "^2.308.0",
+    "aws-amplify": "^1.1.6",
     "axios": "^0.18.0",
+    "debug": "^4.0.1",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.4.1",
     "react-native": "0.56.0",
+    "react-native-datepicker": "^1.7.2",
     "react-native-fbsdk": "^0.7.0",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^1.0.11",
