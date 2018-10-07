@@ -4,7 +4,7 @@ import { Text, Button } from 'react-native'
 
 import Container from '../../components/Container'
 
-export default class Reading extends Component {
+export default class Confirmation extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }

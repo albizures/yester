@@ -42,7 +42,7 @@ export default class Onboarding extends Component {
 
   getBottomBar = (options) => {
     const { steps } = this.state
-    const { next, currentStep, skip } = options
+    const { next, currentStep } = options
     const nextScreen = (steps.length - 1 === currentStep)
       ? this.toCreateAccount
       : next
@@ -51,7 +51,7 @@ export default class Onboarding extends Component {
       <View>
         <Dots steps={steps.length} currentStep={currentStep} />
         {/* TODO use our custom button here */}
-        <Button title='Skip' onPress={skip} />
+        <Button title='Skip' onPress={this.toCreateAccount} />
         <Button title='Continue' onPress={nextScreen} />
       </View>
     )

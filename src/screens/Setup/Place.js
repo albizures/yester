@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Trasnlate from '../../components/Translate'
 import Container from '../../components/Container'
 
-export default class Done extends Component {
+export default class Place extends Component {
   static propTypes = {
     year: PropTypes.number.isRequired,
   }
