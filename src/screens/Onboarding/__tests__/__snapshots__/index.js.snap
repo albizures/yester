@@ -267,12 +267,6 @@ exports[`src/screens/Onboarding should render 1`] = `
         />
       </View>
       <View
-        accessibilityComponentType="button"
-        accessibilityTraits={
-          Array [
-            "button",
-          ]
-        }
         accessible={true}
         isTVSelectable={true}
         onResponderGrant={[Function]}
@@ -282,75 +276,115 @@ exports[`src/screens/Onboarding should render 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
-            "opacity": 1,
-          }
+          Array [
+            undefined,
+            Object {
+              "borderRadius": 24,
+              "borderWidth": 2,
+              "height": 50,
+              "justifyContent": "center",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+            },
+            Object {
+              "backgroundColor": "#4241B3",
+              "borderColor": "#4241B3",
+            },
+            Object {
+              "width": 300,
+            },
+          ]
         }
       >
         <View
           style={
-            Array [
-              Object {},
-            ]
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
           }
         >
           <Text
             style={
               Array [
                 Object {
-                  "color": "#007AFF",
                   "fontSize": 18,
-                  "padding": 8,
+                  "fontWeight": "bold",
                   "textAlign": "center",
                 },
-              ]
-            }
-          >
-            Skip
-          </Text>
-        </View>
-      </View>
-      <View
-        accessibilityComponentType="button"
-        accessibilityTraits={
-          Array [
-            "button",
-          ]
-        }
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
-      >
-        <View
-          style={
-            Array [
-              Object {},
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
                 Object {
-                  "color": "#007AFF",
-                  "fontSize": 18,
-                  "padding": 8,
-                  "textAlign": "center",
+                  "color": "#fff",
                 },
               ]
             }
           >
             Continue
+          </Text>
+        </View>
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            undefined,
+            Object {
+              "borderRadius": 24,
+              "borderWidth": 2,
+              "height": 50,
+              "justifyContent": "center",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+            },
+            Object {
+              "backgroundColor": "#4241B3",
+              "borderColor": "#4241B3",
+            },
+            Object {
+              "width": 300,
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontSize": 18,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                },
+                Object {
+                  "color": "#fff",
+                },
+              ]
+            }
+          >
+            Skip
           </Text>
         </View>
       </View>

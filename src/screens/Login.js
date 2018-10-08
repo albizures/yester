@@ -13,7 +13,9 @@ import Container from '../components/Container'
 import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
 
+
 class Login extends Component {
+
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     onLoginWithFB: PropTypes.func.isRequired,
@@ -59,6 +61,7 @@ class Login extends Component {
   render () {
     const { email, password } = this.state
     return (
+
       <Container>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>LOG IN</Text>
         <Button onPress={this.onFBLogin} title='createAccount.continue' icon={icons.fb} />
@@ -73,6 +76,7 @@ class Login extends Component {
         </View>
         <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
       </Container>
+
     )
   }
 }

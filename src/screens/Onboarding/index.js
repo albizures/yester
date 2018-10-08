@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+
 import { Button, View } from 'react-native'
+
 
 // import Translate from '../../components/Translate'
 import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
+import Button from '../../components/Button'
 import Step from './Step'
 import Dots from './Dots'
 
@@ -51,8 +54,10 @@ export default class Onboarding extends Component {
       <View>
         <Dots steps={steps.length} currentStep={currentStep} />
         {/* TODO use our custom button here */}
+
         <Button title='Skip' onPress={skip} />
         <Button title='Continue' onPress={nextScreen} />
+
       </View>
     )
   }

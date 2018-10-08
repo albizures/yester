@@ -14,6 +14,7 @@ exports[`src/screens/SignIn.js should render 1`] = `
   }
 >
   <RCTScrollView
+
     style={
       Object {
         "flex": 1,

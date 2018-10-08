@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+
 import React, { Component } from 'react'
 import { View, TextInput, StyleSheet, Alert } from 'react-native'
 import { Auth } from 'aws-amplify'
@@ -7,6 +8,7 @@ import colors from '../utils/colors'
 import Container from '../components/Container'
 import Button from '../components/Button'
 import Translate from '../components/Translate'
+
 
 export default class SignIn extends Component {
   static propTypes = {
@@ -76,6 +78,7 @@ export default class SignIn extends Component {
         </View>
         <Button title='signin.submit' onPress={this.onPress} />
       </Container>
+
     )
   }
 }
