@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button, StyleSheet, FlatList, Alert } from 'react-native'
+import { Text, View, Button, StyleSheet, FlatList, Alert, Image } from 'react-native'
 import QuestionItem from './QuestionItem'
 
 import Container from '../../components/Container'
+import TopBar from '../../components/TopBar'
+import Translate from '../../components/Translate'
 import http from '../../utils/http'
 import common from '../../styles/common'
+import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
 
 export default class Home extends Component {
@@ -71,8 +74,18 @@ export default class Home extends Component {
 
   render () {
     const { isLoading } = this.state
+    const topBarTitle = (
+      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+        <Image style={{ height: 25, width: 20 }} source={require('../../assets/feather-white.png')} />
+        <Translate keyName='home.title' style={{color: colors.white}} />
+      </View>
+    )
+
+    const topBar = (
+      <TopBar title={topBarTitle} />
+    )
     return (
-      <Container isLoading={isLoading} >
+      <Container topBar={topBar} isLoading={isLoading} >
         <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
         <Button title='to Question' onPress={this.onPress} />
         { this.getAgesItems() }

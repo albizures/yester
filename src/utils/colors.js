@@ -13,4 +13,5 @@ export default {
   apple: '#57CC36',
   selectiveYellow: '#FFB100',
   bittersweet: '#FD6060',
+  haiti: '#1E1437',
 }

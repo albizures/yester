@@ -11,6 +11,11 @@ export const mockInstace = {
   post: mockInstacePost,
   put: mockInstacePut,
   delete: mockInstaceDelete,
+  defaults: {
+    headers: {
+      common: {},
+    },
+  },
 }
 
 export default {
