@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`src/screens/SignIn.js should render 1`] = `
-<View>
+<View
+  style={
+    Object {
+      "alignItems": "center",
+    }
+  }
+>
   <Text
     style={
       Array [
@@ -57,6 +63,108 @@ exports[`src/screens/SignIn.js should render 1`] = `
         to Home
       </Text>
     </View>
+  </View>
+  <View>
+    <View
+      style={
+        Array [
+          Object {
+            "minHeight": 24,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            undefined,
+            Object {
+              "color": "#4241B3",
+            },
+            Object {},
+          ]
+        }
+      >
+        First Name
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "borderRadius": 25,
+            "elevation": 10,
+            "flex": 1,
+            "flexDirection": "row",
+            "maxHeight": 50,
+            "shadowColor": "#D5D3DD",
+            "shadowOffset": Object {
+              "height": 10,
+              "width": 0,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 15,
+            "width": 300,
+          },
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "#fff",
+            "borderWidth": 0.5,
+          },
+          Object {},
+        ]
+      }
+    >
+      <TextInput
+        allowFontScaling={true}
+        color="#313131"
+        editable={true}
+        height={50}
+        paddingHorizontal={20}
+        title="signin.firstName"
+        underlineColorAndroid="transparent"
+        validation="NONE"
+        width={250}
+      />
+      <Image
+        source={
+          Object {
+            "testUri": "../../../src/assets/fb-no-oficial.png",
+          }
+        }
+        style={
+          Object {
+            "height": 20,
+            "marginRight": 9,
+            "width": 20,
+          }
+        }
+      />
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "minHeight": 24,
+          },
+          Object {
+            "justifyContent": "flex-end",
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        Array [
+          Object {
+            "minHeight": 24,
+          },
+          Object {
+            "justifyContent": "flex-end",
+          },
+        ]
+      }
+    />
   </View>
 </View>
 `;
