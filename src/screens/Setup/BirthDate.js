@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-native-datepicker'
+import { View } from 'react-native'
 
 import Container from '../../components/Container'
 import Translate from '../../components/Translate'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
+// import colors from '../../utils/colors'
+
+import TopBar from '../../components/TopBar'
 
 export default class BirthDate extends Component {
   static propTypes = {
@@ -49,11 +53,22 @@ export default class BirthDate extends Component {
 
   render () {
     const { name, birthDate } = this.state
+    const topBarTitle = (
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Translate keyName='setup.age.greeting' style={{color: 'white'}} data={{ name }} />
+        </View>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Translate keyName='setup.age.greeting.subtitle' style={{color: 'white', textAlign: 'center'}} />
+        </View>
+      </View>
+    )
 
+    const topBar = (
+      <TopBar title={topBarTitle} />
+    )
     return (
-      <Container>
-        <Translate keyName='setup.age.greeting' data={{ name }} />
-        <Translate keyName='setup.age.greeting.subtitle' />
+      <Container topBar={topBar}>
         <Translate keyName='setup.age.question' />
         <Translate keyName='setup.age.birthdate' />
 

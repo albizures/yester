@@ -15,11 +15,14 @@ export const extractTokenFromSession = async () => {
 export const getToken = () => extractTokenFromSession()
 
 export const setAuthHeader = async (token) => {
-  token = token || (await getToken())
-
-  debug('defining auth header')
-  if (token) {
-    instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  try {
+    token = token || (await getToken())
+    debug('defining auth header')
+    if (token) {
+      instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+    }
+  } catch (error) {
+    debug('there is not token', error)
   }
 }
 
@@ -67,5 +70,15 @@ export const saveUserData = async ({birthDate, country, state}) => {
     'custom:country': country,
     'custom:state': state,
     'custom:birthDate': birthDate,
+  })
+}
+
+// NOTE this is only for dev purposes
+export const cleanUserData = async () => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:country': '',
+    'custom:state': '',
+    'custom:birthDate': '',
   })
 }

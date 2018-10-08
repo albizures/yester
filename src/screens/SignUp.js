@@ -7,6 +7,7 @@ import colors from '../utils/colors'
 import Container from '../components/Container'
 import Button from '../components/Button'
 import Translate from '../components/Translate'
+import TopBar from '../components/TopBar'
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -58,10 +59,14 @@ export default class SignUp extends Component {
       email,
       password,
     } = this.state
+
+    const topBar = (
+      <TopBar title='signup.topbar' />
+    )
     return (
-      <Container scroll>
-        <Translate keyName='signin.title' style={[{textAlign: 'center', marginTop: 40}]} />
-        <Translate keyName='signin.subtitle' style={[{textAlign: 'center', marginTop: 40}]} />
+      <Container scroll topBar={topBar}>
+        <Translate keyName='signup.title' style={[{textAlign: 'center', marginTop: 40}]} />
+        <Translate keyName='signup.subtitle' style={[{textAlign: 'center', marginTop: 40}]} />
         <View style={styles.input}>
           <TextInput value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
         </View>
@@ -74,7 +79,7 @@ export default class SignUp extends Component {
         <View style={styles.input}>
           <TextInput secureTextEntry value={password} onChangeText={text => this.onChange(text, 'password')} />
         </View>
-        <Button title='signin.submit' onPress={this.onPress} />
+        <Button title='signup.submit' onPress={this.onPress} />
       </Container>
     )
   }

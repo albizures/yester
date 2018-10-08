@@ -37,6 +37,7 @@ export default class AppLoading extends Component {
         navigation.navigate('Auth')
       }
     } catch (error) {
+      navigation.navigate('Auth')
       debugError(error)
     }
   }

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { View } from 'react-native'
 import PickerSelect from 'react-native-picker-select'
 
 import Trasnlate from '../../components/Translate'
 import Container from '../../components/Container'
 import Button from '../../components/Button'
+import TopBar from '../../components/TopBar'
 import http from '../../utils/http'
 
 export default class Place extends Component {
@@ -110,10 +112,23 @@ export default class Place extends Component {
 
   render () {
     const { year, countries, states, country, state } = this.state
+    const topBarTitle = (
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Trasnlate keyName='setup.place.title' data={{ year }} />
+        </View>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Trasnlate keyName='setup.place.subtitle' />
+        </View>
+      </View>
+    )
+
+    const topBar = (
+      <TopBar title={topBarTitle} />
+    )
+
     return (
-      <Container>
-        <Trasnlate keyName='setup.place.title' data={{ year }} />
-        <Trasnlate keyName='setup.place.subtitle' />
+      <Container topBar={topBar} >
         <Trasnlate keyName='setup.place.form.title' />
         <PickerSelect
           items={countries}
