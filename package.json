@@ -14,6 +14,7 @@
     "aws-amplify": "^1.1.6",
     "axios": "^0.18.0",
     "debug": "^4.0.1",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-addons-test-utils": "^15.6.2",
@@ -23,6 +24,7 @@
     "react-native-fbsdk": "^0.7.0",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^1.0.11",
+    "react-native-picker-select": "^4.4.0",
     "react-navigation": "^2.6.2",
     "react-navigation-tabs": "^0.5.1",
     "suppplant": "^1.1.0"

@@ -37,8 +37,10 @@ export const logOut = async () => {
   delete instance.defaults.headers.common['Authorization']
 }
 
+export const getUser = () => Auth.currentAuthenticatedUser()
+
 export const isSetupFinished = async () => {
-  const user = await Auth.currentAuthenticatedUser()
+  const user = await getUser()
 
   if (!user.attributes) {
     return false
@@ -56,12 +58,14 @@ export const isSetupFinished = async () => {
     return false
   }
 
-  // const result = await Auth.updateUserAttributes(user, {
-  //   'custom:country': 'some country',
-  //   'custom:state': 'lele',
-  // })
-
-  // console.log(result)
-
   return true
+}
+
+export const saveUserData = async ({birthDate, country, state}) => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:country': country,
+    'custom:state': state,
+    'custom:birthDate': birthDate,
+  })
 }

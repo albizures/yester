@@ -1,48 +1,75 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, Button } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 
 import Container from '../../components/Container'
-import http from '../../utils/http'
+import Translate from '../../components/Translate'
+import Button from '../../components/Button'
+import { getUser } from '../../utils/session'
 
 export default class BirthDate extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  state = {}
+  constructor (props) {
+    super(props)
+    const { navigation } = this.props
+    const birthDate = navigation.getParam('birthDate')
+    const country = navigation.getParam('country')
+    const state = navigation.getParam('state')
 
-  onPress = () => {
-    this.props.navigation.navigate('Home')
+    this.state = {
+      birthDate,
+      country,
+      state,
+      name: '',
+    }
   }
 
   async componentDidMount () {
-    try {
-      const { data } = await http.get('/v1/countries')
-      console.log(data)
-    } catch (error) {
-      console.log('BirthDate', error)
+    const user = await getUser()
+
+    this.setState({
+      name: user.attributes.given_name,
+    })
+  }
+
+  onContinue = () => {
+    const { navigation } = this.props
+    const { birthDate, country, state } = this.state
+    if (birthDate) {
+      navigation.navigate('SetupPlace', {
+        birthDate,
+        country,
+        state,
+      })
     }
   }
 
   render () {
+    const { name, birthDate } = this.state
+
     return (
       <Container>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>READING</Text>
-        <Button title='to Home' onPress={this.onPress} />
+        <Translate keyName='setup.age.greeting' data={{ name }} />
+        <Translate keyName='setup.age.greeting.subtitle' />
+        <Translate keyName='setup.age.question' />
+        <Translate keyName='setup.age.birthdate' />
+
         <DatePicker
           style={{width: 200}}
-          date={this.state.date}
+          date={birthDate}
           mode='date'
           placeholder='select date'
           format='YYYY-MM-DD'
           confirmBtnText='Confirm'
           cancelBtnText='Cancel'
-          onDateChange={(date) => {
-            this.setState({date: date})
+          onDateChange={(birthDate) => {
+            this.setState({birthDate})
           }}
         />
+        <Button title='setup.continue' onPress={this.onContinue} />
       </Container>
     )
   }
