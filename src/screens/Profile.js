@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button } from 'react-native'
+import { Text, Button } from 'react-native'
+
+import Container from '../components/Container'
+import TopBar from '../components/TopBar'
 
 export default class Profile extends Component {
   static propTypes = {
@@ -12,11 +15,14 @@ export default class Profile extends Component {
   }
 
   render () {
+    const topBar = (
+      <TopBar title='profile.title' />
+    )
     return (
-      <View>
+      <Container topBar={topBar}>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>PROFILE</Text>
         <Button title='to Home' onPress={this.onPress} />
-      </View>
+      </Container>
     )
   }
 }

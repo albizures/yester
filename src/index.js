@@ -27,8 +27,10 @@ import Language from './screens/Language'
 import Notifications from './screens/Notifications'
 import AppLoading from './screens/AppLoading'
 
+import { tabBarIcon } from './components/TabIcon'
 import Terms from './screens/Terms'
 import http from './utils/http'
+import colors from './utils/colors'
 
 Amplify.configure({
   Auth: {
@@ -62,14 +64,45 @@ const SettingsStack = createStackNavigator({
 })
 
 const MainTab = createBottomTabNavigator({
-  Feed: FeedStack,
-  Profile,
-  Settings: SettingsStack,
+  Feed: {
+    screen: FeedStack,
+    navigationOptions: () => ({
+      tabBarIcon: tabBarIcon({
+        active: require('./assets/feed-disabled.png'),
+        inactive: require('./assets/feed.png'),
+      }),
+    }),
+  },
+  Profile: {
+    screen: Profile,
+    navigationOptions: () => ({
+      tabBarIcon: tabBarIcon({
+        active: require('./assets/profile-disabled.png'),
+        inactive: require('./assets/profile.png'),
+      }),
+    }),
+  },
+  Settings: {
+    screen: SettingsStack,
+    navigationOptions: () => ({
+      tabBarIcon: tabBarIcon({
+        active: require('./assets/settings-disabled.png'),
+        inactive: require('./assets/settings.png'),
+      }),
+    }),
+  },
 }, {
   animationEnabled: true,
   swipeEnabled: true,
   initialRouteName: 'Feed',
   headerMode: 'none',
+  tabBarOptions: {
+    activeTintColor: colors.moonRaker,
+    inactiveTintColor: colors.royalBlue,
+    style: {
+      backgroundColor: colors.governorBay,
+    },
+  },
 })
 
 const AuthStack = createStackNavigator({

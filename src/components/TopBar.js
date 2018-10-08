@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableHighlight, Image, Platform } from 'react-native'
+import { View, TouchableHighlight, Image, Platform, StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 
 import colors from '../utils/colors'
@@ -8,7 +8,13 @@ import Translate from './Translate'
 const top = Platform.OS === 'ios' ? 20 : 0
 
 const TopBar = ({ icon, title, onBack, modal }) => {
-  const backIcon = modal ? require('../assets/chevron-down.png') : require('../assets/chevron-left.png')
+  const titleElemet = typeof title === 'string' ? (
+    <Translate style={styles.text} keyName={title} />
+  ) : title
+
+  const backIcon = modal
+    ? require('../assets/chevron/chevron-down.png')
+    : require('../assets/chevron/chevron-left.png')
 
   return (
     <View style={styles.container}>
@@ -17,7 +23,7 @@ const TopBar = ({ icon, title, onBack, modal }) => {
           <Image source={backIcon} style={styles.back} />
         </TouchableHighlight>
       ) : null}
-      <Translate style={styles.text} keyName={title} />
+      {titleElemet}
     </View>
   )
 }
@@ -26,10 +32,10 @@ TopBar.propTypes = {
   icon: PropTypes.number,
   modal: PropTypes.bool,
   onBack: PropTypes.func,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
 }
 
-const styles = {
+const styles = StyleSheet.create({
   icon: {
     marginRight: 12,
   },
@@ -58,6 +64,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-}
+})
 
 export default TopBar
