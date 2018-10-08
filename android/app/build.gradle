@@ -137,10 +137,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fbsdk')
     compile project(':amazon-cognito-identity-js')
-    compile project(':react-native-fbsdk')
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile project(':react-native-fbsdk')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-localization')
     compile fileTree(dir: "libs", include: ["*.jar"])
