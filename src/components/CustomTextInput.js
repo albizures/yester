@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, ViewPropTypes, StyleSheet, TextInput, Image } from 'react-native'
+import { View, ViewPropTypes, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
 import colors from '../utils/colors'
 import Translate from '../components/Translate'
 import icons from '../utils/icons'
@@ -19,7 +19,7 @@ export const validations = {
 
 const CustomTextInput = (props) => {
   const {title, editable, description, value, validation,
-    validationMessage} = props
+    validationMessage, show} = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
 
@@ -35,8 +35,24 @@ const CustomTextInput = (props) => {
       style={[styles.validation, validationStyle.validation]} />
   }
 
+  var showButton
+  var onPress = () => {}
+  if (show != null) {
+    onPress = show
+    showButton = <TouchableOpacity onPress={onPress}>
+      <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
+        <Translate keyName='signup.showPassword' style={[{fontFamily: 'Karla-Regular',
+          color: colors.royalBlue,
+          fontSize: 14,
+          fontWeight: 'bold',
+          textAlign: 'left',
+        }]} />
+      </View>
+    </TouchableOpacity>
+  }
+
   return (
-    <View>
+    <View style={[{marginVertical: 10}]} >
       <View style={[styles.labelContainer]}>
         <Translate keyName={title}
           style={[styles.tile, stateStyle.title, validationStyle.title]} />
@@ -46,15 +62,17 @@ const CustomTextInput = (props) => {
           value={value}
           paddingHorizontal={20}
           height={50}
-          width={250}
+          width={245}
           color={(editable) ? colors.mineShaft : colors.white}
         />
-        <Image source={icons.fb} style={{ width: 20, height: 20, marginRight: 9 }} />
+        {showButton}
+        {// <Image source={icons.fb} style={{ width: 20, height: 20, marginRight: 9 }} />
+        }
       </View>
-      <View style={[styles.labelContainer, {justifyContent: 'flex-end'}]}>
+      <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
         {validationLabel}
       </View>
-      <View style={[styles.labelContainer, {justifyContent: 'flex-end'}]}>
+      <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
         {descriptionLabel}
       </View>
     </View>
@@ -102,7 +120,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.mineShaft,
   },
-  labelContainer: {minHeight: 24},
+  labelContainer: {
+    minHeight: 24,
+  },
   validation: {
   },
 })

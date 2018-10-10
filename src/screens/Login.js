@@ -12,10 +12,9 @@ import { Title } from '../components/Translate'
 import Container from '../components/Container'
 import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
-
+import CustomTextInput from '../components/CustomTextInput'
 
 class Login extends Component {
-
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     onLoginWithFB: PropTypes.func.isRequired,
@@ -24,6 +23,7 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
+    show: false,
   }
 
   onFBLogin = async () => {
@@ -62,36 +62,36 @@ class Login extends Component {
     })
   }
 
+  onPressShow = () => {
+    this.setState({
+      show: !this.state.show,
+    })
+  }
+
   render () {
-    const { email, password } = this.state
+    const { email, password, show } = this.state
     return (
 
       <Container>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>LOG IN</Text>
-        <Button onPress={this.onFBLogin} title='createAccount.continue' icon={icons.fb} />
-        <TextDivider>
-          <Title keyName='createAccount.or' />
-        </TextDivider>
-        <View style={styles.input}>
-          <TextInput value={email} onChangeText={text => this.onChange(text, 'email')} />
+        <View style={styles.view}>
+          <Text style={[{textAlign: 'center', marginTop: 40}]}>LOG IN</Text>
+          <Button onPress={this.onFBLogin} title='createAccount.continue' icon={icons.fb} />
+          <TextDivider>
+            <Title keyName='createAccount.or' />
+          </TextDivider>
+          <CustomTextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
+            value={email} onChangeText={text => this.onChange(text, 'email')} />
+          <CustomTextInput title='signup.password' show={this.onPressShow}
+            secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
+          <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
         </View>
-        <View style={styles.input}>
-          <TextInput secureTextEntry value={password} onChangeText={text => this.onChange(text, 'password')} />
-        </View>
-        <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
       </Container>
-
     )
   }
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderColor: colors.black,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    marginBottom: 10,
-  },
+  view: {alignItems: 'center'},
 })
 
 export default withFBLogin(Login)
