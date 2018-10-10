@@ -5,7 +5,7 @@ import { Text, Alert, View, TextInput, StyleSheet } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-import { logIn, saveUserToken } from '../utils/session'
+import { logIn, saveUserToken, isSetupFinished } from '../utils/session'
 
 import Button from '../components/Button'
 import { Title } from '../components/Translate'
@@ -45,7 +45,11 @@ class Login extends Component {
     const { email, password } = this.state
     try {
       await logIn(email, password)
-      navigation.navigate('App')
+      if (await isSetupFinished()) {
+        navigation.navigate('App')
+      } else {
+        navigation.navigate('Setup')
+      }
     } catch (error) {
       console.log('Login', error)
       Alert.alert(error.message)
