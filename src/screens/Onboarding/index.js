@@ -35,23 +35,23 @@ export default class Onboarding extends Component {
     )
   }
 
-  toLogin = () => {
+  toCreateAccount = () => {
     const { navigation } = this.props
     navigation.navigate('CreateAccount')
   }
 
   getBottomBar = (options) => {
     const { steps } = this.state
-    const { next, currentStep, skip } = options
+    const { next, currentStep } = options
     const nextScreen = (steps.length - 1 === currentStep)
-      ? this.toLogin
+      ? this.toCreateAccount
       : next
 
     return (
       <View>
         <Dots steps={steps.length} currentStep={currentStep} />
         {/* TODO use our custom button here */}
-        <Button title='Skip' onPress={skip} />
+        <Button title='Skip' onPress={this.toCreateAccount} />
         <Button title='Continue' onPress={nextScreen} />
       </View>
     )

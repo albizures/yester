@@ -37,7 +37,7 @@ class CreateAccount extends Component {
   }
 
   onSignIn = () => {
-    this.props.navigation.navigate('SignIn')
+    this.props.navigation.navigate('SignUp')
   }
 
   onLogin = () => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
+import debugFactory from 'debug'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,
@@ -10,12 +11,13 @@ import {
 } from 'react-native-dotenv'
 
 import Onboarding from './screens/Onboarding'
-import AccountSetup from './screens/AccountSetup'
+import SetupBirthDate from './screens/Setup/BirthDate'
+import SetupPlace from './screens/Setup/Place'
+import SetupConfirmation from './screens/Setup/Confirmation'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
-import Setup from './screens/Setup'
-import SignIn from './screens/SignIn'
+import Suscription from './screens/Suscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
 import Question from './screens/Question'
@@ -29,8 +31,10 @@ import AppLoading from './screens/AppLoading'
 
 import { tabBarIcon } from './components/TabIcon'
 import Terms from './screens/Terms'
-import http from './utils/http'
 import colors from './utils/colors'
+import { setAuthHeader } from './utils/session'
+
+debugFactory.enable('yester:*')
 
 Amplify.configure({
   Auth: {
@@ -38,7 +42,23 @@ Amplify.configure({
     region: AWS_REGION,
     userPoolId: AWS_USER_POOL_ID,
     userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
+    mandatorySignIn: true,
   },
+  API: {
+    endpoints: [{
+      name: 'main',
+      endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
+    }],
+  },
+})
+
+const SetupStack = createStackNavigator({
+  SetupBirthDate,
+  SetupPlace,
+  SetupConfirmation,
+}, {
+  headerMode: 'none',
+  initialRouteName: 'SetupBirthDate',
 })
 
 const FeedStack = createStackNavigator({
@@ -107,12 +127,10 @@ const MainTab = createBottomTabNavigator({
 
 const AuthStack = createStackNavigator({
   Onboarding,
-  AccountSetup,
   Login,
   SignUp,
   CreateAccount,
-  Setup,
-  SignIn,
+  Suscription,
   ConfirmAccount,
 }, {
   headerMode: 'none',
@@ -124,16 +142,14 @@ const RootStack = createSwitchNavigator({
   App: MainTab,
   Auth: AuthStack,
   AppLoading,
+  Setup: SetupStack,
 }, {
   initialRouteName: 'AppLoading',
 })
 
-const testUrl = 'https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22'
-
 export default class App extends Component {
   async componentDidMount () {
-    const { data } = await http.get(testUrl)
-    console.log(data)
+    await setAuthHeader()
   }
 
   render () {

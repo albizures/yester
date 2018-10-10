@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types'
+import debugFactory from 'debug'
 import React, { Component } from 'react'
-import { AsyncStorage, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import Container from '../components/Container'
+import { isSetupFinished, getToken } from '../utils/session'
 
-export default class Terms extends Component {
+const debugError = debugFactory('yester:error:AppLoading')
+
+export default class AppLoading extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -19,8 +23,23 @@ export default class Terms extends Component {
   }
 
   async bootstrap () {
-    const userToken = await AsyncStorage.getItem('userToken')
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth')
+    const { navigation } = this.props
+
+    try {
+      const userToken = await getToken()
+      if (userToken) {
+        if (await isSetupFinished()) {
+          navigation.navigate('App')
+        } else {
+          navigation.navigate('Setup')
+        }
+      } else {
+        navigation.navigate('Auth')
+      }
+    } catch (error) {
+      navigation.navigate('Auth')
+      debugError(error)
+    }
   }
 
   render () {

@@ -1,14 +1,33 @@
 
 import { Auth } from 'aws-amplify'
+import debugFactory from 'debug'
 import { AsyncStorage } from 'react-native'
 
 import { instance } from './http'
 
-export const saveUserToken = async () => {
+const debug = debugFactory('yester:session')
+
+export const extractTokenFromSession = async () => {
   const currentSession = await Auth.currentSession()
-  const userToken = currentSession.accessToken.jwtToken
-  AsyncStorage.setItem('userToken', userToken)
-  instance.defaults.headers.common['Authorization'] = 'Bearer ' + currentSession.accessToken.jwtToken
+  return currentSession.accessToken.jwtToken
+}
+
+export const getToken = () => extractTokenFromSession()
+
+export const setAuthHeader = async (token) => {
+  try {
+    token = token || (await getToken())
+    debug('defining auth header')
+    if (token) {
+      instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+    }
+  } catch (error) {
+    debug('there is not token', error)
+  }
+}
+
+export const saveUserToken = async () => {
+  await setAuthHeader()
 }
 
 export const logIn = async (email, password) => {
@@ -19,4 +38,47 @@ export const logIn = async (email, password) => {
 export const logOut = async () => {
   await AsyncStorage.clear()
   delete instance.defaults.headers.common['Authorization']
+}
+
+export const getUser = () => Auth.currentAuthenticatedUser()
+
+export const isSetupFinished = async () => {
+  const user = await getUser()
+
+  if (!user.attributes) {
+    return false
+  }
+
+  if (!user.attributes['custom:country']) {
+    return false
+  }
+
+  if (!user.attributes['custom:state']) {
+    return false
+  }
+
+  if (!user.attributes['custom:birthDate']) {
+    return false
+  }
+
+  return true
+}
+
+export const saveUserData = async ({birthDate, country, state}) => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:country': country,
+    'custom:state': state,
+    'custom:birthDate': birthDate,
+  })
+}
+
+// NOTE this is only for dev purposes
+export const cleanUserData = async () => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:country': '',
+    'custom:state': '',
+    'custom:birthDate': '',
+  })
 }
