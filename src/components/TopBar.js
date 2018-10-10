@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: '100%',
-    height: 50 + top,
+    minHeight: 50 + top,
     paddingTop: top,
     flexDirection: 'row',
     backgroundColor: colors.haiti,
