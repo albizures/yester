@@ -2,12 +2,10 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
 import { Button, View } from 'react-native'
-
-
 // import Translate from '../../components/Translate'
 import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
-import Button from '../../components/Button'
+// import Button from '../../components/Button'
 import Step from './Step'
 import Dots from './Dots'
 
