@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, TextInput, StyleSheet, Alert } from 'react-native'
+import { View, Alert } from 'react-native'
 import { Auth } from 'aws-amplify'
 
-import colors from '../utils/colors'
 import Container from '../components/Container'
 import Button from '../components/Button'
 import Translate from '../components/Translate'
 import TopBar from '../components/TopBar'
+import CustomTextInput from '../components/CustomTextInput'
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -19,6 +19,13 @@ export default class SignUp extends Component {
     lastName: '',
     email: '',
     password: '',
+    show: false,
+  }
+
+  onPressShow = () => {
+    this.setState({
+      show: !this.state.show,
+    })
   }
 
   onPress = async () => {
@@ -58,6 +65,7 @@ export default class SignUp extends Component {
       lastName,
       email,
       password,
+      show,
     } = this.state
 
     const topBar = (
@@ -67,29 +75,18 @@ export default class SignUp extends Component {
       <Container scroll topBar={topBar}>
         <Translate keyName='signup.title' style={[{textAlign: 'center', marginTop: 40}]} />
         <Translate keyName='signup.subtitle' style={[{textAlign: 'center', marginTop: 40}]} />
-        <View style={styles.input}>
-          <TextInput value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
+        <View style={{alignItems: 'center'}}>
+          <CustomTextInput title='signup.firstName'
+            value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
+          <CustomTextInput title='signup.lastName'
+            value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
+          <CustomTextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
+            value={email} onChangeText={text => this.onChange(text, 'email')} />
+          <CustomTextInput title='signup.password' show={this.onPressShow}
+            secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
+          <Button title='signup.submit' onPress={this.onPress} />
         </View>
-        <View style={styles.input}>
-          <TextInput value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
-        </View>
-        <View style={styles.input}>
-          <TextInput value={email} onChangeText={text => this.onChange(text, 'email')} />
-        </View>
-        <View style={styles.input}>
-          <TextInput secureTextEntry value={password} onChangeText={text => this.onChange(text, 'password')} />
-        </View>
-        <Button title='signup.submit' onPress={this.onPress} />
       </Container>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  input: {
-    borderColor: colors.black,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    marginBottom: 10,
-  },
-})
