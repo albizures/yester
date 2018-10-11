@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import DatePicker from 'react-native-datepicker'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import Container from '../../components/Container'
 import Translate from '../../components/Translate'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
-// import colors from '../../utils/colors'
+import colors from '../../utils/colors'
+import CustomDatePicker from '../../components/CustomDatePicker'
 
 import TopBar from '../../components/TopBar'
 
@@ -69,23 +70,23 @@ export default class BirthDate extends Component {
     )
     return (
       <Container topBar={topBar}>
-        <Translate keyName='setup.age.question' />
-        <Translate keyName='setup.age.birthdate' />
-
-        <DatePicker
-          style={{width: 200}}
-          date={birthDate}
-          mode='date'
-          placeholder='select date'
-          format='YYYY-MM-DD'
-          confirmBtnText='Confirm'
-          cancelBtnText='Cancel'
-          onDateChange={(birthDate) => {
-            this.setState({birthDate})
-          }}
-        />
-        <Button title='setup.continue' onPress={this.onContinue} />
+        <View style={styles.view}>
+          <Translate keyName='setup.age.question' />
+          <CustomDatePicker title='setup.age.birthdate'
+            value={birthDate}
+            onDateChange={(birthDate) => {
+              this.setState({birthDate})
+            }}
+          />
+          <Button title='setup.continue' onPress={this.onContinue} />
+        </View>
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  view: {alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+})
