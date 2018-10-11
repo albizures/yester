@@ -56,6 +56,8 @@
   "setup.place.title": "The {year}'s! Awesome! 🙌",
   "setup.place.subtitle": "What a great era for this legend to begin.",
   "setup.place.form.title": "Where in the world did you happen to born?",
+  "setup.place.form.country": "Country",
+  "setup.place.form.state": "State",
   "continue": "continue",
   "signup.topbar": "Register",
   "signup.title": "Join Yester",

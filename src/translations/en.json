@@ -51,6 +51,8 @@
   "setup.place.title": "The {year}'s! Awesome! 🙌",
   "setup.place.subtitle": "What a great era for this legend to begin.",
   "setup.place.form.title": "Where in the world did you happen to born?",
+  "setup.place.form.country": "Country",
+  "setup.place.form.state": "State",
   "setup.confirmation.title": "Alrighty, {name} from {country}, Nice to meet you 🤝",
   "setup.confirmation.subtitle": "This is where we start our journey of writing your incredible story",
   "setup.confirmation.edit": "Edit my information",
