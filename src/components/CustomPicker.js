@@ -61,6 +61,9 @@ const CustomPicker = (props) => {
       <View style={[styles.input, stateStyle.input, validationStyle.input]}>
         <PickerSelect
           {...props}
+          style={{...pickerSelectStyles}}
+          placeholderTextColor={colors.mineShaft}
+          hideIcon
         />
         {showButton}
         {// <Image source={icons.fb} style={{ width: 20, height: 20, marginRight: 9 }} />
@@ -212,5 +215,23 @@ const validationStyles = {
     },
   },
 }
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 18,
+    borderWidth: 0,
+    backgroundColor: 'white',
+    color: 'black',
+  },
+  viewContainer: {
+    height: 50,
+    width: 300,
+    borderWidth: 0,
+    alignSelf: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingLeft: 20,
+  },
+})
 
 export default CustomPicker

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { View } from 'react-native'
-import PickerSelect from 'react-native-picker-select'
+import { View, StyleSheet } from 'react-native'
+import CustomPicker from '../../components/CustomPicker'
 
-import Trasnlate from '../../components/Translate'
+import Translate from '../../components/Translate'
 import Container from '../../components/Container'
 import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
@@ -115,10 +115,10 @@ export default class Place extends Component {
     const topBarTitle = (
       <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Trasnlate keyName='setup.place.title' data={{ year }} />
+          <Translate keyName='setup.place.title' data={{ year }} />
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Trasnlate keyName='setup.place.subtitle' />
+          <Translate keyName='setup.place.subtitle' />
         </View>
       </View>
     )
@@ -129,19 +129,37 @@ export default class Place extends Component {
 
     return (
       <Container topBar={topBar} >
-        <Trasnlate keyName='setup.place.form.title' />
-        <PickerSelect
-          items={countries}
-          value={country}
-          onValueChange={this.onChangeCountry}
-        />
-        <PickerSelect
-          items={states}
-          value={state}
-          onValueChange={this.onChangeState}
-        />
-        <Button title='setup.continue' onPress={this.onContinue} />
+        <Translate keyName='setup.place.form.title' />
+        <View style={styles.view}>
+          <CustomPicker
+            title='setup.place.form.country'
+            items={countries}
+            value={country}
+            onValueChange={this.onChangeCountry}
+            placeholder={{
+              label: 'Select a country',
+              value: null,
+            }}
+          />
+          <CustomPicker
+            title='setup.place.form.state'
+            items={states}
+            value={state}
+            onValueChange={this.onChangeState}
+            placeholder={{
+              label: 'Select a state',
+              value: null,
+            }}
+          />
+          <Button title='setup.continue' onPress={this.onContinue} />
+        </View>
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  view: {alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+})
