@@ -135,7 +135,7 @@ const AuthStack = createStackNavigator({
 }, {
   headerMode: 'none',
   mode: 'modal',
-  initialRouteName: 'CreateAccount',
+  initialRouteName: 'Onboarding',
 })
 
 const RootStack = createSwitchNavigator({
