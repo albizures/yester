@@ -78,6 +78,6 @@
   "home.title": "yester",
   "setup.done.title": "Alrighty, {name} from {place}, Nice to meet you 🤝",
   "setup.done.subtitle": "This is where we start our journey of writing your incredible story",
-  "questionCard.primary": "Primary",
-  "questionCard.secundary": "Secundary"
+  "questionCard.write": "Write and Live Again",
+  "questionCard.skip": "Other Question"
 }
