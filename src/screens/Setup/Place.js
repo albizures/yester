@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { View, StyleSheet } from 'react-native'
 import CustomPicker from '../../components/CustomPicker'
-
+import colors from '../../utils/colors'
 import Translate from '../../components/Translate'
 import Container from '../../components/Container'
 import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
 import http from '../../utils/http'
+import styles from '../../styles/common'
 
 export default class Place extends Component {
   static propTypes = {
@@ -113,12 +114,14 @@ export default class Place extends Component {
   render () {
     const { year, countries, states, country, state } = this.state
     const topBarTitle = (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110, paddingHorizontal: 27}}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.place.title' data={{ year }} />
+          <Translate keyName='setup.place.title' data={{ year }}
+            style={[styles.h2, {color: colors.brightTurquoise}]} />
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.place.subtitle' />
+          <Translate keyName='setup.place.subtitle'
+            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
         </View>
       </View>
     )
@@ -129,8 +132,11 @@ export default class Place extends Component {
 
     return (
       <Container topBar={topBar} >
-        <Translate keyName='setup.place.form.title' />
-        <View style={styles.view}>
+        <View style={localStyles.view}>
+          <View style={{height: 98}} />
+          <Translate keyName='setup.place.form.title'
+            style={[styles.h4, {textAlign: 'center'}]}
+          />
           <CustomPicker
             title='setup.place.form.country'
             items={countries}
@@ -158,8 +164,12 @@ export default class Place extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  view: {alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+const localStyles = StyleSheet.create({
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 30,
+    paddingHorizontal: 31,
   },
 })

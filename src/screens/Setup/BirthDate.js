@@ -9,6 +9,7 @@ import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
 import colors from '../../utils/colors'
 import CustomDatePicker from '../../components/CustomDatePicker'
+import styles from '../../styles/common'
 
 import TopBar from '../../components/TopBar'
 
@@ -55,12 +56,14 @@ export default class BirthDate extends Component {
   render () {
     const { name, birthDate } = this.state
     const topBarTitle = (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110, paddingHorizontal: 27}}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.age.greeting' style={{color: 'white'}} data={{ name }} />
+          <Translate keyName='setup.age.greeting' data={{ name }}
+            style={[styles.h2, {color: colors.brightTurquoise}]} />
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.age.greeting.subtitle' style={{color: 'white', textAlign: 'center'}} />
+          <Translate keyName='setup.age.greeting.subtitle'
+            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
         </View>
       </View>
     )
@@ -70,8 +73,11 @@ export default class BirthDate extends Component {
     )
     return (
       <Container topBar={topBar}>
-        <View style={styles.view}>
-          <Translate keyName='setup.age.question' />
+        <View style={localStyles.view}>
+
+          <View style={{height: 98}} />
+          <Translate keyName='setup.age.question'
+            style={[styles.h4, {textAlign: 'center'}]} />
           <CustomDatePicker title='setup.age.birthdate'
             value={birthDate}
             onDateChange={(birthDate) => {
@@ -85,8 +91,12 @@ export default class BirthDate extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  view: {alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+const localStyles = StyleSheet.create({
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 30,
+    paddingHorizontal: 31,
   },
 })
