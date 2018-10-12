@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { View, StyleSheet } from 'react-native'
-import CustomPicker from '../../components/CustomPicker'
+import Picker from '../../components/Picker'
 import colors from '../../utils/colors'
 import Translate from '../../components/Translate'
 import Container from '../../components/Container'
@@ -27,7 +27,7 @@ export default class Place extends Component {
 
     this.state = {
       birthDate,
-      year: moment(birthDate).format('YY'),
+      year: moment(birthDate).format('YY').substring(0, 1) + '0',
       country,
       state,
       name: '',
@@ -137,7 +137,7 @@ export default class Place extends Component {
           <Translate keyName='setup.place.form.title'
             style={[styles.h4, {textAlign: 'center'}]}
           />
-          <CustomPicker
+          <Picker
             title='setup.place.form.country'
             items={countries}
             value={country}
@@ -147,7 +147,7 @@ export default class Place extends Component {
               value: null,
             }}
           />
-          <CustomPicker
+          <Picker
             title='setup.place.form.state'
             items={states}
             value={state}

@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Text, Alert, View, TextInput, StyleSheet } from 'react-native'
+import { Text, Alert, View, StyleSheet } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
@@ -12,7 +12,7 @@ import { Title } from '../components/Translate'
 import Container from '../components/Container'
 import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
-import CustomTextInput from '../components/CustomTextInput'
+import TextInput from '../components/TextInput'
 
 class Login extends Component {
   static propTypes = {
@@ -79,9 +79,9 @@ class Login extends Component {
           <TextDivider>
             <Title keyName='createAccount.or' />
           </TextDivider>
-          <CustomTextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
+          <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
             value={email} onChangeText={text => this.onChange(text, 'email')} />
-          <CustomTextInput title='signup.password' show={this.onPressShow}
+          <TextInput title='signup.password' show={this.onPressShow}
             secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
           <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
         </View>

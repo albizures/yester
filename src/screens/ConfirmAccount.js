@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify'
 import Translate from '../components/Translate'
 import Container from '../components/Container'
 import Button from '../components/Button'
-import CustomTextInput from '../components/CustomTextInput'
+import TextInput from '../components/TextInput'
 
 export default class ConfirmAccount extends Component {
   static propTypes = {
@@ -49,7 +49,7 @@ export default class ConfirmAccount extends Component {
             <Translate keyName='confirm.label' />
             <Text>{email || number}</Text>
           </View>
-          <CustomTextInput title='confirm.inputLabel' keyboardType='numeric'
+          <TextInput title='confirm.inputLabel' keyboardType='numeric'
             value={code} onChangeText={text => this.onChange(text, 'code')} />
 
           <Button title='confirm.submit' onPress={this.onPress} />

@@ -7,7 +7,7 @@ import Container from '../components/Container'
 import Button from '../components/Button'
 import Translate from '../components/Translate'
 import TopBar from '../components/TopBar'
-import CustomTextInput from '../components/CustomTextInput'
+import TextInput from '../components/TextInput'
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -76,13 +76,13 @@ export default class SignUp extends Component {
         <Translate keyName='signup.title' style={[{textAlign: 'center', marginTop: 40}]} />
         <Translate keyName='signup.subtitle' style={[{textAlign: 'center', marginTop: 40}]} />
         <View style={{alignItems: 'center'}}>
-          <CustomTextInput title='signup.firstName'
+          <TextInput title='signup.firstName'
             value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
-          <CustomTextInput title='signup.lastName'
+          <TextInput title='signup.lastName'
             value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
-          <CustomTextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
+          <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
             value={email} onChangeText={text => this.onChange(text, 'email')} />
-          <CustomTextInput title='signup.password' show={this.onPressShow}
+          <TextInput title='signup.password' show={this.onPressShow}
             secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
           <Button title='signup.submit' onPress={this.onPress} />
         </View>

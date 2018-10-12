@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import DatePicker from 'react-native-datepicker'
 import { View, StyleSheet } from 'react-native'
 
 import Container from '../../components/Container'
@@ -8,7 +7,7 @@ import Translate from '../../components/Translate'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
 import colors from '../../utils/colors'
-import CustomDatePicker from '../../components/CustomDatePicker'
+import DatePicker from '../../components/DatePicker'
 import styles from '../../styles/common'
 
 import TopBar from '../../components/TopBar'
@@ -78,7 +77,7 @@ export default class BirthDate extends Component {
           <View style={{height: 98}} />
           <Translate keyName='setup.age.question'
             style={[styles.h4, {textAlign: 'center'}]} />
-          <CustomDatePicker title='setup.age.birthdate'
+          <DatePicker title='setup.age.birthdate'
             value={birthDate}
             onDateChange={(birthDate) => {
               this.setState({birthDate})
