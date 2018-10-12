@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, ViewPropTypes, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, ViewPropTypes, StyleSheet, TextInput as RNTextInput, Image, TouchableOpacity } from 'react-native'
 import colors from '../utils/colors'
 import Translate from '../components/Translate'
 import icons from '../utils/icons'
@@ -17,27 +17,27 @@ export const validations = {
   BAD: 'BAD',
 }
 
-const CustomTextInput = (props) => {
+const TextInput = (props) => {
   const {title, editable, description, value, validation,
     validationMessage, show} = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
 
-  var descriptionLabel
-  if (description != null) {
+  let descriptionLabel
+  if (description) {
     descriptionLabel = <Translate keyName={description}
       style={styles.description} />
   }
 
-  var validationLabel
+  let validationLabel
   if (validation !== validations.NONE) {
     validationLabel = <Translate keyName={validationMessage}
       style={[styles.validation, validationStyle.validation]} />
   }
 
-  var showButton
-  var onPress = () => {}
-  if (show != null) {
+  let showButton
+  let onPress = () => {}
+  if (show) {
     onPress = show
     showButton = <TouchableOpacity onPress={onPress}>
       <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
@@ -58,7 +58,7 @@ const CustomTextInput = (props) => {
           style={[styles.tile, stateStyle.title, validationStyle.title]} />
       </View>
       <View style={[styles.input, stateStyle.input, validationStyle.input]}>
-        <TextInput {...props}
+        <RNTextInput {...props}
           value={value}
           paddingHorizontal={20}
           height={50}
@@ -79,7 +79,7 @@ const CustomTextInput = (props) => {
   )
 }
 
-CustomTextInput.propTypes = {
+TextInput.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
   editable: PropTypes.bool,
@@ -89,7 +89,7 @@ CustomTextInput.propTypes = {
   validationMessage: PropTypes.string,
 }
 
-CustomTextInput.defaultProps = {
+TextInput.defaultProps = {
   editable: true,
   validation: validations.NONE,
 }
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
 })
 
 const stateStyles = {
-  [states.ENABLED]: {
+  [states.ENABLED]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.white,
@@ -141,8 +141,8 @@ const stateStyles = {
     },
     validation: {
     },
-  },
-  [states.DISABLED]: {
+  }),
+  [states.DISABLED]: StyleSheet.create({
     input: {
       backgroundColor: colors.mischka,
       borderColor: colors.mischka,
@@ -155,11 +155,11 @@ const stateStyles = {
     },
     validation: {
     },
-  },
+  }),
 }
 
 const validationStyles = {
-  [validations.NONE]: {
+  [validations.NONE]: StyleSheet.create({
     input: {
     },
     title: {
@@ -168,8 +168,8 @@ const validationStyles = {
     },
     validation: {
     },
-  },
-  [validations.GOOD]: {
+  }),
+  [validations.GOOD]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.apple,
@@ -183,8 +183,8 @@ const validationStyles = {
     validation: {
       color: colors.apple,
     },
-  },
-  [validations.WAIT]: {
+  }),
+  [validations.WAIT]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.selectiveYellow,
@@ -198,8 +198,8 @@ const validationStyles = {
     validation: {
       color: colors.selectiveYellow,
     },
-  },
-  [validations.BAD]: {
+  }),
+  [validations.BAD]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.bittersweet,
@@ -213,7 +213,7 @@ const validationStyles = {
     validation: {
       color: colors.bittersweet,
     },
-  },
+  }),
 }
 
-export default CustomTextInput
+export default TextInput

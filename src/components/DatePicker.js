@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, ViewPropTypes, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native'
+import { View, ViewPropTypes, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../utils/colors'
 import Translate from '../components/Translate'
 import icons from '../utils/icons'
-import PickerSelect from 'react-native-picker-select'
+import RNDatePicker from 'react-native-datepicker'
 
 const states = {
   ENABLED: 'ENABLED',
@@ -18,38 +18,49 @@ export const validations = {
   BAD: 'BAD',
 }
 
-const CustomPicker = (props) => {
+const DatePicker = (props) => {
   const {title, editable, description, value, validation,
     validationMessage, show} = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
 
-  var descriptionLabel
-  if (description != null) {
-    descriptionLabel = <Translate keyName={description}
-      style={styles.description} />
+  let descriptionLabel
+  if (description) {
+    descriptionLabel = (
+      <Translate keyName={description} style={styles.description} />
+    )
   }
 
-  var validationLabel
+  let validationLabel
   if (validation !== validations.NONE) {
-    validationLabel = <Translate keyName={validationMessage}
-      style={[styles.validation, validationStyle.validation]} />
+    validationLabel = (
+      <Translate
+        keyName={validationMessage}
+        style={[styles.validation, validationStyle.validation]} />
+    )
   }
 
-  var showButton
-  var onPress = () => {}
-  if (show != null) {
+  let showButton
+  let onPress = () => {}
+  if (show) {
     onPress = show
-    showButton = <TouchableOpacity onPress={onPress}>
-      <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
-        <Translate keyName='signup.showPassword' style={[{fontFamily: 'Karla-Regular',
-          color: colors.royalBlue,
-          fontSize: 14,
-          fontWeight: 'bold',
-          textAlign: 'left',
-        }]} />
-      </View>
-    </TouchableOpacity>
+    showButton = (
+      <TouchableOpacity onPress={onPress}>
+        <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
+          <Translate
+            keyName='signup.showPassword'
+            style={[
+              {
+                fontFamily: 'Karla-Regular',
+                color: colors.royalBlue,
+                fontSize: 14,
+                fontWeight: 'bold',
+                textAlign: 'left',
+              },
+            ]} />
+        </View>
+      </TouchableOpacity>
+    )
   }
 
   return (
@@ -59,11 +70,15 @@ const CustomPicker = (props) => {
           style={[styles.tile, stateStyle.title, validationStyle.title]} />
       </View>
       <View style={[styles.input, stateStyle.input, validationStyle.input]}>
-        <PickerSelect
-          {...props}
-          style={{...pickerSelectStyles}}
-          placeholderTextColor={colors.mineShaft}
-          hideIcon
+        <RNDatePicker {...props}
+          date={value}
+          mode='date'
+          placeholder='YYYY-MM-DD'
+          format='YYYY-MM-DD'
+          showIcon={false}
+          confirmBtnText='Confirm'
+          cancelBtnText='Cancel'
+          customStyles={customStyles}
         />
         {showButton}
         {// <Image source={icons.fb} style={{ width: 20, height: 20, marginRight: 9 }} />
@@ -79,7 +94,7 @@ const CustomPicker = (props) => {
   )
 }
 
-CustomPicker.propTypes = {
+DatePicker.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
   editable: PropTypes.bool,
@@ -89,7 +104,7 @@ CustomPicker.propTypes = {
   validationMessage: PropTypes.string,
 }
 
-CustomPicker.defaultProps = {
+DatePicker.defaultProps = {
   editable: true,
   validation: validations.NONE,
 }
@@ -128,7 +143,7 @@ const styles = StyleSheet.create({
 })
 
 const stateStyles = {
-  [states.ENABLED]: {
+  [states.ENABLED]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.white,
@@ -141,8 +156,8 @@ const stateStyles = {
     },
     validation: {
     },
-  },
-  [states.DISABLED]: {
+  }),
+  [states.DISABLED]: StyleSheet.create({
     input: {
       backgroundColor: colors.mischka,
       borderColor: colors.mischka,
@@ -155,11 +170,11 @@ const stateStyles = {
     },
     validation: {
     },
-  },
+  }),
 }
 
 const validationStyles = {
-  [validations.NONE]: {
+  [validations.NONE]: StyleSheet.create({
     input: {
     },
     title: {
@@ -168,8 +183,8 @@ const validationStyles = {
     },
     validation: {
     },
-  },
-  [validations.GOOD]: {
+  }),
+  [validations.GOOD]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.apple,
@@ -183,8 +198,8 @@ const validationStyles = {
     validation: {
       color: colors.apple,
     },
-  },
-  [validations.WAIT]: {
+  }),
+  [validations.WAIT]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.selectiveYellow,
@@ -198,8 +213,8 @@ const validationStyles = {
     validation: {
       color: colors.selectiveYellow,
     },
-  },
-  [validations.BAD]: {
+  }),
+  [validations.BAD]: StyleSheet.create({
     input: {
       backgroundColor: colors.white,
       borderColor: colors.bittersweet,
@@ -213,25 +228,41 @@ const validationStyles = {
     validation: {
       color: colors.bittersweet,
     },
-  },
+  }),
 }
 
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 18,
-    borderWidth: 0,
-    backgroundColor: 'white',
-    color: 'black',
+const customStyles = StyleSheet.create({
+  dateTouchBody: {
+    flexDirection: 'row',
+    height: 50,
+    width: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  viewContainer: {
+  dateIcon: {
+    width: 32,
+    height: 32,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  dateInput: {
+    flex: 1,
     height: 50,
     width: 300,
     borderWidth: 0,
-    alignSelf: 'center',
+    borderColor: '#fff',
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingLeft: 20,
   },
+  dateText: {
+    fontSize: 18,
+    color: colors.mineShaft,
+  },
+  placeholderText: {
+    fontSize: 18,
+    color: colors.mineShaft,
+  },
 })
 
-export default CustomPicker
+export default DatePicker
