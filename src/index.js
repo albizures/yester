@@ -20,7 +20,6 @@ import CreateAccount from './screens/CreateAccount'
 import Suscription from './screens/Suscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
-import Question from './screens/Question'
 import Writing from './screens/Writing'
 import Reading from './screens/Reading'
 import Profile from './screens/Profile'
@@ -65,7 +64,6 @@ const FeedStack = createStackNavigator({
   Home,
   Writing,
   Reading,
-  Question,
 }, {
   mode: 'modal',
   headerMode: 'none',
