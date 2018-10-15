@@ -1,20 +1,17 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { StyleSheet, Dimensions, AsyncStorage, Alert, View } from 'react-native'
+import { View, Text, StyleSheet, AsyncStorage, Alert } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-import styles from '../styles/common'
 
 import Button from '../components/Button'
 import Divider from '../components/Divider'
-import Translate, { Title } from '../components/Translate'
+import { Title, Description, Heading1, Heading3, Heading4 } from '../components/Translate'
 import Container from '../components/Container'
-import TextDivier from '../components/TextDivider'
+import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
-
-const { height, width } = Dimensions.get('window')
 
 class CreateAccount extends Component {
   static propTypes = {
@@ -46,41 +43,47 @@ class CreateAccount extends Component {
 
   render () {
     return (
-      <Container style={localStyles.container}>
-        <Translate style={[styles.h1, localStyles.margin, {textAlign: 'center'}]}
-          keyName='common.upperTitle' />
-        <Title style={[localStyles.margin, {fontWeight: 'bold', textAlign: 'center'}]}
-          keyName='createAccount.begin' />
+      <Container>
+        <View style={styles.container}>
+          <Heading1 keyName='common.upperTitle' style={{textAlign: 'center', marginTop: 96}} />
 
-        <Button onPress={this.onFBLogin} title='createAccount.continue' icon={icons.fb} />
+          <Title keyName='createAccount.begin' style={[{fontWeight: 'bold', textAlign: 'center', marginTop: 54, marginBottom: 60}]} />
 
-        <Translate style={[styles.body1, localStyles.margin]}
-          keyName='createAccount.recommendation' />
+          <Button title='createAccount.continue' onPress={this.onFBLogin} icon={icons.fb} />
 
-        <TextDivier>
-          <Title keyName='createAccount.or' />
-        </TextDivier>
-        <Button onPress={this.onSignIn} title='createAccount.create' type={Button.OUTLINED} />
-        <View>
-          <Divider />
-          <Translate style={[styles.body1]} keyName='createAccount.member' />
-          <Translate style={[styles.body1]} keyName='createAccount.login' onPress={this.onLogin} />
+          <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20}} />
+
+          <TextDivider style={{marginVertical: 30}} >
+            <Heading3 keyName='createAccount.or' />
+          </TextDivider>
+
+          <Button
+            title='createAccount.create'
+            style={{marginBottom: 78}}
+            onPress={this.onSignIn}
+            type={Button.OUTLINED}
+          />
+
+          <View style={{marginBottom: 15}}>
+            <Divider style={{width: 300, marginBottom: 15}} />
+            <Text>
+              <Heading4 keyName='createAccount.member' style={{textAlign: 'center'}} />
+              <Heading3 keyName='createAccount.login' style={{color: colors.governorBay, textAlign: 'center'}} onPress={this.onLogin} />
+            </Text>
+          </View>
         </View>
       </Container>
     )
   }
 }
 
-const localStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    alignContent: 'center',
-    paddingBottom: height * 0.25,
-    paddingHorizontal: width * 0.08,
-    backgroundColor: colors.white,
-  },
-  margin: {
-    marginBottom: height * 0.03,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingHorizontal: 24,
+    backgroundColor: colors.athensGray,
   },
 })
 
