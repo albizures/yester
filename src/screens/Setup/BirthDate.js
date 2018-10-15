@@ -95,6 +95,7 @@ const localStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
+    backgroundColor: colors.athensGray,
     paddingBottom: 30,
     paddingHorizontal: 31,
   },

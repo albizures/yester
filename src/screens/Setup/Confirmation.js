@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import { View, StyleSheet } from 'react-native'
 import Container from '../../components/Container'
 import Translate from '../../components/Translate'
 import Button from '../../components/Button'
+import styles from '../../styles/common'
 import { getUser, saveUserData } from '../../utils/session'
+import colors from '../../utils/colors';
+
 
 export default class Confirmation extends Component {
   static propTypes = {
@@ -55,11 +58,27 @@ export default class Confirmation extends Component {
     } = this.state
     return (
       <Container>
-        <Translate keyName='setup.confirmation.title' data={{ country: countryName, name }} />
-        <Translate keyName='setup.confirmation.subtitle' />
-        <Translate keyName='setup.confirmation.edit' />
-        <Button title='setup.confirmation.continue' onPress={this.onContinue} />
+        <View style={localStyles.view}>
+          <Translate keyName='setup.confirmation.title' data={{ country: countryName, name }}
+            style={[styles.h2, {color: colors.white, textAlign: 'center'}]} />
+          <Translate keyName='setup.confirmation.subtitle'
+            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
+          <Translate keyName='setup.confirmation.edit'
+            style={[{color: colors.white, textAlign: 'center'}]} />
+          <Button title='setup.confirmation.continue' onPress={this.onContinue} />
+        </View>
       </Container>
     )
   }
 }
+
+const localStyles = StyleSheet.create({
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 30,
+    paddingHorizontal: 31,
+    backgroundColor: colors.haiti,
+  },
+})
