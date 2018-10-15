@@ -14,4 +14,6 @@ export default {
   selectiveYellow: '#FFB100',
   bittersweet: '#FD6060',
   haiti: '#1E1437',
+  questionCardShadow: '#2699FB',
+  shadow: '#4A41B3',
 }
