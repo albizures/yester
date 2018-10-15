@@ -73,6 +73,8 @@
   "confirm.note": "Please confirm by clicking on the link we have sent.",
   "confirm.submit": "Log in Now",
   "confirm.inputLabel": "Código",
+  "login.loginAccount": "Ingresa a tu cuenta",
+  "login.forgotPassword": "Olvidaste tu contraseña?",
   "settings.title": "Settings",
   "profile.title": "My Profile",
   "home.title": "yester",
