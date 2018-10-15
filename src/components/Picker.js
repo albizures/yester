@@ -12,7 +12,7 @@ const Picker = (props) => {
     <InputContainer title={title} type={types.PICKER} >
       <RNPickerSelect
         {...props}
-        style={{...pickerSelectStyles}}
+        style={pickerSelectStyles}
         placeholderTextColor={colors.mineShaft}
         hideIcon
       />
