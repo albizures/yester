@@ -119,13 +119,12 @@ const styles = StyleSheet.create({
     width: 300,
     maxHeight: 50,
     borderRadius: 25,
-    shadowColor: colors.mischka,
+    shadowColor: colors.shadow,
+    shadowOpacity: 0.22,
+    shadowRadius: 15,
     shadowOffset: {
-      width: 0,
       height: 10,
     },
-    shadowRadius: 15,
-    shadowOpacity: 1.0,
     elevation: 10,
   },
   title: {
