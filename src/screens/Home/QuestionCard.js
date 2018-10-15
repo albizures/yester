@@ -6,22 +6,22 @@ import common from '../../styles/common'
 import Button, {types} from '../../components/Button'
 
 const QuestionCard = (props) => {
-  const {questionText, topicText, stageText, onPressWrite, onPressSkip} = props
+  const {item, onPressWrite, onPressSkip} = props
 
   return (
     <View style={styles.card}>
       <View style={styles.container}>
         <View style={styles.ilustration}>
           <Text style={[common.h5]}>
-            {stageText}
+            {item.age}
           </Text>
         </View>
         <View style={styles.content}>
           <Text style={[common.h2]}>
-            {topicText}
+            {item.category}
           </Text>
           <Text style={[common.h5]}>
-            {questionText}
+            {item.text}
           </Text>
           <Button title='questionCard.write' onPress={onPressWrite} />
           <Button title='questionCard.skip' onPress={onPressSkip} type={types.OUTLINED} />
@@ -32,15 +32,17 @@ const QuestionCard = (props) => {
 }
 
 QuestionCard.propTypes = {
-  questionText: PropTypes.string.isRequired,
-  topicText: PropTypes.string.isRequired,
-  stageText: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
+  onPressWrite: PropTypes.func.isRequired,
+  onPressSkip: PropTypes.func.isRequired,
 }
 
 QuestionCard.defaultProps = {
-  questionText: 'What is your full givenname? Were you named after anyone? (Question)',
-  topicText: 'Your Name (Topic)',
-  stageText: 'Your first days (Age)',
+  item: {
+    text: 'What is your full givenname? Were you named after anyone? (Question)',
+    category: 'Your Name (Topic)',
+    age: 'Your first days (Age)',
+  },
 }
 export default QuestionCard
 
@@ -51,16 +53,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 0.5,
     borderColor: colors.white,
-    marginTop: 10,
-    marginBottom: 20,
-    shadowColor: colors.mischka,
+    marginTop: 84,
+    shadowColor: colors.questionCardShadow,
+    shadowOpacity: 0.1,
+    shadowRadius: 30,
     shadowOffset: {
-      width: 0,
-      height: 8,
+      height: 30,
     },
-    shadowRadius: 15,
-    shadowOpacity: 1.0,
-    elevation: 8,
   },
   container: {
     flex: 1,
