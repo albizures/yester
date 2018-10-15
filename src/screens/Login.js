@@ -23,7 +23,6 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
-    show: false,
   }
 
   onFBLogin = async () => {
@@ -62,14 +61,8 @@ class Login extends Component {
     })
   }
 
-  onPressShow = () => {
-    this.setState({
-      show: !this.state.show,
-    })
-  }
-
   render () {
-    const { email, password, show } = this.state
+    const { email, password } = this.state
     const topBar = (
       <TopBar title='createAccount.login' />
     )
@@ -89,8 +82,8 @@ class Login extends Component {
           <Heading2 keyName='login.loginAccount' style={{color: colors.governorBay, marginTop: 30, marginBottom: 20}} />
           <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
             value={email} onChangeText={text => this.onChange(text, 'email')} />
-          <TextInput title='signup.password' show={this.onPressShow}
-            secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
+          <TextInput title='signup.password' password
+            value={password} onChangeText={text => this.onChange(text, 'password')} />
           <View style={{width: 300, height: 30, alignItems: 'flex-start', justifyContent: 'flex-start', marginVertical: 20}}>
             <Description keyName='login.forgotPassword' style={{fontSize: 14, fontWeight: 'bold', color: colors.governorBay}} />
           </View>

@@ -47,11 +47,9 @@ const InputContainer = (props) => {
   }
 
   let showIcon
-  let onPress = () => {}
-  if (show) {
-    onPress = show
+  if (type === types.PASSWORD) {
     showIcon = (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={show}>
         <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
           <Translate keyName='signup.showPassword'
             style={[{
@@ -65,7 +63,6 @@ const InputContainer = (props) => {
       </TouchableOpacity>
     )
   }
-
   if (type === types.PICKER) {
     showIcon = (
       <View style={[{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}]}>

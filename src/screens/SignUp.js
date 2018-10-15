@@ -19,13 +19,6 @@ export default class SignUp extends Component {
     lastName: '',
     email: '',
     password: '',
-    show: false,
-  }
-
-  onPressShow = () => {
-    this.setState({
-      show: !this.state.show,
-    })
   }
 
   onPress = async () => {
@@ -65,7 +58,6 @@ export default class SignUp extends Component {
       lastName,
       email,
       password,
-      show,
     } = this.state
 
     const topBar = (
@@ -82,8 +74,8 @@ export default class SignUp extends Component {
             value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
           <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
             value={email} onChangeText={text => this.onChange(text, 'email')} />
-          <TextInput title='signup.password' show={this.onPressShow}
-            secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
+          <TextInput title='signup.password' password
+            value={password} onChangeText={text => this.onChange(text, 'password')} />
           <Button title='signup.submit' onPress={this.onPress} />
         </View>
       </Container>
