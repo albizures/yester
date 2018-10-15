@@ -106,7 +106,7 @@ export default class Home extends Component {
           animationType='fade'
           transparent
           visible={this.state.modalVisible} >
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'rgba(98, 97, 232, 0.85)'}}>
             <QuestionCard
               item={this.state.item}
               onPressWrite={this.onPressWrite}
