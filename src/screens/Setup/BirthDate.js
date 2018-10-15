@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import DatePicker from 'react-native-datepicker'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import Container from '../../components/Container'
 import Translate from '../../components/Translate'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
-// import colors from '../../utils/colors'
+import colors from '../../utils/colors'
+import DatePicker from '../../components/DatePicker'
+import styles from '../../styles/common'
 
 import TopBar from '../../components/TopBar'
 
@@ -54,12 +55,14 @@ export default class BirthDate extends Component {
   render () {
     const { name, birthDate } = this.state
     const topBarTitle = (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110, paddingHorizontal: 27}}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.age.greeting' style={{color: 'white'}} data={{ name }} />
+          <Translate keyName='setup.age.greeting' data={{ name }}
+            style={[styles.h2, {color: colors.brightTurquoise}]} />
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.age.greeting.subtitle' style={{color: 'white', textAlign: 'center'}} />
+          <Translate keyName='setup.age.greeting.subtitle'
+            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
         </View>
       </View>
     )
@@ -69,23 +72,30 @@ export default class BirthDate extends Component {
     )
     return (
       <Container topBar={topBar}>
-        <Translate keyName='setup.age.question' />
-        <Translate keyName='setup.age.birthdate' />
+        <View style={localStyles.view}>
 
-        <DatePicker
-          style={{width: 200}}
-          date={birthDate}
-          mode='date'
-          placeholder='select date'
-          format='YYYY-MM-DD'
-          confirmBtnText='Confirm'
-          cancelBtnText='Cancel'
-          onDateChange={(birthDate) => {
-            this.setState({birthDate})
-          }}
-        />
-        <Button title='setup.continue' onPress={this.onContinue} />
+          <View style={{height: 98}} />
+          <Translate keyName='setup.age.question'
+            style={[styles.h4, {textAlign: 'center'}]} />
+          <DatePicker title='setup.age.birthdate'
+            value={birthDate}
+            onDateChange={(birthDate) => {
+              this.setState({birthDate})
+            }}
+          />
+          <Button title='setup.continue' onPress={this.onContinue} />
+        </View>
       </Container>
     )
   }
 }
+
+const localStyles = StyleSheet.create({
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 30,
+    paddingHorizontal: 31,
+  },
+})

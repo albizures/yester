@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { View } from 'react-native'
-import PickerSelect from 'react-native-picker-select'
-
-import Trasnlate from '../../components/Translate'
+import { View, StyleSheet } from 'react-native'
+import Picker from '../../components/Picker'
+import colors from '../../utils/colors'
+import Translate from '../../components/Translate'
 import Container from '../../components/Container'
 import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
 import http from '../../utils/http'
+import styles from '../../styles/common'
 
 export default class Place extends Component {
   static propTypes = {
@@ -26,7 +27,7 @@ export default class Place extends Component {
 
     this.state = {
       birthDate,
-      year: moment(birthDate).format('YY'),
+      year: moment(birthDate).format('YY').substring(0, 1) + '0',
       country,
       state,
       name: '',
@@ -113,12 +114,14 @@ export default class Place extends Component {
   render () {
     const { year, countries, states, country, state } = this.state
     const topBarTitle = (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110}}>
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110, paddingHorizontal: 27}}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Trasnlate keyName='setup.place.title' data={{ year }} />
+          <Translate keyName='setup.place.title' data={{ year }}
+            style={[styles.h2, {color: colors.brightTurquoise}]} />
         </View>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Trasnlate keyName='setup.place.subtitle' />
+          <Translate keyName='setup.place.subtitle'
+            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
         </View>
       </View>
     )
@@ -129,19 +132,44 @@ export default class Place extends Component {
 
     return (
       <Container topBar={topBar} >
-        <Trasnlate keyName='setup.place.form.title' />
-        <PickerSelect
-          items={countries}
-          value={country}
-          onValueChange={this.onChangeCountry}
-        />
-        <PickerSelect
-          items={states}
-          value={state}
-          onValueChange={this.onChangeState}
-        />
-        <Button title='setup.continue' onPress={this.onContinue} />
+        <View style={localStyles.view}>
+          <View style={{height: 98}} />
+          <Translate keyName='setup.place.form.title'
+            style={[styles.h4, {textAlign: 'center'}]}
+          />
+          <Picker
+            title='setup.place.form.country'
+            items={countries}
+            value={country}
+            onValueChange={this.onChangeCountry}
+            placeholder={{
+              label: 'Select a country',
+              value: null,
+            }}
+          />
+          <Picker
+            title='setup.place.form.state'
+            items={states}
+            value={state}
+            onValueChange={this.onChangeState}
+            placeholder={{
+              label: 'Select a state',
+              value: null,
+            }}
+          />
+          <Button title='setup.continue' onPress={this.onContinue} />
+        </View>
       </Container>
     )
   }
 }
+
+const localStyles = StyleSheet.create({
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 30,
+    paddingHorizontal: 31,
+  },
+})

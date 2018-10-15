@@ -1,9 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { View } from 'react-native'
-import TextInput, { validations } from '../CustomTextInput'
+import TextInput, { validations } from '../TextInput'
 
-describe('src/components/CustomTextInput.js', () => {
+describe('src/components/TextInput.js', () => {
   it('should render a View with a Custom TextInput in it', () => {
     const shallowButton = shallow(<TextInput title='titleKeyName' />)
     expect(shallowButton.type()).toBe(View)
