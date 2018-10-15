@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native'
 import colors from '../utils/colors'
 
-const { height, width } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 const fontColor = colors.mineShaft
 const mainColor = colors.governorBay
 
@@ -70,12 +70,5 @@ export default StyleSheet.create({
   separator: {
     borderBottomColor: mainColor,
     borderBottomWidth: 1,
-  },
-  divider: {
-    height: height * 0.01,
-    backgroundColor: colors.mischka,
-    borderRadius: height * 0.04,
-    borderWidth: 1,
-    borderColor: colors.mischka,
   },
 })

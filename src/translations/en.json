@@ -17,7 +17,7 @@
   "createAccount.continue": "Continue with Facebook",
   "createAccount.create": "Create account",
   "createAccount.or": "Or",
-  "createAccount.member": "Already a member?",
+  "createAccount.member": "Already a member? ",
   "createAccount.login": "Log In",
   "questionItem.completed": "Completed",
   "email_valid1": "The E-mail Address must be a valid email address.",

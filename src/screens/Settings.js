@@ -28,7 +28,7 @@ export default class Settings extends Component {
     return (
       <Container topBar={topBar}>
         <Text style={[{textAlign: 'center', marginTop: 40}]}>SETTINGS</Text>
-        <Button title='log Out' onPress={this.onLogOut} />
+        <Button title='Log Out' onPress={this.onLogOut} />
       </Container>
     )
   }
