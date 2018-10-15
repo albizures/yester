@@ -19,6 +19,7 @@ const DatePicker = (props) => {
         confirmBtnText='Confirm'
         cancelBtnText='Cancel'
         customStyles={customStyles}
+        style={{width: 300}}
       />
     </InputContainer>
   )
@@ -38,7 +39,7 @@ const customStyles = StyleSheet.create({
   dateTouchBody: {
     flexDirection: 'row',
     height: 50,
-    width: 245,
+    width: 300,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -51,7 +52,7 @@ const customStyles = StyleSheet.create({
   dateInput: {
     flex: 1,
     height: 50,
-    width: 245,
+    width: 300,
     borderWidth: 0,
     borderColor: '#fff',
     alignItems: 'flex-start',

@@ -31,19 +31,18 @@ Picker.defaultProps = {
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
+    width: 300,
+    height: 50,
     fontSize: 18,
+    borderRadius: 25,
     borderWidth: 0,
     backgroundColor: 'white',
-    color: 'black',
+    color: colors.mineShaft,
+    paddingLeft: 20,
   },
   viewContainer: {
-    height: 50,
-    width: 300,
-    borderWidth: 0,
-    alignSelf: 'center',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingLeft: 20,
   },
 })
 

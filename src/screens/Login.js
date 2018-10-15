@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { Text, Alert, View, StyleSheet } from 'react-native'
 
 import icons from '../utils/icons'
-import colors from '../utils/colors'
 import { logIn, saveUserToken, isSetupFinished } from '../utils/session'
 import Button from '../components/Button'
 import { Title } from '../components/Translate'
