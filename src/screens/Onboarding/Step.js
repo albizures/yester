@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { Image } from 'react-native'
+import { View, Image } from 'react-native'
 
-import Translate from '../../components/Translate'
+import { Heading2, Heading4 } from '../../components/Translate'
 
 export default class Step extends Component {
   static propTypes = {
@@ -15,9 +15,11 @@ export default class Step extends Component {
     const { cover, title, description, children } = this.props
     return (
       <Fragment>
-        <Image source={cover} />
-        <Translate keyName={title} />
-        <Translate keyName={description} />
+        <View style={{alignItems: 'center', justifyContent: 'flex-start'}}>
+          <Image source={cover} style={{marginBottom: 20}} />
+          <Heading2 keyName={title} style={{marginHorizontal: 75, marginVertical: 20}} />
+          <Heading4 keyName={description} style={{marginHorizontal: 75}} />
+        </View>
         {children}
       </Fragment>
     )

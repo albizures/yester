@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import Dot from './Dot'
 
 const Dots = ({steps, currentStep}) => (
-  <View>
+  <View style={{flexDirection: 'row', justifyContent: 'center'}}>
     {new Array(steps)
       .fill(null)
       .map((item, index) => <Dot key={index} active={index === currentStep} />) }

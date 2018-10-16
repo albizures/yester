@@ -54,7 +54,6 @@ export default class Onboarding extends Component {
         {/* TODO use our custom button here */}
         <Button title='Skip' onPress={this.toCreateAccount} />
         <Button title='Continue' onPress={nextScreen} />
-
       </View>
     )
   }
@@ -63,7 +62,7 @@ export default class Onboarding extends Component {
     const { steps } = this.state
 
     return (
-      <Container>
+      <Container style={{alignItems: 'center', justifyContent: 'flex-start'}}>
         <Stepper bottomBar={this.getBottomBar}>
           {steps.map(this.createStep)}
         </Stepper>
