@@ -40,7 +40,7 @@ export default class SignUp extends Component {
         },
       })
 
-      this.props.navigation.navigate('ConfirmAccount', { user, email })
+      this.props.navigation.navigate('ConfirmAccount', { user, email, password })
     } catch (error) {
       console.log('Login', error)
       Alert.alert(error.message)
@@ -80,6 +80,7 @@ export default class SignUp extends Component {
           <TextInput title='signup.password' password
             value={password} onChangeText={text => this.onChange(text, 'password')} />
           <Button title='signup.submit' onPress={this.onPress} style={{marginTop: 15}} />
+            value={email} onChangeText={text => this.onChange(text.toLowerCase(), 'email')} />
         </View>
       </Container>
     )
