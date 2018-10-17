@@ -80,11 +80,14 @@ class Login extends Component {
             <Heading3 keyName='createAccount.or' />
           </TextDivider>
           <Heading2 keyName='login.loginAccount' style={{color: colors.governorBay, marginTop: 30, marginBottom: 20}} />
-          <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
-            value={email} onChangeText={text => this.onChange(text, 'email')} />
-          <TextInput title='signup.password' password
-            value={password} onChangeText={text => this.onChange(text, 'password')} />
-          <View style={{width: 300, height: 30, alignItems: 'flex-start', justifyContent: 'flex-start', marginVertical: 20}}>
+          <View style={{height: 178, alignItems: 'center', justifyContent: 'space-between', marginBottom: 20}} >
+            <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
+              value={email} onChangeText={text => this.onChange(text, 'email')} />
+            <TextInput title='signup.password' password
+              value={password} onChangeText={text => this.onChange(text, 'password')} />
+          </View>
+
+          <View style={{width: 300, height: 30, alignItems: 'flex-start', justifyContent: 'flex-start'}}>
             <Description keyName='login.forgotPassword' style={{fontSize: 14, fontWeight: 'bold', color: colors.governorBay}} />
           </View>
           <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
