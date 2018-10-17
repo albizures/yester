@@ -19,8 +19,8 @@ const QuestionCard = (props) => {
         </View>
         <Image source={icons.buttonPlus} resizeMode='cover' style={styles.buttonPlus} />
       </View>
-      <Button title='questionCard.primary' />
-      <Button title='questionCard.secundary' type={types.OUTLINED} />
+      <Button title='questionCard.write' />
+      <Button title='questionCard.skip' type={types.OUTLINED} />
     </View>
   )
 }

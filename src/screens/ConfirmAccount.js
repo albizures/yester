@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Alert, TextInput, StyleSheet, Text } from 'react-native'
+import { View, Alert, StyleSheet, Text } from 'react-native'
 import { Auth } from 'aws-amplify'
-
-import colors from '../utils/colors'
 import Translate from '../components/Translate'
 import Container from '../components/Container'
 import Button from '../components/Button'
+import TextInput from '../components/TextInput'
 
 export default class ConfirmAccount extends Component {
   static propTypes = {
@@ -47,26 +46,23 @@ export default class ConfirmAccount extends Component {
     const number = navigation.getParam('number')
     return (
       <Container>
-        <Translate keyName='confirm.title' />
-        <Translate keyName='confirm.subtitle' />
-        <View>
-          <Translate keyName='confirm.label' />
-          <Text>{email || number}</Text>
+        <View style={styles.view}>
+          <Translate keyName='confirm.title' />
+          <Translate keyName='confirm.subtitle' />
+          <View>
+            <Translate keyName='confirm.label' />
+            <Text>{email || number}</Text>
+          </View>
+          <TextInput title='confirm.inputLabel' keyboardType='numeric'
+            value={code} onChangeText={text => this.onChange(text, 'code')} />
+
+          <Button title='confirm.submit' onPress={this.onPress} />
         </View>
-        <View style={styles.input}>
-          <TextInput style={styles.borderColor} value={code} onChangeText={text => this.onChange(text, 'code')} />
-        </View>
-        <Button title='confirm.submit' onPress={this.onPress} />
       </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  input: {
-    borderColor: colors.black,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    marginBottom: 10,
-  },
+  view: {alignItems: 'center'},
 })
