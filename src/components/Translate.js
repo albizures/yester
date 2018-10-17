@@ -15,8 +15,19 @@ const Translate = ({ keyName, data, ...props }) => (
   <Text {...props}>{suppplant(strings[keyName], data)}</Text>
 )
 
-const createStyledTranslation = (styled) => ({ style, ...props }) => (
-  <Translate {...props} style={[styles.text].concat(styled).concat(style)} />
+const createStyledTranslation = (styled) => ({ keyName, data, text, style, ...props }) => (
+  text ? (
+    <Text {...props}
+      style={[styles.text].concat(styled).concat(style)} >
+      {suppplant(text, data)}
+    </Text>
+  )
+    : (
+      <Translate {...props}
+        style={[styles.text].concat(styled).concat(style)}
+        keyName={keyName}
+        data={data} />
+    )
 )
 
 Translate.propTypes = {

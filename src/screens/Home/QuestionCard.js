@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
-import common from '../../styles/common'
 import Button, {types} from '../../components/Button'
+import {Heading2, Heading5} from '../../components/Translate'
 
 const QuestionCard = (props) => {
   const {item, onPressWrite, onPressSkip} = props
@@ -16,19 +16,13 @@ const QuestionCard = (props) => {
           <Image source={icons.ssCard}
             style={{width: 340, height: 250}} />
           <View style={{flex: 1, position: 'absolute', alignSelf: 'center', paddingTop: 27}}>
-            <Text style={[common.h5, {textAlign: 'center'}]}>
-              {item.age}
-            </Text>
+            <Heading5 text={item.age} style={[{textAlign: 'center'}]} />
           </View>
         </View>
         <View style={styles.content}>
-          <Text style={[common.h2, {marginBottom: 10}]}>
-            {item.category}
-          </Text>
+          <Heading2 text={item.category} style={[{marginBottom: 10}]} />
           <View style={{height: 41}}>
-            <Text style={[common.h5]}>
-              {item.text}
-            </Text>
+            <Heading5 text={item.text} />
           </View>
           <Button title='questionCard.write'
             style={{marginVertical: 20}}
