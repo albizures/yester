@@ -24,7 +24,7 @@ export const types = {
 }
 
 const InputContainer = (props) => {
-  const {title, editable, description, validation,
+  const {title, editable, description, validation, style,
     validationMessage, show, children, type} = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
@@ -74,7 +74,7 @@ const InputContainer = (props) => {
   }
 
   return (
-    <View style={[{marginVertical: 10}]} >
+    <View style={style} >
       <View style={[styles.labelContainer]}>
         <Translate keyName={title}
           style={[styles.tile, stateStyle.title, validationStyle.title]} />

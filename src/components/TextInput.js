@@ -25,7 +25,7 @@ export default class TextInput extends Component {
     }
 
     return (
-      <InputContainer title={title} show={this.onPressShow} type={config.type} >
+      <InputContainer {...this.props} title={title} show={this.onPressShow} type={config.type} >
         <RNTextInput
           {...this.props}
           secureTextEntry={config.secure}

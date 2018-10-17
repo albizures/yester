@@ -9,7 +9,7 @@ const DatePicker = (props) => {
   const {title, value} = props
 
   return (
-    <InputContainer title={title} type={types.PICKER} >
+    <InputContainer {...props} title={title} type={types.PICKER} >
       <RNDatePicker {...props}
         date={value}
         mode='date'
