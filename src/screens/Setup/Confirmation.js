@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Container from '../../components/Container'
-import Translate from '../../components/Translate'
+import Translate, { Heading2, Heading4 } from '../../components/Translate'
 import Button from '../../components/Button'
-import styles from '../../styles/common'
 import { getUser, saveUserData } from '../../utils/session'
-import colors from '../../utils/colors';
-
+import colors from '../../utils/colors'
 
 export default class Confirmation extends Component {
   static propTypes = {
@@ -51,34 +49,53 @@ export default class Confirmation extends Component {
     this.props.navigation.navigate('Home')
   }
 
+  onEdit = () => {
+    this.props.navigation.navigate('SetupBirthDate')
+  }
+
   render () {
     const {
       name,
-      countryName,
+      stateName,
     } = this.state
     return (
-      <Container>
-        <View style={localStyles.view}>
-          <Translate keyName='setup.confirmation.title' data={{ country: countryName, name }}
-            style={[styles.h2, {color: colors.white, textAlign: 'center'}]} />
-          <Translate keyName='setup.confirmation.subtitle'
-            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
-          <Translate keyName='setup.confirmation.edit'
-            style={[{color: colors.white, textAlign: 'center'}]} />
-          <Button title='setup.confirmation.continue' onPress={this.onContinue} />
-        </View>
+      <Container style={styles.container}>
+        <Heading2 keyName='setup.confirmation.title'
+          data={{ state: stateName, name }}
+          style={[styles.font, {marginTop: 153}]} />
+
+        <Heading4 keyName='setup.confirmation.subtitle'
+          style={[styles.font, {marginTop: 12}]} />
+
+        <Translate keyName='setup.confirmation.edit'
+          style={styles.editInfo} onPress={this.onEdit} />
+
+        <Button title='setup.confirmation.continue'
+          onPress={this.onContinue}
+          type={Button.OUTLINED} />
       </Container>
     )
   }
 }
 
-const localStyles = StyleSheet.create({
-  view: {
-    flex: 1,
+const styles = StyleSheet.create({
+  container: {
     alignItems: 'center',
     justifyContent: 'space-around',
-    paddingBottom: 30,
-    paddingHorizontal: 31,
+    paddingBottom: 54,
+    paddingHorizontal: 40,
     backgroundColor: colors.haiti,
+  },
+  font: {
+    color: colors.white,
+    textAlign: 'center',
+  },
+  editInfo: {
+    fontSize: 14,
+    color: colors.white,
+    textAlign: 'center',
+    'textDecorationLine': 'underline',
+    marginTop: 187,
+    marginBottom: 40,
   },
 })
