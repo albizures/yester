@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Alert, StyleSheet, Text } from 'react-native'
+import { View, Alert, StyleSheet } from 'react-native'
 import { Auth } from 'aws-amplify'
+
 import Translate from '../components/Translate'
 import Container from '../components/Container'
 import Button from '../components/Button'
 import TextInput from '../components/TextInput'
+import { logIn } from '../utils/session'
 
 export default class ConfirmAccount extends Component {
   static propTypes = {
@@ -26,12 +28,26 @@ export default class ConfirmAccount extends Component {
     })
   }
 
+  async postConfirm () {
+    const { navigation } = this.props
+    const email = navigation.getParam('email')
+    const password = navigation.getParam('password')
+    try {
+      await logIn(email, password)
+      navigation.navigate('Setup')
+    } catch (error) {
+      navigation.navigate('Login')
+    }
+  }
+
   onPress = async () => {
     const { navigation } = this.props
     const email = navigation.getParam('email')
+
     const { code } = this.state
     try {
       await Auth.confirmSignUp(email, code)
+      this.postConfirm()
     } catch (error) {
       console.log('ConfirmAccount', error)
       Alert.alert(error.message || error)
@@ -39,15 +55,17 @@ export default class ConfirmAccount extends Component {
   }
 
   render () {
-    const { email, number, code } = this.state
+    const { code } = this.state
+    const { navigation } = this.props
+    const email = navigation.getParam('email')
+    const number = navigation.getParam('number')
     return (
       <Container>
         <View style={styles.view}>
           <Translate keyName='confirm.title' />
           <Translate keyName='confirm.subtitle' />
           <View>
-            <Translate keyName='confirm.label' />
-            <Text>{email || number}</Text>
+            <Translate keyName='confirm.label' data={{contact: email || number}} />
           </View>
           <TextInput title='confirm.inputLabel' keyboardType='numeric'
             value={code} onChangeText={text => this.onChange(text, 'code')} />
