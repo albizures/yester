@@ -33,6 +33,7 @@ export default class ConfirmAccount extends Component {
     const { code } = this.state
     try {
       await Auth.confirmSignUp(email, code)
+      navigation.navigate('Setup')
     } catch (error) {
       console.log('ConfirmAccount', error)
       Alert.alert(error.message || error)
@@ -40,7 +41,10 @@ export default class ConfirmAccount extends Component {
   }
 
   render () {
-    const { email, number, code } = this.state
+    const { code } = this.state
+    const { navigation } = this.props
+    const email = navigation.getParam('email')
+    const number = navigation.getParam('number')
     return (
       <Container>
         <Translate keyName='confirm.title' />

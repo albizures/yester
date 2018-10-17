@@ -13,9 +13,7 @@ import Container from '../components/Container'
 import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
 
-
 class Login extends Component {
-
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     onLoginWithFB: PropTypes.func.isRequired,
