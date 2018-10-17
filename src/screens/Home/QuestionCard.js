@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
+import icons from '../../utils/icons'
 import common from '../../styles/common'
 import Button, {types} from '../../components/Button'
 
@@ -12,18 +13,26 @@ const QuestionCard = (props) => {
     <View style={styles.card}>
       <View style={styles.container}>
         <View style={styles.ilustration}>
-          <Text style={[common.h5]}>
-            {item.age}
-          </Text>
+          <Image source={icons.ssCard}
+            style={{width: 340, height: 250}} />
+          <View style={{flex: 1, position: 'absolute', alignSelf: 'center', paddingTop: 27}}>
+            <Text style={[common.h5, {textAlign: 'center'}]}>
+              {item.age}
+            </Text>
+          </View>
         </View>
         <View style={styles.content}>
-          <Text style={[common.h2]}>
+          <Text style={[common.h2, {marginBottom: 10}]}>
             {item.category}
           </Text>
-          <Text style={[common.h5]}>
-            {item.text}
-          </Text>
-          <Button title='questionCard.write' onPress={onPressWrite} />
+          <View style={{height: 41}}>
+            <Text style={[common.h5]}>
+              {item.text}
+            </Text>
+          </View>
+          <Button title='questionCard.write'
+            style={{marginVertical: 20}}
+            onPress={onPressWrite} />
           <Button title='questionCard.skip' onPress={onPressSkip} type={types.OUTLINED} />
         </View>
       </View>
@@ -37,13 +46,6 @@ QuestionCard.propTypes = {
   onPressSkip: PropTypes.func.isRequired,
 }
 
-QuestionCard.defaultProps = {
-  item: {
-    text: 'What is your full givenname? Were you named after anyone? (Question)',
-    category: 'Your Name (Topic)',
-    age: 'Your first days (Age)',
-  },
-}
 export default QuestionCard
 
 const styles = StyleSheet.create({
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
     shadowOffset: {
       height: 30,
     },
+    overflow: 'hidden',
   },
   container: {
     flex: 1,
@@ -76,5 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 30,
   },
 })
