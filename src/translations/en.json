@@ -64,6 +64,8 @@
   "signup.email": "Email",
   "signup.password": "Password",
   "signup.showPassword": "SHOW",
+  "signup.emailDescription": "We’ll never share your email with anyone else.",
+  "signup.passwordDescription": "Min 6 characters long",
   "confirm.title": "Success!",
   "confirm.subtitle": "Thanks for signing into Yester.",
   "confirm.label": "We have sent a confirming code to: {contact}",
