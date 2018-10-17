@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../utils/colors'
-import Translate from '../components/Translate'
+import Translate, { Description } from '../components/Translate'
 import icons from '../utils/icons'
 
 const states = {
@@ -32,7 +32,9 @@ const InputContainer = (props) => {
   let descriptionLabel
   if (description) {
     descriptionLabel = (
-      <Translate keyName={description} style={styles.description} />
+      <View style={[styles.labelContainer, {justifyContent: 'flex-end'}]}>
+        <Description keyName={description} />
+      </View>
     )
   }
 
@@ -86,9 +88,7 @@ const InputContainer = (props) => {
       <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
         {validationLabel}
       </View>
-      <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
-        {descriptionLabel}
-      </View>
+      {descriptionLabel}
     </View>
   )
 }
@@ -102,6 +102,7 @@ InputContainer.propTypes = {
   validationMessage: PropTypes.string,
   show: PropTypes.func,
   children: PropTypes.node.isRequired,
+  style: PropTypes.object,
 }
 
 InputContainer.defaultProps = {
@@ -130,10 +131,6 @@ const styles = StyleSheet.create({
     top: 0,
     fontSize: 12,
   },
-  description: {
-    fontSize: 12,
-    color: colors.mineShaft,
-  },
   labelContainer: {
     minHeight: 24,
   },
@@ -151,8 +148,6 @@ const stateStyles = {
     title: {
       color: colors.governorBay,
     },
-    description: {
-    },
     validation: {
     },
   }),
@@ -165,8 +160,6 @@ const stateStyles = {
     title: {
       color: colors.mischka,
     },
-    description: {
-    },
     validation: {
     },
   }),
@@ -177,8 +170,6 @@ const validationStyles = {
     input: {
     },
     title: {
-    },
-    description: {
     },
     validation: {
     },
@@ -191,8 +182,6 @@ const validationStyles = {
     },
     title: {
       color: colors.apple,
-    },
-    description: {
     },
     validation: {
       color: colors.apple,
@@ -207,8 +196,6 @@ const validationStyles = {
     title: {
       color: colors.selectiveYellow,
     },
-    description: {
-    },
     validation: {
       color: colors.selectiveYellow,
     },
@@ -221,8 +208,6 @@ const validationStyles = {
     },
     title: {
       color: colors.bittersweet,
-    },
-    description: {
     },
     validation: {
       color: colors.bittersweet,
