@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
+import { StyleSheet } from 'react-native'
 import Container from '../../components/Container'
-import Translate from '../../components/Translate'
+import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
 import { getUser, saveUserData } from '../../utils/session'
+import colors from '../../utils/colors'
 
 export default class Confirmation extends Component {
   static propTypes = {
@@ -48,18 +49,52 @@ export default class Confirmation extends Component {
     this.props.navigation.navigate('Home')
   }
 
+  onEdit = () => {
+    this.props.navigation.navigate('SetupBirthDate')
+  }
+
   render () {
     const {
       name,
-      countryName,
+      stateName,
     } = this.state
     return (
-      <Container>
-        <Translate keyName='setup.confirmation.title' data={{ country: countryName, name }} />
-        <Translate keyName='setup.confirmation.subtitle' />
-        <Translate keyName='setup.confirmation.edit' />
-        <Button title='setup.confirmation.continue' onPress={this.onContinue} />
+      <Container style={styles.container}>
+        <Heading2 keyName='setup.confirmation.title'
+          data={{ state: stateName, name }}
+          style={[styles.font, {marginTop: 153}]} />
+
+        <Heading4 keyName='setup.confirmation.subtitle'
+          style={[styles.font, {marginTop: 12}]} />
+
+        <Body2 keyName='setup.confirmation.edit'
+          style={styles.editInfo} onPress={this.onEdit} />
+
+        <Button title='setup.confirmation.continue'
+          onPress={this.onContinue}
+          type={Button.OUTLINED} />
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingBottom: 54,
+    paddingHorizontal: 40,
+    backgroundColor: colors.haiti,
+  },
+  font: {
+    color: colors.white,
+    textAlign: 'center',
+  },
+  editInfo: {
+    color: colors.white,
+    textAlign: 'center',
+    'textDecorationLine': 'underline',
+    marginTop: 187,
+    marginBottom: 40,
+  },
+})

@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button, StyleSheet, FlatList, Alert, Image } from 'react-native'
+import { Text, View, StyleSheet, FlatList, Alert, Image, Modal } from 'react-native'
 import QuestionItem from './QuestionItem'
-
+import QuestionCard from './QuestionCard'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
-import Translate from '../../components/Translate'
+import {Title} from '../../components'
 import http from '../../utils/http'
-import common from '../../styles/common'
 import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
 
@@ -18,8 +17,12 @@ export default class Home extends Component {
 
   state = {
     isLoading: true,
-    ages: [],
-    topics: [],
+    modalVisible: false,
+    item: {},
+  }
+
+  setModalVisible (visible, item) {
+    this.setState({modalVisible: visible, item: item})
   }
 
   async componentDidMount () {
@@ -37,13 +40,9 @@ export default class Home extends Component {
     }
   }
 
-  onPress = () => {
-    this.props.navigation.navigate('Question')
-  }
-
   renderAgeItem = ({item}) => (
     <View>
-      <Text style={[common.h3, localStyles.sectionHeader]}>
+      <Text style={[localStyles.ageText]}>
         {item.text}
       </Text>
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
@@ -53,7 +52,11 @@ export default class Home extends Component {
   )
 
   renderTopicItem = ({item}) => (
-    <QuestionItem text={item.text} />
+    <QuestionItem
+      questionText={item.text}
+      topicText={'Your Name (Topic)'}
+      onPress={() => this.onPressItem(item)}
+    />
   )
 
   getAgesItems = () => (
@@ -72,12 +75,25 @@ export default class Home extends Component {
     />
   )
 
+  onPressItem = (item) => {
+    this.setModalVisible(true, item)
+  }
+
+  onPressWrite = () => {
+    this.setModalVisible(!this.state.modalVisible)
+    this.props.navigation.navigate('Writing')
+  }
+
+  onPressSkip = () => {
+    this.setModalVisible(!this.state.modalVisible)
+  }
+
   render () {
     const { isLoading } = this.state
     const topBarTitle = (
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         <Image style={{ height: 25, width: 20 }} source={require('../../assets/feather-white.png')} />
-        <Translate keyName='home.title' style={{color: colors.white}} />
+        <Title keyName='home.title' style={{color: colors.white}} />
       </View>
     )
 
@@ -85,9 +101,19 @@ export default class Home extends Component {
       <TopBar title={topBarTitle} />
     )
     return (
-      <Container topBar={topBar} isLoading={isLoading} >
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>HOME</Text>
-        <Button title='to Question' onPress={this.onPress} />
+      <Container topBar={topBar} isLoading={isLoading} style={{backgroundColor: colors.athensGray}} >
+        <Modal
+          animationType='fade'
+          transparent
+          visible={this.state.modalVisible} >
+          <View style={{flex: 1, alignItems: 'center', backgroundColor: 'rgba(98, 97, 232, 0.85)'}}>
+            <QuestionCard
+              item={this.state.item}
+              onPressWrite={this.onPressWrite}
+              onPressSkip={this.onPressSkip} />
+          </View>
+        </Modal>
+        <Text style={[{textAlign: 'center', marginTop: 20}]}>HOME</Text>
         { this.getAgesItems() }
       </Container>
     )
@@ -95,9 +121,12 @@ export default class Home extends Component {
 }
 
 const localStyles = StyleSheet.create({
-  sectionHeader: {
-    paddingTop: 5,
-    paddingBottom: 5,
+  ageText: {
+    fontFamily: 'Karla-Regular',
+    color: colors.governorBay,
+    fontSize: 25,
+    fontWeight: 'bold',
     textAlign: 'center',
+    paddingVertical: 5,
   },
 })

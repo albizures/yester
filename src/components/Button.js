@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, TouchableHighlight, Image, ViewPropTypes, StyleSheet } from 'react-native'
 import colors from '../utils/colors'
-import Translate from '../components/Translate'
+import { Heading3 } from '../components'
 
 export const types = {
   FILLED: 'FILLED',
@@ -30,7 +30,7 @@ const Button = (props) => {
         {icon && (
           <Image source={icon} style={[styles.icon, typeStyle.icon]} />
         )}
-        <Translate keyName={title} style={[styles.text, typeStyle.text]} />
+        <Heading3 keyName={title} style={[styles.text, typeStyle.text]} />
       </View>
     </TouchableHighlight>
   )
@@ -75,8 +75,6 @@ const styles = StyleSheet.create({
     },
   },
   text: {
-    fontSize: 18,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   icon: {

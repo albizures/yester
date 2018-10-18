@@ -7,8 +7,8 @@ const Step = (props) => {
   const { width, height } = Dimensions.get('window')
   const portrait = height > width
   const style = {
-    justifyContent: portrait ? 'center' : 'flex-start',
-    paddingTop: portrait ? 0 : 10,
+    justifyContent: portrait ? 'flex-start' : 'flex-start',
+    paddingTop: portrait ? 50 : 10,
     width,
     height,
   }
@@ -27,7 +27,6 @@ Step.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     alignItems: 'center',
   },
 })

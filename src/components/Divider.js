@@ -16,10 +16,9 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 22,
     height: 1,
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: colors.mischka,
     backgroundColor: colors.mischka,
-    padding: 0,
   },
 })
 

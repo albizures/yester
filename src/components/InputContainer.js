@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../utils/colors'
-import Translate from '../components/Translate'
+import { Description, Body1 } from '../components'
 import icons from '../utils/icons'
 
 const states = {
@@ -24,7 +24,7 @@ export const types = {
 }
 
 const InputContainer = (props) => {
-  const {title, editable, description, validation,
+  const {title, editable, description, validation, style,
     validationMessage, show, children, type} = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
@@ -32,14 +32,16 @@ const InputContainer = (props) => {
   let descriptionLabel
   if (description) {
     descriptionLabel = (
-      <Translate keyName={description} style={styles.description} />
+      <View style={[styles.labelContainer, {justifyContent: 'flex-end'}]}>
+        <Description keyName={description} />
+      </View>
     )
   }
 
   let validationLabel
   if (validation !== validations.NONE) {
     validationLabel = (
-      <Translate
+      <Description
         keyName={validationMessage}
         style={[styles.validation, validationStyle.validation]}
       />
@@ -47,25 +49,16 @@ const InputContainer = (props) => {
   }
 
   let showIcon
-  let onPress = () => {}
-  if (show) {
-    onPress = show
+  if (type === types.PASSWORD) {
     showIcon = (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={show}>
         <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
-          <Translate keyName='signup.showPassword'
-            style={[{
-              fontFamily: 'Karla-Regular',
-              color: colors.royalBlue,
-              fontSize: 14,
-              fontWeight: 'bold',
-              textAlign: 'left',
-            }]} />
+          <Body1 keyName='signup.showPassword'
+            style={{color: colors.royalBlue}} />
         </View>
       </TouchableOpacity>
     )
   }
-
   if (type === types.PICKER) {
     showIcon = (
       <View style={[{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}]}>
@@ -77,10 +70,10 @@ const InputContainer = (props) => {
   }
 
   return (
-    <View style={[{marginVertical: 10}]} >
+    <View style={style} >
       <View style={[styles.labelContainer]}>
-        <Translate keyName={title}
-          style={[styles.tile, stateStyle.title, validationStyle.title]} />
+        <Description keyName={title}
+          style={[styles.title, stateStyle.title, validationStyle.title]} />
       </View>
       <View style={[styles.input, stateStyle.input, validationStyle.input]}>
         {children}
@@ -89,9 +82,7 @@ const InputContainer = (props) => {
       <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
         {validationLabel}
       </View>
-      <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
-        {descriptionLabel}
-      </View>
+      {descriptionLabel}
     </View>
   )
 }
@@ -105,6 +96,7 @@ InputContainer.propTypes = {
   validationMessage: PropTypes.string,
   show: PropTypes.func,
   children: PropTypes.node.isRequired,
+  style: PropTypes.object,
 }
 
 InputContainer.defaultProps = {
@@ -119,24 +111,18 @@ const styles = StyleSheet.create({
     width: 300,
     maxHeight: 50,
     borderRadius: 25,
-    shadowColor: colors.mischka,
+    shadowColor: colors.shadow,
+    shadowOpacity: 0.22,
+    shadowRadius: 15,
     shadowOffset: {
-      width: 0,
       height: 10,
     },
-    shadowRadius: 15,
-    shadowOpacity: 1.0,
     elevation: 10,
   },
   title: {
     position: 'absolute',
     left: 0,
     top: 0,
-    fontSize: 12,
-  },
-  description: {
-    fontSize: 12,
-    color: colors.mineShaft,
   },
   labelContainer: {
     minHeight: 24,
@@ -155,8 +141,6 @@ const stateStyles = {
     title: {
       color: colors.governorBay,
     },
-    description: {
-    },
     validation: {
     },
   }),
@@ -169,8 +153,6 @@ const stateStyles = {
     title: {
       color: colors.mischka,
     },
-    description: {
-    },
     validation: {
     },
   }),
@@ -181,8 +163,6 @@ const validationStyles = {
     input: {
     },
     title: {
-    },
-    description: {
     },
     validation: {
     },
@@ -195,8 +175,6 @@ const validationStyles = {
     },
     title: {
       color: colors.apple,
-    },
-    description: {
     },
     validation: {
       color: colors.apple,
@@ -211,8 +189,6 @@ const validationStyles = {
     title: {
       color: colors.selectiveYellow,
     },
-    description: {
-    },
     validation: {
       color: colors.selectiveYellow,
     },
@@ -225,8 +201,6 @@ const validationStyles = {
     },
     title: {
       color: colors.bittersweet,
-    },
-    description: {
     },
     validation: {
       color: colors.bittersweet,

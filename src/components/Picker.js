@@ -9,7 +9,7 @@ const Picker = (props) => {
   const {title} = props
 
   return (
-    <InputContainer title={title} type={types.PICKER} >
+    <InputContainer {...props} title={title} type={types.PICKER} >
       <RNPickerSelect
         {...props}
         style={pickerSelectStyles}

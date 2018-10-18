@@ -1,73 +1,79 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
-import common from '../../styles/common'
 import Button, {types} from '../../components/Button'
+import { Heading2, Heading5 } from '../../components'
 
 const QuestionCard = (props) => {
-  const {text} = props
+  const {item, onPressWrite, onPressSkip} = props
 
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.questionText}>
-          <Text numberOfLines={2} style={[common.h4, {flexWrap: 'wrap'}]}>
-            {text}
-          </Text>
+    <View style={styles.card}>
+      <View style={styles.container}>
+        <View style={styles.ilustration}>
+          <Image source={icons.ssCard}
+            style={{width: 340, height: 250}} />
+          <View style={{flex: 1, position: 'absolute', alignSelf: 'center', paddingTop: 27}}>
+            <Heading5 text={item.age} style={[{textAlign: 'center'}]} />
+          </View>
         </View>
-        <Image source={icons.buttonPlus} resizeMode='cover' style={styles.buttonPlus} />
+        <View style={styles.content}>
+          <Heading2 text={item.category} style={[{marginBottom: 10}]} />
+          <View style={{height: 41}}>
+            <Heading5 text={item.text} />
+          </View>
+          <Button title='questionCard.write'
+            style={{marginVertical: 20}}
+            onPress={onPressWrite} />
+          <Button title='questionCard.skip' onPress={onPressSkip} type={types.OUTLINED} />
+        </View>
       </View>
-      <Button title='questionCard.write' />
-      <Button title='questionCard.skip' type={types.OUTLINED} />
     </View>
   )
 }
 
 QuestionCard.propTypes = {
-  text: PropTypes.string.isRequired,
+  item: PropTypes.object.isRequired,
+  onPressWrite: PropTypes.func.isRequired,
+  onPressSkip: PropTypes.func.isRequired,
 }
+
 export default QuestionCard
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  card: {
     height: 520,
     width: 340,
     borderRadius: 30,
     borderWidth: 0.5,
     borderColor: colors.white,
-    marginTop: 10,
-    marginBottom: 10,
-    shadowColor: colors.mischka,
+    marginTop: 84,
+    shadowColor: colors.questionCardShadow,
+    shadowOpacity: 0.1,
+    shadowRadius: 30,
     shadowOffset: {
-      width: 0,
-      height: 8,
+      height: 30,
     },
-    shadowRadius: 15,
-    shadowOpacity: 1.0,
-    elevation: 8,
+    overflow: 'hidden',
   },
-  row: {
+  container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
+    justifyContent: 'space-around',
     backgroundColor: colors.white,
     borderRadius: 30,
   },
-  questionText: {
-    flex: 1,
-    height: 50,
-    width: 220,
-    marginLeft: 30,
-    justifyContent: 'center',
+  ilustration: {
+    height: 250,
   },
-  buttonPlus: {
-  // Specfile dice 35x35 pero el SVG no viene en la posicion 0,0
-    width: 50,
-    height: 50,
-    marginRight: 17,
+  content: {
+    height: 270,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 30,
   },
 })

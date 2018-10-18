@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 
 import Container from '../../components/Container'
-import Translate from '../../components/Translate'
+import { Heading2, Heading4, Description } from '../../components'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
 import colors from '../../utils/colors'
+import icons from '../../utils/icons'
 import DatePicker from '../../components/DatePicker'
-import styles from '../../styles/common'
-
 import TopBar from '../../components/TopBar'
 
 export default class BirthDate extends Component {
@@ -55,14 +54,14 @@ export default class BirthDate extends Component {
   render () {
     const { name, birthDate } = this.state
     const topBarTitle = (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'center', height: 110, paddingHorizontal: 27}}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.age.greeting' data={{ name }}
-            style={[styles.h2, {color: colors.brightTurquoise}]} />
+      <View style={{flex: 1, height: 110, justifyContent: 'center', paddingHorizontal: 27}}>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
+          <Heading2 keyName='setup.age.greeting' data={{ name }}
+            style={[{color: colors.brightTurquoise}]} />
         </View>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Translate keyName='setup.age.greeting.subtitle'
-            style={[styles.h4, {color: colors.white, textAlign: 'center'}]} />
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+          <Heading4 keyName='setup.age.greeting.subtitle'
+            style={[{color: colors.white, textAlign: 'center'}]} />
         </View>
       </View>
     )
@@ -72,30 +71,34 @@ export default class BirthDate extends Component {
     )
     return (
       <Container topBar={topBar}>
-        <View style={localStyles.view}>
+        <View style={styles.container}>
+          <Image source={icons.ssSonaja}
+            style={{width: 60, height: 64.52, marginTop: 32, marginBottom: 20}} />
 
-          <View style={{height: 98}} />
-          <Translate keyName='setup.age.question'
-            style={[styles.h4, {textAlign: 'center'}]} />
+          <Heading4 keyName='setup.age.question' style={[{textAlign: 'center'}]} />
+
           <DatePicker title='setup.age.birthdate'
+            style={{marginTop: 50, marginBottom: 110}}
             value={birthDate}
             onDateChange={(birthDate) => {
               this.setState({birthDate})
             }}
           />
-          <Button title='setup.continue' onPress={this.onContinue} />
+          <Button title='setup.continue' style={{marginBottom: 20}} onPress={this.onContinue} />
+          <Description keyName='setup.age.disclaimer'
+            style={[{textAlign: 'center', paddingHorizontal: 17}]} />
         </View>
       </Container>
     )
   }
 }
 
-const localStyles = StyleSheet.create({
-  view: {
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingBottom: 30,
+    backgroundColor: colors.athensGray,
+    paddingBottom: 22,
     paddingHorizontal: 31,
   },
 })

@@ -1,16 +1,18 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Text, Alert, View, StyleSheet } from 'react-native'
+import { Alert, View, StyleSheet } from 'react-native'
 
 import icons from '../utils/icons'
+import colors from '../utils/colors'
 import { logIn, saveUserToken, isSetupFinished } from '../utils/session'
 import Button from '../components/Button'
-import { Title } from '../components/Translate'
+import { Heading2, Heading3, Description } from '../components'
 import Container from '../components/Container'
 import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
 import TextInput from '../components/TextInput'
+import TopBar from '../components/TopBar'
 
 class Login extends Component {
   static propTypes = {
@@ -21,7 +23,6 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
-    show: false,
   }
 
   onFBLogin = async () => {
@@ -60,27 +61,35 @@ class Login extends Component {
     })
   }
 
-  onPressShow = () => {
-    this.setState({
-      show: !this.state.show,
-    })
-  }
-
   render () {
-    const { email, password, show } = this.state
+    const { email, password } = this.state
+    const topBar = (
+      <TopBar title='createAccount.login' />
+    )
     return (
-
-      <Container>
+      <Container scroll topBar={topBar}>
         <View style={styles.view}>
-          <Text style={[{textAlign: 'center', marginTop: 40}]}>LOG IN</Text>
-          <Button onPress={this.onFBLogin} title='createAccount.continue' icon={icons.fb} />
-          <TextDivider>
-            <Title keyName='createAccount.or' />
+          <Button
+            title='createAccount.continue'
+            style={{marginTop: 36}}
+            onPress={this.onFBLogin}
+            icon={icons.fb}
+          />
+          <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20, marginBottom: 30}} />
+          <TextDivider style={{marginVertical: 30}} >
+            <Heading3 keyName='createAccount.or' />
           </TextDivider>
-          <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
-            value={email} onChangeText={text => this.onChange(text, 'email')} />
-          <TextInput title='signup.password' show={this.onPressShow}
-            secureTextEntry={!show} value={password} onChangeText={text => this.onChange(text, 'password')} />
+          <Heading2 keyName='login.loginAccount' style={{color: colors.governorBay, marginTop: 30, marginBottom: 20}} />
+          <View style={{height: 178, alignItems: 'center', justifyContent: 'space-between', marginBottom: 20}} >
+            <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
+              value={email} onChangeText={text => this.onChange(text, 'email')} />
+            <TextInput title='signup.password' password
+              value={password} onChangeText={text => this.onChange(text, 'password')} />
+          </View>
+
+          <View style={{width: 300, height: 30, alignItems: 'flex-start', justifyContent: 'flex-start'}}>
+            <Description keyName='login.forgotPassword' style={{fontSize: 14, fontWeight: 'bold', color: colors.governorBay}} />
+          </View>
           <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
         </View>
       </Container>
@@ -89,7 +98,11 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-  view: {alignItems: 'center'},
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: colors.athensGray,
+  },
 })
 
 export default withFBLogin(Login)

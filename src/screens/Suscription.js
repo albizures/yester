@@ -6,9 +6,9 @@ import {
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import Container from '../components/Container'
-import Translate from '../components/Translate'
+import { Heading1, Title, Description, Heading5 } from '../components'
 import Button, {types} from '../components/Button'
-import styles from '../styles/common'
+import Divider from '../components/Divider'
 
 class Suscription extends Component {
   static propTypes = {
@@ -25,85 +25,71 @@ class Suscription extends Component {
 
   render () {
     return (
-      <View style={localStyles.container2}>
-        <Container>
-          <View style={[localStyles.container]}>
+      <Container style={[styles.container]} >
 
-            <Text style={[styles.h1, localStyles.margin]}>
-              <Translate keyName='common.upperTitle' />
-            </Text>
-            <Text style={[styles.title, localStyles.margin]}>
-              <Translate keyName='signUp.weKnow' />
-              <Text style={{fontWeight: 'bold'}}>
-                <Translate keyName='signUp.weWant' />
-              </Text>
-            </Text>
-            <Text style={[styles.title, localStyles.margin]}>
-              <Translate keyName='signUp.receive' />
-            </Text>
+        <View style={styles.container2}>
 
-            <Button onPress={this.onPressSubscription}
-              title='signUp.start' />
+          <Heading1 keyName='common.upperTitle' style={[styles.font, {marginTop: 79}]} />
 
-            <Text style={[styles.body1, localStyles.margin]}>
-              <Translate keyName='signUp.price' />
-            </Text>
-
-            <Button onPress={this.onPressLogin}
-              title='signUp.logIn'
-              type={types.OUTLINED} />
-
-            <View style={[styles.separator, localStyles.margin]} />
-
-            <Text style={[styles.body2, {textAlign: 'left', marginBottom: height * 0.01}]}>
-              <Translate keyName='signUp.cancel' />
-            </Text>
-            <Text style={[styles.body1, {textAlign: 'left'}]}>
-              <Translate keyName='signUp.recurring' />
-            </Text>
-
-          </View>
-        </Container>
-        <View style={localStyles.container3}>
-          <Text style={[styles.title, {textAlign: 'center'}]}>
-            <Translate keyName='signUp.already' />
-            <Text style={[{fontWeight: 'bold', textDecorationLine: 'underline'}]}>
-              <Translate keyName='signUp.restore' />
-            </Text>
+          <Text style={[styles.font, {marginTop: 33}]}>
+            <Title keyName='subscription.weKnow' style={[styles.font]} />
+            <Title keyName='subscription.weWant' style={[styles.font, {fontWeight: 'bold'}]} />
           </Text>
+
+          <Title keyName='subscription.receive' style={[styles.font, styles.margin]} />
+
+          <Button onPress={this.onPressSubscription}
+            title='subscription.start'
+            type={types.OUTLINED} />
+
+          <Description keyName='subscription.price'
+            style={[styles.font, styles.margin, {textAlign: 'center'}]} />
+
+          <Divider style={[styles.margin]} />
+
+          <Description keyName='subscription.cancel' style={{fontWeight: 'bold', color: colors.athensGray, marginBottom: height * 0.01}} />
+          <Description keyName='subscription.recurring' style={{color: colors.athensGray}} />
+
+          <View style={styles.container3}>
+            <Text style={{textAlign: 'center'}}>
+              <Heading5 keyName='subscription.already' style={styles.font} />
+              <Heading5 keyName='subscription.restore' style={[styles.font, {fontWeight: 'bold', textDecorationLine: 'underline'}]} />
+            </Text>
+          </View>
         </View>
-      </View>
+      </Container>
     )
   }
 }
 
 let { height, width } = Dimensions.get('window')
-const localStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
     zIndex: 0,
-    height: height * 0.92,
-    paddingTop: height * 0.075,
-    paddingHorizontal: width * 0.08,
+    backgroundColor: colors.haiti,
   },
   container2: {
-    position: 'absolute',
-    backgroundColor: colors.white,
+    paddingHorizontal: width * 0.08,
   },
   container3: {
     flex: 1,
     position: 'absolute',
     zIndex: 2,
-    marginTop: height * 0.92,
-    height: height * 0.08,
+    marginTop: height - 51 - 20,
+    height: 51,
     width: width,
-    backgroundColor: colors.athensGray,
+    backgroundColor: colors.governorBay,
+    opacity: 0.79,
     justifyContent: 'center',
     alignItems: 'center',
   },
   margin: {
     marginVertical: height * 0.03,
+  },
+  font: {
+    color: colors.white,
+    textAlign: 'center',
   },
 })
 

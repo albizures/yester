@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   },
   divider: {
     marginHorizontal: 11,
-    height: 0,
-    borderWidth: 1,
+    height: 1,
+    borderWidth: 0,
     backgroundColor: colors.mischka,
     borderColor: colors.mischka,
   },
