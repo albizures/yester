@@ -1,23 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
-import common from '../../styles/common'
+import { Heading3, Description } from '../../components'
 
 const QuestionItem = (props) => {
-  const {questionText, topicText, onPress} = props
+  const {data, onPress} = props
 
   return (
     <TouchableOpacity onPress={onPress} >
       <View style={[styles.itemContainer]}>
         <View style={styles.textContainer}>
-          <Text numberOfLines={2} style={[common.h3, {flexWrap: 'wrap'}]}>
-            {questionText}
-          </Text>
-          <Text numberOfLines={1} style={[styles.topicText]}>
-            {topicText}
-          </Text>
+          <Heading3 text={data.text} numberOfLines={2} style={[{flexWrap: 'wrap'}]} />
+          <Description text={data.category} numberOfLines={1} />
         </View>
         <View style={styles.iconContainer}>
           <Image
@@ -31,8 +27,7 @@ const QuestionItem = (props) => {
 }
 
 QuestionItem.propTypes = {
-  questionText: PropTypes.string.isRequired,
-  topicText: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
   onPress: PropTypes.func.isRequired,
 }
 export default QuestionItem
@@ -59,19 +54,6 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingLeft: 30,
-  },
-  questionText: {
-    fontFamily: 'Karla-Regular',
-    color: colors.mineShaft,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'left',
-  },
-  topicText: {
-    fontFamily: 'Karla-Regular',
-    color: colors.mineShaft,
-    fontSize: 12,
-    textAlign: 'left',
   },
   iconContainer: {
     width: 35,

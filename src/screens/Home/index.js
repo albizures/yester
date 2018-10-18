@@ -53,7 +53,7 @@ export default class Home extends Component {
 
   renderTopicItem = ({item}) => (
     <QuestionItem
-      questionText={item.text}
+      data={item}
       topicText={'Your Name (Topic)'}
       onPress={() => this.onPressItem(item)}
     />
@@ -108,7 +108,7 @@ export default class Home extends Component {
           visible={this.state.modalVisible} >
           <View style={{flex: 1, alignItems: 'center', backgroundColor: 'rgba(98, 97, 232, 0.85)'}}>
             <QuestionCard
-              item={this.state.item}
+              data={this.state.item}
               onPressWrite={this.onPressWrite}
               onPressSkip={this.onPressSkip} />
           </View>
