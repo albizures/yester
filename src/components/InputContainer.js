@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import colors from '../utils/colors'
-import Translate, { Description } from '../components/Translate'
+import { Description, Body1 } from '../components'
 import icons from '../utils/icons'
 
 const states = {
@@ -41,7 +41,7 @@ const InputContainer = (props) => {
   let validationLabel
   if (validation !== validations.NONE) {
     validationLabel = (
-      <Translate
+      <Description
         keyName={validationMessage}
         style={[styles.validation, validationStyle.validation]}
       />
@@ -53,14 +53,8 @@ const InputContainer = (props) => {
     showIcon = (
       <TouchableOpacity onPress={show}>
         <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
-          <Translate keyName='signup.showPassword'
-            style={[{
-              fontFamily: 'Karla-Regular',
-              color: colors.royalBlue,
-              fontSize: 14,
-              fontWeight: 'bold',
-              textAlign: 'left',
-            }]} />
+          <Body1 keyName='signup.showPassword'
+            style={{color: colors.royalBlue}} />
         </View>
       </TouchableOpacity>
     )
@@ -78,8 +72,8 @@ const InputContainer = (props) => {
   return (
     <View style={style} >
       <View style={[styles.labelContainer]}>
-        <Translate keyName={title}
-          style={[styles.tile, stateStyle.title, validationStyle.title]} />
+        <Description keyName={title}
+          style={[styles.title, stateStyle.title, validationStyle.title]} />
       </View>
       <View style={[styles.input, stateStyle.input, validationStyle.input]}>
         {children}
@@ -129,7 +123,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
-    fontSize: 12,
   },
   labelContainer: {
     minHeight: 24,

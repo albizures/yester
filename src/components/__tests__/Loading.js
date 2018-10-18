@@ -14,7 +14,7 @@ const render = props => shallow(
   </Loading>
 )
 
-describe('src/components/Translate.js', () => {
+describe('src/components/Loading.js', () => {
   it('should render the provided children', () => {
     const shallowLoading = render()
     expect(shallowLoading.find(Children).exists()).toBe(true)

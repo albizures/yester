@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { View, Image } from 'react-native'
-
-import { Heading2, Heading4 } from '../../components/Translate'
+import { Heading2, Heading4 } from '../../components'
 
 export default class Step extends Component {
   static propTypes = {

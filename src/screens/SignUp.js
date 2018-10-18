@@ -5,7 +5,7 @@ import { Auth } from 'aws-amplify'
 
 import Container from '../components/Container'
 import Button from '../components/Button'
-import { Heading2, Heading4 } from '../components/Translate'
+import { Heading2, Heading4 } from '../components'
 import TopBar from '../components/TopBar'
 import TextInput from '../components/TextInput'
 import colors from '../utils/colors'

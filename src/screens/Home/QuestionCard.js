@@ -4,7 +4,7 @@ import { View, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import Button, {types} from '../../components/Button'
-import {Heading2, Heading5} from '../../components/Translate'
+import { Heading2, Heading5 } from '../../components'
 
 const QuestionCard = (props) => {
   const {item, onPressWrite, onPressSkip} = props

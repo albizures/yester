@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet, Image } from 'react-native'
 
 import Container from '../../components/Container'
-import { Heading2, Heading4, Description } from '../../components/Translate'
+import { Heading2, Heading4, Description } from '../../components'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
 import colors from '../../utils/colors'

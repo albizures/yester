@@ -5,7 +5,7 @@ import QuestionItem from './QuestionItem'
 import QuestionCard from './QuestionCard'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
-import Translate from '../../components/Translate'
+import {Title} from '../../components'
 import http from '../../utils/http'
 import colors from '../../utils/colors'
 import { indexToString } from '../../utils'
@@ -93,7 +93,7 @@ export default class Home extends Component {
     const topBarTitle = (
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         <Image style={{ height: 25, width: 20 }} source={require('../../assets/feather-white.png')} />
-        <Translate keyName='home.title' style={{color: colors.white}} />
+        <Title keyName='home.title' style={{color: colors.white}} />
       </View>
     )
 

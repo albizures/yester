@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import Container from '../../components/Container'
-import Translate, { Heading2, Heading4 } from '../../components/Translate'
+import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
 import { getUser, saveUserData } from '../../utils/session'
 import colors from '../../utils/colors'
@@ -67,7 +67,7 @@ export default class Confirmation extends Component {
         <Heading4 keyName='setup.confirmation.subtitle'
           style={[styles.font, {marginTop: 12}]} />
 
-        <Translate keyName='setup.confirmation.edit'
+        <Body2 keyName='setup.confirmation.edit'
           style={styles.editInfo} onPress={this.onEdit} />
 
         <Button title='setup.confirmation.continue'
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   editInfo: {
-    fontSize: 14,
     color: colors.white,
     textAlign: 'center',
     'textDecorationLine': 'underline',

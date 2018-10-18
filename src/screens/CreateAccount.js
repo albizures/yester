@@ -8,7 +8,7 @@ import colors from '../utils/colors'
 
 import Button from '../components/Button'
 import Divider from '../components/Divider'
-import { Title, Description, Heading1, Heading3, Heading4 } from '../components/Translate'
+import { Title, Description, Heading1, Heading3, Heading4 } from '../components'
 import Container from '../components/Container'
 import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
