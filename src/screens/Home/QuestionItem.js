@@ -4,6 +4,7 @@ import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { Heading3, Description } from '../../components'
+import { capitalize } from '../../utils'
 
 const QuestionItem = (props) => {
   const {data, onPress} = props
@@ -13,7 +14,9 @@ const QuestionItem = (props) => {
       <View style={[styles.itemContainer]}>
         <View style={styles.textContainer}>
           <Heading3 text={data.text} numberOfLines={2} style={[{flexWrap: 'wrap'}]} />
-          <Description text={data.category} numberOfLines={1} />
+          <Description text={capitalize(data.category)}
+            style={{marginTop: 3}}
+            numberOfLines={1} />
         </View>
         <View style={styles.iconContainer}>
           <Image
