@@ -60,22 +60,20 @@ export default class ConfirmAccount extends Component {
     const email = navigation.getParam('email')
     const number = navigation.getParam('number')
     return (
-      <Container>
-        <View style={styles.view}>
-          <Heading2 keyName='confirm.title' style={{color: colors.governorBay, marginTop: 229}} />
-          <Heading4 keyName='confirm.subtitle' />
-          <View style={{marginTop: 35}}>
-            <Heading4 keyName='confirm.label' />
-            <Heading3 text='{contact}' data={{contact: email || number}}
-              style={{textAlign: 'center'}} />
-          </View>
-
-          <TextInput title='confirm.inputLabel' keyboardType='numeric'
-            style={{marginTop: 35}}
-            value={code} onChangeText={text => this.onChange(text, 'code')} />
-
-          <Button title='confirm.submit' style={{marginTop: 35}} onPress={this.onPress} />
+      <Container style={styles.view}>
+        <Heading2 keyName='confirm.title' style={{color: colors.governorBay, marginTop: 229}} />
+        <Heading4 keyName='confirm.subtitle' />
+        <View style={{marginTop: 35}}>
+          <Heading4 keyName='confirm.label' />
+          <Heading3 text='{contact}' data={{contact: email || number}}
+            style={{textAlign: 'center'}} />
         </View>
+
+        <TextInput title='confirm.inputLabel' keyboardType='numeric'
+          style={{marginTop: 35}}
+          value={code} onChangeText={text => this.onChange(text, 'code')} />
+
+        <Button title='confirm.submit' style={{marginTop: 35}} onPress={this.onPress} />
       </Container>
     )
   }
@@ -84,6 +82,7 @@ export default class ConfirmAccount extends Component {
 const styles = StyleSheet.create({
   view: {
     alignItems: 'center',
+    backgroundColor: colors.athensGray,
     paddingHorizontal: 20,
   },
 })
