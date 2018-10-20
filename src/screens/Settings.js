@@ -1,18 +1,30 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, Button } from 'react-native'
-
+import { View, StyleSheet } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import { logOut } from '../utils/session'
+import SettingsItem, { types } from '../components/SettingsItem'
 
 export default class Settings extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPress = () => {
-    this.props.navigation.navigate('Home')
+  onPressLanguage = () => {
+    this.props.navigation.navigate('Language')
+  }
+
+  onPressNotifications = () => {
+    this.props.navigation.navigate('Notifications')
+  }
+
+  onPressTerms = () => {
+    this.props.navigation.navigate('Terms')
+  }
+
+  onPressAbout = () => {
+    this.props.navigation.navigate('About')
   }
 
   onLogOut = async () => {
@@ -21,15 +33,35 @@ export default class Settings extends Component {
     navigation.navigate('Auth')
   }
 
+  onPressFacebook = async () => {
+  }
+
   render () {
     const topBar = (
       <TopBar title='settings.title' />
     )
     return (
-      <Container topBar={topBar}>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>SETTINGS</Text>
-        <Button title='Log Out' onPress={this.onLogOut} />
+      <Container topBar={topBar} >
+        <View style={styles.container} >
+          <SettingsItem title='Facebook' type={types.TEXT}
+            onPress={this.onPressFacebook} />
+          <SettingsItem title='Language' type={types.ICON}
+            onPress={this.onPressLanguage} />
+          <SettingsItem title='Notifications' type={types.ICON}
+            onPress={this.onPressNotifications} />
+          <SettingsItem title='Terms and Conditions' type={types.ICON}
+            onPress={this.onPressTerms} />
+          <SettingsItem title='About Yester' type={types.ICON}
+            onPress={this.onPressAbout} />
+          <SettingsItem title='Log Out' onPress={this.onLogOut} />
+        </View>
       </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
+})
