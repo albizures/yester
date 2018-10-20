@@ -79,5 +79,13 @@
   "setup.done.title": "Alrighty, {name} from {place}, Nice to meet you 🤝",
   "setup.done.subtitle": "This is where we start our journey of writing your incredible story",
   "questionCard.write": "Write and Live Again",
-  "questionCard.skip": "Other Question"
+  "questionCard.skip": "Other Question",
+  "writing.topbar": "Writing",
+  "writing.action": "SAVE",
+  "writing.by": "By {autor}",
+  "reading.topbar": "Reading",
+  "reading.action": "SAVE",
+  "reading.by": "By {autor}",
+  "language.title": "Language",
+  "notifications.title": "Notifications"
 }
