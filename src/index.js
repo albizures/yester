@@ -27,9 +27,10 @@ import Settings from './screens/Settings'
 import Language from './screens/Language'
 import Notifications from './screens/Notifications'
 import AppLoading from './screens/AppLoading'
+import Terms from './screens/Terms'
+import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
-import Terms from './screens/Terms'
 import colors from './utils/colors'
 import { setAuthHeader } from './utils/session'
 
@@ -75,6 +76,7 @@ const SettingsStack = createStackNavigator({
   Language,
   Notifications,
   Terms,
+  About,
 }, {
   mode: 'modal',
   headerMode: 'none',
