@@ -34,6 +34,7 @@ export default class TextInput extends Component {
           height={50}
           width={245}
           color={(editable) ? colors.mineShaft : colors.white}
+          style={{flex: 1}}
         />
       </InputContainer>
     )
