@@ -53,6 +53,11 @@ export default class SignUp extends Component {
     })
   }
 
+  onBack = () => {
+    const { navigation } = this.props
+    navigation.navigate('CreateAccount')
+  }
+
   render () {
     const {
       firstName,
@@ -62,7 +67,7 @@ export default class SignUp extends Component {
     } = this.state
 
     const topBar = (
-      <TopBar title='signup.topbar' />
+      <TopBar title='signup.topbar' onBack={this.onBack} />
     )
     return (
       <Container scroll topBar={topBar}>

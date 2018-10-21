@@ -61,10 +61,15 @@ class Login extends Component {
     })
   }
 
+  onBack = () => {
+    const { navigation } = this.props
+    navigation.navigate('CreateAccount')
+  }
+
   render () {
     const { email, password } = this.state
     const topBar = (
-      <TopBar title='createAccount.login' />
+      <TopBar title='createAccount.login' onBack={this.onBack} />
     )
     return (
       <Container scroll topBar={topBar}>
