@@ -26,6 +26,13 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: PixelRatio.roundToNearestPixel((20 + (18 * 2)) / 2),
     marginBottom: 10,
+    shadowColor: colors.black,
+    shadowOpacity: 0.20,
+    shadowRadius: 4,
+    shadowOffset: {
+      width: 0,
+      height: -5,
+    },
   },
   inactive: {
     padding: 0,
