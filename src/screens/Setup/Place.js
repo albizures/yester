@@ -147,7 +147,7 @@ export default class Place extends Component {
               label: 'Select a country',
               value: null,
             }}
-            style={{marginTop: 14, marginBottom: 20}}
+            style={{marginTop: 14}}
           />
           <Picker
             title='setup.place.form.state'

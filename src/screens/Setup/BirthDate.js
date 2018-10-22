@@ -78,7 +78,7 @@ export default class BirthDate extends Component {
           <Heading4 keyName='setup.age.question' style={[{textAlign: 'center'}]} />
 
           <DatePicker title='setup.age.birthdate'
-            style={{marginTop: 50, marginBottom: 110}}
+            style={{marginTop: 50, marginBottom: 80}}
             value={birthDate}
             onDateChange={(birthDate) => {
               this.setState({birthDate})
