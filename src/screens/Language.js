@@ -21,7 +21,7 @@ export default class Language extends Component {
     return (
       <Container topBar={topBar} >
         <View style={styles.container} >
-          <SettingsItem title='English' type={types.ICON2}
+          <SettingsItem title='English' type={types.CHECK}
             onPress={this.onPress} />
           <SettingsItem title='Spanish' onPress={this.onPress} />
         </View>

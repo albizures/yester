@@ -45,13 +45,13 @@ export default class Settings extends Component {
         <View style={styles.container} >
           <SettingsItem title='Facebook' type={types.TEXT}
             onPress={this.onPressFacebook} />
-          <SettingsItem title='Language' type={types.ICON}
+          <SettingsItem title='Language' type={types.CHEVRON}
             onPress={this.onPressLanguage} />
-          <SettingsItem title='Notifications' type={types.ICON}
+          <SettingsItem title='Notifications' type={types.CHEVRON}
             onPress={this.onPressNotifications} />
-          <SettingsItem title='Terms and Conditions' type={types.ICON}
+          <SettingsItem title='Terms and Conditions' type={types.CHEVRON}
             onPress={this.onPressTerms} />
-          <SettingsItem title='About Yester' type={types.ICON}
+          <SettingsItem title='About Yester' type={types.CHEVRON}
             onPress={this.onPressAbout} />
           <SettingsItem title='Log Out' onPress={this.onLogOut} />
         </View>
