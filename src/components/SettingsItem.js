@@ -7,8 +7,8 @@ import { Heading4, Heading3 } from './'
 import Divider from './Divider'
 
 export const types = {
-  ICON: 'ICON',
-  ICON2: 'ICON2',
+  CHEVRON: 'CHEVRON',
+  CHECK: 'CHECK',
   TEXT: 'TEXT',
   TOGGLE: 'TOGGLE',
   NONE: 'NONE',
@@ -18,19 +18,19 @@ const SettingsItem = (props) => {
   const { onPress, title, type } = props
 
   let showIcon = {
-    [types.ICON]: (
+    [types.CHEVRON]: (
       <View style={styles.iconContainer}>
         <Image
           source={icons.chevronRight}
-          style={styles.icon}
+          style={styles.chevron}
         />
       </View>
     ),
-    [types.ICON2]: (
+    [types.CHECK]: (
       <View style={styles.iconContainer}>
         <Image
           source={icons.check}
-          style={styles.icon2}
+          style={styles.check}
         />
       </View>
     ),
@@ -43,9 +43,6 @@ const SettingsItem = (props) => {
       <View style={styles.textButton}>
         <Switch style={{}} />
       </View>
-    ),
-    [types.NONE]: (
-      <View style={styles.iconContainer} />
     ),
   }
 
@@ -95,11 +92,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginRight: 25,
   },
-  icon: {
+  chevron: {
     width: 8,
     height: 15,
   },
-  icon2: {
+  check: {
     width: 13,
     height: 9.5,
   },
