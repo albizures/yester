@@ -7,6 +7,7 @@ const icons = {
   ssSonaja: require('../assets/screenshots/ss-sonaja.png'),
   ssGlobo: require('../assets/screenshots/ss-globo.png'),
   ssCard: require('../assets/screenshots/ss-card.png'),
+  ssYester: require('../assets/screenshots/ss-yester.png'),
   check: require('../assets/chevron/check.png'),
 }
 
