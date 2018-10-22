@@ -23,8 +23,10 @@ export default class Notificacions extends Component {
         <View style={styles.container} >
           <SettingsItem title='Push notifications' type={types.TOGGLE}
             onPress={this.onPress} />
-          <SettingsItem title='Email' type={types.TOGGLE}
-            onPress={this.onPress} />
+          {
+          // Disabled until email notification feature will be released.
+          // <SettingsItem title='Email' type={types.TOGGLE} onPress={this.onPress} />
+          }
         </View>
       </Container>
     )
