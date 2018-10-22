@@ -70,7 +70,7 @@ const InputContainer = (props) => {
   }
 
   return (
-    <View style={style} >
+    <View style={[style, {marginBottom: 30}]} >
       <View style={[styles.labelContainer]}>
         <Description keyName={title}
           style={[styles.title, stateStyle.title, validationStyle.title]} />
