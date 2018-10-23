@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 20,
   },
   containerBack: {
     position: 'absolute',

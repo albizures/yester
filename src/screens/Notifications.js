@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import Container from '../components/Container'
+import TopBar from '../components/TopBar'
+import SettingsItem, { types } from '../components/SettingsItem'
 
-export default class Notifications extends Component {
+export default class Notificacions extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -12,11 +15,29 @@ export default class Notifications extends Component {
   }
 
   render () {
+    const topBar = (
+      <TopBar title='notifications.title' />
+    )
     return (
-      <View>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>NOTIFICATIONS</Text>
-        <Button title='to Home' onPress={this.onPress} />
-      </View>
+      <Container topBar={topBar} >
+        <View style={styles.container} >
+          <SettingsItem title='Push notifications' type={types.TOGGLE}
+            onPress={this.onPress} />
+          {
+          // Disabled until email notification feature will be released.
+          // <SettingsItem title='Email' type={types.TOGGLE} onPress={this.onPress} />
+          }
+        </View>
+      </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
+  item: {
+    paddingVertical: 20,
+  },
+})

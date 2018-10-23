@@ -5,8 +5,7 @@ exports[`src/screens/Stepper should render 1`] = `
   style={
     Object {
       "flex": 1,
-      "justifyContent": "center",
-      "width": "100%",
+      "justifyContent": "flex-start",
     }
   }
 >
@@ -68,12 +67,11 @@ exports[`src/screens/Stepper should render 1`] = `
               Object {
                 "alignItems": "center",
                 "flex": 1,
-                "flexDirection": "column",
               },
               Object {
                 "height": 1334,
-                "justifyContent": "center",
-                "paddingTop": 0,
+                "justifyContent": "flex-start",
+                "paddingTop": 50,
                 "width": 750,
               },
             ]
@@ -101,12 +99,11 @@ exports[`src/screens/Stepper should render 1`] = `
               Object {
                 "alignItems": "center",
                 "flex": 1,
-                "flexDirection": "column",
               },
               Object {
                 "height": 1334,
-                "justifyContent": "center",
-                "paddingTop": 0,
+                "justifyContent": "flex-start",
+                "paddingTop": 50,
                 "width": 750,
               },
             ]
@@ -134,12 +131,11 @@ exports[`src/screens/Stepper should render 1`] = `
               Object {
                 "alignItems": "center",
                 "flex": 1,
-                "flexDirection": "column",
               },
               Object {
                 "height": 1334,
-                "justifyContent": "center",
-                "paddingTop": 0,
+                "justifyContent": "flex-start",
+                "paddingTop": 50,
                 "width": 750,
               },
             ]

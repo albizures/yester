@@ -1,62 +1,184 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`src/screens/Reading.js should render 1`] = `
-<View>
-  <Text
-    style={
-      Array [
-        Object {
-          "marginTop": 40,
-          "textAlign": "center",
-        },
-      ]
-    }
-  >
-    READING
-  </Text>
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#F6F7F9",
+        "flex": 1,
+      },
+      Object {
+        "backgroundColor": "#F6F7F9",
+      },
+      undefined,
+    ]
+  }
+>
   <View
-    accessibilityComponentType="button"
-    accessibilityTraits={
-      Array [
-        "button",
-      ]
-    }
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "opacity": 1,
+        "alignItems": "center",
+        "backgroundColor": "#1E1437",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "minHeight": 70,
+        "paddingTop": 20,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontSize": 20,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Reading
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#F6F7F9",
+        "paddingHorizontal": 29,
       }
     }
   >
     <View
-      style={
+      accessibilityComponentType="button"
+      accessibilityTraits={
         Array [
-          Object {},
+          "button",
         ]
       }
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
     >
-      <Text
+      <View
         style={
           Array [
-            Object {
-              "color": "#007AFF",
-              "fontSize": 18,
-              "padding": 8,
-              "textAlign": "center",
-            },
+            Object {},
           ]
         }
       >
-        to Home
-      </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#007AFF",
+                "fontSize": 18,
+                "padding": 8,
+                "textAlign": "center",
+              },
+            ]
+          }
+        >
+          to Home
+        </Text>
+      </View>
     </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
+            "textAlign": "left",
+          },
+          Object {
+            "fontSize": 50,
+            "fontWeight": "bold",
+          },
+          Object {
+            "color": "#4241B3",
+          },
+        ]
+      }
+    >
+      Title
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
+            "textAlign": "left",
+          },
+          Object {
+            "fontSize": 14,
+          },
+          undefined,
+        ]
+      }
+    >
+      By Luis Galvez
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#313131",
+            "fontFamily": "Karla-Regular",
+            "textAlign": "left",
+          },
+          Object {
+            "fontSize": 14,
+          },
+          undefined,
+        ]
+      }
+    >
+      July 6, 1987
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 0,
+            "height": 1,
+            "marginHorizontal": 22,
+          },
+          Object {
+            "marginVertical": 30,
+          },
+        ]
+      }
+    />
+    <Text
+      maxLength={1000}
+      multiline={true}
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "fontFamily": "Karla-Regular",
+          "fontSize": 16,
+          "height": 400,
+          "marginTop": 30,
+          "paddingHorizontal": 15,
+          "paddingTop": 15,
+          "textAlign": "justify",
+          "textAlignVertical": "top",
+        }
+      }
+    />
   </View>
 </View>
 `;

@@ -76,7 +76,7 @@ export default class SignUp extends Component {
             <Heading2 keyName='signup.title' style={[{textAlign: 'center', color: colors.governorBay}]} />
           </View>
           <Heading4 keyName='signup.subtitle' style={[{textAlign: 'center', marginBottom: 40, marginHorizontal: 33}]} />
-          <View style={{height: 410, alignItems: 'center', justifyContent: 'space-between'}}>
+          <View style={{alignItems: 'center'}}>
             <TextInput title='signup.firstName'
               value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
             <TextInput title='signup.lastName'
@@ -90,7 +90,6 @@ export default class SignUp extends Component {
               value={password} onChangeText={text => this.onChange(text, 'password')}
               description='signup.passwordDescription'
             />
-
             <Button title='signup.submit' onPress={this.onPress} />
           </View>
         </KeyboardAvoidingView>

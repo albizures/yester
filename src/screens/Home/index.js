@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, StyleSheet, FlatList, Alert, Image, Modal } from 'react-native'
+import { View, StyleSheet, FlatList, Alert, Image, Modal } from 'react-native'
 import QuestionItem from './QuestionItem'
 import QuestionCard from './QuestionCard'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
-import {Title} from '../../components'
+import { Heading2, Title } from '../../components'
 import http from '../../utils/http'
 import colors from '../../utils/colors'
-import { indexToString } from '../../utils'
+import icons from '../../utils/icons'
+import { indexToString, capitalize } from '../../utils'
 
 export default class Home extends Component {
   static propTypes = {
@@ -42,10 +43,10 @@ export default class Home extends Component {
 
   renderAgeItem = ({item}) => (
     <View>
-      <Text style={[localStyles.ageText]}>
-        {item.text}
-      </Text>
-      <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+      <Heading2 text={capitalize(item.text)} style={[styles.ageText]} />
+      <Image source={icons.ssSonaja}
+        style={{width: 60, height: 64.52, alignSelf: 'center', marginBottom: 23}} />
+      <View style={{flex: 1, flexDirection: 'center'}}>
         <FlatList
           data={this.state.questions}
           renderItem={this.renderTopicItem}
@@ -57,8 +58,7 @@ export default class Home extends Component {
 
   renderTopicItem = ({item}) => (
     <QuestionItem
-      questionText={item.text}
-      topicText={'Your Name (Topic)'}
+      data={item}
       onPress={() => this.onPressItem(item)}
     />
   )
@@ -96,12 +96,11 @@ export default class Home extends Component {
           visible={modalVisible} >
           <View style={{flex: 1, alignItems: 'center', backgroundColor: 'rgba(98, 97, 232, 0.85)'}}>
             <QuestionCard
-              item={item}
+              data={item}
               onPressWrite={this.onPressWrite}
               onPressSkip={this.onPressSkip} />
           </View>
         </Modal>
-        <Text style={[{textAlign: 'center', marginTop: 20}]}>HOME</Text>
         <FlatList
           data={ages}
           renderItem={this.renderAgeItem}
@@ -112,13 +111,11 @@ export default class Home extends Component {
   }
 }
 
-const localStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   ageText: {
-    fontFamily: 'Karla-Regular',
-    color: colors.governorBay,
-    fontSize: 25,
-    fontWeight: 'bold',
     textAlign: 'center',
-    paddingVertical: 5,
+    color: colors.governorBay,
+    marginTop: 31,
+    marginBottom: 17,
   },
 })
