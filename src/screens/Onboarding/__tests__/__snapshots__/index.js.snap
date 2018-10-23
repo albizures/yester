@@ -5,11 +5,15 @@ exports[`src/screens/Onboarding should render 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#fff",
+        "backgroundColor": "#F6F7F9",
         "flex": 1,
+      },
+      Object {
+        "backgroundColor": "#1E1437",
+      },
+      Object {
         "paddingTop": 20,
       },
-      undefined,
     ]
   }
 >
@@ -17,8 +21,7 @@ exports[`src/screens/Onboarding should render 1`] = `
     style={
       Object {
         "flex": 1,
-        "justifyContent": "center",
-        "width": "100%",
+        "justifyContent": "flex-start",
       }
     }
   >
@@ -33,6 +36,7 @@ exports[`src/screens/Onboarding should render 1`] = `
             }
             description="onboarding.step1.description"
             title="onboarding.step1.title"
+            title2="onboarding.step1.title2"
           />,
           <Step
             cover={
@@ -42,6 +46,7 @@ exports[`src/screens/Onboarding should render 1`] = `
             }
             description="onboarding.step2.description"
             title="onboarding.step2.title"
+            title2="onboarding.step2.title2"
           />,
           <Step
             cover={
@@ -51,6 +56,7 @@ exports[`src/screens/Onboarding should render 1`] = `
             }
             description="onboarding.step3.description"
             title="onboarding.step3.title"
+            title2="onboarding.step3.title2"
           />,
         ]
       }
@@ -104,30 +110,116 @@ exports[`src/screens/Onboarding should render 1`] = `
                 Object {
                   "alignItems": "center",
                   "flex": 1,
-                  "flexDirection": "column",
                 },
                 Object {
                   "height": 1334,
-                  "justifyContent": "center",
-                  "paddingTop": 0,
+                  "justifyContent": "flex-start",
+                  "paddingTop": 50,
                   "width": 750,
                 },
               ]
             }
           >
-            <Image
-              source={
+            <View
+              style={
                 Object {
-                  "testUri": "../../../src/assets/300x300.png",
+                  "alignItems": "center",
+                  "backgroundColor": "#1E1437",
+                  "flex": 1,
+                  "justifyContent": "flex-start",
                 }
               }
-            />
-            <Text>
-              We cant't wait to hear your story
-            </Text>
-            <Text>
-              Everyone has a story to tell. We know yours is definitely a really interesting one.
-            </Text>
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../src/assets/300x300.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 20,
+                    "width": 20,
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "marginVertical": 40,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#313131",
+                        "fontFamily": "Karla-Regular",
+                        "textAlign": "left",
+                      },
+                      Object {
+                        "fontSize": 25,
+                        "fontWeight": "bold",
+                      },
+                      Object {
+                        "color": "#fff",
+                        "fontWeight": "normal",
+                        "marginHorizontal": 115,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  We can't wait to hear 
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#313131",
+                        "fontFamily": "Karla-Regular",
+                        "textAlign": "left",
+                      },
+                      Object {
+                        "fontSize": 50,
+                        "fontWeight": "bold",
+                      },
+                      Object {
+                        "color": "#03C7FE",
+                        "marginHorizontal": 75,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  your story
+                </Text>
+              </View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#313131",
+                      "fontFamily": "Karla-Regular",
+                      "textAlign": "left",
+                    },
+                    Object {
+                      "fontSize": 18,
+                    },
+                    Object {
+                      "color": "#fff",
+                      "marginHorizontal": 75,
+                      "marginTop": 120,
+                      "textAlign": "center",
+                    },
+                  ]
+                }
+              >
+                Everyone has a story to tell. We know yours is definitely a really interesting one.
+              </Text>
+            </View>
           </View>
         </View>
         <View
@@ -147,30 +239,116 @@ exports[`src/screens/Onboarding should render 1`] = `
                 Object {
                   "alignItems": "center",
                   "flex": 1,
-                  "flexDirection": "column",
                 },
                 Object {
                   "height": 1334,
-                  "justifyContent": "center",
-                  "paddingTop": 0,
+                  "justifyContent": "flex-start",
+                  "paddingTop": 50,
                   "width": 750,
                 },
               ]
             }
           >
-            <Image
-              source={
+            <View
+              style={
                 Object {
-                  "testUri": "../../../src/assets/300x300.png",
+                  "alignItems": "center",
+                  "backgroundColor": "#1E1437",
+                  "flex": 1,
+                  "justifyContent": "flex-start",
                 }
               }
-            />
-            <Text>
-              One day, one story
-            </Text>
-            <Text>
-              We'll guide you through daily question that will help us to get the conversation to get started.
-            </Text>
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../src/assets/300x300.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 20,
+                    "width": 20,
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "marginVertical": 40,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#313131",
+                        "fontFamily": "Karla-Regular",
+                        "textAlign": "left",
+                      },
+                      Object {
+                        "fontSize": 25,
+                        "fontWeight": "bold",
+                      },
+                      Object {
+                        "color": "#fff",
+                        "fontWeight": "normal",
+                        "marginHorizontal": 115,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  One day, one story
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#313131",
+                        "fontFamily": "Karla-Regular",
+                        "textAlign": "left",
+                      },
+                      Object {
+                        "fontSize": 50,
+                        "fontWeight": "bold",
+                      },
+                      Object {
+                        "color": "#03C7FE",
+                        "marginHorizontal": 75,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#313131",
+                      "fontFamily": "Karla-Regular",
+                      "textAlign": "left",
+                    },
+                    Object {
+                      "fontSize": 18,
+                    },
+                    Object {
+                      "color": "#fff",
+                      "marginHorizontal": 75,
+                      "marginTop": 120,
+                      "textAlign": "center",
+                    },
+                  ]
+                }
+              >
+                We'll guide you through daily question that will help us to get the conversation to get started.
+              </Text>
+            </View>
           </View>
         </View>
         <View
@@ -190,36 +368,129 @@ exports[`src/screens/Onboarding should render 1`] = `
                 Object {
                   "alignItems": "center",
                   "flex": 1,
-                  "flexDirection": "column",
                 },
                 Object {
                   "height": 1334,
-                  "justifyContent": "center",
-                  "paddingTop": 0,
+                  "justifyContent": "flex-start",
+                  "paddingTop": 50,
                   "width": 750,
                 },
               ]
             }
           >
-            <Image
-              source={
+            <View
+              style={
                 Object {
-                  "testUri": "../../../src/assets/300x300.png",
+                  "alignItems": "center",
+                  "backgroundColor": "#1E1437",
+                  "flex": 1,
+                  "justifyContent": "flex-start",
                 }
               }
-            />
-            <Text>
-              You own your information
-            </Text>
-            <Text>
-              As you, we want to protect your personal information, so you decide when and with who you share it. Always!
-            </Text>
+            >
+              <Image
+                source={
+                  Object {
+                    "testUri": "../../../src/assets/300x300.png",
+                  }
+                }
+                style={
+                  Object {
+                    "height": 20,
+                    "width": 20,
+                  }
+                }
+              />
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "marginVertical": 40,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#313131",
+                        "fontFamily": "Karla-Regular",
+                        "textAlign": "left",
+                      },
+                      Object {
+                        "fontSize": 25,
+                        "fontWeight": "bold",
+                      },
+                      Object {
+                        "color": "#fff",
+                        "fontWeight": "normal",
+                        "marginHorizontal": 115,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  You own your information
+                </Text>
+                <Text
+                  style={
+                    Array [
+                      Object {
+                        "color": "#313131",
+                        "fontFamily": "Karla-Regular",
+                        "textAlign": "left",
+                      },
+                      Object {
+                        "fontSize": 50,
+                        "fontWeight": "bold",
+                      },
+                      Object {
+                        "color": "#03C7FE",
+                        "marginHorizontal": 75,
+                        "textAlign": "center",
+                      },
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+              <Text
+                style={
+                  Array [
+                    Object {
+                      "color": "#313131",
+                      "fontFamily": "Karla-Regular",
+                      "textAlign": "left",
+                    },
+                    Object {
+                      "fontSize": 18,
+                    },
+                    Object {
+                      "color": "#fff",
+                      "marginHorizontal": 75,
+                      "marginTop": 120,
+                      "textAlign": "center",
+                    },
+                  ]
+                }
+              >
+                As you, we want to protect your personal information, so you decide when and with who you share it. Always!
+              </Text>
+            </View>
           </View>
         </View>
       </View>
     </RCTScrollView>
     <View>
-      <View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
         <View
           style={
             Array [
@@ -267,6 +538,12 @@ exports[`src/screens/Onboarding should render 1`] = `
         />
       </View>
       <View
+        accessibilityComponentType="button"
+        accessibilityTraits={
+          Array [
+            "button",
+          ]
+        }
         accessible={true}
         isTVSelectable={true}
         onResponderGrant={[Function]}
@@ -276,115 +553,75 @@ exports[`src/screens/Onboarding should render 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Array [
-            undefined,
-            Object {
-              "borderRadius": 24,
-              "borderWidth": 2,
-              "height": 50,
-              "justifyContent": "center",
-              "shadowColor": "#000",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-            },
-            Object {
-              "backgroundColor": "#4241B3",
-              "borderColor": "#4241B3",
-            },
-            Object {
-              "width": 300,
-            },
-          ]
+          Object {
+            "opacity": 1,
+          }
         }
       >
         <View
           style={
-            Object {
-              "alignItems": "center",
-              "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "center",
-            }
+            Array [
+              Object {},
+            ]
           }
         >
           <Text
             style={
               Array [
                 Object {
+                  "color": "#007AFF",
                   "fontSize": 18,
-                  "fontWeight": "bold",
+                  "padding": 8,
                   "textAlign": "center",
-                },
-                Object {
-                  "color": "#fff",
-                },
-              ]
-            }
-          >
-            Continue
-          </Text>
-        </View>
-      </View>
-      <View
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Array [
-            undefined,
-            Object {
-              "borderRadius": 24,
-              "borderWidth": 2,
-              "height": 50,
-              "justifyContent": "center",
-              "shadowColor": "#000",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-            },
-            Object {
-              "backgroundColor": "#4241B3",
-              "borderColor": "#4241B3",
-            },
-            Object {
-              "width": 300,
-            },
-          ]
-        }
-      >
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "flex": 1,
-              "flexDirection": "row",
-              "justifyContent": "center",
-            }
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontSize": 18,
-                  "fontWeight": "bold",
-                  "textAlign": "center",
-                },
-                Object {
-                  "color": "#fff",
                 },
               ]
             }
           >
             Skip
+          </Text>
+        </View>
+      </View>
+      <View
+        accessibilityComponentType="button"
+        accessibilityTraits={
+          Array [
+            "button",
+          ]
+        }
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {},
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#007AFF",
+                  "fontSize": 18,
+                  "padding": 8,
+                  "textAlign": "center",
+                },
+              ]
+            }
+          >
+            Continue
           </Text>
         </View>
       </View>

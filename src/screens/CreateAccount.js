@@ -1,14 +1,14 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, AsyncStorage, Alert } from 'react-native'
+import { View, Text, StyleSheet, AsyncStorage, Alert, Image } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
 
 import Button from '../components/Button'
 import Divider from '../components/Divider'
-import { Title, Description, Heading1, Heading3, Heading4 } from '../components'
+import { Heading2, Description, Heading3, Heading4 } from '../components'
 import Container from '../components/Container'
 import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
@@ -45,9 +45,12 @@ class CreateAccount extends Component {
     return (
       <Container>
         <View style={styles.container}>
-          <Heading1 keyName='common.upperTitle' style={{textAlign: 'center', marginTop: 96}} />
-
-          <Title keyName='createAccount.begin' style={[{fontWeight: 'bold', textAlign: 'center', marginTop: 54, marginBottom: 60}]} />
+          <Image source={icons.ssYester}
+            style={{width: 225, height: 60, marginTop: 96}} />
+          <View style={[{alignItems: 'center', marginTop: 54, marginBottom: 60}]} >
+            <Heading2 keyName='createAccount.start' style={[{color: colors.governorBay, textAlign: 'center'}]} />
+            <Heading4 keyName='createAccount.begin' style={[{textAlign: 'center'}]} />
+          </View>
 
           <Button title='createAccount.continue' onPress={this.onFBLogin} icon={icons.fb} />
 

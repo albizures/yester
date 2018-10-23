@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import Container from '../components/Container'
+import TopBar from '../components/TopBar'
+import SettingsItem, { types } from '../components/SettingsItem'
 
 export default class Language extends Component {
   static propTypes = {
@@ -12,11 +15,26 @@ export default class Language extends Component {
   }
 
   render () {
+    const topBar = (
+      <TopBar title='language.title' />
+    )
     return (
-      <View>
-        <Text style={[{textAlign: 'center', marginTop: 40}]}>LANGUAGE</Text>
-        <Button title='to Home' onPress={this.onPress} />
-      </View>
+      <Container topBar={topBar} >
+        <View style={styles.container} >
+          <SettingsItem title='English' type={types.CHECK}
+            onPress={this.onPress} />
+          <SettingsItem title='Spanish' onPress={this.onPress} />
+        </View>
+      </Container>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+  },
+  item: {
+    paddingVertical: 20,
+  },
+})

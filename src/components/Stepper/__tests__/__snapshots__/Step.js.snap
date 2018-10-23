@@ -7,12 +7,11 @@ exports[`src/screens/Step.js should render a portrait version 1`] = `
       Object {
         "alignItems": "center",
         "flex": 1,
-        "flexDirection": "column",
       },
       Object {
         "height": 50,
-        "justifyContent": "center",
-        "paddingTop": 0,
+        "justifyContent": "flex-start",
+        "paddingTop": 50,
         "width": 40,
       },
     ]
@@ -31,7 +30,6 @@ exports[`src/screens/Step.js when it´s landscape mode should render a landscape
       Object {
         "alignItems": "center",
         "flex": 1,
-        "flexDirection": "column",
       },
       Object {
         "height": 40,

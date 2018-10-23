@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import { View, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
+import { capitalize } from '../../utils'
 import Button, {types} from '../../components/Button'
 import { Heading2, Heading5 } from '../../components'
 
 const QuestionCard = (props) => {
-  const {item, onPressWrite, onPressSkip} = props
+  const {data, onPressWrite, onPressSkip} = props
 
   return (
     <View style={styles.card}>
@@ -16,13 +17,13 @@ const QuestionCard = (props) => {
           <Image source={icons.ssCard}
             style={{width: 340, height: 250}} />
           <View style={{flex: 1, position: 'absolute', alignSelf: 'center', paddingTop: 27}}>
-            <Heading5 text={item.age} style={[{textAlign: 'center'}]} />
+            <Heading5 text={capitalize(data.age)} style={[{textAlign: 'center'}]} />
           </View>
         </View>
         <View style={styles.content}>
-          <Heading2 text={item.category} style={[{marginBottom: 10}]} />
+          <Heading2 text={capitalize(data.category)} style={[{marginBottom: 10}]} />
           <View style={{height: 41}}>
-            <Heading5 text={item.text} />
+            <Heading5 text={capitalize(data.text)} />
           </View>
           <Button title='questionCard.write'
             style={{marginVertical: 20}}
@@ -35,7 +36,7 @@ const QuestionCard = (props) => {
 }
 
 QuestionCard.propTypes = {
-  item: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
   onPressWrite: PropTypes.func.isRequired,
   onPressSkip: PropTypes.func.isRequired,
 }

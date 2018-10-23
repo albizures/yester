@@ -6,6 +6,7 @@ import Stepper from '../../components/Stepper'
 // import Button from '../../components/Button'
 import Step from './Step'
 import Dots from './Dots'
+import colors from '../../utils/colors'
 
 export default class Onboarding extends Component {
   static propTypes = {
@@ -16,14 +17,17 @@ export default class Onboarding extends Component {
     steps: [{
       cover: require('../../assets/300x300.png'),
       title: 'onboarding.step1.title',
+      title2: 'onboarding.step1.title2',
       description: 'onboarding.step1.description',
     }, {
       cover: require('../../assets/300x300.png'),
       title: 'onboarding.step2.title',
+      title2: 'onboarding.step2.title2',
       description: 'onboarding.step2.description',
     }, {
       cover: require('../../assets/300x300.png'),
       title: 'onboarding.step3.title',
+      title2: 'onboarding.step3.title2',
       description: 'onboarding.step3.description',
     }],
   }
@@ -60,7 +64,7 @@ export default class Onboarding extends Component {
     const { steps } = this.state
 
     return (
-      <Container style={{alignItems: 'center', justifyContent: 'flex-start'}}>
+      <Container style={{backgroundColor: colors.haiti}}>
         <Stepper bottomBar={this.getBottomBar}>
           {steps.map(this.createStep)}
         </Stepper>
