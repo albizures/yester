@@ -7,7 +7,6 @@ import Divider from '../components/Divider'
 import colors from '../utils/colors'
 
 export default class Profile extends Component {
-
   render () {
     const topBar = (
       <TopBar title='profile.title' />

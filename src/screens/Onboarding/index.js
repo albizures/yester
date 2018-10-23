@@ -6,7 +6,7 @@ import Stepper from '../../components/Stepper'
 // import Button from '../../components/Button'
 import Step from './Step'
 import Dots from './Dots'
-import colors from '../../utils/colors';
+import colors from '../../utils/colors'
 
 export default class Onboarding extends Component {
   static propTypes = {
