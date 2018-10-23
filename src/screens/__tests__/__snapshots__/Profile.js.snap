@@ -1,62 +1,229 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`src/screens/Profile.js should render 1`] = `
-<View>
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#F6F7F9",
+        "flex": 1,
+      },
+      Object {
+        "alignItems": "center",
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#1E1437",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "minHeight": 70,
+        "paddingTop": 20,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontSize": 20,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      My Profile
+    </Text>
+  </View>
   <Text
     style={
       Array [
         Object {
-          "marginTop": 40,
-          "textAlign": "center",
+          "color": "#313131",
+          "fontFamily": "Karla-Regular",
+          "textAlign": "left",
+        },
+        Object {
+          "fontSize": 25,
+          "fontWeight": "bold",
+        },
+        Object {
+          "color": "#4241B3",
+          "marginTop": 153,
         },
       ]
     }
   >
-    PROFILE
+    Luis Galvez
   </Text>
-  <View
-    accessibilityComponentType="button"
-    accessibilityTraits={
+  <Text
+    style={
       Array [
-        "button",
+        Object {
+          "color": "#313131",
+          "fontFamily": "Karla-Regular",
+          "textAlign": "left",
+        },
+        Object {
+          "fontSize": 16,
+        },
+        Object {
+          "marginBottom": 30,
+        },
       ]
     }
-    accessible={true}
-    isTVSelectable={true}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
+  >
+    3 stories
+  </Text>
+  <View
     style={
       Object {
-        "opacity": 1,
+        "paddingHorizontal": 26,
       }
     }
   >
     <View
       style={
         Array [
-          Object {},
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 0,
+            "height": 1,
+            "marginHorizontal": 22,
+          },
+          Object {
+            "marginLeft": 0,
+            "width": 323,
+          },
         ]
+      }
+    />
+    <View
+      style={
+        Object {
+          "paddingVertical": 20,
+        }
       }
     >
       <Text
         style={
           Array [
             Object {
-              "color": "#007AFF",
-              "fontSize": 18,
-              "padding": 8,
-              "textAlign": "center",
+              "color": "#313131",
+              "fontFamily": "Karla-Regular",
+              "textAlign": "left",
             },
+            Object {
+              "fontSize": 14,
+            },
+            undefined,
           ]
         }
       >
-        to Home
+        Email
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#313131",
+              "fontFamily": "Karla-Regular",
+              "textAlign": "left",
+            },
+            Object {
+              "fontSize": 18,
+              "fontWeight": "bold",
+            },
+            undefined,
+          ]
+        }
+      >
+        luis@yester.app
       </Text>
     </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 0,
+            "height": 1,
+            "marginHorizontal": 22,
+          },
+          Object {
+            "marginLeft": 0,
+            "width": 323,
+          },
+        ]
+      }
+    />
+    <View
+      style={
+        Object {
+          "paddingVertical": 20,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#313131",
+              "fontFamily": "Karla-Regular",
+              "textAlign": "left",
+            },
+            Object {
+              "fontSize": 14,
+            },
+            undefined,
+          ]
+        }
+      >
+        Location
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#313131",
+              "fontFamily": "Karla-Regular",
+              "textAlign": "left",
+            },
+            Object {
+              "fontSize": 18,
+              "fontWeight": "bold",
+            },
+            undefined,
+          ]
+        }
+      >
+        Guatemala, Guatemala
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#D5D3DD",
+            "borderColor": "#D5D3DD",
+            "borderWidth": 0,
+            "height": 1,
+            "marginHorizontal": 22,
+          },
+          Object {
+            "marginLeft": 0,
+            "width": 323,
+          },
+        ]
+      }
+    />
   </View>
 </View>
 `;
