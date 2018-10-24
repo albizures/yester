@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Alert, StyleSheet } from 'react-native'
+import { View, Alert, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { Auth } from 'aws-amplify'
 import {Heading2, Heading3, Heading4} from '../components'
 import Container from '../components/Container'
@@ -61,19 +61,21 @@ export default class ConfirmAccount extends Component {
     const number = navigation.getParam('number')
     return (
       <Container style={styles.view}>
-        <Heading2 keyName='confirm.title' style={{color: colors.governorBay, marginTop: 229}} />
-        <Heading4 keyName='confirm.subtitle' />
-        <View style={{marginTop: 35}}>
-          <Heading4 keyName='confirm.label' />
-          <Heading3 text='{contact}' data={{contact: email || number}}
-            style={{textAlign: 'center'}} />
-        </View>
+        <KeyboardAvoidingView enabled behavior='position'>
+          <Heading2 keyName='confirm.title' style={{color: colors.governorBay, marginTop: 229}} />
+          <Heading4 keyName='confirm.subtitle' />
+          <View style={{marginTop: 35}}>
+            <Heading4 keyName='confirm.label' />
+            <Heading3 text='{contact}' data={{contact: email || number}}
+              style={{textAlign: 'center'}} />
+          </View>
 
-        <TextInput title='confirm.inputLabel' keyboardType='numeric'
-          style={{marginTop: 35}}
-          value={code} onChangeText={text => this.onChange(text, 'code')} />
+          <TextInput title='confirm.inputLabel' keyboardType='numeric'
+            style={{marginTop: 35}}
+            value={code} onChangeText={text => this.onChange(text, 'code')} />
 
-        <Button title='confirm.submit' style={{marginTop: 35}} onPress={this.onPress} />
+          <Button title='confirm.submit' style={{marginTop: 35}} onPress={this.onPress} />
+        </KeyboardAvoidingView>
       </Container>
     )
   }

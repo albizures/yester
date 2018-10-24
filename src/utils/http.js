@@ -10,7 +10,7 @@ export const isFullUrl = (url) => url.startsWith('http')
 const getInstance = (url) => isFullUrl(url) ? axios : instance
 
 export default {
-  get: (url) => getInstance(url).get(url),
+  get: (url, params) => getInstance(url).get(url, params),
   del: (url) => getInstance(url).delete(url),
   post: (url, body) => getInstance(url).post(url, body),
   put: (url, body) => getInstance(url).put(url, body),
