@@ -14,7 +14,7 @@ const TopBar = ({ icon, title, onBack, modal }) => {
 
   const backIcon = modal
     ? require('../assets/chevron/chevron-down.png')
-    : require('../assets/chevron/chevron-left.png')
+    : require('../assets/arrows/arrow-left-white.png')
 
   return (
     <View style={styles.container}>
@@ -47,11 +47,12 @@ const styles = StyleSheet.create({
   containerBack: {
     position: 'absolute',
     top: 24,
-    left: 20,
+    paddingTop: 10,
+    left: 10,
   },
   back: {
     height: 20,
-    width: 10,
+    width: 20,
     marginHorizontal: 8,
     marginVertical: 4,
   },

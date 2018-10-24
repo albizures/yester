@@ -47,7 +47,11 @@ export default class Home extends Component {
       <Image source={icons.ssSonaja}
         style={{width: 60, height: 64.52, alignSelf: 'center', marginBottom: 23}} />
       <View style={{flex: 1, alignItems: 'center'}}>
-        {this.getTopicsItems()}
+        <FlatList
+          data={this.state.questions}
+          renderItem={this.renderTopicItem}
+          keyExtractor={indexToString}
+        />
       </View>
     </View>
   )
@@ -56,22 +60,6 @@ export default class Home extends Component {
     <QuestionItem
       data={item}
       onPress={() => this.onPressItem(item)}
-    />
-  )
-
-  getAgesItems = () => (
-    <FlatList
-      data={this.state.ages}
-      renderItem={this.renderAgeItem}
-      keyExtractor={indexToString}
-    />
-  )
-
-  getTopicsItems = () => (
-    <FlatList
-      data={this.state.questions}
-      renderItem={this.renderTopicItem}
-      keyExtractor={indexToString}
     />
   )
 
@@ -89,7 +77,7 @@ export default class Home extends Component {
   }
 
   render () {
-    const { isLoading } = this.state
+    const { isLoading, item, ages, modalVisible } = this.state
     const topBarTitle = (
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
         <Image style={{ height: 25, width: 20 }} source={require('../../assets/feather-white.png')} />
@@ -105,15 +93,19 @@ export default class Home extends Component {
         <Modal
           animationType='fade'
           transparent
-          visible={this.state.modalVisible} >
+          visible={modalVisible} >
           <View style={{flex: 1, alignItems: 'center', backgroundColor: 'rgba(98, 97, 232, 0.85)'}}>
             <QuestionCard
-              data={this.state.item}
+              data={item}
               onPressWrite={this.onPressWrite}
               onPressSkip={this.onPressSkip} />
           </View>
         </Modal>
-        { this.getAgesItems() }
+        <FlatList
+          data={ages}
+          renderItem={this.renderAgeItem}
+          keyExtractor={indexToString}
+        />
       </Container>
     )
   }

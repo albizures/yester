@@ -1412,7 +1412,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.puchicapps.Yester;
+				PRODUCT_BUNDLE_IDENTIFIER = com.puchicapps.yester;
 				PRODUCT_NAME = Yester;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1443,7 +1443,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.puchicapps.Yester;
+				PRODUCT_BUNDLE_IDENTIFIER = com.puchicapps.yester;
 				PRODUCT_NAME = Yester;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
