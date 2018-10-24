@@ -46,7 +46,7 @@ export default class Home extends Component {
       <Heading2 text={capitalize(item.text)} style={[styles.ageText]} />
       <Image source={icons.ssSonaja}
         style={{width: 60, height: 64.52, alignSelf: 'center', marginBottom: 23}} />
-      <View style={{flex: 1, flexDirection: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center'}}>
         <FlatList
           data={this.state.questions}
           renderItem={this.renderTopicItem}
