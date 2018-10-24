@@ -18,58 +18,26 @@ export default class Place extends Component {
 
   constructor (props) {
     super(props)
-    const { navigation } = this.props
+    const { navigation } = props
     const birthDate = navigation.getParam('birthDate')
     const country = navigation.getParam('country')
     const state = navigation.getParam('state')
     const countryName = navigation.getParam('countryName')
     const stateName = navigation.getParam('stateName')
+    const name = navigation.getParam('name')
+    const onNavigateBack = navigation.getParam('onNavigateBack')
 
     this.state = {
       birthDate,
       year: moment(birthDate).format('YY').substring(0, 1) + '0',
       country,
       state,
-      name: '',
+      name,
       countryName,
       stateName,
+      onNavigateBack,
       countries: [],
       states: [],
-    }
-  }
-
-  async getStates () {
-    const { country } = this.state
-    if (country) {
-      const { data: states } = await http.get('/v1/states/' + country)
-      this.setState({
-        states: states.map(({name, iso_code: isoCode}) => ({
-          label: name,
-          value: isoCode,
-        })),
-      })
-    }
-  }
-
-  componentDidUpdate (prevProps, prevState) {
-    const { country } = this.state
-    if (prevState.country !== country) {
-      this.getStates()
-    }
-  }
-
-  onContinue = () => {
-    const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName } = this.state
-    console.log(this.state)
-    if (country && state) {
-      navigation.navigate('SetupConfirmation', {
-        birthDate,
-        country,
-        state,
-        countryName,
-        stateName,
-      })
     }
   }
 
@@ -88,9 +56,46 @@ export default class Place extends Component {
     }
   }
 
+  componentDidUpdate (prevProps, prevState) {
+    const { country } = this.state
+    if (prevState.country !== country) {
+      this.getStates()
+    }
+  }
+
+  async getStates () {
+    const { country } = this.state
+    if (country) {
+      const { data: states } = await http.get('/v1/states/' + country)
+      this.setState({
+        states: states.map(({name, iso_code: isoCode}) => ({
+          label: name,
+          value: isoCode,
+        })),
+      })
+    }
+  }
+
+  onContinue = () => {
+    const { navigation } = this.props
+    const { birthDate, country, state, countryName, stateName, name, onNavigateBack } = this.state
+
+    if (country && state) {
+      navigation.navigate('SetupConfirmation', {
+        birthDate,
+        country,
+        state,
+        countryName,
+        stateName,
+        name,
+        onNavigateBack,
+      })
+    }
+  }
+
   onChangeCountry = (country, index) => {
     const { countries } = this.state
-    console.log(country, index, countries.length)
+    // console.log(country, index, countries.length)
     index = index - 1
     if (countries[index]) {
       this.setState({

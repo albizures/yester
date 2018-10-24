@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
-import { getUser, saveUserData } from '../../utils/session'
+import { saveUserData } from '../../utils/session'
 import colors from '../../utils/colors'
 
 export default class Confirmation extends Component {
@@ -20,6 +20,8 @@ export default class Confirmation extends Component {
     const state = navigation.getParam('state')
     const countryName = navigation.getParam('countryName')
     const stateName = navigation.getParam('stateName')
+    const name = navigation.getParam('name')
+    const onNavigateBack = navigation.getParam('onNavigateBack')
 
     this.state = {
       birthDate,
@@ -27,16 +29,9 @@ export default class Confirmation extends Component {
       state,
       countryName,
       stateName,
-      name: '',
+      name,
+      onNavigateBack,
     }
-  }
-
-  async componentDidMount () {
-    const user = await getUser()
-
-    this.setState({
-      name: user.attributes.given_name,
-    })
   }
 
   onContinue = async () => {
@@ -50,7 +45,17 @@ export default class Confirmation extends Component {
   }
 
   onEdit = () => {
-    this.props.navigation.navigate('SetupBirthDate')
+    const { navigation } = this.props
+    const { birthDate, country, state, countryName, stateName, name } = this.state
+    navigation.state.params.onNavigateBack(this.state)
+    navigation.navigate('SetupBirthDate', {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      name,
+    })
   }
 
   render () {

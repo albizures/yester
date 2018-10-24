@@ -22,18 +22,21 @@ export default class BirthDate extends Component {
     const birthDate = navigation.getParam('birthDate')
     const country = navigation.getParam('country')
     const state = navigation.getParam('state')
+    const countryName = navigation.getParam('countryName')
+    const stateName = navigation.getParam('stateName')
 
     this.state = {
-      birthDate,
-      country,
-      state,
+      birthDate: birthDate,
+      country: country,
+      state: state,
+      countryName: countryName,
+      stateName: stateName,
       name: '',
     }
   }
 
   async componentDidMount () {
     const user = await getUser()
-
     this.setState({
       name: user.attributes.given_name,
     })
@@ -41,14 +44,30 @@ export default class BirthDate extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state } = this.state
+    const { birthDate, country, state, countryName, stateName, name } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
-        birthDate,
-        country,
-        state,
+        birthDate: birthDate,
+        country: country,
+        state: state,
+        countryName: countryName,
+        stateName: stateName,
+        name: name,
+        onNavigateBack: this.handleOnNavigateBack,
       })
     }
+  }
+
+  handleOnNavigateBack = (updatedState) => {
+    const { birthDate, country, state, countryName, stateName, name } = updatedState
+    this.setState({
+      birthDate: birthDate,
+      country: country,
+      state: state,
+      countryName: countryName,
+      stateName: stateName,
+      name: name,
+    })
   }
 
   render () {
