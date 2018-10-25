@@ -88,8 +88,8 @@ const MainTab = createBottomTabNavigator({
     screen: FeedStack,
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
-        active: require('./assets/feed-disabled.png'),
-        inactive: require('./assets/feed.png'),
+        active: require('./assets/feed.png'),
+        inactive: require('./assets/feed-disabled.png'),
       }),
     }),
   },
@@ -97,8 +97,8 @@ const MainTab = createBottomTabNavigator({
     screen: Profile,
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
-        active: require('./assets/profile-disabled.png'),
-        inactive: require('./assets/profile.png'),
+        active: require('./assets/profile.png'),
+        inactive: require('./assets/profile-disabled.png'),
       }),
     }),
   },
@@ -106,8 +106,8 @@ const MainTab = createBottomTabNavigator({
     screen: SettingsStack,
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
-        active: require('./assets/settings-disabled.png'),
-        inactive: require('./assets/settings.png'),
+        active: require('./assets/settings.png'),
+        inactive: require('./assets/settings-disabled.png'),
       }),
     }),
   },
