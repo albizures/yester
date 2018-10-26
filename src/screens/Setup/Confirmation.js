@@ -22,6 +22,7 @@ export default class Confirmation extends Component {
     const stateName = navigation.getParam('stateName')
     const name = navigation.getParam('name')
     const onNavigateBack = navigation.getParam('onNavigateBack')
+    const gender = navigation.getParam('gender')
 
     this.state = {
       birthDate,
@@ -31,22 +32,19 @@ export default class Confirmation extends Component {
       stateName,
       name,
       onNavigateBack,
+      gender,
     }
   }
 
   onContinue = async () => {
-    const {
-      birthDate,
-      country,
-      state,
-    } = this.state
-    await saveUserData({ birthDate, country, state })
+    const { birthDate, country, state, gender } = this.state
+    await saveUserData({ birthDate, country, state, gender })
     this.props.navigation.navigate('Home')
   }
 
   onEdit = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name } = this.state
+    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
     navigation.state.params.onNavigateBack(this.state)
     navigation.navigate('SetupBirthDate', {
       birthDate,
@@ -55,6 +53,7 @@ export default class Confirmation extends Component {
       countryName,
       stateName,
       name,
+      gender,
     })
   }
 

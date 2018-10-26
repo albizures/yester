@@ -26,6 +26,7 @@ export default class Place extends Component {
     const stateName = navigation.getParam('stateName')
     const name = navigation.getParam('name')
     const onNavigateBack = navigation.getParam('onNavigateBack')
+    const gender = navigation.getParam('gender')
 
     this.state = {
       birthDate,
@@ -36,6 +37,7 @@ export default class Place extends Component {
       countryName,
       stateName,
       onNavigateBack,
+      gender,
       countries: [],
       states: [],
     }
@@ -78,7 +80,7 @@ export default class Place extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name, onNavigateBack } = this.state
+    const { birthDate, country, state, countryName, stateName, name, onNavigateBack, gender } = this.state
 
     if (country && state) {
       navigation.navigate('SetupConfirmation', {
@@ -89,6 +91,7 @@ export default class Place extends Component {
         stateName,
         name,
         onNavigateBack,
+        gender,
       })
     }
   }

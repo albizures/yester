@@ -9,6 +9,7 @@ import { getUser } from '../../utils/session'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import DatePicker from '../../components/DatePicker'
+import Picker from '../../components/Picker'
 import TopBar from '../../components/TopBar'
 
 export default class BirthDate extends Component {
@@ -32,6 +33,8 @@ export default class BirthDate extends Component {
       countryName: countryName,
       stateName: stateName,
       name: '',
+      genders: [{value: 'F', label: 'Female'}, {value: 'M', label: 'Male'}],
+      gender: '',
     }
   }
 
@@ -44,7 +47,7 @@ export default class BirthDate extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name } = this.state
+    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
         birthDate: birthDate,
@@ -54,12 +57,13 @@ export default class BirthDate extends Component {
         stateName: stateName,
         name: name,
         onNavigateBack: this.handleOnNavigateBack,
+        gender: gender,
       })
     }
   }
 
   handleOnNavigateBack = (updatedState) => {
-    const { birthDate, country, state, countryName, stateName, name } = updatedState
+    const { birthDate, country, state, countryName, stateName, name, gender } = updatedState
     this.setState({
       birthDate: birthDate,
       country: country,
@@ -67,11 +71,23 @@ export default class BirthDate extends Component {
       countryName: countryName,
       stateName: stateName,
       name: name,
+      gender: gender,
     })
   }
 
+  onChangeGender = (gender, index) => {
+    const { genders } = this.state
+    index = index - 1
+    if (genders[index]) {
+      this.setState({
+        gender,
+        genderName: genders[index].label,
+      })
+    }
+  }
+
   render () {
-    const { name, birthDate } = this.state
+    const { name, birthDate, genders, gender } = this.state
     const topBarTitle = (
       <View style={{flex: 1, height: 110, justifyContent: 'center', paddingHorizontal: 27}}>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
@@ -101,6 +117,16 @@ export default class BirthDate extends Component {
             value={birthDate}
             onDateChange={(birthDate) => {
               this.setState({birthDate})
+            }}
+          />
+          <Picker
+            title='setup.age.form.gender'
+            items={genders}
+            value={gender}
+            onValueChange={this.onChangeGender}
+            placeholder={{
+              label: 'Select a gender',
+              value: null,
             }}
           />
           <Button title='setup.continue' style={{marginBottom: 20}} onPress={this.onContinue} />
