@@ -8,7 +8,7 @@ const Step = (props) => {
   const portrait = height > width
   const style = {
     justifyContent: portrait ? 'flex-start' : 'flex-start',
-    paddingTop: portrait ? 50 : 10,
+    paddingTop: portrait ? 0 : 0,
     width,
     height,
   }

@@ -9,6 +9,9 @@ const icons = {
   ssCard: require('../assets/screenshots/ss-card.png'),
   ssYester: require('../assets/screenshots/ss-yester.png'),
   check: require('../assets/chevron/check.png'),
+  onboarding1: require('../assets/onboarding/onboarding1.png'),
+  onboarding2: require('../assets/onboarding/onboarding2.png'),
+  onboarding3: require('../assets/onboarding/onboarding3.png'),
 }
 
 export default icons
