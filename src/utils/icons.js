@@ -8,6 +8,7 @@ const icons = {
   ssGlobo: require('../assets/screenshots/ss-globo.png'),
   ssCard: require('../assets/screenshots/ss-card.png'),
   ssYester: require('../assets/screenshots/ss-yester.png'),
+  ssPluma: require('../assets/screenshots/ss-pluma.png'),
   check: require('../assets/chevron/check.png'),
   onboarding1: require('../assets/onboarding/onboarding1.png'),
   onboarding2: require('../assets/onboarding/onboarding2.png'),
