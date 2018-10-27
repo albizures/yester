@@ -45,29 +45,26 @@ class CreateAccount extends Component {
     return (
       <Container>
         <View style={styles.container}>
-          <Image source={icons.ssYester}
-            style={{width: 225, height: 60, marginTop: 96}} />
-          <View style={[{alignItems: 'center', marginTop: 54, marginBottom: 60}]} >
+          <Image source={icons.ssYester} style={styles.image} />
+
+          <View style={styles.titleView} >
             <Heading2 keyName='createAccount.start' style={[{color: colors.governorBay, textAlign: 'center'}]} />
             <Heading4 keyName='createAccount.begin' style={[{textAlign: 'center'}]} />
           </View>
 
-          <Button title='createAccount.continue' onPress={this.onFBLogin} icon={icons.fb} />
+          <View style={styles.buttonsView}>
+            <Button title='createAccount.continue' onPress={this.onFBLogin} icon={icons.fb} />
 
-          <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20}} />
+            <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20}} />
 
-          <TextDivider style={{marginVertical: 30}} >
-            <Heading3 keyName='createAccount.or' />
-          </TextDivider>
+            <TextDivider style={{marginVertical: '30'}} >
+              <Heading3 keyName='createAccount.or' />
+            </TextDivider>
 
-          <Button
-            title='createAccount.create'
-            style={{marginBottom: 78}}
-            onPress={this.onSignIn}
-            type={Button.OUTLINED}
-          />
+            <Button title='createAccount.create' onPress={this.onSignIn} type={Button.OUTLINED} />
+          </View>
 
-          <View style={{marginBottom: 15}}>
+          <View style={styles.bottomView}>
             <Divider style={{width: 300, marginBottom: 15}} />
             <Text>
               <Heading4 keyName='createAccount.member' style={{textAlign: 'center'}} />
@@ -84,9 +81,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
     paddingHorizontal: 24,
     backgroundColor: colors.athensGray,
+  },
+  image: {
+    width: 225,
+    height: 60,
+    marginTop: '35%',
+  },
+  titleView: {
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginTop: 70,
+    marginBottom: 80,
+  },
+  buttonsView: {
+    height: '30%',
+    justifyContent: 'flex-start',
+  },
+  bottomView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 30,
   },
 })
 

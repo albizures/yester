@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Alert, KeyboardAvoidingView } from 'react-native'
+import { View, Alert, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Auth } from 'aws-amplify'
 
 import Container from '../components/Container'
@@ -72,10 +72,10 @@ export default class SignUp extends Component {
     return (
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
-          <View style={{height: 39, justtifyContent: 'flex-start', marginTop: 30}}>
-            <Heading2 keyName='signup.title' style={[{textAlign: 'center', color: colors.governorBay}]} />
+          <View style={styles.titleView}>
+            <Heading2 keyName='signup.title' style={styles.titleText} />
           </View>
-          <Heading4 keyName='signup.subtitle' style={[{textAlign: 'center', marginBottom: 40, marginHorizontal: 33}]} />
+          <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
           <View style={{alignItems: 'center'}}>
             <TextInput title='signup.firstName'
               value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
@@ -97,3 +97,20 @@ export default class SignUp extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  titleView: {
+    height: 39,
+    justifyContent: 'flex-start',
+    marginTop: 30,
+  },
+  titleText: {
+    textAlign: 'center',
+    color: colors.governorBay,
+  },
+  subtitleText: {
+    textAlign: 'center',
+    marginBottom: 40,
+    marginHorizontal: 33,
+  },
+})
