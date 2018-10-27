@@ -60,21 +60,22 @@ export default class ConfirmAccount extends Component {
     const email = navigation.getParam('email')
     const number = navigation.getParam('number')
     return (
-      <Container style={styles.view}>
-        <KeyboardAvoidingView enabled behavior='position'>
-          <Heading2 keyName='confirm.title' style={{color: colors.governorBay, marginTop: 229}} />
-          <Heading4 keyName='confirm.subtitle' />
-          <View style={{marginTop: 35}}>
-            <Heading4 keyName='confirm.label' />
-            <Heading3 text='{contact}' data={{contact: email || number}}
-              style={{textAlign: 'center'}} />
+      <Container style={styles.container}>
+        <KeyboardAvoidingView enabled behavior='position' >
+          <View style={{alignItems: 'center'}} >
+            <Heading2 keyName='confirm.title' style={styles.title} />
+            <Heading4 keyName='confirm.subtitle' style={{textAlign: 'center'}} />
+            <View style={{alignItems: 'center', marginVertical: 35}}>
+              <Heading4 keyName='confirm.label' />
+              <Heading3 text='{contact}' data={{contact: email || number}}
+                style={{textAlign: 'center'}} />
+              <Heading4 keyName='confirm.note' style={{textAlign: 'center', marginTop: 35}} />
+            </View>
+            <TextInput title='confirm.inputLabel' keyboardType='numeric'
+              value={code} onChangeText={text => this.onChange(text, 'code')} />
+
+            <Button title='confirm.submit' style={{marginTop: 10}} onPress={this.onPress} />
           </View>
-
-          <TextInput title='confirm.inputLabel' keyboardType='numeric'
-            style={{marginTop: 35}}
-            value={code} onChangeText={text => this.onChange(text, 'code')} />
-
-          <Button title='confirm.submit' style={{marginTop: 35}} onPress={this.onPress} />
         </KeyboardAvoidingView>
       </Container>
     )
@@ -82,9 +83,14 @@ export default class ConfirmAccount extends Component {
 }
 
 const styles = StyleSheet.create({
-  view: {
+  container: {
     alignItems: 'center',
     backgroundColor: colors.athensGray,
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
+  },
+  title: {
+    textAlign: 'center',
+    color: colors.governorBay,
+    marginTop: 200,
   },
 })

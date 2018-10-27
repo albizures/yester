@@ -106,10 +106,9 @@ InputContainer.defaultProps = {
 
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
     flexDirection: 'row',
     width: 300,
-    maxHeight: 50,
+    height: 50,
     borderRadius: 25,
     shadowColor: colors.shadow,
     shadowOpacity: 0.22,

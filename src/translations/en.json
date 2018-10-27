@@ -67,7 +67,7 @@
   "confirm.title": "Success!",
   "confirm.subtitle": "Thanks for signing into Yester.",
   "confirm.label": "We have sent a confirming code to ",
-  "confirm.note": "Please confirm by clicking on the link we have sent.",
+  "confirm.note": "Please provide us the code we have sent:",
   "confirm.submit": "Log in Now",
   "confirm.inputLabel": "Code",
   "login.loginAccount": "Login to your account",
