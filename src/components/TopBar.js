@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import Translate from './Translate'
 
-const top = Platform.OS === 'ios' ? 20 : 0
+const top = Platform.OS === 'ios' ? 30 : 0
 
 const TopBar = ({ icon, title, onBack, modal }) => {
   const titleElemet = typeof title === 'string' ? (
@@ -36,6 +36,15 @@ TopBar.propTypes = {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    minHeight: 50 + top,
+    paddingTop: top,
+    flexDirection: 'row',
+    backgroundColor: colors.haiti,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   icon: {
     marginRight: 12,
   },
@@ -47,7 +56,7 @@ const styles = StyleSheet.create({
   containerBack: {
     position: 'absolute',
     top: 24,
-    paddingTop: 10,
+    paddingTop: 16,
     left: 10,
   },
   back: {
@@ -55,15 +64,6 @@ const styles = StyleSheet.create({
     width: 20,
     marginHorizontal: 8,
     marginVertical: 4,
-  },
-  container: {
-    width: '100%',
-    minHeight: 50 + top,
-    paddingTop: top,
-    flexDirection: 'row',
-    backgroundColor: colors.haiti,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 })
 
