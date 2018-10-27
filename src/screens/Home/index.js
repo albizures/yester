@@ -80,8 +80,8 @@ export default class Home extends Component {
     const { isLoading, item, ages, modalVisible } = this.state
     const topBarTitle = (
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Image style={{ height: 25, width: 20 }} source={require('../../assets/feather-white.png')} />
-        <Title keyName='home.title' style={{color: colors.white}} />
+        <Image style={{ height: 25, width: 20, marginRight: 3 }} source={require('../../assets/feather-white.png')} />
+        <Title keyName='home.title' style={{color: colors.white, fontWeight: 'bold'}} />
       </View>
     )
 

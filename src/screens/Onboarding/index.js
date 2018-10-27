@@ -20,21 +20,18 @@ export default class Onboarding extends Component {
       title2: 'onboarding.step1.title2',
       description: 'onboarding.step1.description',
       description2: 'onboarding.step1.description2',
-      style: {marginHorizontal: 80},
     }, {
       cover: icons.onboarding2,
       title: 'onboarding.step2.title',
       title2: 'onboarding.step2.title2',
       description: 'onboarding.step2.description',
       description2: 'onboarding.step2.description2',
-      style: {marginHorizontal: 80},
     }, {
       cover: icons.onboarding3,
       title: 'onboarding.step3.title',
       title2: 'onboarding.step3.title2',
       description: 'onboarding.step3.description',
       description2: 'onboarding.step3.description2',
-      style: {marginHorizontal: 35},
     }],
   }
 

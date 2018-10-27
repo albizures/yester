@@ -130,12 +130,13 @@ const styles = StyleSheet.create({
   },
   showTextView: {
     flex: 1,
-    width: 60,
+    width: 65,
     alignItems: 'flex-end',
     justifyContent: 'center',
-    paddingRight: 17,
+    paddingRight: 16,
   },
-  showIconView: {flex: 1,
+  showIconView: {
+    flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center',
   },

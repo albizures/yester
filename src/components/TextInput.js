@@ -19,9 +19,9 @@ export default class TextInput extends Component {
     const {title, editable, value, password} = this.props
     const { show } = this.state
 
-    let config = {type: types.INPUT, secure: false, buttonText: ''}
+    let config = {type: types.INPUT, secure: false, buttonText: '', width: 300}
     if (password) {
-      config = {type: types.PASSWORD, secure: !show, buttonText: !show ? 'textInput.show' : 'textInput.hide'}
+      config = {type: types.PASSWORD, secure: !show, buttonText: !show ? 'textInput.show' : 'textInput.hide', width: 235}
     }
 
     return (
@@ -32,9 +32,9 @@ export default class TextInput extends Component {
           value={value}
           paddingHorizontal={20}
           height={50}
-          width={240}
+          width={config.width}
           color={(editable) ? colors.mineShaft : colors.white}
-          style={{width: 240}}
+          style={{width: config.width}}
         />
       </InputContainer>
     )
