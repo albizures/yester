@@ -117,10 +117,14 @@ const MainTab = createBottomTabNavigator({
   initialRouteName: 'Feed',
   headerMode: 'none',
   tabBarOptions: {
-    activeTintColor: colors.moonRaker,
-    inactiveTintColor: colors.royalBlue,
+    activeTintColor: colors.white,
+    inactiveTintColor: colors.moonRaker,
     style: {
       backgroundColor: colors.governorBay,
+    },
+    labelStyle: {
+      fontWeight: 'bold',
+      marginTop: 0,
     },
   },
 })
@@ -135,7 +139,7 @@ const AuthStack = createStackNavigator({
 }, {
   headerMode: 'none',
   mode: 'modal',
-  initialRouteName: 'Onboarding',
+  initialRouteName: 'SignUp',
 })
 
 const RootStack = createSwitchNavigator({
