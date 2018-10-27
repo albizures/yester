@@ -34,7 +34,7 @@ export default class Onboarding extends Component {
       title2: 'onboarding.step3.title2',
       description: 'onboarding.step3.description',
       description2: 'onboarding.step3.description2',
-      style: {marginHorizontal: 40},
+      style: {marginHorizontal: 35},
     }],
   }
 
@@ -81,13 +81,16 @@ export default class Onboarding extends Component {
 
 const styles = StyleSheet.create({
   view: {
+    height: '100%',
+    width: '100%',
     position: 'absolute',
-    alignSelf: 'center',
-    marginTop: 600,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: '8%',
   },
   row: {
     flexDirection: 'row',
-    width: 200,
+    width: '70%',
     justifyContent: 'space-evenly',
   },
 })
