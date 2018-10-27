@@ -19,22 +19,22 @@ export default class TextInput extends Component {
     const {title, editable, value, password} = this.props
     const { show } = this.state
 
-    let config = {type: types.INPUT, secure: false}
+    let config = {type: types.INPUT, secure: false, buttonText: ''}
     if (password) {
-      config = {type: types.PASSWORD, secure: !show}
+      config = {type: types.PASSWORD, secure: !show, buttonText: !show ? 'textInput.show' : 'textInput.hide'}
     }
 
     return (
-      <InputContainer {...this.props} title={title} show={this.onPressShow} type={config.type} >
+      <InputContainer {...this.props} title={title} show={this.onPressShow} type={config.type} buttonText={config.buttonText} >
         <RNTextInput
           {...this.props}
           secureTextEntry={config.secure}
           value={value}
           paddingHorizontal={20}
           height={50}
-          width={245}
+          width={240}
           color={(editable) ? colors.mineShaft : colors.white}
-          style={{flex: 1}}
+          style={{width: 240}}
         />
       </InputContainer>
     )
