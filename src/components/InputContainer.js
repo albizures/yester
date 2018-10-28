@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   showTextView: {
     flex: 1,
-    width: 65,
+    width: 100,
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 16,

@@ -21,7 +21,7 @@ export default class TextInput extends Component {
 
     let config = {type: types.INPUT, secure: false, buttonText: '', width: 300}
     if (password) {
-      config = {type: types.PASSWORD, secure: !show, buttonText: !show ? 'textInput.show' : 'textInput.hide', width: 235}
+      config = {type: types.PASSWORD, secure: !show, buttonText: !show ? 'textInput.show' : 'textInput.hide', width: 200}
     }
 
     return (
