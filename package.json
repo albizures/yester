@@ -21,7 +21,7 @@
     "react-dom": "^16.4.1",
     "react-native": "0.56.0",
     "react-native-datepicker": "^1.7.2",
-    "react-native-fbsdk": "^0.7.0",
+    "react-native-fbsdk": "^0.8.0",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^1.0.11",
     "react-native-picker-select": "^4.4.0",
