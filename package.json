@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "aws-amplify": "^1.1.6",
+    "aws-amplify": "^1.1.7",
     "axios": "^0.18.0",
     "debug": "^4.0.1",
     "moment": "^2.22.2",
