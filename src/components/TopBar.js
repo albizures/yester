@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import Translate from './Translate'
 
-const top = Platform.OS === 'ios' ? 30 : 0
+const top = Platform.OS === 'ios' ? 20 : 0
 
 const TopBar = ({ icon, title, onBack, modal }) => {
   const titleElemet = typeof title === 'string' ? (
@@ -38,7 +38,7 @@ TopBar.propTypes = {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    minHeight: 50 + top,
+    minHeight: 60 + top,
     paddingTop: top,
     flexDirection: 'row',
     backgroundColor: colors.haiti,
