@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
 import {Heading4} from '../../components'
+import Dots from './Dots'
 import Step from './Step'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -54,11 +55,17 @@ export default class Onboarding extends Component {
       : next
 
     return (
-      <View style={styles.view}>
-        <View style={styles.row}>
-          <Heading4 text='Skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
-          <Heading4 text='Continue' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
+      <View pointerEvents='box-none' style={styles.container}>
+        <View pointerEvents='box-none' style={styles.topFlex}>
+          <Dots steps={steps.length} currentStep={currentStep} />
         </View>
+        <View pointerEvents='box-none' style={styles.bottomFlex}>
+          <View pointerEvents='box-none' style={styles.buttonsView}>
+            <Heading4 text='Skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
+            <Heading4 text='Continue' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
+          </View>
+        </View>
+
       </View>
     )
   }
@@ -76,18 +83,30 @@ export default class Onboarding extends Component {
   }
 }
 
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
-  view: {
-    height: '100%',
-    width: '100%',
+  container: {
+    width,
+    height,
     position: 'absolute',
+    justifyContent: 'flex-end',
+    paddingBottom: height * 0.07,
+  },
+  topFlex: {
+    flex: 8.2,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: '8%',
   },
-  row: {
+  bottomFlex: {
+    flex: 1.8,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  buttonsView: {
+    width: width * 0.5,
     flexDirection: 'row',
-    width: '70%',
-    justifyContent: 'space-evenly',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginTop: 15,
   },
 })

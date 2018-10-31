@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, Dimensions } from 'react-native'
 import { Heading1, Heading2, Heading4 } from '../../components'
 import colors from '../../utils/colors'
 
@@ -19,14 +19,19 @@ export default class Step extends Component {
       <Fragment>
         <View style={styles.container}>
           <Image source={cover} style={styles.image} />
-          <View style={styles.titleView} >
+
+          <View style={styles.topFlex} >
             <View style={styles.subtitleView} >
-              <Heading2 keyName={title} style={styles.subtitle} />
+              <Heading2 keyName={title} style={styles.subtitleText} />
             </View>
-            <Heading1 keyName={title2} style={styles.title} />
+            <Heading1 keyName={title2} style={styles.titleText} />
           </View>
-          <Heading4 keyName={description} style={{textAlign: 'center', color: colors.white}} />
-          <Heading4 keyName={description2} style={{textAlign: 'center', color: colors.brightTurquoise}} />
+
+          <View style={styles.bottomFlex} >
+            <Heading4 keyName={description} style={styles.descriptionText} />
+            <Heading4 keyName={description2} style={styles.description2Text} />
+          </View>
+
         </View>
         {children}
       </Fragment>
@@ -34,6 +39,7 @@ export default class Step extends Component {
   }
 }
 
+const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -43,29 +49,41 @@ const styles = StyleSheet.create({
   },
   image: {
     position: 'absolute',
-    width: '100%',
-    height: '100%',
+    width,
+    height,
   },
-  titleView: {
-    height: '78%',
+  topFlex: {
+    flex: 7.8,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  bottomFlex: {
+    flex: 2.2,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   subtitleView: {
-    height: '24%',
-    width: '50%',
+    height: height * 0.195,
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingBottom: 5,
   },
-  subtitle: {
+  subtitleText: {
     textAlign: 'center',
     color: colors.white,
     fontWeight: 'normal',
   },
-  title: {
+  titleText: {
     textAlign: 'center',
     color: colors.brightTurquoise,
     lineHeight: 48,
+  },
+  descriptionText: {
+    textAlign: 'center',
+    color: colors.white,
+  },
+  description2Text: {
+    textAlign: 'center',
+    color: colors.brightTurquoise,
   },
 })
