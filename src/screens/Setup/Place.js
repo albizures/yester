@@ -141,7 +141,7 @@ export default class Place extends Component {
     return (
       <Container topBar={topBar} >
         <View style={styles.container}>
-          <Image source={icons.ssGlobo}
+          <Image source={icons.glove}
             style={{width: 78, height: 98.88, marginTop: 13, marginBottom: 5}} />
           <Heading4 keyName='setup.place.form.title'
             style={[{textAlign: 'center'}]}

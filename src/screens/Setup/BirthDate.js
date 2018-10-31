@@ -107,7 +107,7 @@ export default class BirthDate extends Component {
     return (
       <Container topBar={topBar}>
         <View style={styles.container}>
-          <Image source={icons.ssSonaja}
+          <Image source={icons.childhood}
             style={{width: 60, height: 64.52, marginTop: 32, marginBottom: 20}} />
 
           <Heading4 keyName='setup.age.question' style={[{textAlign: 'center'}]} />

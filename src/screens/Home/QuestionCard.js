@@ -14,7 +14,7 @@ const QuestionCard = (props) => {
     <View style={styles.card}>
       <View style={styles.container}>
         <View style={styles.ilustration}>
-          <Image source={icons.ssCard}
+          <Image source={icons.emptyCard}
             style={{width: 340, height: 250}} />
           <View style={{flex: 1, position: 'absolute', alignSelf: 'center', paddingTop: 27}}>
             <Heading5 text={capitalize(data.age)} style={[{textAlign: 'center'}]} />

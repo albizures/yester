@@ -68,7 +68,7 @@ export default class ConfirmAccount extends Component {
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position' >
           <View style={styles.container}>
-            <Image source={icons.ssPluma} style={styles.image} />
+            <Image source={icons.feather} style={styles.image} />
             <View style={{alignItems: 'center'}} >
               <Heading2 keyName='confirm.title' style={styles.title} />
               <Heading4 keyName='confirm.subtitle' style={{textAlign: 'center'}} />

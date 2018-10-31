@@ -45,7 +45,7 @@ class CreateAccount extends Component {
     return (
       <Container>
         <View style={styles.container}>
-          <Image source={icons.ssYester} style={styles.image} />
+          <Image source={icons.yester} style={styles.image} />
 
           <View style={styles.titleView} >
             <Heading2 keyName='createAccount.start' style={[{color: colors.governorBay, textAlign: 'center'}]} />
