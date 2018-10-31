@@ -4,11 +4,10 @@ import React from 'react'
 
 const Step = (props) => {
   const { children } = props
+
   const { width, height } = Dimensions.get('window')
-  const portrait = height > width
+  // const portrait = height > width
   const style = {
-    justifyContent: portrait ? 'flex-start' : 'flex-start',
-    paddingTop: portrait ? 0 : 0,
     width,
     height,
   }
@@ -27,6 +26,7 @@ Step.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
 })
