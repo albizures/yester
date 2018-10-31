@@ -32,10 +32,6 @@ export default class BirthDate extends Component {
       state,
       countryName,
       stateName,
-      country: country,
-      state: state,
-      countryName: countryName,
-      stateName: stateName,
       name: '',
       genders: [{value: 'F', label: 'Female'}, {value: 'M', label: 'Male'}],
       gender: '',
@@ -54,14 +50,14 @@ export default class BirthDate extends Component {
     const { birthDate, country, state, countryName, stateName, name, gender } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
-        birthDate: birthDate,
-        country: country,
-        state: state,
-        countryName: countryName,
-        stateName: stateName,
-        name: name,
+        birthDate,
+        country,
+        state,
+        countryName,
+        stateName,
+        name,
         onNavigateBack: this.handleOnNavigateBack,
-        gender: gender,
+        gender,
       })
     }
   }
@@ -69,13 +65,13 @@ export default class BirthDate extends Component {
   handleOnNavigateBack = (updatedState) => {
     const { birthDate, country, state, countryName, stateName, name, gender } = updatedState
     this.setState({
-      birthDate: birthDate,
-      country: country,
-      state: state,
-      countryName: countryName,
-      stateName: stateName,
-      name: name,
-      gender: gender,
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      name,
+      gender,
     })
   }
 
