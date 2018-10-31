@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, Dimensions } from 'react-native'
 
 import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
@@ -89,12 +89,12 @@ export default class BirthDate extends Component {
   render () {
     const { name, birthDate, genders, gender } = this.state
     const topBarTitle = (
-      <View style={{flex: 1, height: 110, justifyContent: 'center', paddingHorizontal: 27}}>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-end'}}>
+      <View style={{height: 110, paddingHorizontal: width * 0.08}}>
+        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
           <Heading2 keyName='setup.age.greeting' data={{ name }}
             style={[{color: colors.brightTurquoise}]} />
         </View>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
+        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-start'}}>
           <Heading4 keyName='setup.age.greeting.subtitle'
             style={[{color: colors.white, textAlign: 'center'}]} />
         </View>
@@ -107,43 +107,74 @@ export default class BirthDate extends Component {
     return (
       <Container topBar={topBar}>
         <View style={styles.container}>
-          <Image source={icons.childhood}
-            style={{width: 60, height: 64.52, marginTop: 32, marginBottom: 20}} />
+          <View style={styles.topFlex}>
+            <Image source={icons.childhood}
+              style={styles.image} />
+            <Heading4 keyName='setup.age.question' style={styles.questionText} />
+          </View>
 
-          <Heading4 keyName='setup.age.question' style={[{textAlign: 'center'}]} />
+          <View style={styles.bottomFlex}>
+            <DatePicker title='setup.age.birthdate'
+              value={birthDate}
+              onDateChange={(birthDate) => {
+                this.setState({birthDate})
+              }}
+            />
+            <Picker
+              title='setup.age.form.gender'
+              items={genders}
+              value={gender}
+              onValueChange={this.onChangeGender}
+              placeholder={{
+                label: 'Select a gender',
+                value: null,
+              }}
+            />
+            <Button title='setup.continue' style={styles.button} onPress={this.onContinue} />
+            <Description keyName='setup.age.disclaimer'
+              style={styles.disclaimerText} />
+          </View>
 
-          <DatePicker title='setup.age.birthdate'
-            style={{marginTop: 50, marginBottom: 80}}
-            value={birthDate}
-            onDateChange={(birthDate) => {
-              this.setState({birthDate})
-            }}
-          />
-          <Picker
-            title='setup.age.form.gender'
-            items={genders}
-            value={gender}
-            onValueChange={this.onChangeGender}
-            placeholder={{
-              label: 'Select a gender',
-              value: null,
-            }}
-          />
-          <Button title='setup.continue' style={{marginBottom: 20}} onPress={this.onContinue} />
-          <Description keyName='setup.age.disclaimer'
-            style={[{textAlign: 'center', paddingHorizontal: 17}]} />
         </View>
       </Container>
     )
   }
 }
 
+const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     backgroundColor: colors.athensGray,
-    paddingBottom: 22,
-    paddingHorizontal: 31,
+    paddingBottom: height * 0.03,
+    paddingHorizontal: width * 0.08,
+  },
+  topFlex: {
+    flex: 0.25,
+    alignItems: 'center',
+    paddingTop: height * 0.045,
+    paddingBottom: height * 0.03,
+  },
+  bottomFlex: {
+    flex: 0.75,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  image: {
+    width: 60,
+    height: 64.52,
+    marginBottom: height * 0.03,
+  },
+  button: {
+    marginTop: height * 0.03,
+    marginBottom: height * 0.03,
+  },
+  questionText: {
+    textAlign: 'center',
+  },
+  disclaimerText: {
+    textAlign: 'center',
+    paddingHorizontal: 17,
   },
 })
