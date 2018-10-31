@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Alert, View, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { Alert, View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
@@ -75,29 +75,26 @@ class Login extends Component {
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={styles.view}>
-            <Button
-              title='createAccount.continue'
-              style={{marginTop: 36}}
-              onPress={this.onFBLogin}
-              icon={icons.fb}
-            />
-            <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20, marginBottom: 30}} />
 
-            <TextDivider style={{marginVertical: 40}} >
-              <Heading3 keyName='createAccount.or' />
-            </TextDivider>
+            <View style={styles.topFlex}>
+              <Button title='createAccount.continue' icon={icons.fb} onPress={this.onFBLogin} />
+              <Description keyName='createAccount.recommendation' style={styles.recommendationText} />
+              <TextDivider>
+                <Heading3 keyName='createAccount.or' />
+              </TextDivider>
+              <Heading2 keyName='login.loginAccount' style={styles.loginAccountText} />
 
-            <Heading2 keyName='login.loginAccount' style={{color: colors.governorBay, marginTop: 30, marginBottom: 20}} />
+            </View>
+            <View style={styles.bottomFlex} >
 
-            <View style={styles.inputs} >
               <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
                 value={email} onChangeText={text => this.onChange(text, 'email')} />
               <TextInput title='signup.password' password
                 value={password} onChangeText={text => this.onChange(text, 'password')} />
-              <View style={{width: 300, height: 30, alignItems: 'flex-start', justifyContent: 'flex-start'}}>
-                <Description keyName='login.forgotPassword' style={{fontSize: 14, fontWeight: 'bold', color: colors.governorBay}} />
-              </View>
+
+              <Description keyName='login.forgotPassword' style={styles.forgotPasswordText} />
               <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
+
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -106,19 +103,39 @@ class Login extends Component {
   }
 }
 
+const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 24,
+    paddingHorizontal: width * 0.07,
     backgroundColor: colors.athensGray,
+    paddingTop: height * 0.05,
+    paddingBottom: height * 0.1,
   },
-  inputs: {
-    height: '50%',
+  topFlex: {
+    flex: 4,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 40,
-    marginBottom: 20,
+    paddingBottom: height * 0.05,
+  },
+  bottomFlex: {
+    flex: 6,
+    alignItems: 'center',
+  },
+  recommendationText: {
+    alignSelf: 'center',
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  loginAccountText: {
+    color: colors.governorBay,
+    marginTop: 20,
+  },
+  forgotPasswordText: {
+    fontWeight: 'bold',
+    color: colors.governorBay,
+    alignSelf: 'flex-start',
+    paddingLeft: 10,
+    marginBottom: 40,
   },
 })
 

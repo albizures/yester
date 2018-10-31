@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text, View, Dimensions,
-} from 'react-native'
+import { StyleSheet, Text, View, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import Container from '../components/Container'
