@@ -27,7 +27,11 @@ export default class BirthDate extends Component {
     const stateName = navigation.getParam('stateName')
 
     this.state = {
-      birthDate: birthDate,
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
       country: country,
       state: state,
       countryName: countryName,
