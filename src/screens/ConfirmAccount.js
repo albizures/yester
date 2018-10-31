@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Alert, StyleSheet, Image, KeyboardAvoidingView } from 'react-native'
+import { View, Alert, StyleSheet, Image, KeyboardAvoidingView, Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
 import {Heading2, Heading3, Heading4} from '../components'
 import Container from '../components/Container'
@@ -68,20 +68,23 @@ export default class ConfirmAccount extends Component {
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position' >
           <View style={styles.container}>
-            <Image source={icons.feather} style={styles.image} />
-            <View style={{alignItems: 'center'}} >
-              <Heading2 keyName='confirm.title' style={styles.title} />
-              <Heading4 keyName='confirm.subtitle' style={{textAlign: 'center'}} />
-              <View style={styles.body}>
-                <Heading4 keyName='confirm.label' />
-                <Heading3 text='{contact}' data={{contact: email || number}}
-                  style={{textAlign: 'center'}} />
-                <Heading4 keyName='confirm.note' style={{textAlign: 'center', marginTop: 35}} />
-              </View>
+            <View style={styles.topFlex}>
+              <Image source={icons.feather} style={styles.image} />
+              <Heading2 keyName='confirm.title' style={styles.titleText} />
+              <Heading4 keyName='confirm.subtitle' style={styles.subtitleText} />
+            </View>
+
+            <View style={styles.middleFlex} >
+              <Heading4 keyName='confirm.label' />
+              <Heading3 text='{contact}' data={{contact: email || number}}
+                style={styles.contactText} />
+              <Heading4 keyName='confirm.note' style={styles.noteText} />
+            </View>
+
+            <View style={styles.bottomFlex}>
               <TextInput title='confirm.inputLabel' keyboardType='numeric'
                 value={code} onChangeText={text => this.onChange(text, 'code')} />
-
-              <Button title='confirm.submit' style={{marginTop: 10}} onPress={this.onPress} />
+              <Button title='confirm.submit' onPress={this.onPress} />
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -90,25 +93,46 @@ export default class ConfirmAccount extends Component {
   }
 }
 
+const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
     backgroundColor: colors.athensGray,
-    paddingHorizontal: 30,
+    paddingHorizontal: width * 0.08,
+    paddingTop: height * 0.12,
+    paddingBottom: height * 0.18,
+  },
+  topFlex: {
+    flex: 0.4,
+    alignItems: 'center',
+    paddingBottom: height * 0.05,
+  },
+  middleFlex: {
+    flex: 0.4,
+    alignItems: 'center',
+    paddingBottom: height * 0.025,
+  },
+  bottomFlex: {
+    flex: 0.2,
+    alignItems: 'center',
   },
   image: {
     width: 79,
     height: 92,
-    marginTop: 90,
-    marginBottom: 40,
+    marginBottom: height * 0.06,
   },
-  title: {
+  titleText: {
     textAlign: 'center',
     color: colors.governorBay,
   },
-  body: {
-    alignItems: 'center',
-    marginTop: 35,
-    marginBottom: 50,
+  subtitleText: {
+    textAlign: 'center',
+  },
+  contactText: {
+    textAlign: 'center',
+    marginBottom: height * 0.05,
+  },
+  noteText: {
+    textAlign: 'center',
   },
 })

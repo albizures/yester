@@ -72,7 +72,7 @@ class Login extends Component {
       <TopBar title='createAccount.login' onBack={this.onBack} />
     )
     return (
-      <Container scroll topBar={topBar}>
+      <Container topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={styles.view}>
 
@@ -83,19 +83,17 @@ class Login extends Component {
                 <Heading3 keyName='createAccount.or' />
               </TextDivider>
               <Heading2 keyName='login.loginAccount' style={styles.loginAccountText} />
-
             </View>
-            <View style={styles.bottomFlex} >
 
+            <View style={styles.bottomFlex} >
               <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
                 value={email} onChangeText={text => this.onChange(text, 'email')} />
               <TextInput title='signup.password' password
                 value={password} onChangeText={text => this.onChange(text, 'password')} />
-
               <Description keyName='login.forgotPassword' style={styles.forgotPasswordText} />
               <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
-
             </View>
+
           </View>
         </KeyboardAvoidingView>
       </Container>
@@ -106,9 +104,10 @@ class Login extends Component {
 const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   view: {
-    flex: 1,
-    paddingHorizontal: width * 0.07,
+    width,
+    height: height - 60,
     backgroundColor: colors.athensGray,
+    paddingHorizontal: width * 0.07,
     paddingTop: height * 0.05,
     paddingBottom: height * 0.1,
   },
@@ -123,19 +122,19 @@ const styles = StyleSheet.create({
   },
   recommendationText: {
     alignSelf: 'center',
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: height * 0.03,
+    marginBottom: height * 0.045,
   },
   loginAccountText: {
     color: colors.governorBay,
-    marginTop: 20,
+    marginTop: height * 0.03,
   },
   forgotPasswordText: {
     fontWeight: 'bold',
     color: colors.governorBay,
     alignSelf: 'flex-start',
     paddingLeft: 10,
-    marginBottom: 40,
+    marginBottom: height * 0.06,
   },
 })
 
