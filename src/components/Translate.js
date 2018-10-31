@@ -4,7 +4,7 @@ import suppplant from 'suppplant'
 import { Text } from 'react-native'
 import LocalizedStrings from 'react-native-localization'
 
-const strings = new LocalizedStrings({
+export const strings = new LocalizedStrings({
   en: require('../translations/en'),
   es: require('../translations/es'),
 })

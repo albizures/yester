@@ -9,6 +9,7 @@ import { Heading2, Heading4 } from '../components'
 import TopBar from '../components/TopBar'
 import TextInput from '../components/TextInput'
 import colors from '../utils/colors'
+import { strings } from '../components/Translate'
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -37,6 +38,7 @@ export default class SignUp extends Component {
         attributes: {
           given_name: firstName,
           family_name: lastName,
+          locale: strings.getLanguage(),
         },
       })
 
