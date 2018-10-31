@@ -7,7 +7,7 @@ import Translate from './Translate'
 
 const top = Platform.OS === 'ios' ? 20 : 0
 
-const TopBar = ({ icon, title, onBack, modal }) => {
+const TopBar = ({ icon, title, onBack, modal, action }) => {
   const titleElemet = typeof title === 'string' ? (
     <Translate style={styles.text} keyName={title} />
   ) : title
@@ -24,6 +24,11 @@ const TopBar = ({ icon, title, onBack, modal }) => {
         </TouchableHighlight>
       ) : null}
       {titleElemet}
+      {action && (
+        <View style={styles.action}>
+          {action}
+        </View>
+      )}
     </View>
   )
 }
@@ -33,11 +38,18 @@ TopBar.propTypes = {
   modal: PropTypes.bool,
   onBack: PropTypes.func,
   title: PropTypes.node.isRequired,
+  action: PropTypes.node,
 }
 
 const styles = StyleSheet.create({
   icon: {
     marginRight: 12,
+  },
+  action: {
+    position: 'absolute',
+    top: 24,
+    paddingTop: 10,
+    right: 10,
   },
   text: {
     color: colors.white,
