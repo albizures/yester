@@ -90,7 +90,7 @@ export default class Home extends Component {
     )
     return (
       <Container topBar={topBar} isLoading={isLoading} style={{backgroundColor: colors.athensGray}} >
-        <Modal
+        {Boolean(item) && <Modal
           animationType='fade'
           transparent
           visible={modalVisible} >
@@ -100,7 +100,7 @@ export default class Home extends Component {
               onPressWrite={this.onPressWrite}
               onPressSkip={this.onPressSkip} />
           </View>
-        </Modal>
+        </Modal>}
         <FlatList
           data={ages}
           renderItem={this.renderAgeItem}
