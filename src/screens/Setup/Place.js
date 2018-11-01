@@ -10,6 +10,7 @@ import Container from '../../components/Container'
 import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
 import http from '../../utils/http'
+import { extractSetupParams } from '../../utils'
 
 export default class Place extends Component {
   static propTypes = {
@@ -19,25 +20,10 @@ export default class Place extends Component {
   constructor (props) {
     super(props)
     const { navigation } = props
-    const birthDate = navigation.getParam('birthDate')
-    const country = navigation.getParam('country')
-    const state = navigation.getParam('state')
-    const countryName = navigation.getParam('countryName')
-    const stateName = navigation.getParam('stateName')
-    const name = navigation.getParam('name')
-    const onNavigateBack = navigation.getParam('onNavigateBack')
-    const gender = navigation.getParam('gender')
-
+    const params = extractSetupParams(navigation)
     this.state = {
-      birthDate,
-      year: moment(birthDate).format('YY').substring(0, 1) + '0',
-      country,
-      state,
-      name,
-      countryName,
-      stateName,
-      onNavigateBack,
-      gender,
+      ...params,
+      year: moment(params.birthDate).format('YY').substring(0, 1) + '0',
       countries: [],
       states: [],
     }
@@ -80,7 +66,7 @@ export default class Place extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name, onNavigateBack, gender } = this.state
+    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
 
     if (country && state) {
       navigation.navigate('SetupConfirmation', {
@@ -90,7 +76,6 @@ export default class Place extends Component {
         countryName,
         stateName,
         name,
-        onNavigateBack,
         gender,
       })
     }
@@ -98,7 +83,6 @@ export default class Place extends Component {
 
   onChangeCountry = (country, index) => {
     const { countries } = this.state
-    // console.log(country, index, countries.length)
     index = index - 1
     if (countries[index]) {
       this.setState({
@@ -178,7 +162,7 @@ export default class Place extends Component {
   }
 }
 
-const { height, width } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
