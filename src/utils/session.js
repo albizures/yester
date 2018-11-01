@@ -42,6 +42,15 @@ export const logOut = async () => {
 
 export const getUser = () => Auth.currentAuthenticatedUser()
 
+export const sanitizeUser = (user) => ({
+  country: user.attributes['custom:country'],
+  state: user.attributes['custom:country'],
+  birthDate: user.attributes['custom:country'],
+  gender: user.attributes['gender'],
+  locale: user.attributes['locale'],
+  name: user.attributes['name'],
+})
+
 export const isSetupFinished = async () => {
   const user = await getUser()
 
@@ -71,6 +80,11 @@ export const saveUserData = async ({birthDate, country, state}) => {
     'custom:state': state,
     'custom:birthDate': birthDate,
   })
+}
+
+export const updateUserAttribute = async (name, value) => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, { [name]: value })
 }
 
 // NOTE this is only for dev purposes
