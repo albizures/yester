@@ -11,6 +11,7 @@ import icons from '../../utils/icons'
 import DatePicker from '../../components/DatePicker'
 import Picker from '../../components/Picker'
 import TopBar from '../../components/TopBar'
+import { extractSetupParams } from '../../utils'
 
 export default class BirthDate extends Component {
   static propTypes = {
@@ -20,25 +21,21 @@ export default class BirthDate extends Component {
   constructor (props) {
     super(props)
     const { navigation } = this.props
-    const birthDate = navigation.getParam('birthDate')
-    const country = navigation.getParam('country')
-    const state = navigation.getParam('state')
-    const countryName = navigation.getParam('countryName')
-    const stateName = navigation.getParam('stateName')
-
     this.state = {
-      birthDate,
-      country,
-      state,
-      countryName,
-      stateName,
+      ...extractSetupParams(navigation),
       name: '',
       genders: [{value: 'F', label: 'Female'}, {value: 'M', label: 'Male'}],
-      gender: '',
     }
   }
 
+  onDidFocus = () => {
+    const { navigation } = this.props
+    this.setState(extractSetupParams(navigation))
+  }
+
   async componentDidMount () {
+    const { navigation } = this.props
+    navigation.addListener('didFocus', this.onDidFocus)
     const user = await getUser()
     this.setState({
       name: user.attributes.given_name,
@@ -56,23 +53,9 @@ export default class BirthDate extends Component {
         countryName,
         stateName,
         name,
-        onNavigateBack: this.handleOnNavigateBack,
         gender,
       })
     }
-  }
-
-  handleOnNavigateBack = (updatedState) => {
-    const { birthDate, country, state, countryName, stateName, name, gender } = updatedState
-    this.setState({
-      birthDate,
-      country,
-      state,
-      countryName,
-      stateName,
-      name,
-      gender,
-    })
   }
 
   onChangeGender = (gender, index) => {

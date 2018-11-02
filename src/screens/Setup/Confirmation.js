@@ -6,6 +6,7 @@ import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
 import { saveUserData } from '../../utils/session'
 import colors from '../../utils/colors'
+import { extractSetupParams } from '../../utils'
 
 export default class Confirmation extends Component {
   static propTypes = {
@@ -15,25 +16,7 @@ export default class Confirmation extends Component {
   constructor (props) {
     super(props)
     const { navigation } = this.props
-    const birthDate = navigation.getParam('birthDate')
-    const country = navigation.getParam('country')
-    const state = navigation.getParam('state')
-    const countryName = navigation.getParam('countryName')
-    const stateName = navigation.getParam('stateName')
-    const name = navigation.getParam('name')
-    const onNavigateBack = navigation.getParam('onNavigateBack')
-    const gender = navigation.getParam('gender')
-
-    this.state = {
-      birthDate,
-      country,
-      state,
-      countryName,
-      stateName,
-      name,
-      onNavigateBack,
-      gender,
-    }
+    this.state = extractSetupParams(navigation)
   }
 
   onContinue = async () => {
@@ -45,7 +28,6 @@ export default class Confirmation extends Component {
   onEdit = () => {
     const { navigation } = this.props
     const { birthDate, country, state, countryName, stateName, name, gender } = this.state
-    navigation.state.params.onNavigateBack(this.state)
     navigation.navigate('SetupBirthDate', {
       birthDate,
       country,
