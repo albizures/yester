@@ -32,11 +32,12 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader } from './utils/session'
+import { setAuthHeader, Storage } from './utils/session'
 
 debugFactory.enable('yester:*')
 
 Amplify.configure({
+  storage: Storage,
   Auth: {
     identityPoolId: AWS_IDENTITY_POOL_ID,
     region: AWS_REGION,

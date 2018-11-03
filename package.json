@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "amazon-cognito-auth-js": "^1.2.4",
     "aws-amplify": "^1.1.6",
     "axios": "^0.18.0",
     "debug": "^4.0.1",
