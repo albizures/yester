@@ -15,6 +15,7 @@ const icons = {
   onboarding3: require('../assets/onboarding/onboarding3.png'),
   confirmation: require('../assets/backgrounds/confirmation.png'),
   subscription: require('../assets/backgrounds/subscription.png'),
+  logoWhite: require('../assets/logos/yester-logo-white.png'),
 }
 
 export default icons
