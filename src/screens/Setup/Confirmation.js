@@ -4,8 +4,9 @@ import { StyleSheet } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
-import { getUser, saveUserData } from '../../utils/session'
+import { saveUserData } from '../../utils/session'
 import colors from '../../utils/colors'
+import { extractSetupParams } from '../../utils'
 
 export default class Confirmation extends Component {
   static propTypes = {
@@ -15,42 +16,27 @@ export default class Confirmation extends Component {
   constructor (props) {
     super(props)
     const { navigation } = this.props
-    const birthDate = navigation.getParam('birthDate')
-    const country = navigation.getParam('country')
-    const state = navigation.getParam('state')
-    const countryName = navigation.getParam('countryName')
-    const stateName = navigation.getParam('stateName')
+    this.state = extractSetupParams(navigation)
+  }
 
-    this.state = {
+  onContinue = async () => {
+    const { birthDate, country, state, gender } = this.state
+    await saveUserData({ birthDate, country, state, gender })
+    this.props.navigation.navigate('Home')
+  }
+
+  onEdit = () => {
+    const { navigation } = this.props
+    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
+    navigation.navigate('SetupBirthDate', {
       birthDate,
       country,
       state,
       countryName,
       stateName,
-      name: '',
-    }
-  }
-
-  async componentDidMount () {
-    const user = await getUser()
-
-    this.setState({
-      name: user.attributes.given_name,
+      name,
+      gender,
     })
-  }
-
-  onContinue = async () => {
-    const {
-      birthDate,
-      country,
-      state,
-    } = this.state
-    await saveUserData({ birthDate, country, state })
-    this.props.navigation.navigate('Home')
-  }
-
-  onEdit = () => {
-    this.props.navigation.navigate('SetupBirthDate')
   }
 
   render () {

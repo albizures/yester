@@ -1,4 +1,3 @@
-
 import { Auth } from 'aws-amplify'
 import debugFactory from 'debug'
 import { AsyncStorage } from 'react-native'
@@ -57,19 +56,24 @@ export const isSetupFinished = async () => {
     return false
   }
 
-  if (!user.attributes['custom:birthDate']) {
+  if (!user.attributes['birthdate']) {
+    return false
+  }
+
+  if (!user.attributes['gender']) {
     return false
   }
 
   return true
 }
 
-export const saveUserData = async ({birthDate, country, state}) => {
+export const saveUserData = async ({birthDate, country, state, gender}) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
-    'custom:birthDate': birthDate,
+    'birthdate': birthDate,
+    'gender': gender,
   })
 }
 
@@ -79,6 +83,7 @@ export const cleanUserData = async () => {
   await Auth.updateUserAttributes(user, {
     'custom:country': '',
     'custom:state': '',
-    'custom:birthDate': '',
+    'birthdate': '',
+    'gender': '',
   })
 }
