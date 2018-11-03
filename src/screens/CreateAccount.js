@@ -1,10 +1,12 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, AsyncStorage, Alert, Image } from 'react-native'
+import { View, Text, StyleSheet, AsyncStorage, Alert, Image, Modal, WebView } from 'react-native'
+import { FACEBOOK_URL_LOGIN } from 'react-native-dotenv'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
+import { loginWithFBWebView } from '../utils/session'
 
 import Button from '../components/Button'
 import Divider from '../components/Divider'
@@ -19,7 +21,12 @@ class CreateAccount extends Component {
     onLoginWithFB: PropTypes.func.isRequired,
   }
 
-  onFBLogin = async () => {
+  state = {
+    fbWebViewVisible: false,
+    isLoading: false,
+  }
+
+  onFBNativeLogin = async () => {
     const { onLoginWithFB, navigation } = this.props
 
     try {
@@ -33,6 +40,24 @@ class CreateAccount extends Component {
     }
   }
 
+  onFBWebView = async () => {
+    this.setState({ fbWebViewVisible: true })
+  }
+
+  onFBWebViewStateChange = async (event) => {
+    console.log('onFBWebViewStateChange', event.url)
+    if (event.url.includes('https://www.yester.app/#access_token=')) {
+      this.setState({ fbWebViewVisible: false, isLoading: true })
+      try {
+        await loginWithFBWebView(event.url)
+      } catch (error) {
+        console.log('onFBWebViewStateChange', error)
+        Alert.alert('Error')
+      }
+      this.props.navigation.navigate('AppLoading')
+    }
+  }
+
   onSignIn = () => {
     this.props.navigation.navigate('SignUp')
   }
@@ -42,8 +67,22 @@ class CreateAccount extends Component {
   }
 
   render () {
+    const { fbWebViewVisible, isLoading } = this.state
     return (
-      <Container>
+      <Container isLoading={isLoading}>
+        <Modal
+          animationType='fade'
+          transparent
+          visible={fbWebViewVisible} >
+          { fbWebViewVisible && (
+            <View style={styles.fbWebViewContainer}>
+              <WebView
+                style={{ flex: 1 }}
+                source={{uri: FACEBOOK_URL_LOGIN}}
+                onNavigationStateChange={this.onFBWebViewStateChange} />
+            </View>
+          )}
+        </Modal>
         <View style={styles.container}>
           <Image source={icons.ssYester}
             style={{width: 225, height: 60, marginTop: 96}} />
@@ -52,7 +91,7 @@ class CreateAccount extends Component {
             <Heading4 keyName='createAccount.begin' style={[{textAlign: 'center'}]} />
           </View>
 
-          <Button title='createAccount.continue' onPress={this.onFBLogin} icon={icons.fb} />
+          <Button title='createAccount.continue' onPress={this.onFBWebView} icon={icons.fb} />
 
           <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20}} />
 
@@ -87,6 +126,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingHorizontal: 24,
     backgroundColor: colors.athensGray,
+  },
+  fbWebViewContainer: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 })
 
