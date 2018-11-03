@@ -8,7 +8,7 @@ import { Title, Description, Heading5 } from '../components'
 import Button, {types} from '../components/Button'
 import Divider from '../components/Divider'
 
-class Suscription extends Component {
+class Subscription extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -163,4 +163,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Suscription
+export default Subscription
