@@ -13,6 +13,8 @@ const icons = {
   onboarding1: require('../assets/onboarding/onboarding1.png'),
   onboarding2: require('../assets/onboarding/onboarding2.png'),
   onboarding3: require('../assets/onboarding/onboarding3.png'),
+  confirmation: require('../assets/backgrounds/confirmation.png'),
+  subscription: require('../assets/backgrounds/subscription.png'),
 }
 
 export default icons
