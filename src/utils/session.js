@@ -56,11 +56,11 @@ export const isSetupFinished = async () => {
     return false
   }
 
-  if (!user.attributes['custom:birthDate']) {
+  if (!user.attributes['birthdate']) {
     return false
   }
 
-  if (!user.attributes['custom:gender']) {
+  if (!user.attributes['gender']) {
     return false
   }
 
@@ -72,8 +72,8 @@ export const saveUserData = async ({birthDate, country, state, gender}) => {
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
-    'custom:birthDate': birthDate,
-    'custom:gender': gender,
+    'birthdate': birthDate,
+    'gender': gender,
   })
 }
 
@@ -83,7 +83,7 @@ export const cleanUserData = async () => {
   await Auth.updateUserAttributes(user, {
     'custom:country': '',
     'custom:state': '',
-    'custom:birthDate': '',
-    'custom:gender': '',
+    'birthdate': '',
+    'gender': '',
   })
 }

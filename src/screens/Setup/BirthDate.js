@@ -24,7 +24,7 @@ export default class BirthDate extends Component {
     this.state = {
       ...extractSetupParams(navigation),
       name: '',
-      genders: [{value: 'F', label: 'Female'}, {value: 'M', label: 'Male'}],
+      genders: [{value: 'female', label: 'Female'}, {value: 'male', label: 'Male'}],
     }
   }
 
