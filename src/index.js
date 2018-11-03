@@ -17,7 +17,7 @@ import SetupConfirmation from './screens/Setup/Confirmation'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
-import Suscription from './screens/Suscription'
+import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
 import Writing from './screens/Writing'
@@ -134,7 +134,7 @@ const AuthStack = createStackNavigator({
   Login,
   SignUp,
   CreateAccount,
-  Suscription,
+  Subscription,
   ConfirmAccount,
 }, {
   headerMode: 'none',
