@@ -25,6 +25,7 @@
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^1.0.11",
     "react-native-picker-select": "^4.4.0",
+    "react-native-purchases": "^1.4.2",
     "react-navigation": "^2.6.2",
     "react-navigation-tabs": "^0.5.1",
     "suppplant": "^1.1.0"
