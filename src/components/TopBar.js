@@ -7,17 +7,33 @@ import Translate from './Translate'
 
 const top = Platform.OS === 'ios' ? 20 : 0
 
-const TopBar = ({ icon, title, onBack, modal, action }) => {
+const getBackIcon = (modal, transparent) => {
+  if (transparent) {
+    return modal
+      ? require('../assets/chevron/chevron-down.png')
+      : require('../assets/arrows/arrow-left.png')
+  }
+
+  return modal
+    // TODO add the white down chevro asset
+    ? require('../assets/chevron/chevron-down.png')
+    : require('../assets/arrows/arrow-left-white.png')
+}
+
+const TopBar = (props) => {
+  const { title, onBack, modal, action, transparent } = props
   const titleElemet = typeof title === 'string' ? (
     <Translate style={styles.text} keyName={title} />
   ) : title
 
-  const backIcon = modal
-    ? require('../assets/chevron/chevron-down.png')
-    : require('../assets/arrows/arrow-left-white.png')
+  const backIcon = getBackIcon(modal, transparent)
 
+  const containerStyles = [].concat(
+    styles.container,
+    transparent ? [styles.containerTransparent] : []
+  )
   return (
-    <View style={styles.container}>
+    <View style={containerStyles}>
       {onBack ? (
         <TouchableHighlight onPress={onBack} style={styles.containerBack}>
           <Image source={backIcon} style={styles.back} />
@@ -34,11 +50,11 @@ const TopBar = ({ icon, title, onBack, modal, action }) => {
 }
 
 TopBar.propTypes = {
-  icon: PropTypes.number,
   modal: PropTypes.bool,
   onBack: PropTypes.func,
   title: PropTypes.node.isRequired,
   action: PropTypes.node,
+  transparent: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
@@ -76,6 +92,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.haiti,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  containerTransparent: {
+    backgroundColor: 'transparent',
   },
 })
 
