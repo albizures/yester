@@ -44,6 +44,12 @@ const pickerSelectStyles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
+  done: {
+    color: '#007AFF',
+    fontWeight: 'normal',
+    padding: 10,
+    fontSize: 16,
+  },
 })
 
 export default Picker

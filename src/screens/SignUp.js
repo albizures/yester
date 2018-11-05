@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Alert, KeyboardAvoidingView } from 'react-native'
+import { View, Alert, KeyboardAvoidingView, StyleSheet, Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
 
 import Container from '../components/Container'
@@ -74,24 +74,22 @@ export default class SignUp extends Component {
     return (
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
-          <View style={{height: 39, justtifyContent: 'flex-start', marginTop: 30}}>
-            <Heading2 keyName='signup.title' style={[{textAlign: 'center', color: colors.governorBay}]} />
+          <View style={styles.topFlex}>
+            <Heading2 keyName='signup.title' style={styles.titleText} />
+            <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
           </View>
-          <Heading4 keyName='signup.subtitle' style={[{textAlign: 'center', marginBottom: 40, marginHorizontal: 33}]} />
-          <View style={{alignItems: 'center'}}>
+
+          <View style={styles.bottomFlex}>
             <TextInput title='signup.firstName'
               value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
             <TextInput title='signup.lastName'
               value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
             <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
-              value={email}
-              onChangeText={text => this.onChange(text.toLowerCase(), 'email')}
-              description='signup.emailDescription'
-            />
+              value={email} onChangeText={text => this.onChange(text.toLowerCase(), 'email')}
+              description='signup.emailDescription' />
             <TextInput title='signup.password' password
               value={password} onChangeText={text => this.onChange(text, 'password')}
-              description='signup.passwordDescription'
-            />
+              description='signup.passwordDescription' />
             <Button title='signup.submit' onPress={this.onPress} />
           </View>
         </KeyboardAvoidingView>
@@ -99,3 +97,24 @@ export default class SignUp extends Component {
     )
   }
 }
+
+const { height } = Dimensions.get('window')
+const styles = StyleSheet.create({
+  topFlex: {
+    flex: 0.25,
+    justifyContent: 'flex-start',
+    paddingTop: height * 0.045,
+    paddingBottom: height * 0.045,
+  },
+  bottomFlex: {
+    flex: 0.75,
+    alignItems: 'center',
+  },
+  titleText: {
+    textAlign: 'center',
+    color: colors.governorBay,
+  },
+  subtitleText: {
+    textAlign: 'center',
+  },
+})

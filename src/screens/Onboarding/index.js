@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, View } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
-// import Button from '../../components/Button'
-import Step from './Step'
+import {Heading4} from '../../components'
 import Dots from './Dots'
+import Step from './Step'
 import colors from '../../utils/colors'
+import icons from '../../utils/icons'
 
 export default class Onboarding extends Component {
   static propTypes = {
@@ -15,20 +16,23 @@ export default class Onboarding extends Component {
 
   state = {
     steps: [{
-      cover: require('../../assets/300x300.png'),
+      cover: icons.onboarding1,
       title: 'onboarding.step1.title',
       title2: 'onboarding.step1.title2',
       description: 'onboarding.step1.description',
+      description2: 'onboarding.step1.description2',
     }, {
-      cover: require('../../assets/300x300.png'),
+      cover: icons.onboarding2,
       title: 'onboarding.step2.title',
       title2: 'onboarding.step2.title2',
       description: 'onboarding.step2.description',
+      description2: 'onboarding.step2.description2',
     }, {
-      cover: require('../../assets/300x300.png'),
+      cover: icons.onboarding3,
       title: 'onboarding.step3.title',
       title2: 'onboarding.step3.title2',
       description: 'onboarding.step3.description',
+      description2: 'onboarding.step3.description2',
     }],
   }
 
@@ -51,11 +55,17 @@ export default class Onboarding extends Component {
       : next
 
     return (
-      <View>
-        <Dots steps={steps.length} currentStep={currentStep} />
-        {/* TODO use our custom button here */}
-        <Button title='Skip' onPress={this.toCreateAccount} />
-        <Button title='Continue' onPress={nextScreen} />
+      <View pointerEvents='box-none' style={styles.container}>
+        <View pointerEvents='box-none' style={styles.topFlex}>
+          <Dots steps={steps.length} currentStep={currentStep} />
+        </View>
+        <View pointerEvents='box-none' style={styles.bottomFlex}>
+          <View pointerEvents='box-none' style={styles.buttonsView}>
+            <Heading4 text='Skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
+            <Heading4 text='Continue' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
+          </View>
+        </View>
+
       </View>
     )
   }
@@ -72,3 +82,31 @@ export default class Onboarding extends Component {
     )
   }
 }
+
+const { width, height } = Dimensions.get('window')
+const styles = StyleSheet.create({
+  container: {
+    width,
+    height,
+    position: 'absolute',
+    justifyContent: 'flex-end',
+    paddingBottom: height * 0.07,
+  },
+  topFlex: {
+    flex: 8.2,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  bottomFlex: {
+    flex: 1.8,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  buttonsView: {
+    width: width * 0.5,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginTop: 15,
+  },
+})

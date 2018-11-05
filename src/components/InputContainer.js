@@ -24,8 +24,8 @@ export const types = {
 }
 
 const InputContainer = (props) => {
-  const {title, editable, description, validation, style,
-    validationMessage, show, children, type} = props
+  const { title, editable, description, validation, style,
+    validationMessage, show, children, type, buttonText } = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
 
@@ -52,8 +52,8 @@ const InputContainer = (props) => {
   if (type === types.PASSWORD) {
     showIcon = (
       <TouchableOpacity onPress={show}>
-        <View style={[{flex: 1, width: 55, justifyContent: 'center'}]}>
-          <Body1 keyName='signup.showPassword'
+        <View style={styles.showTextView}>
+          <Body1 keyName={buttonText}
             style={{color: colors.royalBlue}} />
         </View>
       </TouchableOpacity>
@@ -61,7 +61,7 @@ const InputContainer = (props) => {
   }
   if (type === types.PICKER) {
     showIcon = (
-      <View style={[{flex: 1, alignItems: 'flex-end', justifyContent: 'center'}]}>
+      <View style={styles.showIconView}>
         <Image
           source={icons.chevronDown}
           style={{ width: 15, height: 8, marginRight: 20 }} />
@@ -106,10 +106,9 @@ InputContainer.defaultProps = {
 
 const styles = StyleSheet.create({
   input: {
-    flex: 1,
     flexDirection: 'row',
     width: 300,
-    maxHeight: 50,
+    height: 50,
     borderRadius: 25,
     shadowColor: colors.shadow,
     shadowOpacity: 0.22,
@@ -128,6 +127,18 @@ const styles = StyleSheet.create({
     minHeight: 24,
   },
   validation: {
+  },
+  showTextView: {
+    flex: 1,
+    width: 100,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 16,
+  },
+  showIconView: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
 })
 
