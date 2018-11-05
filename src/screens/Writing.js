@@ -17,14 +17,10 @@ export default class Writing extends Component {
     title: '',
     content: '',
     // change these state to props
-    questionId: 'Question#0004',
+    questionId: 'Question#0003',
     ageId: 'Age#01',
     firstName: '',
     lastName: '',
-  }
-
-  onPress = () => {
-    this.props.navigation.navigate('Reading')
   }
 
   async componentDidMount () {
@@ -39,12 +35,6 @@ export default class Writing extends Component {
   onSave = async () => {
     const { navigation } = this.props
     const { questionId, ageId, title, content } = this.state
-    console.log({
-      'age_id': ageId,
-      'question_id': questionId,
-      'title': title,
-      'content': content,
-    })
     try {
       const { status, data } = await http.post('/v1/stories', {
         'age_id': ageId,
@@ -53,8 +43,10 @@ export default class Writing extends Component {
         'content': content,
       })
 
+      console.log(data)
+
       if (status === 201) {
-        return navigation.navigate('Reading', {
+        return navigation.replace('Reading', {
           storyId: data.id,
         })
       }
@@ -96,7 +88,6 @@ export default class Writing extends Component {
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={{paddingHorizontal: 29, paddingTop: 20}}>
-            {/* <Button title='to Reading' onPress={this.onPress} /> */}
             <TextInput value={title} onChangeText={value => this.onChange('title', value)} style={styles.title} placeholder='Name your story...' />
             <Description keyName='writing.by' data={{autor: `${firstName} ${lastName}`}} />
             <TextInput
