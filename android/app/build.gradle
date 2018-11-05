@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-iap')
     compile project(':react-native-purchases')
     compile project(':react-native-fbsdk')
     compile project(':amazon-cognito-identity-js')
