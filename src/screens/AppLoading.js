@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { Text } from 'react-native'
 
 import Container from '../components/Container'
-import { isSetupFinished, getToken } from '../utils/session'
+import { isSubscribed, isSetupFinished, getToken } from '../utils/session'
 
 const debugError = debugFactory('yester:error:AppLoading')
 
@@ -28,10 +28,14 @@ export default class AppLoading extends Component {
     try {
       const userToken = await getToken()
       if (userToken) {
-        if (await isSetupFinished()) {
-          navigation.navigate('App')
+        if (await isSubscribed()) {
+          if (await isSetupFinished()) {
+            navigation.navigate('App')
+          } else {
+            navigation.navigate('Setup')
+          }
         } else {
-          navigation.navigate('Setup')
+          navigation.navigate('Subscription')
         }
       } else {
         navigation.navigate('Auth')
