@@ -16,7 +16,6 @@ const isCheck = (locale, currentLocale) => {
 
 const LanguageItem = (props) => {
   const { currentLocale, locale, onPress } = props
-  console.log(props)
   return (
     <SettingsItem
       {...props}
@@ -73,8 +72,6 @@ class Language extends Component {
     const topBar = (
       <TopBar title='language.title' onBack={this.onBack} />
     )
-    console.log(isCheck('es', currentLocale))
-    console.log(isCheck('en', currentLocale))
 
     return (
       <Container topBar={topBar} isLoading={isLoading}>
