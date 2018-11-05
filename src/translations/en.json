@@ -81,6 +81,7 @@
   "reading.topbar": "Reading",
   "reading.action": "SAVE",
   "reading.by": "By {autor}",
+  "reading.share": "Share",
   "language.title": "Language",
   "notifications.title": "Notifications"
 }
