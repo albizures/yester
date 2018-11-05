@@ -7,18 +7,29 @@ import Container from '../components/Container'
 import { Title, Description, Heading5 } from '../components'
 import Button, {types} from '../components/Button'
 import Divider from '../components/Divider'
+import { isSetupFinished, saveUserSubscriptionStatus } from '../utils/session'
 
 class Subscription extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPressSubscription = () => {
-    this.props.navigation.navigate('CreateAccount')
+  state = {
+    subscriptionState: '1',
   }
 
-  onPressLogin = () => {
-    this.props.navigation.navigate('Login')
+  onStartTrial = async () => {
+    const { navigation } = this.props
+    const { subscriptionState } = this.state
+    await saveUserSubscriptionStatus(subscriptionState)
+    if (await isSetupFinished()) {
+      navigation.navigate('App')
+    } else {
+      navigation.navigate('Setup')
+    }
+  }
+
+  onRestore = async () => {
   }
 
   render () {
@@ -29,7 +40,7 @@ class Subscription extends Component {
         <View style={styles.bottomRibbon}>
           <Text style={{textAlign: 'center'}}>
             <Heading5 keyName='subscription.already' style={styles.alreadyText} />
-            <Heading5 keyName='subscription.restore' style={styles.restoreText} onPress={this.onPressLogin} />
+            <Heading5 keyName='subscription.restore' style={styles.restoreText} onPress={this.onRestore} />
           </Text>
         </View>
         <Container scroll style={styles.container} >
@@ -43,7 +54,7 @@ class Subscription extends Component {
             <Title keyName='subscription.receive' style={styles.receiveText} />
             <Description keyName='subscription.then' style={styles.thenText} />
 
-            <Button title='subscription.start' onPress={this.onPressSubscription} type={types.OUTLINED} />
+            <Button title='subscription.start' onPress={this.onStartTrial} type={types.OUTLINED} />
             <Description keyName='subscription.price' style={styles.priceText} />
           </View>
 
