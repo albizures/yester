@@ -68,11 +68,13 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     borderWidth: 2,
     justifyContent: 'center',
-    shadowColor: colors.black,
+    shadowColor: colors.brightTurquoise,
+    shadowOpacity: 0.22,
+    shadowRadius: 15,
     shadowOffset: {
-      width: 0,
-      height: 3,
+      height: 10,
     },
+    elevation: 10,
   },
   text: {
     textAlign: 'center',
