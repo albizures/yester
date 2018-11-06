@@ -8,25 +8,42 @@ import { Title, Description, Heading5 } from '../components'
 import Button, {types} from '../components/Button'
 import Divider from '../components/Divider'
 import { isSetupFinished, saveUserSubscriptionStatus } from '../utils/session'
+import { getSubscriptions, buySubscription, setupRCPurchases } from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
+  async componentDidMount () {
+    await setupRCPurchases()
+  }
+
   state = {
+    receipt: '',
     subscriptionState: '1',
   }
 
   onStartTrial = async () => {
     const { navigation } = this.props
     const { subscriptionState } = this.state
+    const subscriptions = await getSubscriptions()
+    console.log('sub', subscriptions)
+    /*
+    const purchase = await buySubscription(subscriptions[0].productId)
+    this.setState({
+      receipt: purchase.transactionReceipt,
+    })
+    console.log('receipt', purchase.transactionReceipt)
+    */
+    /*
     await saveUserSubscriptionStatus(subscriptionState)
     if (await isSetupFinished()) {
       navigation.navigate('App')
     } else {
       navigation.navigate('Setup')
     }
+    */
   }
 
   onRestore = async () => {
