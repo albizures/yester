@@ -10,6 +10,7 @@ import {
   AWS_USER_CLIENT_POOL_ID,
 } from 'react-native-dotenv'
 
+import { UserProvider } from './components/withUser'
 import Onboarding from './screens/Onboarding'
 import SetupBirthDate from './screens/Setup/BirthDate'
 import SetupPlace from './screens/Setup/Place'
@@ -32,7 +33,8 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader, Storage } from './utils/session'
+import { setAuthHeader, Storage, getUser, sanitizeUser } from './utils/session'
+import { setLocale } from './utils/http'
 
 debugFactory.enable('yester:*')
 
@@ -153,16 +155,31 @@ const RootStack = createSwitchNavigator({
 })
 
 export default class App extends Component {
+  state = {}
   async componentDidMount () {
     await setAuthHeader()
   }
 
+  updateUser = async () => {
+    const user = sanitizeUser(await getUser())
+    setLocale(user.locale)
+    this.setState({ user })
+  }
+
   render () {
+    const { user } = this.state
+    const userContextValue = {
+      updateUser: this.updateUser,
+      user,
+    }
+
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle='light-content' />
-        <RootStack />
-      </View>
+      <UserProvider value={userContextValue}>
+        <View style={{flex: 1}}>
+          <StatusBar barStyle='light-content' />
+          <RootStack />
+        </View>
+      </UserProvider>
     )
   }
 }

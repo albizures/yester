@@ -5,7 +5,7 @@ import { Alert, View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-import { logIn, saveUserToken, isSetupFinished } from '../utils/session'
+import { logIn, saveUserToken } from '../utils/session'
 import Button from '../components/Button'
 import { Heading2, Heading3, Description } from '../components'
 import Container from '../components/Container'
@@ -44,11 +44,7 @@ class Login extends Component {
     const { email, password } = this.state
     try {
       await logIn(email, password)
-      if (await isSetupFinished()) {
-        navigation.navigate('App')
-      } else {
-        navigation.navigate('Setup')
-      }
+      navigation.navigate('AppLoading')
     } catch (error) {
       console.log('Login', error)
       Alert.alert(error.message)
