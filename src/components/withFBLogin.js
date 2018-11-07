@@ -1,6 +1,5 @@
 import React from 'react'
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
-
 import { getCurrentProfile } from '../utils/fbHelper'
 
 const permissions = ['email', 'public_profile']
@@ -19,6 +18,7 @@ export default (Component) => {
       expires,
     }
   }
+
   const withFBLogin = (props) => {
     return (
       <Component {...props} onLoginWithFB={onLoginWithFB} />

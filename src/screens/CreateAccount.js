@@ -84,16 +84,6 @@ class CreateAccount extends Component {
           )}
         </Modal>
         <View style={styles.container}>
-          <Image source={icons.ssYester}
-            style={{width: 225, height: 60, marginTop: 96}} />
-          <View style={[{alignItems: 'center', marginTop: 54, marginBottom: 60}]} >
-            <Heading2 keyName='createAccount.start' style={[{color: colors.governorBay, textAlign: 'center'}]} />
-            <Heading4 keyName='createAccount.begin' style={[{textAlign: 'center'}]} />
-          </View>
-
-          <Button title='createAccount.continue' onPress={this.onFBWebView} icon={icons.fb} />
-
-          <Description keyName='createAccount.recommendation' style={{textAlign: 'center', marginTop: 20}} />
 
           <View style={styles.topFlex} >
             <Image source={icons.yester} style={styles.image} />
@@ -102,7 +92,7 @@ class CreateAccount extends Component {
           </View>
 
           <View style={styles.middleFlex}>
-            <Button title='createAccount.continue' onPress={this.onFBLogin} icon={icons.fb} />
+            <Button title='createAccount.continue' onPress={this.onFBWebView} icon={icons.fb} />
             <Description keyName='createAccount.recommendation' style={styles.recommendationText} />
             <TextDivider>
               <Heading3 keyName='createAccount.or' />
