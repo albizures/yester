@@ -77,7 +77,7 @@ class CreateAccount extends Component {
           { fbWebViewVisible && (
             <View style={styles.fbWebViewContainer}>
               <WebView
-                style={{ flex: 1 }}
+                style={styles.webview}
                 source={{uri: FACEBOOK_URL_LOGIN}}
                 onNavigationStateChange={this.onFBWebViewStateChange} />
             </View>
@@ -157,9 +157,13 @@ const styles = StyleSheet.create({
     color: colors.governorBay,
   },
   fbWebViewContainer: {
-    flex: 1,
-    padding: 20,
+    width,
+    height,
+    paddingTop: 50,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  webview: {
+    flex: 1,
   },
 })
 
