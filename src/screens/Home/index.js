@@ -44,7 +44,7 @@ export default class Home extends Component {
   renderAgeItem = ({item}) => (
     <View>
       <Heading2 text={capitalize(item.text)} style={[styles.ageText]} />
-      <Image source={icons.ssSonaja}
+      <Image source={icons.childhood}
         style={{width: 60, height: 64.52, alignSelf: 'center', marginBottom: 23}} />
       <View style={{flex: 1, alignItems: 'center'}}>
         <FlatList
@@ -80,8 +80,8 @@ export default class Home extends Component {
     const { isLoading, item, ages, modalVisible } = this.state
     const topBarTitle = (
       <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-        <Image style={{ height: 25, width: 20 }} source={require('../../assets/feather-white.png')} />
-        <Title keyName='home.title' style={{color: colors.white}} />
+        <Image style={{ height: 25, width: 20, marginRight: 3 }} source={require('../../assets/feather-white.png')} />
+        <Title keyName='home.title' style={{color: colors.white, fontWeight: 'bold'}} />
       </View>
     )
 

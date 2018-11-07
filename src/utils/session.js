@@ -1,9 +1,34 @@
-
 import { Auth } from 'aws-amplify'
+import { StorageHelper } from '@aws-amplify/core'
+import { CognitoAuth } from 'amazon-cognito-auth-js'
 import debugFactory from 'debug'
 import { AsyncStorage } from 'react-native'
+import {
+  AWS_USER_POOL_ID,
+  AWS_USER_CLIENT_POOL_ID,
+  HOST,
+} from 'react-native-dotenv'
 
 import { instance } from './http'
+
+export const Storage = new StorageHelper().getStorage()
+const cognitoAuthParams = {
+  ClientId: AWS_USER_CLIENT_POOL_ID,
+  UserPoolId: AWS_USER_POOL_ID,
+  AppWebDomain: HOST,
+  TokenScopesArray: [
+    'email',
+    'name',
+    'cover',
+  ],
+  RedirectUriSignIn: 'https://www.facebook.com',
+  RedirectUriSignOut: 'https://www.facebook.com',
+  IdentityProvider: 'Facebook',
+  ResponseType: 'token',
+  Storage,
+}
+
+const cognitoAuthClient = new CognitoAuth(cognitoAuthParams)
 
 const debug = debugFactory('yester:session')
 
@@ -42,6 +67,15 @@ export const logOut = async () => {
 
 export const getUser = () => Auth.currentAuthenticatedUser()
 
+export const sanitizeUser = (user) => ({
+  country: user.attributes['custom:country'],
+  state: user.attributes['custom:country'],
+  birthDate: user.attributes['custom:country'],
+  gender: user.attributes['gender'],
+  locale: user.attributes['locale'],
+  name: user.attributes['name'],
+})
+
 export const isSetupFinished = async () => {
   const user = await getUser()
 
@@ -57,20 +91,30 @@ export const isSetupFinished = async () => {
     return false
   }
 
-  if (!user.attributes['custom:birthDate']) {
+  if (!user.attributes['birthdate']) {
+    return false
+  }
+
+  if (!user.attributes['gender']) {
     return false
   }
 
   return true
 }
 
-export const saveUserData = async ({birthDate, country, state}) => {
+export const saveUserData = async ({birthDate, country, state, gender}) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
-    'custom:birthDate': birthDate,
+    'birthdate': birthDate,
+    'gender': gender,
   })
+}
+
+export const updateUserAttribute = async (name, value) => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, { [name]: value })
 }
 
 // NOTE this is only for dev purposes
@@ -79,6 +123,23 @@ export const cleanUserData = async () => {
   await Auth.updateUserAttributes(user, {
     'custom:country': '',
     'custom:state': '',
-    'custom:birthDate': '',
+    'birthdate': '',
+    'gender': '',
   })
 }
+
+export const loginWithFBWebView = (url) => new Promise((resolve, reject) => {
+  cognitoAuthClient.userhandler = {
+    onSuccess: async result => {
+      const user = await getUser()
+      await saveUserToken()
+      console.log(user, 'Sign in success')
+      resolve(user)
+    },
+    onFailure: err => {
+      console.log(err, 'Sign in error')
+      reject(err)
+    },
+  }
+  cognitoAuthClient.parseCognitoWebResponse(url)
+})

@@ -16,7 +16,7 @@ const DatePicker = (props) => {
         placeholder='YYYY-MM-DD'
         format='YYYY-MM-DD'
         showIcon={false}
-        confirmBtnText='Confirm'
+        confirmBtnText='Done'
         cancelBtnText='Cancel'
         customStyles={customStyles}
         style={{width: 300}}
@@ -66,6 +66,13 @@ const customStyles = StyleSheet.create({
   placeholderText: {
     fontSize: 18,
     color: colors.mineShaft,
+  },
+  btnTextConfirm: {
+    fontSize: 16,
+    color: '#007AFF',
+  },
+  btnTextCancel: {
+    color: '#007AFF',
   },
 })
 

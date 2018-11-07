@@ -10,6 +10,7 @@ import {
   AWS_USER_CLIENT_POOL_ID,
 } from 'react-native-dotenv'
 
+import { UserProvider } from './components/withUser'
 import Onboarding from './screens/Onboarding'
 import SetupBirthDate from './screens/Setup/BirthDate'
 import SetupPlace from './screens/Setup/Place'
@@ -17,7 +18,7 @@ import SetupConfirmation from './screens/Setup/Confirmation'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
-import Suscription from './screens/Suscription'
+import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
 import Writing from './screens/Writing'
@@ -32,11 +33,13 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader } from './utils/session'
+import { setAuthHeader, Storage, getUser, sanitizeUser } from './utils/session'
+import { setLocale } from './utils/http'
 
 debugFactory.enable('yester:*')
 
 Amplify.configure({
+  storage: Storage,
   Auth: {
     identityPoolId: AWS_IDENTITY_POOL_ID,
     region: AWS_REGION,
@@ -88,8 +91,8 @@ const MainTab = createBottomTabNavigator({
     screen: FeedStack,
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
-        active: require('./assets/feed-disabled.png'),
-        inactive: require('./assets/feed.png'),
+        active: require('./assets/feed.png'),
+        inactive: require('./assets/feed-disabled.png'),
       }),
     }),
   },
@@ -97,8 +100,8 @@ const MainTab = createBottomTabNavigator({
     screen: Profile,
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
-        active: require('./assets/profile-disabled.png'),
-        inactive: require('./assets/profile.png'),
+        active: require('./assets/profile.png'),
+        inactive: require('./assets/profile-disabled.png'),
       }),
     }),
   },
@@ -106,8 +109,8 @@ const MainTab = createBottomTabNavigator({
     screen: SettingsStack,
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
-        active: require('./assets/settings-disabled.png'),
-        inactive: require('./assets/settings.png'),
+        active: require('./assets/settings.png'),
+        inactive: require('./assets/settings-disabled.png'),
       }),
     }),
   },
@@ -117,10 +120,14 @@ const MainTab = createBottomTabNavigator({
   initialRouteName: 'Feed',
   headerMode: 'none',
   tabBarOptions: {
-    activeTintColor: colors.moonRaker,
-    inactiveTintColor: colors.royalBlue,
+    activeTintColor: colors.white,
+    inactiveTintColor: colors.moonRaker,
     style: {
       backgroundColor: colors.governorBay,
+    },
+    labelStyle: {
+      fontWeight: 'bold',
+      marginTop: 0,
     },
   },
 })
@@ -130,7 +137,7 @@ const AuthStack = createStackNavigator({
   Login,
   SignUp,
   CreateAccount,
-  Suscription,
+  Subscription,
   ConfirmAccount,
 }, {
   headerMode: 'none',
@@ -148,16 +155,31 @@ const RootStack = createSwitchNavigator({
 })
 
 export default class App extends Component {
+  state = {}
   async componentDidMount () {
     await setAuthHeader()
   }
 
+  updateUser = async () => {
+    const user = sanitizeUser(await getUser())
+    setLocale(user.locale)
+    this.setState({ user })
+  }
+
   render () {
+    const { user } = this.state
+    const userContextValue = {
+      updateUser: this.updateUser,
+      user,
+    }
+
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle='light-content' />
-        <RootStack />
-      </View>
+      <UserProvider value={userContextValue}>
+        <View style={{flex: 1}}>
+          <StatusBar barStyle='light-content' />
+          <RootStack />
+        </View>
+      </UserProvider>
     )
   }
 }

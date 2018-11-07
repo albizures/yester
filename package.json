@@ -11,7 +11,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "aws-amplify": "^1.1.6",
+    "amazon-cognito-auth-js": "^1.2.4",
+    "aws-amplify": "^1.1.7",
     "axios": "^0.18.0",
     "debug": "^4.0.1",
     "moment": "^2.22.2",
@@ -21,7 +22,7 @@
     "react-dom": "^16.4.1",
     "react-native": "0.56.0",
     "react-native-datepicker": "^1.7.2",
-    "react-native-fbsdk": "^0.7.0",
+    "react-native-fbsdk": "^0.8.0",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-localization": "^1.0.11",
     "react-native-picker-select": "^4.4.0",

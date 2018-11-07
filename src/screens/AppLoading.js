@@ -5,10 +5,13 @@ import { Text } from 'react-native'
 
 import Container from '../components/Container'
 import { isSetupFinished, getToken } from '../utils/session'
+import withUser from '../components/withUser'
+import { setLocale } from '../utils/http'
+import { strings } from '../components/Translate'
 
 const debugError = debugFactory('yester:error:AppLoading')
 
-export default class AppLoading extends Component {
+class AppLoading extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -23,19 +26,21 @@ export default class AppLoading extends Component {
   }
 
   async bootstrap () {
-    const { navigation } = this.props
+    const { navigation, updateUser } = this.props
 
+    setLocale(strings.getLanguage())
     try {
       const userToken = await getToken()
-      if (userToken) {
-        if (await isSetupFinished()) {
-          navigation.navigate('App')
-        } else {
-          navigation.navigate('Setup')
-        }
-      } else {
-        navigation.navigate('Auth')
+      if (!userToken) {
+        return navigation.navigate('Auth')
       }
+
+      await updateUser()
+      if (!(await isSetupFinished())) {
+        return navigation.navigate('Setup')
+      }
+
+      navigation.navigate('App')
     } catch (error) {
       navigation.navigate('Auth')
       debugError(error)
@@ -51,3 +56,5 @@ export default class AppLoading extends Component {
     )
   }
 }
+
+export default withUser(AppLoading)
