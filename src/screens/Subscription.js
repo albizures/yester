@@ -36,14 +36,9 @@ class Subscription extends Component {
     })
     console.log('receipt', purchase.transactionReceipt)
     */
-    /*
-    await saveUserSubscriptionStatus(subscriptionState)
-    if (await isSetupFinished()) {
-      navigation.navigate('App')
-    } else {
-      navigation.navigate('Setup')
-    }
-    */
+
+    // await saveUserSubscriptionStatus(subscriptionState)
+    navigation.navigate('AppLoading')
   }
 
   onRestore = async () => {
