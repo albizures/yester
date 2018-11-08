@@ -56,10 +56,10 @@ export const getSubscriptions = async () => {
   }
 }
 
-export const buySubscription = async (sku) => {
+export const buySubscription = async (productId) => {
   try {
-    console.log('buySubscribeItem: ' + sku)
-    const purchase = await RNIap.buySubscription(sku)
+    console.log('buySubscribeItem: ' + productId)
+    const purchase = await RNIap.buySubscription(productId)
     console.info(purchase)
     return purchase
   } catch (err) {
