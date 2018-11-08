@@ -52,7 +52,7 @@ const TopBar = (props) => {
 TopBar.propTypes = {
   modal: PropTypes.bool,
   onBack: PropTypes.func,
-  title: PropTypes.node.isRequired,
+  title: PropTypes.node,
   action: PropTypes.node,
   transparent: PropTypes.bool,
 }
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   action: {
     position: 'absolute',
-    top: 24,
+    top: 26,
     paddingTop: 10,
     right: 10,
   },

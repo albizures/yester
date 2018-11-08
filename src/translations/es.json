@@ -86,11 +86,10 @@
   "questionCard.write": "Escribe y Vive de Nuevo",
   "questionCard.skip": "Otra Pregunta",
   "writing.topbar": "Escribiendo",
-  "writing.action": "GUARDAR",
-  "writing.by": "Por {autor}",
+  "writing.action": "Guardar",
+  "writing.by": "Por {author}",
   "reading.topbar": "Leyendo",
-  "reading.action": "GUARDAR",
-  "reading.by": "Por {autor}",
+  "reading.by": "Por {author}",
   "language.title": "Lenguaje",
   "notifications.title": "Notificaciones"
 }
