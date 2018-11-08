@@ -1,23 +1,29 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, Share } from 'react-native'
+
 import { Heading1, Description, Title } from '../components'
 import Container from '../components/Container'
 import Divider from '../components/Divider'
-
 import TopBar from '../components/TopBar'
+import withUser, { shapeContextUser } from '../components/withUser'
+import withAges, { shapeContextAges } from '../components/withAges'
+
 import colors from '../utils/colors'
 import http from '../utils/http'
 
-export default class Reading extends Component {
+class Reading extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
+    contextAges: PropTypes.shape(shapeContextAges).isRequired,
   }
 
   state = {
     isLoading: false,
     title: '',
     content: '',
+    age: 'Your first days',
   }
 
   async componentDidMount () {
@@ -27,8 +33,20 @@ export default class Reading extends Component {
     this.setState({ isLoading: true })
 
     try {
-      const { data: story } = await http.get(`/v1/stories/${storyId}`)
-      this.setState(story)
+      const { data: {
+        content,
+        question_id: questionId,
+        age_id: ageId,
+        title,
+        created,
+      } } = await http.get(`/v1/stories/${storyId}`)
+      this.setState({
+        content,
+        questionId,
+        ageId,
+        title,
+        created,
+      })
     } catch (error) {
       console.log(error)
       console.log(error.message)
@@ -52,7 +70,10 @@ export default class Reading extends Component {
   }
 
   render () {
-    const { isLoading, title, content } = this.state
+    const { isLoading, title, content, ageId } = this.state
+    const { name: author } = this.props.contextUser.user
+    const { ages } = this.props.contextAges
+    const age = (ages[ageId] || {}).name || ''
 
     const action = (
       <Title
@@ -65,14 +86,17 @@ export default class Reading extends Component {
       <TopBar
         transparent
         onBack={this.onBack}
-        title='reading.topbar'
         action={action} />
     )
     return (
       <Container isLoading={isLoading} topBar={topBar}>
         <View style={styles.container}>
-          <Heading1 text={title} style={{color: colors.governorBay}} />
-          <Description keyName='writing.by' data={{autor: 'Luis Galvez'}} />
+          {/* TODO: add logo */}
+          <Description text={age.toUpperCase()} />
+          <Heading1 text={title} style={{color: colors.governorBay, marginTop: 40}} />
+          {/* TODO: make smaller this font */}
+          <Description keyName='reading.by' data={{ author }} />
+          {/* TODO: make smaller this font and changes its color to gray */}
           <Description text='{month} {day}, {year}' data={{month: 'July', day: '6', year: '1987'}} />
           <Divider style={{marginVertical: 40, marginHorizontal: 0}} />
           <Text maxLength={1000} multiline style={styles.content}>
@@ -83,6 +107,8 @@ export default class Reading extends Component {
     )
   }
 }
+
+export default withAges(withUser(Reading))
 
 const styles = StyleSheet.create({
   container: {

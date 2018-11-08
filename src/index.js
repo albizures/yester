@@ -11,6 +11,7 @@ import {
 } from 'react-native-dotenv'
 
 import { UserProvider } from './components/withUser'
+import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
 import SetupBirthDate from './screens/Setup/BirthDate'
 import SetupPlace from './screens/Setup/Place'
@@ -33,8 +34,7 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader, Storage, getUser, sanitizeUser } from './utils/session'
-import { setLocale } from './utils/http'
+import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
 
 debugFactory.enable('yester:*')
 
@@ -166,20 +166,35 @@ export default class App extends Component {
     this.setState({ user })
   }
 
+  updateAges = (ages) => {
+    this.setState({
+      ages: ages.reduce((agesObj, age) => ({
+        ...agesObj,
+        [age.id]: age,
+      }), {}),
+    })
+  }
+
   render () {
-    const { user } = this.state
+    const { user, ages } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
       user,
     }
+    const agesContextValue = {
+      updateAges: this.updateAges,
+      ages,
+    }
 
     return (
-      <UserProvider value={userContextValue}>
-        <View style={{flex: 1}}>
-          <StatusBar barStyle='light-content' />
-          <RootStack />
-        </View>
-      </UserProvider>
+      <AgesProvider value={agesContextValue}>
+        <UserProvider value={userContextValue}>
+          <View style={{flex: 1}}>
+            <StatusBar barStyle='light-content' />
+            <RootStack />
+          </View>
+        </UserProvider>
+      </AgesProvider>
     )
   }
 }

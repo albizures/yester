@@ -89,7 +89,7 @@ export default class Writing extends Component {
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={{paddingHorizontal: 29, paddingTop: 20}}>
             <TextInput value={title} onChangeText={value => this.onChange('title', value)} style={styles.title} placeholder='Name your story...' />
-            <Description keyName='writing.by' data={{autor: `${firstName} ${lastName}`}} />
+            <Description keyName='writing.by' data={{author: `${firstName} ${lastName}`}} />
             <TextInput
               value={content}
               placeholder='Your story...'
