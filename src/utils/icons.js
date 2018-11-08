@@ -9,6 +9,7 @@ const icons = {
   yester: require('../assets/images/tmp-yester.png'),
   feather: require('../assets/images/tmp-feather.png'),
   check: require('../assets/chevron/check.png'),
+  pencil: require('../assets/pencil-white.png'),
   onboarding1: require('../assets/onboarding/onboarding1.png'),
   onboarding2: require('../assets/onboarding/onboarding2.png'),
   onboarding3: require('../assets/onboarding/onboarding3.png'),
