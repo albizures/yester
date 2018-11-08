@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Alert, StyleSheet, Image, KeyboardAvoidingView, Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
-import {Heading2, Heading3, Heading4} from '../components'
+import { Description, Heading2, Heading3, Heading4 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import Button from '../components/Button'
@@ -56,6 +56,11 @@ export default class ConfirmAccount extends Component {
     }
   }
 
+  onPressResend () {
+    // Get user's email to send another verification code
+    // const user = Auth.resendSignUp({username: email})
+  }
+
   render () {
     const { code } = this.state
     const { navigation } = this.props
@@ -85,6 +90,8 @@ export default class ConfirmAccount extends Component {
               <TextInput title='confirm.inputLabel' keyboardType='numeric'
                 value={code} onChangeText={text => this.onChange(text, 'code')} />
               <Button title='confirm.submit' onPress={this.onPress} />
+              <Description text='Send verification code again' style={styles.resendText}
+                onPress={this.onPressResend} />
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -134,5 +141,9 @@ const styles = StyleSheet.create({
   },
   noteText: {
     textAlign: 'center',
+  },
+  resendText: {
+    textAlign: 'center',
+    marginTop: 20,
   },
 })
