@@ -80,6 +80,7 @@
   "settings.title": "Settings",
   "profile.title": "My Profile",
   "home.title": "yester",
+  "home.questionItem.new": "NEW!",
   "questionCard.write": "Write and Live Again",
   "questionCard.skip": "Other Question",
   "writing.topbar": "Writing",

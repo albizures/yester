@@ -13,9 +13,11 @@ const StoryItem = (props) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <View style={styles.row}>
-
+        <View style={styles.newDotContainer} >
+          <View style={styles.newDot} />
+        </View>
         <View style={styles.textContainer}>
-          <Heading3 text={data.text} numberOfLines={2} style={[{flexWrap: 'wrap'}]} />
+          <Heading3 text={data.text} numberOfLines={1} style={styles.questionText} />
           <Description text={capitalize(data.category)}
             style={styles.categoryText} />
           <Description text={capitalize('This is where my story begins...'/* data.story */)}
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
   container: {
     height: 85,
     width,
-    paddingLeft: 40,
   },
   row: {
     flex: 1,
@@ -53,26 +54,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     justifyContent: 'center',
+    paddingRight: 20,
+    paddingTop: 11,
   },
   iconContainer: {
-    width: 35,
+    width: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
+    marginRight: 19,
   },
   chevron: {
     width: 8,
     height: 15,
   },
   categoryText: {
-    marginTop: 5,
-    color: colors.royalBlue,
+    marginTop: 4,
+    color: colors.governorBay,
   },
   storyText: {
     marginTop: 3,
+    marginBottom: 6,
   },
   divider: {
-    width: width - 30,
-    marginLeft: 0,
+    flex: 1,
+    marginLeft: 25,
+  },
+  questionText: {
+    flexWrap: 'nowrap',
+  },
+  newDotContainer: {
+    width: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  newDot: {
+    width: 10,
+    height: 10,
+    backgroundColor: colors.royalBlue,
+    borderRadius: 10,
   },
 })

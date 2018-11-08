@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
-import { Heading2, Heading3, Description } from '../../components'
+import { Title, Heading3, Description } from '../../components'
+import IconButton from '../../components/IconButton'
 import { capitalize } from '../../utils'
 
 const QuestionItem = (props) => {
@@ -13,20 +14,17 @@ const QuestionItem = (props) => {
     <TouchableOpacity onPress={onPress} style={styles.container} >
       <View style={styles.card}>
         <View style={styles.topView}>
-          <Heading2 text={'Your topic of the day!'} numberOfLines={2} style={styles.dayTopicText} />
+          <Title text={'Your topic of the day!'} style={styles.dayTopicText} />
         </View>
         <View style={styles.bottomView}>
           <View style={styles.textView}>
+            <Description keyName='home.questionItem.new' style={styles.newText} />
             <Heading3 text={data.text} numberOfLines={2} style={{flexWrap: 'wrap'}} />
-            <Description text={capitalize(data.category)}
-              style={{marginTop: 3}}
-              numberOfLines={1} />
           </View>
           <View style={styles.iconView}>
-            <Image
-              source={icons.buttonPlus}
-              style={styles.icon}
-            />
+            <IconButton>
+              <Image source={icons.pencil} style={styles.icon} />
+            </IconButton>
           </View>
         </View>
 
@@ -37,7 +35,7 @@ const QuestionItem = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 130,
+    height: 138,
     width: 340,
   },
   card: {
@@ -54,7 +52,7 @@ const styles = StyleSheet.create({
     },
   },
   topView: {
-    height: 55,
+    height: 58,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     alignItems: 'flex-start',
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
   textView: {
     flex: 1,
     alignItems: 'flex-start',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   iconView: {
     width: 50,
@@ -79,11 +77,18 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   icon: {
-    width: 50,
-    height: 50,
+    width: 17,
+    height: 17,
+  },
+  newText: {
+    color: colors.royalBlue,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 7,
   },
   dayTopicText: {
     color: colors.white,
+    fontWeight: 'bold',
   },
 })
 

@@ -6,7 +6,7 @@ import StoryItem from './StoryItem'
 import QuestionCard from './QuestionCard'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
-import { Heading2 } from '../../components'
+import { Title } from '../../components'
 import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -42,7 +42,7 @@ export default class Home extends Component {
     <View style={styles.chapterView}>
       <View style={styles.chapterTitle}>
         <Image source={icons.childhood} style={styles.chapterImage} />
-        <Heading2 text={capitalize(item.text)} style={styles.chapterText} />
+        <Title text={capitalize(item.text)} style={styles.chapterText} />
       </View>
       <FlatList
         data={this.state.questions}
@@ -150,9 +150,11 @@ const styles = StyleSheet.create({
   chapterTitle: {
     width,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
     paddingLeft: 40,
+    marginTop: 33,
+    marginBottom: 20,
   },
   chapterImage: {
     width: 28,
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
   },
   chapterText: {
     color: colors.governorBay,
-    marginTop: 31,
-    marginBottom: 17,
+    fontWeight: 'bold',
+    paddingTop: 5,
   },
 })
