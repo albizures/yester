@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Alert, StyleSheet, Image, KeyboardAvoidingView, Dimensions } from 'react-native'
 import { Auth } from 'aws-amplify'
-import { Description, Heading2, Heading3, Heading4 } from '../components'
+import { Body1, Heading2, Heading3, Heading4 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import Button from '../components/Button'
@@ -70,7 +70,7 @@ export default class ConfirmAccount extends Component {
       <TopBar title='confirm.topbar' onBack={this.onBack} />
     )
     return (
-      <Container scroll topBar={topBar}>
+      <Container topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position' >
           <View style={styles.container}>
             <View style={styles.topFlex}>
@@ -89,9 +89,9 @@ export default class ConfirmAccount extends Component {
             <View style={styles.bottomFlex}>
               <TextInput title='confirm.inputLabel' keyboardType='numeric'
                 value={code} onChangeText={text => this.onChange(text, 'code')} />
-              <Button title='confirm.submit' onPress={this.onPress} />
-              <Description text='Send verification code again' style={styles.resendText}
+              <Body1 keyName='confirm.resendCode' style={styles.resendText}
                 onPress={this.onPressResend} />
+              <Button title='confirm.submit' onPress={this.onPress} />
             </View>
           </View>
         </KeyboardAvoidingView>
@@ -103,30 +103,30 @@ export default class ConfirmAccount extends Component {
 const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width,
+    height,
     backgroundColor: colors.athensGray,
     paddingHorizontal: width * 0.08,
-    paddingTop: height * 0.12,
-    paddingBottom: height * 0.18,
+    // paddingBottom: height * 0.18,
   },
   topFlex: {
-    flex: 0.4,
+    flex: 0.30,
     alignItems: 'center',
-    paddingBottom: height * 0.05,
+    paddingTop: height * 0.07,
+    paddingBottom: height * 0.022,
   },
   middleFlex: {
-    flex: 0.4,
+    flex: 0.20,
     alignItems: 'center',
-    paddingBottom: height * 0.025,
   },
   bottomFlex: {
-    flex: 0.2,
+    flex: 0.5,
     alignItems: 'center',
   },
   image: {
     width: 79,
     height: 92,
-    marginBottom: height * 0.06,
+    marginBottom: height * 0.05,
   },
   titleText: {
     textAlign: 'center',
@@ -137,13 +137,17 @@ const styles = StyleSheet.create({
   },
   contactText: {
     textAlign: 'center',
-    marginBottom: height * 0.05,
+    marginBottom: height * 0.045,
   },
   noteText: {
     textAlign: 'center',
   },
   resendText: {
-    textAlign: 'center',
-    marginTop: 20,
+    alignSelf: 'flex-start',
+    color: colors.governorBay,
+    textAlign: 'left',
+    marginTop: 5,
+    marginBottom: 35,
+    paddingLeft: 7,
   },
 })
