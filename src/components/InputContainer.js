@@ -97,6 +97,7 @@ InputContainer.propTypes = {
   show: PropTypes.func,
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
+  buttonText: PropTypes.string,
 }
 
 InputContainer.defaultProps = {
