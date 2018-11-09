@@ -6,7 +6,6 @@ import TopBar from '../components/TopBar'
 import SettingsItem from '../components/SettingsItem'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { updateUserAttribute } from '../utils/session'
-import { strings } from '../components/Translate'
 
 const isCheck = (locale, currentLocale) => {
   if (locale === currentLocale) {
@@ -51,11 +50,10 @@ class Language extends Component {
   }
 
   onPress = async (locale) => {
-    const { updateUser } = this.props
+    const { updateUser } = this.props.contextUser
     this.setState({ isLoading: true })
     try {
       await updateUserAttribute('locale', locale)
-      strings.setLanguage(locale)
       await updateUser()
     } catch (error) {
       Alert.alert('Error updating the language')

@@ -10,6 +10,7 @@ import {
   HOST,
 } from 'react-native-dotenv'
 
+import { strings } from '../components/Translate'
 import { instance, setHeaderLocale } from './http'
 
 export const Storage = new StorageHelper().getStorage()
@@ -150,4 +151,5 @@ export const loginWithFBWebView = (url) => new Promise((resolve, reject) => {
 export const setLocale = (locale) => {
   setHeaderLocale(locale)
   moment.locale(locale)
+  strings.setLanguage(locale)
 }

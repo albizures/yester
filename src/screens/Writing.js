@@ -17,7 +17,7 @@ export default class Writing extends Component {
     title: '',
     content: '',
     // change these state to props
-    questionId: 'Question#0003',
+    questionId: 'Question#0004',
     ageId: 'Age#01',
     firstName: '',
     lastName: '',

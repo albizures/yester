@@ -11,6 +11,7 @@ import withAges, { shapeContextAges } from '../components/withAges'
 
 import colors from '../utils/colors'
 import http from '../utils/http'
+import moment from 'moment'
 
 class Reading extends Component {
   static propTypes = {
@@ -23,7 +24,7 @@ class Reading extends Component {
     isLoading: false,
     title: '',
     content: '',
-    age: 'Your first days',
+    created: '',
   }
 
   async componentDidMount () {
@@ -45,7 +46,7 @@ class Reading extends Component {
         questionId,
         ageId,
         title,
-        created,
+        created: moment(created).format('LL'),
       })
     } catch (error) {
       console.log(error)
@@ -70,7 +71,7 @@ class Reading extends Component {
   }
 
   render () {
-    const { isLoading, title, content, ageId } = this.state
+    const { isLoading, title, content, ageId, created } = this.state
     const { name: author } = this.props.contextUser.user
     const { ages } = this.props.contextAges
     const age = (ages[ageId] || {}).name || ''
@@ -97,7 +98,7 @@ class Reading extends Component {
           {/* TODO: make smaller this font */}
           <Description keyName='reading.by' data={{ author }} />
           {/* TODO: make smaller this font and changes its color to gray */}
-          <Description text='{month} {day}, {year}' data={{month: 'July', day: '6', year: '1987'}} />
+          <Description text={created} />
           <Divider style={{marginVertical: 40, marginHorizontal: 0}} />
           <Text maxLength={1000} multiline style={styles.content}>
             {content}
