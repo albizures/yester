@@ -3,6 +3,7 @@ import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
 import debugFactory from 'debug'
+import { translate } from './components/Translate'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,
@@ -10,6 +11,8 @@ import {
   AWS_USER_CLIENT_POOL_ID,
 } from 'react-native-dotenv'
 
+import { UserProvider } from './components/withUser'
+import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
 import SetupBirthDate from './screens/Setup/BirthDate'
 import SetupPlace from './screens/Setup/Place'
@@ -32,11 +35,12 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader } from './utils/session'
+import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
 
 debugFactory.enable('yester:*')
 
 Amplify.configure({
+  storage: Storage,
   Auth: {
     identityPoolId: AWS_IDENTITY_POOL_ID,
     region: AWS_REGION,
@@ -84,26 +88,29 @@ const SettingsStack = createStackNavigator({
 })
 
 const MainTab = createBottomTabNavigator({
-  Feed: {
+  myStory: {
     screen: FeedStack,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.myStory'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/feed.png'),
         inactive: require('./assets/feed-disabled.png'),
       }),
     }),
   },
-  Profile: {
+  profile: {
     screen: Profile,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.profile'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/profile.png'),
         inactive: require('./assets/profile-disabled.png'),
       }),
     }),
   },
-  Settings: {
+  settings: {
     screen: SettingsStack,
+    title: translate('home.bottomBar.settings'),
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
         active: require('./assets/settings.png'),
@@ -114,7 +121,7 @@ const MainTab = createBottomTabNavigator({
 }, {
   animationEnabled: true,
   swipeEnabled: true,
-  initialRouteName: 'Feed',
+  initialRouteName: 'myStory',
   headerMode: 'none',
   tabBarOptions: {
     activeTintColor: colors.white,
@@ -152,16 +159,46 @@ const RootStack = createSwitchNavigator({
 })
 
 export default class App extends Component {
+  state = {}
   async componentDidMount () {
     await setAuthHeader()
   }
 
+  updateUser = async () => {
+    const user = sanitizeUser(await getUser())
+    setLocale(user.locale)
+    this.setState({ user })
+  }
+
+  updateAges = (ages) => {
+    this.setState({
+      ages: ages.reduce((agesObj, age) => ({
+        ...agesObj,
+        [age.id]: age,
+      }), {}),
+    })
+  }
+
   render () {
+    const { user, ages } = this.state
+    const userContextValue = {
+      updateUser: this.updateUser,
+      user,
+    }
+    const agesContextValue = {
+      updateAges: this.updateAges,
+      ages,
+    }
+
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle='light-content' />
-        <RootStack />
-      </View>
+      <AgesProvider value={agesContextValue}>
+        <UserProvider value={userContextValue}>
+          <View style={{flex: 1}}>
+            <StatusBar barStyle='light-content' />
+            <RootStack />
+          </View>
+        </UserProvider>
+      </AgesProvider>
     )
   }
 }

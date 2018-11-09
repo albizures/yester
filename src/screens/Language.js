@@ -1,29 +1,88 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
-import SettingsItem, { types } from '../components/SettingsItem'
+import SettingsItem from '../components/SettingsItem'
+import withUser, { shapeContextUser } from '../components/withUser'
+import { updateUserAttribute } from '../utils/session'
 
-export default class Language extends Component {
+const isCheck = (locale, currentLocale) => {
+  if (locale === currentLocale) {
+    return SettingsItem.types.CHECK
+  }
+}
+
+const LanguageItem = (props) => {
+  const { currentLocale, locale, onPress } = props
+  return (
+    <SettingsItem
+      {...props}
+      type={isCheck(locale, currentLocale)}
+      onPress={() => onPress(locale)} />
+  )
+}
+
+LanguageItem.propTypes = {
+  currentLocale: PropTypes.string.isRequired,
+  locale: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+}
+
+class Language extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
-  onPress = () => {
-    this.props.navigation.navigate('Home')
+  constructor (props) {
+    super(props)
+    const { locale } = props.contextUser.user
+    this.state = {
+      locale,
+      isLoading: false,
+    }
+  }
+
+  onBack = () => {
+    const { navigation } = this.props
+    navigation.goBack()
+  }
+
+  onPress = async (locale) => {
+    const { updateUser } = this.props.contextUser
+    this.setState({ isLoading: true })
+    try {
+      await updateUserAttribute('locale', locale)
+      await updateUser()
+    } catch (error) {
+      Alert.alert('Error updating the language')
+      console.log(error, error.message)
+    }
+
+    this.setState({ isLoading: false })
   }
 
   render () {
+    const { isLoading } = this.state
+    const { locale: currentLocale } = this.props.contextUser.user
     const topBar = (
-      <TopBar title='language.title' />
+      <TopBar title='language.title' onBack={this.onBack} />
     )
+
     return (
-      <Container topBar={topBar} >
+      <Container topBar={topBar} isLoading={isLoading}>
         <View style={styles.container} >
-          <SettingsItem title='English' type={types.CHECK}
+          <LanguageItem
+            title='English'
+            currentLocale={currentLocale}
+            locale='en'
             onPress={this.onPress} />
-          <SettingsItem title='Spanish' onPress={this.onPress} />
+          <LanguageItem
+            title='Español'
+            currentLocale={currentLocale}
+            locale='es'
+            onPress={this.onPress} />
         </View>
       </Container>
     )
@@ -38,3 +97,5 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 })
+
+export default withUser(Language)

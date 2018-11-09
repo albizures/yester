@@ -36,7 +36,7 @@ export default class ConfirmAccount extends Component {
     const password = navigation.getParam('password')
     try {
       await logIn(email, password)
-      navigation.navigate('Subscription')
+      navigation.navigate('AppLoading')
     } catch (error) {
       navigation.navigate('Login')
     }

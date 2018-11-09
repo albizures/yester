@@ -59,6 +59,8 @@ const SettingsItem = (props) => {
   )
 }
 
+SettingsItem.types = types
+
 SettingsItem.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
