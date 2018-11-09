@@ -13,21 +13,20 @@ const QuestionCard = (props) => {
   return (
     <View style={styles.card}>
       <View style={styles.container}>
-        <View style={styles.ilustration}>
-          <Image source={icons.emptyCard}
-            style={{width: 340, height: 250}} />
-          <View style={{flex: 1, position: 'absolute', alignSelf: 'center', paddingTop: 27}}>
-            <Heading5 text={capitalize(data.age)} style={[{textAlign: 'center'}]} />
-          </View>
+        <Image source={icons.emptyCard} style={{width: 340, height: 250}} />
+        <View style={{flex: 1, position: 'absolute', paddingTop: 27}}>
+          <Heading5 text={capitalize(data.age)} style={{textAlign: 'center'}} />
         </View>
-        <View style={styles.content}>
-          <Heading2 text={capitalize(data.category)} style={[{marginBottom: 10}]} />
-          <View style={{height: 41}}>
-            <Heading5 text={capitalize(data.text)} />
-          </View>
+
+        <View style={styles.contentTop}>
+          <Heading2 text={capitalize(data.category)} style={{marginBottom: 10}} />
+          <Heading5 text={capitalize(data.text)} />
+        </View>
+
+        <View style={styles.contentBottom}>
           <Button title='questionCard.write'
-            style={{marginVertical: 20}}
-            onPress={onPressWrite} />
+            onPress={onPressWrite}
+            style={{marginBottom: 20}} />
           <Button title='questionCard.skip' onPress={onPressSkip} type={types.OUTLINED} />
         </View>
       </View>
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     borderWidth: 0.5,
     borderColor: colors.white,
-    marginTop: 84,
     shadowColor: colors.questionCardShadow,
     shadowOpacity: 0.1,
     shadowRadius: 30,
@@ -62,19 +60,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     backgroundColor: colors.white,
     borderRadius: 30,
   },
-  ilustration: {
-    height: 250,
-  },
-  content: {
-    height: 270,
+  contentTop: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
     paddingHorizontal: 20,
     paddingTop: 20,
+    paddingBottom: 20,
+  },
+  contentBottom: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
     paddingBottom: 30,
   },
 })

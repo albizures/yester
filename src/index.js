@@ -3,6 +3,7 @@ import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
 import debugFactory from 'debug'
+import { translate } from './components/Translate'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,
@@ -87,26 +88,29 @@ const SettingsStack = createStackNavigator({
 })
 
 const MainTab = createBottomTabNavigator({
-  Feed: {
+  myStory: {
     screen: FeedStack,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.myStory'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/feed.png'),
         inactive: require('./assets/feed-disabled.png'),
       }),
     }),
   },
-  Profile: {
+  profile: {
     screen: Profile,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.profile'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/profile.png'),
         inactive: require('./assets/profile-disabled.png'),
       }),
     }),
   },
-  Settings: {
+  settings: {
     screen: SettingsStack,
+    title: translate('home.bottomBar.settings'),
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
         active: require('./assets/settings.png'),
@@ -117,7 +121,7 @@ const MainTab = createBottomTabNavigator({
 }, {
   animationEnabled: true,
   swipeEnabled: true,
-  initialRouteName: 'Feed',
+  initialRouteName: 'myStory',
   headerMode: 'none',
   tabBarOptions: {
     activeTintColor: colors.white,
