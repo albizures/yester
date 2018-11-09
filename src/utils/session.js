@@ -72,7 +72,7 @@ export const getUser = () => Auth.currentAuthenticatedUser()
 export const sanitizeUser = (user) => ({
   country: user.attributes['custom:country'],
   state: user.attributes['custom:state'],
-  birthDate: user.attributes['birthDate'],
+  birthDate: user.attributes['birthdate'],
   gender: user.attributes['gender'],
   locale: user.attributes['locale'],
   name: user.attributes['name'] || `${user.attributes.given_name} ${user.attributes.family_name}`,
