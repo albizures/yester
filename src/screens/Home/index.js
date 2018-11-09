@@ -96,7 +96,7 @@ export default class Home extends Component {
               onPressWrite={this.onPressWrite}
               onPressSkip={this.onPressSkip} />
           </View>
-        </Modal>
+        </Modal>}
         <View style={styles.view}>
           <QuestionItem data={data} onPress={() => this.onPressItem(data)} />
           <FlatList
