@@ -5,18 +5,17 @@ import Translate from './Translate'
 import colors from '../utils/colors'
 
 const createStyledText = (defaultStyles) => ({ keyName, data, text, style, ...props }) => (
-  text ? (
+  text !== undefined ? (
     <Text {...props}
       style={defaultStyles.concat(style)} >
       {suppplant(text, data)}
     </Text>
+  ) : (
+    <Translate {...props}
+      style={defaultStyles.concat(style)}
+      keyName={keyName}
+      data={data} />
   )
-    : (
-      <Translate {...props}
-        style={defaultStyles.concat(style)}
-        keyName={keyName}
-        data={data} />
-    )
 )
 
 const styles = StyleSheet.create({
