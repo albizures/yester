@@ -9,8 +9,8 @@ const strings = new LocalizedStrings({
   es: require('../translations/es'),
 })
 
-export const translate = (keyName) => {
-  return strings[keyName]
+export const translate = (keyName, data) => {
+  return suppplant(strings[keyName], data)
 }
 
 const Translate = ({ keyName, data, ...props }) => (

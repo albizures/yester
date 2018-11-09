@@ -84,33 +84,30 @@ const SettingsStack = createStackNavigator({
   initialRouteName: 'SettingsHome',
 })
 
-const tabs = {
-  myStory: translate('home.bottomBar.myStory'),
-  profile: translate('home.bottomBar.profile'),
-  settings: translate('home.bottomBar.settings'),
-}
-
 const MainTab = createBottomTabNavigator({
-  [tabs.myStory]: {
+  myStory: {
     screen: FeedStack,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.myStory'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/feed.png'),
         inactive: require('./assets/feed-disabled.png'),
       }),
     }),
   },
-  [tabs.profile]: {
+  profile: {
     screen: Profile,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.profile'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/profile.png'),
         inactive: require('./assets/profile-disabled.png'),
       }),
     }),
   },
-  [tabs.settings]: {
+  settings: {
     screen: SettingsStack,
+    title: translate('home.bottomBar.settings'),
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
         active: require('./assets/settings.png'),
@@ -121,7 +118,7 @@ const MainTab = createBottomTabNavigator({
 }, {
   animationEnabled: true,
   swipeEnabled: true,
-  initialRouteName: tabs.myStory,
+  initialRouteName: 'myStory',
   headerMode: 'none',
   tabBarOptions: {
     activeTintColor: colors.white,
