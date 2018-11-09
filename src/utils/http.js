@@ -18,7 +18,7 @@ export default {
   put: (url, body) => getInstance(url).put(url, body),
 }
 
-export const setLocale = (locale) => {
+export const setHeaderLocale = (locale) => {
   instance.defaults.headers.common['X-Yester-Language'] = locale
   original.defaults.headers.common['X-Yester-Language'] = locale
 }

@@ -3,6 +3,7 @@ import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
 import debugFactory from 'debug'
+import { translate } from './components/Translate'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,
@@ -11,6 +12,7 @@ import {
 } from 'react-native-dotenv'
 
 import { UserProvider } from './components/withUser'
+import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
 import SetupBirthDate from './screens/Setup/BirthDate'
 import SetupPlace from './screens/Setup/Place'
@@ -33,8 +35,7 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader, Storage, getUser, sanitizeUser } from './utils/session'
-import { setLocale } from './utils/http'
+import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
 
 debugFactory.enable('yester:*')
 
@@ -87,26 +88,29 @@ const SettingsStack = createStackNavigator({
 })
 
 const MainTab = createBottomTabNavigator({
-  Feed: {
+  myStory: {
     screen: FeedStack,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.myStory'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/feed.png'),
         inactive: require('./assets/feed-disabled.png'),
       }),
     }),
   },
-  Profile: {
+  profile: {
     screen: Profile,
     navigationOptions: () => ({
+      title: translate('home.bottomBar.profile'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/profile.png'),
         inactive: require('./assets/profile-disabled.png'),
       }),
     }),
   },
-  Settings: {
+  settings: {
     screen: SettingsStack,
+    title: translate('home.bottomBar.settings'),
     navigationOptions: () => ({
       tabBarIcon: tabBarIcon({
         active: require('./assets/settings.png'),
@@ -117,7 +121,7 @@ const MainTab = createBottomTabNavigator({
 }, {
   animationEnabled: true,
   swipeEnabled: true,
-  initialRouteName: 'Feed',
+  initialRouteName: 'myStory',
   headerMode: 'none',
   tabBarOptions: {
     activeTintColor: colors.white,
@@ -166,20 +170,35 @@ export default class App extends Component {
     this.setState({ user })
   }
 
+  updateAges = (ages) => {
+    this.setState({
+      ages: ages.reduce((agesObj, age) => ({
+        ...agesObj,
+        [age.id]: age,
+      }), {}),
+    })
+  }
+
   render () {
-    const { user } = this.state
+    const { user, ages } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
       user,
     }
+    const agesContextValue = {
+      updateAges: this.updateAges,
+      ages,
+    }
 
     return (
-      <UserProvider value={userContextValue}>
-        <View style={{flex: 1}}>
-          <StatusBar barStyle='light-content' />
-          <RootStack />
-        </View>
-      </UserProvider>
+      <AgesProvider value={agesContextValue}>
+        <UserProvider value={userContextValue}>
+          <View style={{flex: 1}}>
+            <StatusBar barStyle='light-content' />
+            <RootStack />
+          </View>
+        </UserProvider>
+      </AgesProvider>
     )
   }
 }

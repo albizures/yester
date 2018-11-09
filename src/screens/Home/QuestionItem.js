@@ -3,48 +3,46 @@ import PropTypes from 'prop-types'
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
-import { Heading3, Description } from '../../components'
-import { capitalize } from '../../utils'
+import { Title, Heading3, Description } from '../../components'
+import IconButton from '../../components/IconButton'
 
 const QuestionItem = (props) => {
   const {data, onPress} = props
 
   return (
-    <TouchableOpacity onPress={onPress} >
-      <View style={[styles.itemContainer]}>
-        <View style={styles.textContainer}>
-          <Heading3 text={data.text} numberOfLines={2} style={[{flexWrap: 'wrap'}]} />
-          <Description text={capitalize(data.category)}
-            style={{marginTop: 3}}
-            numberOfLines={1} />
+    <TouchableOpacity onPress={onPress} style={styles.container} >
+      <View style={styles.card}>
+        <View style={styles.topView}>
+          <Title text={'Your topic of the day!'} style={styles.dayTopicText} />
         </View>
-        <View style={styles.iconContainer}>
-          <Image
-            source={icons.chevronRight}
-            style={styles.icon}
-          />
+        <View style={styles.bottomView}>
+          <View style={styles.textView}>
+            <Description keyName='home.questionItem.new' style={styles.newText} />
+            <Heading3 text={data.text} numberOfLines={2} style={{flexWrap: 'wrap'}} />
+          </View>
+          <View style={styles.iconView}>
+            <IconButton>
+              <Image source={icons.pencil} style={styles.icon} />
+            </IconButton>
+          </View>
         </View>
+
       </View>
     </TouchableOpacity>
   )
 }
 
-QuestionItem.propTypes = {
-  data: PropTypes.object.isRequired,
-  onPress: PropTypes.func.isRequired,
-}
-export default QuestionItem
-
 const styles = StyleSheet.create({
-  itemContainer: {
-    height: 75,
+  container: {
+    height: 138,
     width: 340,
-    flexDirection: 'row',
+  },
+  card: {
+    flex: 1,
     backgroundColor: colors.white,
     borderRadius: 10,
     borderWidth: 0.5,
     borderColor: colors.white,
-    marginBottom: 17,
     shadowColor: colors.shadow,
     shadowOpacity: 0.22,
     shadowRadius: 15,
@@ -52,22 +50,49 @@ const styles = StyleSheet.create({
       height: 8,
     },
   },
-  textContainer: {
-    flex: 1,
+  topView: {
+    height: 58,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     alignItems: 'flex-start',
     justifyContent: 'center',
-    paddingLeft: 30,
+    backgroundColor: colors.royalBlue,
+    paddingLeft: 20,
   },
-  iconContainer: {
-    width: 35,
-    height: 35,
-    alignItems: 'flex-end',
+  bottomView: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingLeft: 20,
+  },
+  textView: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+  },
+  iconView: {
+    width: 50,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'center',
-    marginRight: 25,
+    marginRight: 15,
   },
   icon: {
-    width: 8,
-    height: 15,
+    width: 17,
+    height: 17,
+  },
+  newText: {
+    color: colors.royalBlue,
+    fontWeight: 'bold',
+    marginTop: 10,
+    marginBottom: 7,
+  },
+  dayTopicText: {
+    color: colors.white,
+    fontWeight: 'bold',
   },
 })
+
+QuestionItem.propTypes = {
+  data: PropTypes.object.isRequired,
+  onPress: PropTypes.func.isRequired,
+}
+export default QuestionItem
