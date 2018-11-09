@@ -16,6 +16,16 @@ const icons = {
   confirmation: require('../assets/backgrounds/confirmation.png'),
   subscription: require('../assets/backgrounds/subscription.png'),
   logoWhite: require('../assets/logos/yester-logo-white.png'),
+  header: require('../assets/backgrounds/yester-headers-01.png'),
+  profileMan: require('../assets/images/profile/man.png'),
+  profileWoman: require('../assets/images/profile/woman.png'),
+  ageAdult: require('../assets/images/ages/adult.png'),
+  ageChildTeen: require('../assets/images/ages/child-teen.png'),
+  ageChildhood: require('../assets/images/ages/childhood.png'),
+  ageElderly: require('../assets/images/ages/elderly.png'),
+  ageFirstDays: require('../assets/images/ages/first-days.png'),
+  ageTeenage: require('../assets/images/ages/teenage.png'),
+  ageYoungAdult: require('../assets/images/ages/young-adult.png'),
 }
 
 export default icons
