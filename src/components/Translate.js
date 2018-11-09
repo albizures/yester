@@ -9,6 +9,10 @@ const strings = new LocalizedStrings({
   es: require('../translations/es'),
 })
 
+export const translate = (keyName) => {
+  return strings[keyName]
+}
+
 const Translate = ({ keyName, data, ...props }) => (
   <Text {...props}>{suppplant(strings[keyName], data)}</Text>
 )
