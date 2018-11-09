@@ -5,7 +5,6 @@ import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { Title, Heading3, Description } from '../../components'
 import IconButton from '../../components/IconButton'
-import { capitalize } from '../../utils'
 
 const QuestionItem = (props) => {
   const {data, onPress} = props
