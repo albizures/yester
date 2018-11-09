@@ -76,9 +76,7 @@ export default class Home extends Component {
   render () {
     const { isLoading, item, ages, modalVisible } = this.state
     const topBarTitle = (
-      <View style={styles.topBarView}>
-        <Image source={icons.logoWhite} style={styles.topBarLogo} />
-      </View>
+      <Image source={icons.logoWhite} style={styles.topBarImage} />
     )
     const data = {text: 'Question of the day', category: 'Category', age: 'Chapter', story: 'This is where my story begins....'}
     const topBar = (
@@ -119,15 +117,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: colors.athensGray,
   },
-  topBarLogo: {
+  topBarImage: {
     width: 100,
     height: 26,
-  },
-  topBarView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingTop: 12,
   },
   view: {
     flex: 1,
