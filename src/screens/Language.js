@@ -4,9 +4,8 @@ import { View, StyleSheet, Alert } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import SettingsItem from '../components/SettingsItem'
-import withUser from '../components/withUser'
+import withUser, { shapeContextUser } from '../components/withUser'
 import { updateUserAttribute } from '../utils/session'
-import { strings } from '../components/Translate'
 
 const isCheck = (locale, currentLocale) => {
   if (locale === currentLocale) {
@@ -33,13 +32,12 @@ LanguageItem.propTypes = {
 class Language extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    updateUser: PropTypes.func.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   constructor (props) {
     super(props)
-    const { user: { locale } } = props
+    const { locale } = props.contextUser.user
     this.state = {
       locale,
       isLoading: false,
@@ -52,11 +50,10 @@ class Language extends Component {
   }
 
   onPress = async (locale) => {
-    const { updateUser } = this.props
+    const { updateUser } = this.props.contextUser
     this.setState({ isLoading: true })
     try {
       await updateUserAttribute('locale', locale)
-      strings.setLanguage(locale)
       await updateUser()
     } catch (error) {
       Alert.alert('Error updating the language')
@@ -68,7 +65,7 @@ class Language extends Component {
 
   render () {
     const { isLoading } = this.state
-    const { user: { locale: currentLocale } } = this.props
+    const { locale: currentLocale } = this.props.contextUser.user
     const topBar = (
       <TopBar title='language.title' onBack={this.onBack} />
     )

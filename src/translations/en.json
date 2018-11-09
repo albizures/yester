@@ -87,11 +87,11 @@
   "questionCard.write": "Write and Live Again",
   "questionCard.skip": "Other Question",
   "writing.topbar": "Writing",
-  "writing.action": "SAVE",
-  "writing.by": "By {autor}",
+  "writing.action": "Save",
+  "writing.by": "By {author}",
   "reading.topbar": "Reading",
-  "reading.action": "SAVE",
-  "reading.by": "By {autor}",
+  "reading.by": "By {author}",
+  "reading.share": "Share",
   "language.title": "Language",
   "notifications.title": "Notifications"
 }

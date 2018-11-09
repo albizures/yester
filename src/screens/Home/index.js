@@ -86,7 +86,7 @@ export default class Home extends Component {
     )
     return (
       <Container topBar={topBar} isLoading={isLoading} style={styles.container} >
-        <Modal
+        {Boolean(item) && <Modal
           animationType='fade'
           transparent
           visible={modalVisible} >

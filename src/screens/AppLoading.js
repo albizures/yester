@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import debugFactory from 'debug'
 import React, { Component } from 'react'
-import { Text } from 'react-native'
+import { Text, Alert } from 'react-native'
 
 import Container from '../components/Container'
-import { isSetupFinished, getToken } from '../utils/session'
-import withUser from '../components/withUser'
-import { setLocale } from '../utils/http'
+import { isSetupFinished, getToken, setLocale } from '../utils/session'
+import http from '../utils/http'
+import withUser, { shapeContextUser } from '../components/withUser'
+import withAges, { shapeContextAges } from '../components/withAges'
 import { strings } from '../components/Translate'
 
 const debugError = debugFactory('yester:error:AppLoading')
@@ -14,6 +15,8 @@ const debugError = debugFactory('yester:error:AppLoading')
 class AppLoading extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
+    contextAges: PropTypes.shape(shapeContextAges).isRequired,
   }
 
   state = {
@@ -25,10 +28,26 @@ class AppLoading extends Component {
     this.bootstrap()
   }
 
+  getAges = async () => {
+    const { contextAges: { updateAges } } = this.props
+
+    try {
+      const { data: ages } = await http.get('/v1/ages')
+      updateAges(ages)
+    } catch (error) {
+      Alert.alert('Error getting the ages')
+      debugError(error)
+    }
+  }
+
   async bootstrap () {
-    const { navigation, updateUser } = this.props
+    const {
+      navigation,
+      contextUser: { updateUser },
+    } = this.props
 
     setLocale(strings.getLanguage())
+
     try {
       const userToken = await getToken()
       if (!userToken) {
@@ -36,6 +55,8 @@ class AppLoading extends Component {
       }
 
       await updateUser()
+      await this.getAges()
+
       if (!(await isSetupFinished())) {
         return navigation.navigate('Setup')
       }
@@ -57,4 +78,4 @@ class AppLoading extends Component {
   }
 }
 
-export default withUser(AppLoading)
+export default withAges(withUser(AppLoading))
