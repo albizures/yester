@@ -26,27 +26,32 @@ const TopBar = (props) => {
 
   const backIcon = getBackIcon(modal, transparent)
 
-  const containerStyles = [].concat(
-    styles.container,
+  const safeAreaStyles = [].concat(
+    styles.safeArea,
     transparent ? [styles.containerTransparent] : []
   )
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={containerStyles}>
-        <Image source={icons.header} style={styles.backgrounImage} />
-        <View style={styles.leftFlex}>
-          {onBack ? (
+    <SafeAreaView style={safeAreaStyles}>
+      <View style={styles.container}>
+        {!transparent ? (
+          <Image source={icons.header} style={styles.backgrounImage} />
+        ) : null
+        }
+        {onBack ? (
+          <View style={styles.leftFlex}>
             <TouchableOpacity onPress={onBack}>
               <Image source={backIcon} style={styles.backIcon} />
             </TouchableOpacity>
-          ) : null}
-        </View>
+          </View>
+        ) : null}
         <View style={styles.middleFlex}>
           {titleElemet}
         </View>
-        <View style={styles.rightFlex}>
-          {action && {action}}
-        </View>
+        {action && (
+          <View style={styles.rightFlex}>
+            {action}
+          </View>
+        )}
       </View>
     </SafeAreaView>
   )
@@ -72,18 +77,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   leftFlex: {
-    flex: 1,
+    flex: 3,
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingLeft: 10,
   },
   middleFlex: {
-    flex: 10,
+    flex: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
   rightFlex: {
-    flex: 1,
+    flex: 3,
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 10,
