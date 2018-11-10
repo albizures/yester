@@ -110,8 +110,8 @@ const MainTab = createBottomTabNavigator({
   },
   settings: {
     screen: SettingsStack,
-    title: translate('home.bottomBar.settings'),
     navigationOptions: () => ({
+      title: translate('home.bottomBar.settings'),
       tabBarIcon: tabBarIcon({
         active: require('./assets/settings.png'),
         inactive: require('./assets/settings-disabled.png'),
