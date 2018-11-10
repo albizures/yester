@@ -26,6 +26,14 @@ const icons = {
   ageFirstDays: require('../assets/images/ages/first-days.png'),
   ageTeenage: require('../assets/images/ages/teenage.png'),
   ageYoungAdult: require('../assets/images/ages/young-adult.png'),
+  cardEducation: require('../assets/illustrations/cards/education.png'),
+  cardFamily: require('../assets/illustrations/cards/family.png'),
+  cardFriendship: require('../assets/illustrations/cards/friendship.png'),
+  cardGrandparenthood: require('../assets/illustrations/cards/grandparenthood.png'),
+  cardLife: require('../assets/illustrations/cards/life.png'),
+  cardLove: require('../assets/illustrations/cards/love.png'),
+  cardReligion: require('../assets/illustrations/cards/religion.png'),
+  cardWork: require('../assets/illustrations/cards/work.png'),
 }
 
 export default icons
