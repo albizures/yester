@@ -43,8 +43,6 @@ export default class Writing extends Component {
         'content': content,
       })
 
-      console.log(data)
-
       if (status === 201) {
         return navigation.replace('Reading', {
           storyId: data.id,
