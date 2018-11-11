@@ -95,5 +95,7 @@
   "reading.by": "Por {author}",
   "reading.share": "Compartir",
   "language.title": "Lenguaje",
-  "notifications.title": "Notificaciones"
+  "notifications.title": "Notificaciones",
+  "terms.title": "Términos y Condiciones",
+  "about.title": "Acerca de Yester"
 }

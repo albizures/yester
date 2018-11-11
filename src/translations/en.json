@@ -93,5 +93,7 @@
   "reading.by": "By {author}",
   "reading.share": "Share",
   "language.title": "Language",
-  "notifications.title": "Notifications"
+  "notifications.title": "Notifications",
+  "terms.title": "Terms and Conditions",
+  "about.title": "About Yester"
 }

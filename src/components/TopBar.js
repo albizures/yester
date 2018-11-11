@@ -1,11 +1,9 @@
 import React from 'react'
-import { View, TouchableHighlight, Image, Platform, StyleSheet } from 'react-native'
+import { SafeAreaView, View, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
-
+import icons from '../utils/icons'
 import colors from '../utils/colors'
-import Translate from './Translate'
-
-const top = Platform.OS === 'ios' ? 20 : 0
+import { Title } from './'
 
 const getBackIcon = (modal, transparent) => {
   if (transparent) {
@@ -23,29 +21,39 @@ const getBackIcon = (modal, transparent) => {
 const TopBar = (props) => {
   const { title, onBack, modal, action, transparent } = props
   const titleElemet = typeof title === 'string' ? (
-    <Translate style={styles.text} keyName={title} />
+    <Title keyName={title} style={styles.text} />
   ) : title
 
   const backIcon = getBackIcon(modal, transparent)
 
-  const containerStyles = [].concat(
-    styles.container,
+  const safeAreaStyles = [].concat(
+    styles.safeArea,
     transparent ? [styles.containerTransparent] : []
   )
   return (
-    <View style={containerStyles}>
-      {onBack ? (
-        <TouchableHighlight onPress={onBack} style={styles.containerBack}>
-          <Image source={backIcon} style={styles.back} />
-        </TouchableHighlight>
-      ) : null}
-      {titleElemet}
-      {action && (
-        <View style={styles.action}>
-          {action}
+    <SafeAreaView style={safeAreaStyles}>
+      <View style={styles.container}>
+        {!transparent ? (
+          <Image source={icons.header} style={styles.backgrounImage} />
+        ) : null
+        }
+        {onBack ? (
+          <View style={styles.leftFlex}>
+            <TouchableOpacity onPress={onBack}>
+              <Image source={backIcon} style={styles.backIcon} />
+            </TouchableOpacity>
+          </View>
+        ) : null}
+        <View style={styles.middleFlex}>
+          {titleElemet}
         </View>
-      )}
-    </View>
+        {action && (
+          <View style={styles.rightFlex}>
+            {action}
+          </View>
+        )}
+      </View>
+    </SafeAreaView>
   )
 }
 
@@ -57,44 +65,52 @@ TopBar.propTypes = {
   transparent: PropTypes.bool,
 }
 
+const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    minHeight: 60 + top,
-    paddingTop: top,
-    flexDirection: 'row',
+  safeArea: {
+    position: 'relative',
     backgroundColor: colors.haiti,
+  },
+  container: {
+    width,
+    minHeight: 51,
+    flexDirection: 'row',
+  },
+  leftFlex: {
+    flex: 3,
+    alignItems: 'flex-start',
     justifyContent: 'center',
+    paddingLeft: 10,
+  },
+  middleFlex: {
+    flex: 12,
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  icon: {
-    marginRight: 12,
-  },
-  action: {
-    position: 'absolute',
-    top: 26,
-    paddingTop: 10,
-    right: 10,
+  rightFlex: {
+    flex: 3,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 10,
   },
   text: {
-    color: colors.white,
+    textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20,
+    color: colors.white,
   },
-  containerBack: {
-    position: 'absolute',
-    top: 24,
-    paddingTop: 16,
-    left: 10,
-  },
-  back: {
+  backIcon: {
     height: 20,
     width: 20,
-    marginHorizontal: 8,
-    marginVertical: 4,
   },
   containerTransparent: {
     backgroundColor: 'transparent',
+  },
+  backgrounImage: {
+    position: 'absolute',
+    zIndex: 0,
+    width: width,
+    height: 51,
+    justifyContent: 'flex-end',
   },
 })
 

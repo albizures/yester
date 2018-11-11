@@ -106,7 +106,7 @@ export default class Place extends Component {
   render () {
     const { year, countries, states, country, state } = this.state
     const topBarTitle = (
-      <View style={{height: 110, paddingHorizontal: width * 0.08}}>
+      <View style={{height: 110, paddingHorizontal: 30}}>
         <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
           <Heading2 keyName='setup.place.title' data={{ year }}
             style={[{color: colors.brightTurquoise}]} />
