@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, FlatList, Alert, Image, Modal, Dimensions } from 'react-native'
+import { View, StyleSheet, FlatList, Alert, Image, Dimensions } from 'react-native'
+
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
-import QuestionCard from './QuestionCard'
+import Tabs from './Tabs'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
 import { Title } from '../../components'
+
 import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -19,7 +21,6 @@ export default class Home extends Component {
 
   state = {
     isLoading: true,
-    modalVisible: false,
     item: {},
   }
 
@@ -27,15 +28,21 @@ export default class Home extends Component {
     this.setState({
       isLoading: true,
     })
+
     try {
-      const { data } = await http.get('https://my-json-server.typicode.com/gluix20/treasure/db')
-      this.setState({
-        isLoading: false,
-        ...data,
-      })
+      const { data: question } = await http.get('/v1/questions')
+      console.log('component did mount', question)
+      this.setState({ question })
     } catch (error) {
-      Alert.alert('Error', error.message)
+      if (error.response.status !== 404) {
+        Alert.alert('Yester couldn\'t get today\'s question')
+        console.log(error.response)
+      }
     }
+
+    this.setState({
+      isLoading: false,
+    })
   }
 
   renderChapter = ({item}) => (
@@ -56,55 +63,36 @@ export default class Home extends Component {
     <StoryItem data={item} onPress={() => this.onPressItem(item)} />
   )
 
-  onPressItem = (item) => {
-    this.setModalVisible(true, item)
+  onWriteTodayQuestion = () => {
+    const { question } = this.state
+    this.onPressItem(question)
   }
 
-  setModalVisible (visible, item) {
-    this.setState({modalVisible: visible, item: item})
-  }
-
-  onPressWrite = () => {
-    this.setModalVisible(!this.state.modalVisible)
-    this.props.navigation.navigate('Writing')
-  }
-
-  onPressSkip = () => {
-    this.setModalVisible(!this.state.modalVisible)
+  onPressItem = (question) => {
+    const { navigation } = this.props
+    const { ageId, title, description } = question
+    navigation.navigate('ModalCard', {
+      ageId,
+      title,
+      description,
+    })
   }
 
   render () {
-    const { isLoading, item, ages, modalVisible } = this.state
+    const { isLoading, question } = this.state
     const topBarTitle = (
       <View style={styles.topBarView}>
         <Image source={icons.logoWhite} style={styles.topBarLogo} />
       </View>
     )
-    const data = {text: 'Question of the day', category: 'Category', age: 'Chapter', story: 'This is where my story begins....'}
     const topBar = (
       <TopBar title={topBarTitle} />
     )
     return (
       <Container topBar={topBar} isLoading={isLoading} style={styles.container} >
-        {Boolean(item) && <Modal
-          animationType='fade'
-          transparent
-          visible={modalVisible} >
-          <View style={styles.modalView}>
-            <QuestionCard
-              data={item}
-              onPressWrite={this.onPressWrite}
-              onPressSkip={this.onPressSkip} />
-          </View>
-        </Modal>}
         <View style={styles.view}>
-          <QuestionItem data={data} onPress={() => this.onPressItem(data)} />
-          <FlatList
-            data={ages}
-            renderItem={this.renderChapter}
-            keyExtractor={indexToString}
-            horizontal
-          />
+          { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
+          <Tabs onPressItem={this.onPressItem} />
         </View>
       </Container>
     )
@@ -135,12 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: colors.athensGray,
     paddingTop: 20,
-  },
-  modalView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(98, 97, 232, 0.85)',
   },
   chapterView: {
     width,
