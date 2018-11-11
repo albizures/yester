@@ -23,6 +23,7 @@ import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
+import ModalCard from './screens/Home/ModalCard'
 import Writing from './screens/Writing'
 import Reading from './screens/Reading'
 import Profile from './screens/Profile'
@@ -69,6 +70,7 @@ const FeedStack = createStackNavigator({
   Home,
   Writing,
   Reading,
+  ModalCard,
 }, {
   mode: 'modal',
   headerMode: 'none',
@@ -88,7 +90,7 @@ const SettingsStack = createStackNavigator({
 })
 
 const MainTab = createBottomTabNavigator({
-  myStory: {
+  MyStory: {
     screen: FeedStack,
     navigationOptions: () => ({
       title: translate('home.bottomBar.myStory'),
@@ -98,7 +100,7 @@ const MainTab = createBottomTabNavigator({
       }),
     }),
   },
-  profile: {
+  Profile: {
     screen: Profile,
     navigationOptions: () => ({
       title: translate('home.bottomBar.profile'),
@@ -108,7 +110,7 @@ const MainTab = createBottomTabNavigator({
       }),
     }),
   },
-  settings: {
+  Settings: {
     screen: SettingsStack,
     title: translate('home.bottomBar.settings'),
     navigationOptions: () => ({
@@ -121,7 +123,7 @@ const MainTab = createBottomTabNavigator({
 }, {
   animationEnabled: true,
   swipeEnabled: true,
-  initialRouteName: 'myStory',
+  initialRouteName: 'MyStory',
   headerMode: 'none',
   tabBarOptions: {
     activeTintColor: colors.white,
@@ -176,11 +178,12 @@ export default class App extends Component {
         ...agesObj,
         [age.id]: age,
       }), {}),
+      agesList: ages,
     })
   }
 
   render () {
-    const { user, ages } = this.state
+    const { user, ages, agesList } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
       user,
@@ -188,6 +191,7 @@ export default class App extends Component {
     const agesContextValue = {
       updateAges: this.updateAges,
       ages,
+      agesList,
     }
 
     return (
