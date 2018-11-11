@@ -4,19 +4,27 @@ import { Text, StyleSheet } from 'react-native'
 import Translate from './Translate'
 import colors from '../utils/colors'
 
-const createStyledText = (defaultStyles) => ({ keyName, data, text, style, ...props }) => (
-  text !== undefined ? (
-    <Text {...props}
-      style={defaultStyles.concat(style)} >
-      {suppplant(text, data)}
-    </Text>
-  ) : (
-    <Translate {...props}
-      style={defaultStyles.concat(style)}
-      keyName={keyName}
-      data={data} />
-  )
-)
+const createStyledText = (defaultStyles) => ({ keyName, data, text, style, ...props }) => {
+  if (text !== undefined) {
+    return (
+      <Text {...props}
+        style={defaultStyles.concat(style)} >
+        {suppplant(text, data)}
+      </Text>
+    )
+  }
+
+  if (keyName !== undefined) {
+    return (
+      <Translate {...props}
+        style={defaultStyles.concat(style)}
+        keyName={keyName}
+        data={data} />
+    )
+  }
+
+  return null
+}
 
 const styles = StyleSheet.create({
   text: {
