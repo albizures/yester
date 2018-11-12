@@ -6,9 +6,29 @@ import TopBar from '../components/TopBar'
 import Divider from '../components/Divider'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
+import { getUser } from '../utils/session'
 
 export default class Profile extends Component {
+  state = {
+    name: '',
+    email: '',
+    location: '',
+  }
+
+  async componentDidMount () {
+    const user = await getUser()
+
+    this.setState({
+      name: user.attributes.name,
+      email: user.attributes.email,
+    })
+  }
+
   render () {
+    const { name, email } = this.state
+
+    console.log('user', name)
+
     const topBar = (
       <TopBar title='profile.title' />
     )
@@ -16,7 +36,7 @@ export default class Profile extends Component {
       <Container topBar={topBar} style={styles.container}>
         <View style={styles.topFlex}>
           <Image source={icons.profileMan} style={styles.image} />
-          <Heading2 text='Luis Galvez' style={styles.nameText} />
+          <Heading2 text={name} style={styles.nameText} />
           <Heading5 text='3 stories' style={{marginBottom: 30}} />
         </View>
 
@@ -24,7 +44,7 @@ export default class Profile extends Component {
           <Divider style={{width: 323}} />
           <View style={styles.item}>
             <Description text='Email' />
-            <Heading3 text='luis@yester.app' />
+            <Heading3 text={email} />
           </View>
           <Divider style={{width: 323}} />
           <View style={styles.item}>
