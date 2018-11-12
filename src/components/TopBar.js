@@ -11,7 +11,6 @@ const getBackIcon = (modal, transparent) => {
       ? require('../assets/chevron/chevron-down.png')
       : require('../assets/arrows/arrow-left.png')
   }
-
   return modal
     // TODO add the white down chevro asset
     ? require('../assets/chevron/chevron-down.png')
@@ -38,11 +37,9 @@ const TopBar = (props) => {
         ) : null
         }
         {onBack ? (
-          <View style={styles.leftFlex}>
-            <TouchableOpacity onPress={onBack}>
-              <Image source={backIcon} style={styles.backIcon} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={onBack} style={styles.leftFlex}>
+            <Image source={backIcon} style={styles.backIcon} />
+          </TouchableOpacity>
         ) : null}
         <View style={styles.middleFlex}>
           {titleElemet}
@@ -68,27 +65,32 @@ TopBar.propTypes = {
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   safeArea: {
-    position: 'relative',
     backgroundColor: colors.haiti,
   },
   container: {
     width,
-    minHeight: 51,
-    flexDirection: 'row',
+    height: 51,
   },
   leftFlex: {
-    flex: 3,
+    position: 'absolute',
+    zIndex: 1,
+    width: 50,
+    height: 51,
+    alignSelf: 'flex-start',
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingLeft: 10,
   },
   middleFlex: {
-    flex: 12,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   rightFlex: {
-    flex: 3,
+    position: 'absolute',
+    width: 70,
+    minHeight: 51,
+    alignSelf: 'flex-end',
     alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 10,

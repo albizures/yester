@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, FlatList, Alert, Image, Modal, Dimensions } from 'react-native'
+import { TouchableHighlight, View, StyleSheet, FlatList, Alert, Image, Modal, Dimensions } from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import QuestionCard from './QuestionCard'
@@ -87,12 +87,17 @@ export default class Home extends Component {
         {Boolean(item) && <Modal
           animationType='fade'
           transparent
-          visible={modalVisible} >
-          <View style={styles.modalView}>
-            <QuestionCard
-              data={item}
-              onPressWrite={this.onPressWrite}
-              onPressSkip={this.onPressSkip} />
+          visible={modalVisible}>
+          <View style={{flex: 1}}>
+            <TouchableHighlight style={styles.modalBackground} onPress={this.onPressSkip} >
+              <View />
+            </TouchableHighlight>
+            <View pointerEvents='box-none' style={styles.modalCardView}>
+              <QuestionCard
+                data={item}
+                onPressWrite={this.onPressWrite}
+                onPressSkip={this.onPressSkip} />
+            </View>
           </View>
         </Modal>}
         <View style={styles.view}>
@@ -109,7 +114,7 @@ export default class Home extends Component {
   }
 }
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -128,11 +133,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.athensGray,
     paddingTop: 20,
   },
-  modalView: {
+  modalBackground: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'rgba(98, 97, 232, 0.85)',
+  },
+  modalCardView: {
+    position: 'absolute',
+    width,
+    height,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   chapterView: {
     width,
