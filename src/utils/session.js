@@ -78,6 +78,8 @@ export const sanitizeUser = (user) => ({
   name: user.attributes['name'] || `${user.attributes.given_name} ${user.attributes.family_name}`,
   givenName: user.attributes.given_name,
   lastName: user.attributes.family_name,
+  email: user.attributes['email'],
+  userId: user.attributes['sub'],
 })
 
 export const isSetupFinished = async () => {

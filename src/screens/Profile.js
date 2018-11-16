@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { View, Image, Dimensions, StyleSheet } from 'react-native'
 import { Heading2, Heading5, Description, Heading3 } from '../components'
 import Container from '../components/Container'
@@ -6,28 +7,15 @@ import TopBar from '../components/TopBar'
 import Divider from '../components/Divider'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
-import { getUser } from '../utils/session'
+import withUser, { shapeContextUser } from '../components/withUser'
 
-export default class Profile extends Component {
-  state = {
-    name: '',
-    email: '',
-    location: '',
-  }
-
-  async componentDidMount () {
-    const user = await getUser()
-
-    this.setState({
-      name: user.attributes.name,
-      email: user.attributes.email,
-    })
+class Profile extends Component {
+  static propTypes = {
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   render () {
-    const { name, email } = this.state
-
-    console.log('user', name)
+    const { name, email, country, state } = this.props.contextUser.user
 
     const topBar = (
       <TopBar title='profile.title' />
@@ -37,19 +25,23 @@ export default class Profile extends Component {
         <View style={styles.topFlex}>
           <Image source={icons.profileMan} style={styles.image} />
           <Heading2 text={name} style={styles.nameText} />
+          {// TODO get the number of answered stories
+          }
           <Heading5 text='3 stories' style={{marginBottom: 30}} />
         </View>
 
         <View style={styles.bottomFlex}>
           <Divider style={{width: 323}} />
           <View style={styles.item}>
-            <Description text='Email' />
+            <Description keyName='profile.email' />
             <Heading3 text={email} />
           </View>
           <Divider style={{width: 323}} />
           <View style={styles.item}>
-            <Description text='Location' />
-            <Heading3 text='Guatemala, Guatemala' />
+            <Description keyName='profile.location' />
+            {// TODO get the country and state correct name
+            }
+            <Heading3 text={`${country}, ${state.substring(3, 5)}`} />
           </View>
           <Divider style={{width: 323}} />
         </View>
@@ -90,3 +82,5 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 })
+
+export default withUser(Profile)
