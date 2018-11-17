@@ -29,20 +29,6 @@ class Tabs extends Component {
     })),
   }
 
-  // static getDerivedStateFromProps (props) {
-  //   console.log(props.contextAges)
-  //   if (props.contextAges && props.contextAges.ages) {
-  //     return {
-  //       routes: props.contextAges.ages.map((age) => ({
-  //         key: age.id,
-  //         title: age.name,
-  //       })),
-  //     }
-  //   }
-
-  //   return null
-  // }
-
   onIndexChange = index => this.setState({ index })
 
   renderLabel = (scene) => {

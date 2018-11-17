@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   },
   heading1: {
     fontSize: 50,
+    lineHeight: 46,
     fontWeight: 'bold',
   },
   heading2: {
