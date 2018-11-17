@@ -42,13 +42,16 @@ export default class Tab extends Component {
 
   renderItem = ({item}) => {
     const { onPressItem } = this.props
-    const { question_id: questionId, title, age_id: ageId, id: storyId } = item
-    const question = { title, questionId, ageId, storyId }
-    console.log('renderItem', item)
+    const { category, question_id: questionId, title: question, age_id: ageId, id: storyId, story, content } = item
+    const newItem = { question, questionId, ageId, storyId, content }
+
     return (
       <StoryItem
-        title={title}
-        onPress={() => onPressItem(question)}
+        question={question}
+        category={category}
+        content={content}
+        story={story}
+        onPress={() => onPressItem(newItem)}
       />
     )
   }
@@ -59,7 +62,6 @@ export default class Tab extends Component {
       <View style={styles.noStoriesContainer}>
         <Heading5 keyName={'home.empty.tab.title'} />
         <Heading5 keyName={'home.empty.tab.subtitle'} />
-        {/* <Heading5 keyName={'home.empty.tab.description'} /> */}
       </View>
     ) : (
       <FlatList

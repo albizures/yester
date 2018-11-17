@@ -7,11 +7,11 @@ import { Heading3, Description } from '../../components'
 import { capitalize } from '../../utils'
 
 const StoryItem = (props) => {
-  const { onPress, title, subtitle, description } = props
+  const { onPress, question, category, content } = props
 
-  const dot = !description
-  const descriptionElement = description ? (
-    <Description numberOfLines={1} text={capitalize(description)} style={styles.storyText} />
+  const dot = !content
+  const descriptionElement = content ? (
+    <Description numberOfLines={1} text={capitalize(content)} style={styles.storyText} />
   ) : (
     <Description keyName='home.empty.story.description' style={styles.storyText} />
   )
@@ -23,27 +23,22 @@ const StoryItem = (props) => {
       </View>
       <View style={styles.row}>
         <View style={styles.textContainer}>
-          <Heading3 text={title} numberOfLines={2} style={styles.questionText} />
-          <Description text={capitalize(subtitle)} style={styles.categoryText} />
+          <Heading3 text={question} numberOfLines={2} style={styles.questionText} />
+          <Description text={capitalize(category)} style={styles.categoryText} />
           {descriptionElement}
         </View>
         <View style={styles.iconContainer}>
           <Image source={icons.chevronRight} style={styles.chevron} />
         </View>
-
       </View>
     </TouchableOpacity>
   )
 }
 
-StoryItem.defaultProps = {
-  subtitle: 'Family',
-}
-
 StoryItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-  description: PropTypes.string,
+  question: PropTypes.string.isRequired,
+  category: PropTypes.string,
+  content: PropTypes.string,
   onPress: PropTypes.func.isRequired,
 }
 export default StoryItem
