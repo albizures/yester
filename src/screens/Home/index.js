@@ -31,12 +31,19 @@ export default class Home extends Component {
 
     try {
       const { data: question } = await http.get('/v1/questions')
-      console.log('component did mount', question)
+      // const question = {
+      //   age_id: 'Age#31',
+      //   category: 'Familia',
+      //   description: 'Did you have any pets? ',
+      //   id: 'Question#0099',
+      //   sub_category: '',
+      // }
+
       this.setState({ question })
     } catch (error) {
+      console.log(error.response)
       if (error.response.status !== 404) {
         Alert.alert('Yester couldn\'t get today\'s question')
-        console.log(error.response)
       }
     }
 
@@ -64,17 +71,25 @@ export default class Home extends Component {
   )
 
   onWriteTodayQuestion = () => {
-    const { question } = this.state
-    this.onPressItem(question)
+    const { question: item } = this.state
+    const { age_id: ageId, category, description: question, id: questionId, story_id: storyId } = item
+    this.onPressItem({ ageId, category, question, questionId, storyId })
   }
 
-  onPressItem = (question) => {
+  onPressItem = (item) => {
     const { navigation } = this.props
-    const { ageId, title, description } = question
+    const { ageId, category, question, questionId, storyId, content } = item
+
+    if (content) {
+      return navigation.navigate('Reading', { storyId })
+    }
+
     navigation.navigate('ModalCard', {
       ageId,
-      title,
-      description,
+      category,
+      question,
+      questionId,
+      storyId,
     })
   }
 

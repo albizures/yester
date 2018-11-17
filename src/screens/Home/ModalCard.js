@@ -18,7 +18,13 @@ class ModalCard extends React.Component {
 
   onWrite = () => {
     const { navigation } = this.props
-    navigation.replace('Writing')
+
+    const ageId = navigation.getParam('ageId')
+    const questionId = navigation.getParam('questionId')
+    const question = navigation.getParam('question')
+    const storyId = navigation.getParam('storyId')
+
+    navigation.replace('Writing', { ageId, questionId, question, storyId })
   }
 
   onSkip = () => {
@@ -30,11 +36,10 @@ class ModalCard extends React.Component {
     const { navigation } = this.props
     const { ages } = this.props.contextAges
     const ageId = navigation.getParam('ageId')
-    const title = navigation.getParam('title')
-    const description = navigation.getParam('description')
+    // const category = navigation.getParam('category')
+    const question = navigation.getParam('question')
     const age = (ages[ageId] || {}).name
 
-    console.log(ageId, title, description, ages[ageId])
     return (
       <View style={styles.modalContainer}>
         <View style={styles.card}>
@@ -45,8 +50,8 @@ class ModalCard extends React.Component {
             </View>
 
             <View style={styles.contentTop}>
-              <Heading2 text={capitalize(title)} style={{marginBottom: 10}} />
-              <Heading5 text={capitalize(description)} />
+              {/* <Heading2 text={capitalize(category)} style={{marginBottom: 10}} /> */}
+              <Heading2 style={{textAlign: 'center'}} text={capitalize(question)} />
             </View>
 
             <View style={styles.contentBottom}>
