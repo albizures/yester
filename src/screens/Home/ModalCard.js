@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, TouchableHighlight, Dimensions } from 'react-native'
 
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -39,9 +39,11 @@ class ModalCard extends React.Component {
     // const category = navigation.getParam('category')
     const question = navigation.getParam('question')
     const age = (ages[ageId] || {}).name
-
     return (
       <View style={styles.modalContainer}>
+        <TouchableHighlight style={styles.modalBackground} onPress={this.onPressSkip} >
+          <View />
+        </TouchableHighlight>
         <View style={styles.card}>
           <View style={styles.container}>
             <Image source={icons.emptyCard} style={{width: 340, height: 250}} />
@@ -67,16 +69,25 @@ class ModalCard extends React.Component {
 
 export default withAges(ModalCard)
 
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
+  modalBackground: {
+    flex: 1,
+    backgroundColor: 'rgba(98, 97, 232, 0.85)',
+    width: '100%',
+  },
   modalContainer: {
     flex: 1,
+    width,
+    height,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(98, 97, 232, 0.85)',
   },
   card: {
-    height: 520,
-    width: 340,
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
     borderRadius: 30,
     borderWidth: 0.5,
     borderColor: colors.white,
@@ -86,14 +97,12 @@ const styles = StyleSheet.create({
     shadowOffset: {
       height: 30,
     },
-    overflow: 'hidden',
   },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
     backgroundColor: colors.white,
-    borderRadius: 30,
   },
   contentTop: {
     flex: 1,

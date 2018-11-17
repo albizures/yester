@@ -14,6 +14,7 @@ Divider.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    minHeight: 1,
     maxHeight: 1,
     borderWidth: 0,
     borderColor: colors.mischka,

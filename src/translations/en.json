@@ -71,10 +71,11 @@
   "confirm.topbar": "Information",
   "confirm.title": "Success!",
   "confirm.subtitle": "Thanks for signing into Yester.",
-  "confirm.label": "We have sent a code to this address",
-  "confirm.note": "Please confirm by entering the code we have sent:",
+  "confirm.label": "We have sent a code to",
+  "confirm.note": "Please enter the code below to confirm your account.",
   "confirm.submit": "Log in Now",
   "confirm.inputLabel": "Code",
+  "confirm.resendCode": "Didn’t receive the code? Send it again.",
   "login.loginAccount": "Login to your account",
   "login.forgotPassword": "Forgot your password?",
   "settings.title": "Settings",
@@ -96,5 +97,7 @@
   "reading.by": "By {author}",
   "reading.share": "Share",
   "language.title": "Language",
-  "notifications.title": "Notifications"
+  "notifications.title": "Notifications",
+  "terms.title": "Terms and Conditions",
+  "about.title": "About Yester"
 }

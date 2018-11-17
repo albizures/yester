@@ -13,7 +13,9 @@ const QuestionCard = (props) => {
   return (
     <View style={styles.card}>
       <View style={styles.container}>
-        <Image source={icons.emptyCard} style={{width: 340, height: 250}} />
+        <View style={styles.illustrationView}>
+          <Image source={icons.cardFriendship} />
+        </View>
         <View style={{flex: 1, position: 'absolute', paddingTop: 27}}>
           <Heading5 text={capitalize(data.age)} style={{textAlign: 'center'}} />
         </View>
@@ -77,5 +79,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingBottom: 30,
+  },
+  illustrationView: {
+    width: 340,
+    height: 250,
+    backgroundColor: colors.white,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 })

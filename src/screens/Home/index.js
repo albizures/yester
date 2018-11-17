@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, FlatList, Alert, Image, Dimensions } from 'react-native'
-
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
@@ -96,9 +95,7 @@ export default class Home extends Component {
   render () {
     const { isLoading, question } = this.state
     const topBarTitle = (
-      <View style={styles.topBarView}>
-        <Image source={icons.logoWhite} style={styles.topBarLogo} />
-      </View>
+      <Image source={icons.logoWhite} style={styles.topBarImage} />
     )
     const topBar = (
       <TopBar title={topBarTitle} />
@@ -122,15 +119,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: colors.athensGray,
   },
-  topBarLogo: {
+  topBarImage: {
     width: 100,
     height: 26,
-  },
-  topBarView: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingTop: 12,
   },
   view: {
     flex: 1,
