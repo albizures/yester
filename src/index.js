@@ -68,8 +68,6 @@ const SetupStack = createStackNavigator({
 
 const FeedStack = createStackNavigator({
   Home,
-  Writing,
-  Reading,
   ModalCard,
 }, {
   mode: 'modal',
@@ -138,6 +136,16 @@ const MainTab = createBottomTabNavigator({
   },
 })
 
+const AppStack = createStackNavigator({
+  MainTab,
+  Writing,
+  Reading,
+}, {
+  headerMode: 'none',
+  mode: 'modal',
+  initialRouteName: 'MainTab',
+})
+
 const AuthStack = createStackNavigator({
   Onboarding,
   Login,
@@ -152,7 +160,7 @@ const AuthStack = createStackNavigator({
 })
 
 const RootStack = createSwitchNavigator({
-  App: MainTab,
+  App: AppStack,
   Auth: AuthStack,
   AppLoading,
   Setup: SetupStack,
