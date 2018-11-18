@@ -35,20 +35,24 @@ class Tabs extends Component {
     const focused = this.state.routes.indexOf(scene.route) === this.state.index
     const title = scene.route.title
 
-    return <Title text={title} numberOfLines={1} style={{color: focused ? colors.governorBay : colors.mischka}} />
+    const customStyles = tabStyles[focused ? 'focused' : 'normal']
+
+    return <Title text={title} numberOfLines={1} style={customStyles} />
   }
 
   getTabBar = (props) => {
-    return <View style={styles.headerContainer}>
-      <TabBar
-        {...props}
-        scrollEnabled
-        pressOpacity={1}
-        renderLabel={this.renderLabel}
-        labelStyle={styles.label}
-        indicatorStyle={styles.indicator}
-        style={styles.header} />
-    </View>
+    return (
+      <View style={styles.headerContainer}>
+        <TabBar
+          {...props}
+          scrollEnabled
+          pressOpacity={1}
+          renderLabel={this.renderLabel}
+          labelStyle={styles.label}
+          indicatorStyle={styles.indicator}
+          style={styles.header} />
+      </View>
+    )
   }
 
   renderScene = ({ route }) => {
@@ -57,10 +61,6 @@ class Tabs extends Component {
       <Tab onPressItem={onPressItem} age={route.key} />
     )
   };
-
-  // renderPager = props => (
-  //   <PagerPan {...props} />
-  // )
 
   render () {
     return (
@@ -92,5 +92,15 @@ const styles = StyleSheet.create({
   },
   indicator: {
     backgroundColor: colors.governorBay,
+  },
+})
+
+const tabStyles = StyleSheet.create({
+  focused: {
+    color: colors.governorBay,
+    fontWeight: 'bold',
+  },
+  normal: {
+    color: colors.mischka,
   },
 })

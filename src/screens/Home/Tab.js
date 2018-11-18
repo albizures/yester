@@ -21,22 +21,35 @@ export default class Tab extends Component {
     stories: [],
   }
 
-  async componentDidMount () {
+  onEndReached = (info) => {
+    this.getStories()
+  }
+
+  getStories = async () => {
     const { age } = this.props
+    const { lastEvaluatedKey, stories, endReached } = this.state
+    if (endReached) {
+      return
+    }
     try {
       const { data } = await http.get('/v1/stories', {
-        ageId: age,
         age_id: age,
-        limit: 20,
+        lastEvaluatedKey,
       })
 
       this.setState({
-        stories: data.items,
+        stories: stories.concat(data.items),
+        lastEvaluatedKey: data.lastEvaluatedKey,
+        endReached: !data.lastEvaluatedKey,
       })
     } catch (error) {
       console.log(error)
+      console.log(error.response)
     }
+  }
 
+  async componentDidMount () {
+    await this.getStories()
     this.setState({ isLoading: false })
   }
 
@@ -44,7 +57,6 @@ export default class Tab extends Component {
     const { onPressItem } = this.props
     const { category, question_id: questionId, title: question, age_id: ageId, id: storyId, story, content } = item
     const newItem = { question, questionId, ageId, storyId, content }
-
     return (
       <StoryItem
         question={question}
@@ -65,7 +77,7 @@ export default class Tab extends Component {
       </View>
     ) : (
       <FlatList
-        horizontal
+        onEndReached={this.onEndReached}
         style={{flexGrow: 0}}
         data={stories}
         keyExtractor={indexToString}
