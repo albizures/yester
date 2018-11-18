@@ -27,8 +27,6 @@ export default class Profile extends Component {
   render () {
     const { name, email } = this.state
 
-    console.log('user', name)
-
     const topBar = (
       <TopBar title='profile.title' />
     )
