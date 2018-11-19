@@ -7,7 +7,7 @@ import { Title, Heading3, Description } from '../../components'
 import IconButton from '../../components/IconButton'
 
 const QuestionItem = (props) => {
-  const {data, onPress} = props
+  const { text, onPress } = props
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
@@ -18,7 +18,7 @@ const QuestionItem = (props) => {
         <View style={styles.bottomView}>
           <View style={styles.textView}>
             <Description keyName='home.questionItem.new' style={styles.newText} />
-            <Heading3 text={data.text} numberOfLines={2} style={{flexWrap: 'wrap'}} />
+            <Heading3 text={text} numberOfLines={2} style={{flexWrap: 'wrap'}} />
           </View>
           <View style={styles.iconView}>
             <IconButton>
@@ -26,7 +26,6 @@ const QuestionItem = (props) => {
             </IconButton>
           </View>
         </View>
-
       </View>
     </TouchableOpacity>
   )
@@ -36,6 +35,7 @@ const styles = StyleSheet.create({
   container: {
     height: 138,
     width: 340,
+    marginBottom: 20,
   },
   card: {
     flex: 1,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 })
 
 QuestionItem.propTypes = {
-  data: PropTypes.object.isRequired,
+  text: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
 }
 export default QuestionItem

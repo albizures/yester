@@ -10,6 +10,11 @@ export const strings = new LocalizedStrings({
 })
 
 export const translate = (keyName, data) => {
+  const text = strings[keyName]
+  if (!text) {
+    throw new Error(`'${keyName}' doesn't exist`)
+  }
+
   return suppplant(strings[keyName], data)
 }
 

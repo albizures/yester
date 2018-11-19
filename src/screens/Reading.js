@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, Share } from 'react-native'
 
 import { Heading1, Description, Title } from '../components'
 import Container from '../components/Container'
-import Divider from '../components/Divider'
 import TopBar from '../components/TopBar'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
@@ -99,7 +98,6 @@ class Reading extends Component {
           <Description keyName='reading.by' data={{ author }} />
           {/* TODO: make smaller this font and changes its color to gray */}
           <Description text={created} />
-          <Divider style={{marginVertical: 40, marginHorizontal: 0}} />
           <Text maxLength={1000} multiline style={styles.content}>
             {content}
           </Text>
@@ -117,6 +115,7 @@ const styles = StyleSheet.create({
   },
   content: {
     height: 400,
+    marginTop: 40,
     fontFamily: 'Karla-Regular',
     fontSize: 18,
     textAlignVertical: 'top',

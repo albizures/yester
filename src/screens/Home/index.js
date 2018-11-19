@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { TouchableHighlight, View, StyleSheet, FlatList, Alert, Image, Modal, Dimensions } from 'react-native'
+import { View, StyleSheet, FlatList, Alert, Image, Dimensions } from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
-import QuestionCard from './QuestionCard'
+import Tabs from './Tabs'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
 import { Title } from '../../components'
+
 import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -19,7 +20,6 @@ export default class Home extends Component {
 
   state = {
     isLoading: true,
-    modalVisible: false,
     item: {},
   }
 
@@ -27,15 +27,28 @@ export default class Home extends Component {
     this.setState({
       isLoading: true,
     })
+
     try {
-      const { data } = await http.get('https://my-json-server.typicode.com/gluix20/treasure/db')
-      this.setState({
-        isLoading: false,
-        ...data,
-      })
+      const { data: question } = await http.get('/v1/questions')
+      // const question = {
+      //   age_id: 'Age#31',
+      //   category: 'Familia',
+      //   description: 'Did you have any pets? ',
+      //   id: 'Question#0099',
+      //   sub_category: '',
+      // }
+
+      this.setState({ question })
     } catch (error) {
-      Alert.alert('Error', error.message)
+      console.log(error.response)
+      if (error.response.status !== 404) {
+        Alert.alert('Yester couldn\'t get today\'s question')
+      }
     }
+
+    this.setState({
+      isLoading: false,
+    })
   }
 
   renderChapter = ({item}) => (
@@ -56,65 +69,49 @@ export default class Home extends Component {
     <StoryItem data={item} onPress={() => this.onPressItem(item)} />
   )
 
+  onWriteTodayQuestion = () => {
+    const { question: item } = this.state
+    const { age_id: ageId, category, description: question, id: questionId, story_id: storyId } = item
+    this.onPressItem({ ageId, category, question, questionId, storyId })
+  }
+
   onPressItem = (item) => {
-    this.setModalVisible(true, item)
-  }
+    const { navigation } = this.props
+    const { ageId, category, question, questionId, storyId, content } = item
 
-  setModalVisible (visible, item) {
-    this.setState({modalVisible: visible, item: item})
-  }
+    if (content) {
+      return navigation.navigate('Reading', { storyId })
+    }
 
-  onPressWrite = () => {
-    this.setModalVisible(!this.state.modalVisible)
-    this.props.navigation.navigate('Writing')
-  }
-
-  onPressSkip = () => {
-    this.setModalVisible(!this.state.modalVisible)
+    navigation.navigate('ModalCard', {
+      ageId,
+      category,
+      question,
+      questionId,
+      storyId,
+    })
   }
 
   render () {
-    const { isLoading, item, ages, modalVisible } = this.state
+    const { isLoading, question } = this.state
     const topBarTitle = (
       <Image source={icons.logoWhite} style={styles.topBarImage} />
     )
-    const data = {text: 'Question of the day', category: 'Category', age: 'Chapter', story: 'This is where my story begins....'}
     const topBar = (
       <TopBar title={topBarTitle} />
     )
     return (
       <Container topBar={topBar} isLoading={isLoading} style={styles.container} >
-        {Boolean(item) && <Modal
-          animationType='fade'
-          transparent
-          visible={modalVisible}>
-          <View style={{flex: 1}}>
-            <TouchableHighlight style={styles.modalBackground} onPress={this.onPressSkip} >
-              <View />
-            </TouchableHighlight>
-            <View pointerEvents='box-none' style={styles.modalCardView}>
-              <QuestionCard
-                data={item}
-                onPressWrite={this.onPressWrite}
-                onPressSkip={this.onPressSkip} />
-            </View>
-          </View>
-        </Modal>}
         <View style={styles.view}>
-          <QuestionItem data={data} onPress={() => this.onPressItem(data)} />
-          <FlatList
-            data={ages}
-            renderItem={this.renderChapter}
-            keyExtractor={indexToString}
-            horizontal
-          />
+          { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
+          <Tabs onPressItem={this.onPressItem} />
         </View>
       </Container>
     )
   }
 }
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,19 +129,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: colors.athensGray,
     paddingTop: 20,
-  },
-  modalBackground: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(98, 97, 232, 0.85)',
-  },
-  modalCardView: {
-    position: 'absolute',
-    width,
-    height,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   chapterView: {
     width,
