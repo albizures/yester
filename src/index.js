@@ -1,3 +1,4 @@
+import './base64Polyfill'
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
@@ -22,6 +23,7 @@ import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
+import FBWebView from './screens/FBWebView'
 import Home from './screens/Home'
 import ModalCard from './screens/Home/ModalCard'
 import Writing from './screens/Writing'
@@ -153,6 +155,7 @@ const AuthStack = createStackNavigator({
   CreateAccount,
   Subscription,
   ConfirmAccount,
+  FBWebView,
 }, {
   headerMode: 'none',
   mode: 'modal',
