@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   noStoriesContainer: {
     flex: 1,
     paddingHorizontal: 20,
+    paddingTop: 20,
     alignContent: 'center',
   },
   loading: {
