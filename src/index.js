@@ -1,3 +1,4 @@
+import './base64Polyfill'
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
@@ -22,7 +23,9 @@ import SignUp from './screens/SignUp'
 import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
+import FBWebView from './screens/FBWebView'
 import Home from './screens/Home'
+import ModalCard from './screens/Home/ModalCard'
 import Writing from './screens/Writing'
 import Reading from './screens/Reading'
 import Profile from './screens/Profile'
@@ -67,8 +70,7 @@ const SetupStack = createStackNavigator({
 
 const FeedStack = createStackNavigator({
   Home,
-  Writing,
-  Reading,
+  ModalCard,
 }, {
   mode: 'modal',
   headerMode: 'none',
@@ -88,7 +90,7 @@ const SettingsStack = createStackNavigator({
 })
 
 const MainTab = createBottomTabNavigator({
-  myStory: {
+  MyStory: {
     screen: FeedStack,
     navigationOptions: () => ({
       title: translate('home.bottomBar.myStory'),
@@ -98,7 +100,7 @@ const MainTab = createBottomTabNavigator({
       }),
     }),
   },
-  profile: {
+  Profile: {
     screen: Profile,
     navigationOptions: () => ({
       title: translate('home.bottomBar.profile'),
@@ -108,7 +110,7 @@ const MainTab = createBottomTabNavigator({
       }),
     }),
   },
-  settings: {
+  Settings: {
     screen: SettingsStack,
     navigationOptions: () => ({
       title: translate('home.bottomBar.settings'),
@@ -121,7 +123,7 @@ const MainTab = createBottomTabNavigator({
 }, {
   animationEnabled: true,
   swipeEnabled: true,
-  initialRouteName: 'myStory',
+  initialRouteName: 'MyStory',
   headerMode: 'none',
   tabBarOptions: {
     activeTintColor: colors.white,
@@ -136,6 +138,16 @@ const MainTab = createBottomTabNavigator({
   },
 })
 
+const AppStack = createStackNavigator({
+  MainTab,
+  Writing,
+  Reading,
+}, {
+  headerMode: 'none',
+  mode: 'modal',
+  initialRouteName: 'MainTab',
+})
+
 const AuthStack = createStackNavigator({
   Onboarding,
   Login,
@@ -143,6 +155,7 @@ const AuthStack = createStackNavigator({
   CreateAccount,
   Subscription,
   ConfirmAccount,
+  FBWebView,
 }, {
   headerMode: 'none',
   mode: 'modal',
@@ -150,7 +163,7 @@ const AuthStack = createStackNavigator({
 })
 
 const RootStack = createSwitchNavigator({
-  App: MainTab,
+  App: AppStack,
   Auth: AuthStack,
   AppLoading,
   Setup: SetupStack,
@@ -176,11 +189,12 @@ export default class App extends Component {
         ...agesObj,
         [age.id]: age,
       }), {}),
+      agesList: ages,
     })
   }
 
   render () {
-    const { user, ages } = this.state
+    const { user, ages, agesList } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
       user,
@@ -188,6 +202,7 @@ export default class App extends Component {
     const agesContextValue = {
       updateAges: this.updateAges,
       ages,
+      agesList,
     }
 
     return (

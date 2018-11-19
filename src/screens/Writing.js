@@ -1,62 +1,47 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, TextInput, StyleSheet, KeyboardAvoidingView, Alert } from 'react-native'
+
 import { Description, Title } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
-import { getUser } from '../utils/session'
+import withUser, { shapeContextUser } from '../components/withUser'
+
 import colors from '../utils/colors'
 import http from '../utils/http'
 
-export default class Writing extends Component {
+class Writing extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   state = {
-    title: '',
+    title: this.props.navigation.getParam('question'),
     content: '',
     // change these state to props
-    questionId: 'Question#0004',
-    ageId: 'Age#01',
-    firstName: '',
-    lastName: '',
-  }
-
-  async componentDidMount () {
-    const user = await getUser()
-
-    this.setState({
-      firstName: user.attributes.given_name,
-      lastName: user.attributes.family_name,
-    })
   }
 
   onSave = async () => {
     const { navigation } = this.props
-    const { questionId, ageId, title, content } = this.state
+    const { title, content } = this.state
+    const storyId = navigation.getParam('storyId')
+
     try {
-      const { status, data } = await http.post('/v1/stories', {
-        'age_id': ageId,
-        'question_id': questionId,
+      const { data } = await http.put('/v1/stories/' + encodeURIComponent(storyId), {
         'title': title,
         'content': content,
       })
 
-      console.log(data)
-
-      if (status === 201) {
-        return navigation.replace('Reading', {
-          storyId: data.id,
-        })
-      }
+      return navigation.replace('Reading', {
+        storyId: data.id,
+      })
     } catch (error) {
-      // TODO add a custom response for validation type eg."string.min", ""StoryAlreadyExists""
+      // TODO add a custom response for validation type eg."string.min", "StoryAlreadyExists"
       console.log(error)
       console.log(error.response)
+      Alert.alert('Something bad happpend, try again')
     }
-
-    Alert.alert('Something bad happpend, try again')
   }
 
   onBack = () => {
@@ -71,7 +56,9 @@ export default class Writing extends Component {
   }
 
   render () {
-    const { firstName, lastName, content, title } = this.state
+    const { name } = this.props.contextUser.user
+    const { content, title } = this.state
+
     const action = (
       <Title
         keyName='writing.action'
@@ -88,8 +75,14 @@ export default class Writing extends Component {
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={{paddingHorizontal: 29, paddingTop: 20}}>
-            <TextInput value={title} onChangeText={value => this.onChange('title', value)} style={styles.title} placeholder='Name your story...' />
-            <Description keyName='writing.by' data={{author: `${firstName} ${lastName}`}} />
+            <TextInput
+              multiline
+              value={title}
+              onChangeText={value => this.onChange('title', value)}
+              style={styles.title}
+              placeholder='Name your story...'
+            />
+            <Description keyName='writing.by' data={{author: name}} />
             <TextInput
               value={content}
               placeholder='Your story...'
@@ -104,6 +97,8 @@ export default class Writing extends Component {
     )
   }
 }
+
+export default withUser(Writing)
 
 const styles = StyleSheet.create({
   title: {
