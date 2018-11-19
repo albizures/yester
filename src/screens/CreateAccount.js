@@ -1,12 +1,10 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, AsyncStorage, Alert, Image, Modal, WebView, Dimensions } from 'react-native'
-import { FACEBOOK_URL_LOGIN } from 'react-native-dotenv'
+import { View, Text, StyleSheet, AsyncStorage, Alert, Image, Dimensions } from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-import { loginWithFBWebView } from '../utils/session'
 
 import Button from '../components/Button'
 import Divider from '../components/Divider'
@@ -41,23 +39,7 @@ class CreateAccount extends Component {
   }
 
   onFBWebView = async () => {
-    this.setState({ fbWebViewVisible: true })
-  }
-
-  onFBWebViewStateChange = async (event) => {
-    console.log('onFBWebViewStateChange', event.url)
-    if (event.url.includes('https://www.yester.app')) {
-      if (event.url.includes('access_token=')) {
-        this.setState({ fbWebViewVisible: false, isLoading: true })
-        try {
-          await loginWithFBWebView(event.url)
-        } catch (error) {
-          console.log('onFBWebViewStateChange', error)
-          Alert.alert('Error')
-        }
-        this.props.navigation.navigate('AppLoading')
-      }
-    }
+    this.props.navigation.navigate('FBWebView')
   }
 
   onSignIn = () => {
@@ -69,22 +51,9 @@ class CreateAccount extends Component {
   }
 
   render () {
-    const { fbWebViewVisible, isLoading } = this.state
+    const { isLoading } = this.state
     return (
       <Container isLoading={isLoading}>
-        <Modal
-          animationType='fade'
-          transparent
-          visible={fbWebViewVisible} >
-          { fbWebViewVisible && (
-            <View style={styles.fbWebViewContainer}>
-              <WebView
-                style={styles.webview}
-                source={{uri: FACEBOOK_URL_LOGIN}}
-                onNavigationStateChange={this.onFBWebViewStateChange} />
-            </View>
-          )}
-        </Modal>
         <View style={styles.container}>
 
           <View style={styles.topFlex} >
@@ -157,15 +126,6 @@ const styles = StyleSheet.create({
   },
   accentColor: {
     color: colors.governorBay,
-  },
-  fbWebViewContainer: {
-    width,
-    height,
-    paddingTop: 50,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  webview: {
-    flex: 1,
   },
 })
 
