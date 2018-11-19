@@ -19,9 +19,14 @@ const getBackIcon = (modal, transparent) => {
 
 const TopBar = (props) => {
   const { title, onBack, modal, action, transparent } = props
-  let titleElement = title
-  if (typeof title === 'string') {
-    titleElement = <Title keyName={title} style={styles.text} />
+  const titleElement = typeof title === 'string' ? (
+    <View style={styles.titleView} >
+      <Title keyName={title} style={styles.text} />
+    </View>
+  ) : title
+
+  const topBarHeight = {
+    height: titleElement != null ? titleElement.props.style.height : 51,
   }
 
   const backIcon = getBackIcon(modal, transparent)
@@ -32,25 +37,25 @@ const TopBar = (props) => {
   )
   return (
     <SafeAreaView style={safeAreaStyles}>
-      {!transparent ? (
-        <View style={[styles.backgrounContainer]}>
-          <Image source={icons.header} style={styles.backgrounImage} />
-        </View>
-      ) : null
-      }
-      {onBack ? (
-        <TouchableOpacity onPress={onBack} style={styles.leftFlex}>
-          <Image source={backIcon} style={styles.backIcon} />
-        </TouchableOpacity>
-      ) : null}
-      <View style={styles.middleFlex}>
+      <View style={styles.container}>
+        {!transparent ? (
+          <View style={[styles.backgrounContainer, topBarHeight]} >
+            <Image source={icons.header} style={styles.backgrounImage} />
+          </View>
+        ) : null
+        }
+        {onBack ? (
+          <TouchableOpacity onPress={onBack} style={styles.leftView}>
+            <Image source={backIcon} style={styles.backIcon} />
+          </TouchableOpacity>
+        ) : null}
         {titleElement}
+        {action && (
+          <View style={styles.rightView}>
+            {action}
+          </View>
+        )}
       </View>
-      {action && (
-        <View style={styles.rightFlex}>
-          {action}
-        </View>
-      )}
     </SafeAreaView>
   )
 }
@@ -66,29 +71,31 @@ TopBar.propTypes = {
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   safeArea: {
-    width,
-    height: 61,
     backgroundColor: colors.haiti,
   },
-  leftFlex: {
+  container: {
+    width,
+    minHeight: 51,
+  },
+  leftView: {
     position: 'absolute',
     zIndex: 1,
     width: 50,
-    minHeight: 61,
+    height: 51,
     alignSelf: 'flex-start',
     alignItems: 'flex-start',
     justifyContent: 'center',
     paddingLeft: 10,
   },
-  middleFlex: {
+  titleView: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rightFlex: {
+  rightView: {
     position: 'absolute',
-    width: 70,
-    minHeight: 61,
+    width: 110,
+    minHeight: 51,
     alignSelf: 'flex-end',
     alignItems: 'flex-end',
     justifyContent: 'center',
@@ -113,7 +120,7 @@ const styles = StyleSheet.create({
   },
   backgrounImage: {
     width: width,
-    height: 61,
+    height: 51,
   },
 })
 
