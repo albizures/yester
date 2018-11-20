@@ -61,8 +61,8 @@ export default class Onboarding extends Component {
         </View>
         <View pointerEvents='box-none' style={styles.bottomFlex}>
           <View pointerEvents='box-none' style={styles.buttonsView}>
-            <Heading4 text='Skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
-            <Heading4 text='Continue' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
+            <Heading4 keyName='onboarding.skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
+            <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
           </View>
         </View>
 

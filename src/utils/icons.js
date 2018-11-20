@@ -16,7 +16,7 @@ const icons = {
   confirmation: require('../assets/backgrounds/confirmation.png'),
   subscription: require('../assets/backgrounds/subscription.png'),
   logoWhite: require('../assets/logos/yester-logo-white.png'),
-  header: require('../assets/backgrounds/yester-headers-01.png'),
+  header: require('../assets/backgrounds/header.png'),
   profileMan: require('../assets/images/profile/man.png'),
   profileWoman: require('../assets/images/profile/woman.png'),
   ageAdult: require('../assets/images/ages/adult.png'),
