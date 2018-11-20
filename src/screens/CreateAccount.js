@@ -33,7 +33,7 @@ class CreateAccount extends Component {
       AsyncStorage.setItem('userToken', sessionToken)
       navigation.navigate('App')
     } catch (error) {
-      console.log('Login', error)
+      console.log('FB Create Account:', error)
       Alert.alert(error.message)
     }
   }
