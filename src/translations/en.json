@@ -80,6 +80,8 @@
   "login.forgotPassword": "Forgot your password?",
   "settings.title": "Settings",
   "profile.title": "My Profile",
+  "profile.email": "Email",
+  "profile.location": "Location",
   "home.title": "yester",
   "home.questionItem.new": "NEW!",
   "home.bottomBar.myStory": "My Story",

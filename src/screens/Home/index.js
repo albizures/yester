@@ -95,7 +95,9 @@ export default class Home extends Component {
   render () {
     const { isLoading, question } = this.state
     const topBarTitle = (
-      <Image source={icons.logoWhite} style={styles.topBarImage} />
+      <View style={{height: 51, alignItems: 'center', justifyContent: 'center'}}>
+        <Image source={icons.logoWhite} style={styles.topBarImage} />
+      </View>
     )
     const topBar = (
       <TopBar title={topBarTitle} />

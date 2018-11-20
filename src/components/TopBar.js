@@ -19,9 +19,15 @@ const getBackIcon = (modal, transparent) => {
 
 const TopBar = (props) => {
   const { title, onBack, modal, action, transparent } = props
-  const titleElemet = typeof title === 'string' ? (
-    <Title keyName={title} style={styles.text} />
+  const titleElement = typeof title === 'string' ? (
+    <View style={styles.titleView} >
+      <Title keyName={title} style={styles.text} />
+    </View>
   ) : title
+
+  const topBarHeight = {
+    height: titleElement != null ? titleElement.props.style.height : 51,
+  }
 
   const backIcon = getBackIcon(modal, transparent)
 
@@ -33,19 +39,19 @@ const TopBar = (props) => {
     <SafeAreaView style={safeAreaStyles}>
       <View style={styles.container}>
         {!transparent ? (
-          <Image source={icons.header} style={styles.backgrounImage} />
+          <View style={[styles.backgrounContainer, topBarHeight]} >
+            <Image source={icons.header} style={styles.backgrounImage} />
+          </View>
         ) : null
         }
         {onBack ? (
-          <TouchableOpacity onPress={onBack} style={styles.leftFlex}>
+          <TouchableOpacity onPress={onBack} style={styles.leftView}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
         ) : null}
-        <View style={styles.middleFlex}>
-          {titleElemet}
-        </View>
+        {titleElement}
         {action && (
-          <View style={styles.rightFlex}>
+          <View style={styles.rightView}>
             {action}
           </View>
         )}
@@ -69,9 +75,9 @@ const styles = StyleSheet.create({
   },
   container: {
     width,
-    height: 51,
+    minHeight: 51,
   },
-  leftFlex: {
+  leftView: {
     position: 'absolute',
     zIndex: 1,
     width: 50,
@@ -81,14 +87,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingLeft: 10,
   },
-  middleFlex: {
+  titleView: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  rightFlex: {
+  rightView: {
     position: 'absolute',
-    width: 70,
+    width: 110,
     minHeight: 51,
     alignSelf: 'flex-end',
     alignItems: 'flex-end',
@@ -107,12 +113,14 @@ const styles = StyleSheet.create({
   containerTransparent: {
     backgroundColor: 'transparent',
   },
-  backgrounImage: {
+  backgrounContainer: {
     position: 'absolute',
     zIndex: 0,
+    justifyContent: 'flex-end',
+  },
+  backgrounImage: {
     width: width,
     height: 51,
-    justifyContent: 'flex-end',
   },
 })
 
