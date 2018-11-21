@@ -40,6 +40,8 @@ import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
 import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
 
+require('moment/locale/es.js')
+
 debugFactory.enable('yester:*')
 
 Amplify.configure({
