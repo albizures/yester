@@ -89,7 +89,7 @@ class Reading extends Component {
         action={action} />
     )
     return (
-      <Container isLoading={isLoading} topBar={topBar}>
+      <Container scroll isLoading={isLoading} topBar={topBar}>
         <View style={styles.container}>
           {/* TODO: add logo */}
           <Description text={age.toUpperCase()} />
