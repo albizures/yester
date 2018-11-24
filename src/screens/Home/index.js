@@ -33,7 +33,7 @@ export default class Home extends Component {
       // const question = {
       //   age_id: 'Age#31',
       //   category: 'Familia',
-      //   description: 'Did you have any pets? ',
+      //   description: 'What were your favorite hobbies or activities?',
       //   id: 'Question#0099',
       //   sub_category: '',
       // }
@@ -127,8 +127,6 @@ const styles = StyleSheet.create({
   },
   view: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     backgroundColor: colors.athensGray,
     paddingTop: 20,
   },
