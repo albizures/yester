@@ -36,4 +36,18 @@ const icons = {
   cardWork: require('../assets/illustrations/cards/work.png'),
 }
 
+export const ages = {
+  'Age#01': icons.ageFirstDays,
+  'Age#11': icons.ageChildhood,
+  'Age#21': icons.ageTeenage,
+  'Age#31': icons.ageChildTeen,
+  'Age#41': icons.ageYoungAdult,
+  'Age#51': icons.ageAdult,
+  'Age#61': icons.ageElderly,
+}
+
+export const getAgeIcon = (id) => {
+  return ages[id] || icons.ageYoungAdult
+}
+
 export default icons

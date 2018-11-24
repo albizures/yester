@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet, FlatList } from 'react-native'
 
 import Loading from '../../components/Loading'
-import { Heading5 } from '../../components'
+import { Heading5, Heading4 } from '../../components'
 import StoryItem from './StoryItem'
 
 import colors from '../../utils/colors'
@@ -72,8 +72,8 @@ export default class Tab extends Component {
     const { isLoading, stories } = this.state
     const content = stories.length === 0 ? (
       <View style={styles.noStoriesContainer}>
-        <Heading5 keyName={'home.empty.tab.title'} />
-        <Heading5 keyName={'home.empty.tab.subtitle'} />
+        <Heading4 style={[styles.message, styles.highlightMessage]} keyName={'home.empty.tab.title'} />
+        <Heading5 style={styles.message} keyName={'home.empty.tab.subtitle'} />
       </View>
     ) : (
       <FlatList
@@ -96,10 +96,17 @@ export default class Tab extends Component {
 }
 
 const styles = StyleSheet.create({
+  highlightMessage: {
+    fontWeight: 'bold',
+    color: colors.governorBay,
+  },
+  message: {
+    textAlign: 'center',
+  },
   noStoriesContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 20,
+    paddingTop: 40,
     alignContent: 'center',
   },
   loading: {

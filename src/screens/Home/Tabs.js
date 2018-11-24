@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View, Image } from 'react-native'
 import { TabView, TabBar } from 'react-native-tab-view'
 
 import { Title } from '../../components'
 import Tab from './Tab'
 import withAges, { shapeContextAges } from '../../components/withAges'
 import colors from '../../utils/colors'
+import { getAgeIcon } from '../../utils/icons'
 
 const { width } = Dimensions.get('window')
 
@@ -33,11 +34,14 @@ class Tabs extends Component {
 
   renderLabel = (scene) => {
     const focused = this.state.routes.indexOf(scene.route) === this.state.index
-    const title = scene.route.title
+    const { title, key } = scene.route
 
     const customStyles = tabStyles[focused ? 'focused' : 'normal']
 
-    return <Title text={title} numberOfLines={1} style={customStyles} />
+    return <View style={styles.tabTitle}>
+      {focused && <Image style={styles.ageIcon} source={getAgeIcon(key)} />}
+      <Title text={title} numberOfLines={1} style={customStyles} />
+    </View>
   }
 
   getTabBar = (props) => {
@@ -79,6 +83,14 @@ class Tabs extends Component {
 export default withAges(Tabs)
 
 const styles = StyleSheet.create({
+  tabTitle: {
+    flexDirection: 'row',
+  },
+  ageIcon: {
+    width: 32,
+    height: 32,
+    marginRight: 5,
+  },
   headerContainer: {
     paddingHorizontal: 20,
     overflow: 'visible',
