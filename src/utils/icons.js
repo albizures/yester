@@ -8,6 +8,7 @@ const icons = {
   emptyCard: require('../assets/images/tmp-emptyCard.png'),
   yester: require('../assets/images/tmp-yester.png'),
   feather: require('../assets/images/yester-feather.png'),
+  flatFeather: require('../assets/feather.png'),
   check: require('../assets/chevron/check.png'),
   pencil: require('../assets/pencil-white.png'),
   onboarding1: require('../assets/onboarding/onboarding1.png'),
