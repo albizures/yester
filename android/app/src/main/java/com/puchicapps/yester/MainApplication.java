@@ -3,7 +3,6 @@ package com.puchicapps.yester;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.dooboolab.RNIap.RNIapPackage;
 import com.reactlibrary.RNPurchasesPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.amazonaws.RNAWSCognitoPackage;
@@ -37,7 +36,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNIapPackage(),
             new RNPurchasesPackage(),
             new FBSDKPackage(),
             new RNAWSCognitoPackage(),
