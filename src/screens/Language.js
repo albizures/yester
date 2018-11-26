@@ -50,17 +50,18 @@ class Language extends Component {
   }
 
   onPress = async (locale) => {
-    const { updateUser } = this.props.contextUser
+    const { navigation } = this.props
     this.setState({ isLoading: true })
     try {
       await updateUserAttribute('locale', locale)
-      await updateUser()
+      navigation.navigate('AppLoading', {
+        lastScreen: 'Language',
+      })
     } catch (error) {
       Alert.alert('Error updating the language')
       console.log(error, error.message)
+      this.setState({ isLoading: false })
     }
-
-    this.setState({ isLoading: false })
   }
 
   render () {

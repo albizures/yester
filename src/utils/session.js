@@ -30,6 +30,8 @@ const cognitoAuthParams = {
   Storage,
 }
 
+Auth.configure({ storage: Storage })
+
 const cognitoAuthClient = new CognitoAuth(cognitoAuthParams)
 
 const debug = debugFactory('yester:session')
