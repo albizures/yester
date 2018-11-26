@@ -123,7 +123,6 @@ export const isSubscribed = async () => {
   if (user.attributes['custom:subscription_status'] !== '1') {
     return false
   }
-
   return true
 }
 

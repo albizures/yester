@@ -62,9 +62,11 @@ class AppLoading extends Component {
           navigation.navigate('App')
         } else {
           navigation.navigate('Setup')
+          return
         }
       } else {
         navigation.navigate('Subscription')
+        return
       }
       const lastScreen = navigation.getParam('lastScreen', 'App')
       navigation.navigate(lastScreen)
