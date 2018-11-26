@@ -8,6 +8,7 @@ const icons = {
   emptyCard: require('../assets/images/tmp-emptyCard.png'),
   yester: require('../assets/images/tmp-yester.png'),
   feather: require('../assets/images/yester-feather.png'),
+  flatFeather: require('../assets/feather.png'),
   check: require('../assets/chevron/check.png'),
   pencil: require('../assets/pencil-white.png'),
   onboarding1: require('../assets/onboarding/onboarding1.png'),
@@ -34,6 +35,20 @@ const icons = {
   cardLove: require('../assets/illustrations/cards/love.png'),
   cardReligion: require('../assets/illustrations/cards/religion.png'),
   cardWork: require('../assets/illustrations/cards/work.png'),
+}
+
+export const ages = {
+  'Age#01': icons.ageFirstDays,
+  'Age#11': icons.ageChildhood,
+  'Age#21': icons.ageTeenage,
+  'Age#31': icons.ageChildTeen,
+  'Age#41': icons.ageYoungAdult,
+  'Age#51': icons.ageAdult,
+  'Age#61': icons.ageElderly,
+}
+
+export const getAgeIcon = (id) => {
+  return ages[id] || icons.ageYoungAdult
 }
 
 export default icons

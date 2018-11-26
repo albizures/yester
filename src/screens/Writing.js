@@ -18,8 +18,7 @@ class Writing extends Component {
 
   state = {
     title: this.props.navigation.getParam('question'),
-    content: '',
-    // change these state to props
+    content: this.props.navigation.getParam('content', ''),
   }
 
   onSave = async () => {

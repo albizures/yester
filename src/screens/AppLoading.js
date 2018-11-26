@@ -60,8 +60,8 @@ class AppLoading extends Component {
       if (!(await isSetupFinished())) {
         return navigation.navigate('Setup')
       }
-
-      navigation.navigate('App')
+      const lastScreen = navigation.getParam('lastScreen', 'App')
+      navigation.navigate(lastScreen)
     } catch (error) {
       navigation.navigate('Auth')
       debugError(error)

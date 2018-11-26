@@ -13,11 +13,13 @@ const QuestionItem = (props) => {
     <TouchableOpacity onPress={onPress} style={styles.container} >
       <View style={styles.card}>
         <View style={styles.topView}>
-          <Title text={'Your topic of the day!'} style={styles.dayTopicText} />
+          <Title style={styles.dayTopicText} text='Your topic of the day!' />
+        </View>
+        <View style={styles.newTextContainer}>
+          <Description keyName='home.questionItem.new' style={styles.newText} />
         </View>
         <View style={styles.bottomView}>
-          <View style={styles.textView}>
-            <Description keyName='home.questionItem.new' style={styles.newText} />
+          <View style={{ flex: 1 }}>
             <Heading3 text={text} numberOfLines={2} style={{flexWrap: 'wrap'}} />
           </View>
           <View style={styles.iconView}>
@@ -33,12 +35,10 @@ const QuestionItem = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 138,
-    width: 340,
     marginBottom: 20,
+    marginHorizontal: 20,
   },
   card: {
-    flex: 1,
     backgroundColor: colors.white,
     borderRadius: 10,
     borderWidth: 0.5,
@@ -51,39 +51,33 @@ const styles = StyleSheet.create({
     },
   },
   topView: {
-    height: 58,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 16,
     backgroundColor: colors.royalBlue,
-    paddingLeft: 20,
   },
   bottomView: {
-    flex: 1,
     flexDirection: 'row',
-    paddingLeft: 20,
-  },
-  textView: {
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    padding: 10,
+    paddingTop: 5,
+    alignItems: 'stretch',
   },
   iconView: {
-    width: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 15,
+    marginLeft: 10,
+    width: 40,
   },
   icon: {
     width: 17,
     height: 17,
   },
+  newTextContainer: {
+    marginTop: 10,
+    marginHorizontal: 10,
+  },
   newText: {
     color: colors.royalBlue,
     fontWeight: 'bold',
-    marginTop: 10,
-    marginBottom: 7,
   },
   dayTopicText: {
     color: colors.white,
