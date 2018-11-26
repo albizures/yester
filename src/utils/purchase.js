@@ -1,77 +1,31 @@
 import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
-import RNIap from 'react-native-iap'
-import { Alert, Platform } from 'react-native'
+import { Alert } from 'react-native'
 import { getUser } from './session'
 
 export const setupRCPurchases = async () => {
   try {
     const user = await getUser()
-    Purchases.setup(REVENUECAT_API_KEY, user.attributes.email)
+    console.log('User Id', user)
+    Purchases.setup(REVENUECAT_API_KEY, user.username)
   } catch (error) {
     console.log('setupRCPurchases', error)
   }
 }
 
-export const getRCEntitlement = async () => {
+export const getEntitlements = async () => {
   try {
     const { pro } = await Purchases.getEntitlements()
-    console.log('entitlement', pro)
+    console.log('Entitlement:', pro)
     return pro
   } catch (error) {
-    console.log('getRCEntitlements', error)
-  }
-  // later make a purchase
-  // Purchases.makePurchase(entitlements.pro.monthly.identifier)
-}
-
-export const initConnection = async () => {
-  try {
-    const result = await RNIap.initConnection()
-    console.log('result', result)
-    return result
-  } catch (error) {
-    console.warn(error.code, error.message)
-  }
-}
-
-export const getSubscriptions = async () => {
-  try {
-    await initConnection()
-    const { monthly, yearly } = await getRCEntitlement()
-    const itemSubs = Platform.select({
-      ios: [
-        monthly.identifier,
-        yearly.identifier,
-      ],
-      android: [
-        monthly.identifier,
-        yearly.identifier,
-      ],
-    })
-    const subscriptions = await RNIap.getSubscriptions(itemSubs)
-    return subscriptions
-  } catch (error) {
-    console.warn(error)
+    console.log('getEntitlements', error)
   }
 }
 
 export const buySubscription = async (productId) => {
   try {
-    console.log('buySubscribeItem: ' + productId)
-    const purchase = await RNIap.buySubscription(productId)
-    console.info(purchase)
-    return purchase
-  } catch (err) {
-    console.warn(err.code, err.message)
-    Alert.alert(err.message)
-  }
-}
-
-export const getPurchaseHistory = async () => {
-  try {
-    const purchaseHistory = await RNIap.getPurchaseHistory()
-    return purchaseHistory
+    Purchases.makePurchase(productId)
   } catch (err) {
     console.warn(err.code, err.message)
     Alert.alert(err.message)

@@ -8,7 +8,7 @@ import { Title, Description, Heading5 } from '../components'
 import Button, {types} from '../components/Button'
 import Divider from '../components/Divider'
 import { isSetupFinished, saveUserSubscriptionStatus } from '../utils/session'
-import { getSubscriptions, buySubscription, setupRCPurchases } from '../utils/purchase'
+import { getEntitlements, buySubscription, setupRCPurchases } from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
@@ -20,24 +20,17 @@ class Subscription extends Component {
   }
 
   state = {
-    receipt: '',
-    subscriptionState: '1',
+    subscriptionStatus: '1',
   }
 
   onStartTrial = async () => {
     const { navigation } = this.props
-    const { subscriptionState } = this.state
-    const subscriptions = await getSubscriptions()
-    console.log('sub', subscriptions)
-    /*
-    const purchase = await buySubscription(subscriptions[0].productId)
-    this.setState({
-      receipt: purchase.transactionReceipt,
-    })
-    console.log('receipt', purchase.transactionReceipt)
-    */
+    const { subscriptionStatus } = this.state
+    const { monthly } = await getEntitlements()
 
-    // await saveUserSubscriptionStatus(subscriptionState)
+    await buySubscription(monthly.identifier)
+    await saveUserSubscriptionStatus(subscriptionStatus)
+
     navigation.navigate('AppLoading')
   }
 
