@@ -182,4 +182,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     backgroundColor: 'transparent',
   },
+  nameText: {
+    marginTop: 10,
+  }
 })

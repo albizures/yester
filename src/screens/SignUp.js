@@ -44,7 +44,7 @@ export default class SignUp extends Component {
 
       this.props.navigation.navigate('ConfirmAccount', { user, email, password })
     } catch (error) {
-      console.log('Login', error)
+      console.log('Create Account: ', error)
       Alert.alert(error.message)
     }
   }
