@@ -86,7 +86,7 @@ class Writing extends Component {
             <TextInput
               value={content}
               placeholder='Your story...'
-              maxLength={1000}
+              maxLength={1024}
               multiline
               onChangeText={value => this.onChange('content', value)}
               style={styles.textArea}
