@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Text, StyleSheet, Share } from 'react-native'
 
-import { Heading1, Description, Title } from '../components'
+import { Heading2, Description, Title } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import withUser, { shapeContextUser } from '../components/withUser'
@@ -93,9 +93,8 @@ class Reading extends Component {
         <View style={styles.container}>
           {/* TODO: add logo */}
           <Description text={age.toUpperCase()} />
-          <Heading1 text={title} style={{color: colors.governorBay, marginTop: 40}} />
-          {/* TODO: make smaller this font */}
-          <Description keyName='reading.by' data={{ author }} />
+          <Heading2 text={title} style={{color: colors.governorBay, marginTop: 40}} />
+          <Description keyName='reading.by' data={{ author }} style={styles.nameText} />
           {/* TODO: make smaller this font and changes its color to gray */}
           <Description text={created} />
           <Text maxLength={1000} multiline style={styles.content}>
@@ -122,4 +121,7 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     backgroundColor: 'transparent',
   },
+  nameText: {
+    marginTop: 10,
+  }
 })
