@@ -38,6 +38,10 @@ class Login extends Component {
     }
   }
 
+  onFBWebView = async () => {
+    this.props.navigation.navigate('FBWebView')
+  }
+
   onLogin = async () => {
     const { navigation } = this.props
     const { email, password } = this.state
@@ -72,7 +76,7 @@ class Login extends Component {
           <View style={styles.view}>
 
             <View style={styles.topFlex}>
-              <Button title='createAccount.continue' icon={icons.fb} onPress={this.onFBLogin} />
+              <Button title='createAccount.continue' icon={icons.fb} onPress={this.onFBWebView} />
               <Description keyName='createAccount.recommendation' style={styles.recommendationText} />
               <TextDivider>
                 <Heading3 keyName='createAccount.or' />

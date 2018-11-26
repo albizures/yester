@@ -1,11 +1,9 @@
 import React from 'react'
-import { View, TouchableHighlight, Image, Platform, StyleSheet } from 'react-native'
+import { SafeAreaView, View, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
-
+import icons from '../utils/icons'
 import colors from '../utils/colors'
-import Translate from './Translate'
-
-const top = Platform.OS === 'ios' ? 20 : 0
+import { Title } from './'
 
 const getBackIcon = (modal, transparent) => {
   if (transparent) {
@@ -13,7 +11,6 @@ const getBackIcon = (modal, transparent) => {
       ? require('../assets/chevron/chevron-down.png')
       : require('../assets/arrows/arrow-left.png')
   }
-
   return modal
     // TODO add the white down chevro asset
     ? require('../assets/chevron/chevron-down.png')
@@ -22,30 +19,44 @@ const getBackIcon = (modal, transparent) => {
 
 const TopBar = (props) => {
   const { title, onBack, modal, action, transparent } = props
-  const titleElemet = typeof title === 'string' ? (
-    <Translate style={styles.text} keyName={title} />
+  const titleElement = typeof title === 'string' ? (
+    <View style={styles.titleView} >
+      <Title keyName={title} style={styles.text} />
+    </View>
   ) : title
+
+  const topBarHeight = {
+    height: titleElement != null ? titleElement.props.style.height : 51,
+  }
 
   const backIcon = getBackIcon(modal, transparent)
 
-  const containerStyles = [].concat(
-    styles.container,
+  const safeAreaStyles = [].concat(
+    styles.safeArea,
     transparent ? [styles.containerTransparent] : []
   )
   return (
-    <View style={containerStyles}>
-      {onBack ? (
-        <TouchableHighlight onPress={onBack} style={styles.containerBack}>
-          <Image source={backIcon} style={styles.back} />
-        </TouchableHighlight>
-      ) : null}
-      {titleElemet}
-      {action && (
-        <View style={styles.action}>
-          {action}
-        </View>
-      )}
-    </View>
+    <SafeAreaView style={safeAreaStyles}>
+      <View style={styles.container}>
+        {!transparent ? (
+          <View style={[styles.backgrounContainer, topBarHeight]} >
+            <Image source={icons.header} style={styles.backgrounImage} />
+          </View>
+        ) : null
+        }
+        {onBack ? (
+          <TouchableOpacity onPress={onBack} style={styles.leftView}>
+            <Image source={backIcon} style={styles.backIcon} />
+          </TouchableOpacity>
+        ) : null}
+        {titleElement}
+        {action && (
+          <View style={styles.rightView}>
+            {action}
+          </View>
+        )}
+      </View>
+    </SafeAreaView>
   )
 }
 
@@ -57,44 +68,59 @@ TopBar.propTypes = {
   transparent: PropTypes.bool,
 }
 
+const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    minHeight: 60 + top,
-    paddingTop: top,
-    flexDirection: 'row',
+  safeArea: {
     backgroundColor: colors.haiti,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
-  icon: {
-    marginRight: 12,
+  container: {
+    width,
+    minHeight: 51,
   },
-  action: {
+  leftView: {
     position: 'absolute',
-    top: 26,
-    paddingTop: 10,
-    right: 10,
+    zIndex: 1,
+    width: 50,
+    height: 51,
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingLeft: 10,
+  },
+  titleView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightView: {
+    position: 'absolute',
+    width: 110,
+    minHeight: 51,
+    alignSelf: 'flex-end',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 10,
   },
   text: {
-    color: colors.white,
+    textAlign: 'center',
     fontWeight: 'bold',
-    fontSize: 20,
+    color: colors.white,
   },
-  containerBack: {
-    position: 'absolute',
-    top: 24,
-    paddingTop: 16,
-    left: 10,
-  },
-  back: {
+  backIcon: {
     height: 20,
     width: 20,
-    marginHorizontal: 8,
-    marginVertical: 4,
   },
   containerTransparent: {
     backgroundColor: 'transparent',
+  },
+  backgrounContainer: {
+    position: 'absolute',
+    zIndex: 0,
+    justifyContent: 'flex-end',
+  },
+  backgrounImage: {
+    width: width,
+    height: 51,
   },
 })
 

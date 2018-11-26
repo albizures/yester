@@ -72,7 +72,7 @@ export default class BirthDate extends Component {
   render () {
     const { name, birthDate, genders, gender } = this.state
     const topBarTitle = (
-      <View style={{height: 110, paddingHorizontal: width * 0.08}}>
+      <View style={{height: 110, paddingHorizontal: 30}}>
         <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
           <Heading2 keyName='setup.age.greeting' data={{ name }}
             style={[{color: colors.brightTurquoise}]} />

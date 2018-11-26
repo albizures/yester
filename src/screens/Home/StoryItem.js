@@ -4,38 +4,41 @@ import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-nat
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { Heading3, Description } from '../../components'
-import Divider from '../../components/Divider'
 import { capitalize } from '../../utils'
 
 const StoryItem = (props) => {
-  const { onPress, data } = props
+  const { onPress, question, category, content } = props
+
+  const dot = !content
+  const descriptionElement = content ? (
+    <Description numberOfLines={1} text={capitalize(content)} style={styles.storyText} />
+  ) : (
+    <Description keyName='home.empty.story.description' style={styles.storyText} />
+  )
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
+      <View style={styles.newDotContainer} >
+        {dot && <View style={styles.newDot} />}
+      </View>
       <View style={styles.row}>
-        <View style={styles.newDotContainer} >
-          <View style={styles.newDot} />
-        </View>
         <View style={styles.textContainer}>
-          <Heading3 text={data.text} numberOfLines={1} style={styles.questionText} />
-          <Description text={capitalize(data.category)}
-            style={styles.categoryText} />
-          <Description text={capitalize('This is where my story begins...'/* data.story */)}
-            style={styles.storyText} />
+          <Heading3 text={question} numberOfLines={2} style={styles.questionText} />
+          <Description text={capitalize(category)} style={styles.categoryText} />
+          {descriptionElement}
         </View>
-
         <View style={styles.iconContainer}>
           <Image source={icons.chevronRight} style={styles.chevron} />
         </View>
-
       </View>
-      <Divider style={styles.divider} />
     </TouchableOpacity>
   )
 }
 
 StoryItem.propTypes = {
-  data: PropTypes.object.isRequired,
+  question: PropTypes.string.isRequired,
+  category: PropTypes.string,
+  content: PropTypes.string,
   onPress: PropTypes.func.isRequired,
 }
 export default StoryItem
@@ -43,25 +46,25 @@ export default StoryItem
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
-    height: 85,
+    paddingTop: 10,
+    paddingBottom: 5,
     width,
+    flexDirection: 'row',
+    flex: 1,
   },
   row: {
-    flex: 1,
     flexDirection: 'row',
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.mischka,
   },
   textContainer: {
     flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingRight: 20,
-    paddingTop: 11,
   },
   iconContainer: {
-    width: 8,
+    width: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 19,
   },
   chevron: {
     width: 8,
@@ -74,18 +77,12 @@ const styles = StyleSheet.create({
   storyText: {
     marginTop: 3,
     marginBottom: 6,
-  },
-  divider: {
-    flex: 1,
-    marginLeft: 25,
-  },
-  questionText: {
-    flexWrap: 'nowrap',
+    // text
   },
   newDotContainer: {
     width: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
+    paddingTop: 6,
   },
   newDot: {
     width: 10,

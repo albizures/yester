@@ -66,8 +66,8 @@ class AppLoading extends Component {
       } else {
         navigation.navigate('Subscription')
       }
-
-      navigation.navigate('App')
+      const lastScreen = navigation.getParam('lastScreen', 'App')
+      navigation.navigate(lastScreen)
     } catch (error) {
       navigation.navigate('Auth')
       debugError(error)

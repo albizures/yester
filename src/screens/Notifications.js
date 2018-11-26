@@ -14,9 +14,14 @@ export default class Notificacions extends Component {
     this.props.navigation.navigate('Home')
   }
 
+  onBack = () => {
+    const { navigation } = this.props
+    navigation.goBack()
+  }
+
   render () {
     const topBar = (
-      <TopBar title='notifications.title' />
+      <TopBar title='notifications.title' onBack={this.onBack} />
     )
     return (
       <Container topBar={topBar} >
