@@ -9,7 +9,6 @@ import {
   AWS_USER_CLIENT_POOL_ID,
   HOST,
 } from 'react-native-dotenv'
-
 import { strings } from '../components/Translate'
 import { instance, setHeaderLocale } from './http'
 
