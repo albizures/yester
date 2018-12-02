@@ -210,7 +210,7 @@ export default class App extends Component {
     return (
       <AgesProvider value={agesContextValue}>
         <UserProvider value={userContextValue}>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <StatusBar barStyle='light-content' />
             <RootStack />
           </View>

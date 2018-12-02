@@ -4,7 +4,7 @@ import { shallow } from 'enzyme'
 
 import ConditionalWrapper from '../ConditionalWrapper'
 
-const Wrapper = ({children}) => (
+const Wrapper = ({ children }) => (
   <div>{children}</div>
 )
 

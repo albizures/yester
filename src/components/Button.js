@@ -20,7 +20,7 @@ const states = {
 }
 
 const Button = (props) => {
-  const {title, type, size, icon, disabled} = props
+  const { title, type, size, icon, disabled } = props
   const typeStyle = typeStyles[disabled ? states.DISABLED : states.ENABLED][type]
   const sizeStyle = sizeStyles[size]
 

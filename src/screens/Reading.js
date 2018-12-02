@@ -129,7 +129,7 @@ class Reading extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <TitleComponent text={title} style={{color: colors.governorBay, marginTop: 40}} />
+          <TitleComponent text={title} style={{ color: colors.governorBay, marginTop: 40 }} />
           {/* TODO: make smaller this font */}
           <Description keyName='reading.by' data={{ author }} />
           {/* TODO: make smaller this font and changes its color to gray */}
@@ -184,5 +184,5 @@ const styles = StyleSheet.create({
   },
   nameText: {
     marginTop: 10,
-  }
+  },
 })

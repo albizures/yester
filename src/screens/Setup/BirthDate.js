@@ -24,7 +24,7 @@ export default class BirthDate extends Component {
     this.state = {
       ...extractSetupParams(navigation),
       name: '',
-      genders: [{value: 'female', label: 'Female'}, {value: 'male', label: 'Male'}],
+      genders: [{ value: 'female', label: 'Female' }, { value: 'male', label: 'Male' }],
     }
   }
 
@@ -72,14 +72,14 @@ export default class BirthDate extends Component {
   render () {
     const { name, birthDate, genders, gender } = this.state
     const topBarTitle = (
-      <View style={{height: 110, paddingHorizontal: 30}}>
-        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
+      <View style={{ height: 110, paddingHorizontal: 30 }}>
+        <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-end' }}>
           <Heading2 keyName='setup.age.greeting' data={{ name }}
-            style={[{color: colors.brightTurquoise}]} />
+            style={[{ color: colors.brightTurquoise }]} />
         </View>
-        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-start'}}>
+        <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-start' }}>
           <Heading4 keyName='setup.age.greeting.subtitle'
-            style={[{color: colors.white, textAlign: 'center'}]} />
+            style={[{ color: colors.white, textAlign: 'center' }]} />
         </View>
       </View>
     )
@@ -100,7 +100,7 @@ export default class BirthDate extends Component {
             <DatePicker title='setup.age.birthdate'
               value={birthDate}
               onDateChange={(birthDate) => {
-                this.setState({birthDate})
+                this.setState({ birthDate })
               }}
             />
             <Picker

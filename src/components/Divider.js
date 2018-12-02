@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, ViewPropTypes } from 'react-native'
 import colors from '../utils/colors'
 
-const Divider = ({style}) => {
+const Divider = ({ style }) => {
   return (
     <View style={[styles.container, style]} />
   )

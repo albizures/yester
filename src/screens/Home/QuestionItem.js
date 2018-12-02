@@ -20,7 +20,7 @@ const QuestionItem = (props) => {
         </View>
         <View style={styles.bottomView}>
           <View style={{ flex: 1 }}>
-            <Heading3 text={text} numberOfLines={2} style={{flexWrap: 'wrap'}} />
+            <Heading3 text={text} numberOfLines={2} style={{ flexWrap: 'wrap' }} />
           </View>
           <View style={styles.iconView}>
             <IconButton>

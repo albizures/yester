@@ -73,7 +73,7 @@ class Writing extends Component {
     return (
       <Container scroll topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
-          <View style={{paddingHorizontal: 29, paddingTop: 20}}>
+          <View style={{ paddingHorizontal: 29, paddingTop: 20 }}>
             <TextInput
               multiline
               value={title}
@@ -81,7 +81,7 @@ class Writing extends Component {
               style={styles.title}
               placeholder='Name your story...'
             />
-            <Description keyName='writing.by' data={{author: name}} />
+            <Description keyName='writing.by' data={{ author: name }} />
             <TextInput
               value={content}
               placeholder='Your story...'

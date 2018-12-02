@@ -6,7 +6,7 @@ import { View, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 
 const Dot = ({ active }) => {
-  return <View style={[styles.dot, {backgroundColor: active ? colors.black : colors.gray}]} />
+  return <View style={[styles.dot, { backgroundColor: active ? colors.black : colors.gray }]} />
 }
 
 Dot.propTypes = {

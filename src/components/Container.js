@@ -9,7 +9,7 @@ import colors from '../utils/colors'
 const top = Platform.OS === 'ios' ? 20 : 0
 
 const Container = (props) => {
-  const {scroll, isLoading, children, topBar, onRefresh, refreshing, style} = props
+  const { scroll, isLoading, children, topBar, onRefresh, refreshing, style } = props
   const refreshControl = (scroll && onRefresh && refreshing) ? (
     <RefreshControl
       refreshing={refreshing}

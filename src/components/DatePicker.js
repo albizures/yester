@@ -6,7 +6,7 @@ import RNDatePicker from 'react-native-datepicker'
 import InputContainer, { types } from '../components/InputContainer'
 
 const DatePicker = (props) => {
-  const {title, value} = props
+  const { title, value } = props
 
   return (
     <InputContainer {...props} title={title} type={types.PICKER} >
@@ -19,7 +19,7 @@ const DatePicker = (props) => {
         confirmBtnText='Done'
         cancelBtnText='Cancel'
         customStyles={customStyles}
-        style={{width: 300}}
+        style={{ width: 300 }}
       />
     </InputContainer>
   )

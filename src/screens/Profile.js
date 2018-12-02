@@ -27,23 +27,23 @@ class Profile extends Component {
           <Heading2 text={name} style={styles.nameText} />
           {// TODO get the number of answered stories
           }
-          <Heading5 text='3 stories' style={{marginBottom: 30}} />
+          <Heading5 text='3 stories' style={{ marginBottom: 30 }} />
         </View>
 
         <View style={styles.bottomFlex}>
-          <Divider style={{width: 323}} />
+          <Divider style={{ width: 323 }} />
           <View style={styles.item}>
             <Description keyName='profile.email' />
             <Heading3 text={email} />
           </View>
-          <Divider style={{width: 323}} />
+          <Divider style={{ width: 323 }} />
           <View style={styles.item}>
             <Description keyName='profile.location' />
             {// TODO get the country and state correct name
             }
             <Heading3 text={`${country}, ${state.substring(3, 5)}`} />
           </View>
-          <Divider style={{width: 323}} />
+          <Divider style={{ width: 323 }} />
         </View>
       </Container>
     )

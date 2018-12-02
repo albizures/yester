@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
-import {Heading4} from '../../components'
+import { Heading4 } from '../../components'
 import Dots from './Dots'
 import Step from './Step'
 import colors from '../../utils/colors'
@@ -61,11 +61,10 @@ export default class Onboarding extends Component {
         </View>
         <View pointerEvents='box-none' style={styles.bottomFlex}>
           <View pointerEvents='box-none' style={styles.buttonsView}>
-            <Heading4 keyName='onboarding.skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
-            <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
+            <Heading4 keyName='onboarding.skip' onPress={this.toCreateAccount} style={{ color: colors.white, textDecorationLine: 'underline' }} />
+            <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{ color: colors.white, textDecorationLine: 'underline' }} />
           </View>
         </View>
-
       </View>
     )
   }
@@ -74,7 +73,7 @@ export default class Onboarding extends Component {
     const { steps } = this.state
 
     return (
-      <Container style={{backgroundColor: colors.haiti}}>
+      <Container>
         <Stepper bottomBar={this.getBottomBar}>
           {steps.map(this.createStep)}
         </Stepper>
@@ -93,20 +92,20 @@ const styles = StyleSheet.create({
     paddingBottom: height * 0.07,
   },
   topFlex: {
-    flex: 8.2,
+    flex: 22,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   bottomFlex: {
-    flex: 1.8,
+    flex: 6,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   buttonsView: {
-    width: width * 0.5,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between',
-    marginTop: 15,
+    paddingHorizontal: '30%',
   },
 })
