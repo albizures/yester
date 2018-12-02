@@ -59,17 +59,14 @@ class AppLoading extends Component {
 
       if (await isSubscribed()) {
         if (await isSetupFinished()) {
-          navigation.navigate('App')
+          const lastScreen = navigation.getParam('lastScreen', 'App')
+          navigation.navigate(lastScreen)
         } else {
           navigation.navigate('Setup')
-          return
         }
       } else {
         navigation.navigate('Subscription')
-        return
       }
-      const lastScreen = navigation.getParam('lastScreen', 'App')
-      navigation.navigate(lastScreen)
     } catch (error) {
       navigation.navigate('Auth')
       debugError(error)
