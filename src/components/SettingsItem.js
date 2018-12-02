@@ -36,7 +36,7 @@ const SettingsItem = (props) => {
     ),
     [types.TEXT]: (
       <View style={styles.textButton}>
-        <Heading3 text='Disconnect' style={{color: colors.governorBay}} />
+        <Heading3 text='Disconnect' style={{ color: colors.governorBay }} />
       </View>
     ),
     [types.TOGGLE]: (
@@ -54,7 +54,7 @@ const SettingsItem = (props) => {
         </View>
         {showIcon[type]}
       </View>
-      <Divider style={{width: 323, marginLeft: 0}} />
+      <Divider style={{ width: 323, marginLeft: 0 }} />
     </TouchableOpacity>
   )
 }

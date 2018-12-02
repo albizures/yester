@@ -37,7 +37,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new RNPurchasesPackage(),
-            new FBSDKPackage(),
             new RNAWSCognitoPackage(),
             new FBSDKPackage(mCallbackManager),
             new LinearGradientPackage(),

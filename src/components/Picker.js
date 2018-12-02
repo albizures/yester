@@ -6,7 +6,7 @@ import RNPickerSelect from 'react-native-picker-select'
 import InputContainer, { types } from '../components/InputContainer'
 
 const Picker = (props) => {
-  const {title} = props
+  const { title } = props
 
   return (
     <InputContainer {...props} title={title} type={types.PICKER} >

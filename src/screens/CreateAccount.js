@@ -29,7 +29,7 @@ class CreateAccount extends Component {
 
     try {
       const { token, expires, profile } = await onLoginWithFB()
-      const { sessionToken } = await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
+      const { sessionToken } = await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
       AsyncStorage.setItem('userToken', sessionToken)
       navigation.navigate('App')
     } catch (error) {

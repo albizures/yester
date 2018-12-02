@@ -51,7 +51,7 @@ export default class Home extends Component {
     })
   }
 
-  renderChapter = ({item}) => (
+  renderChapter = ({ item }) => (
     <View style={styles.chapterView}>
       <View style={styles.chapterTitle}>
         <Image source={icons.childhood} style={styles.chapterImage} />
@@ -65,7 +65,7 @@ export default class Home extends Component {
     </View>
   )
 
-  renderStoryItem = ({item}) => (
+  renderStoryItem = ({ item }) => (
     <StoryItem data={item} onPress={() => this.onPressItem(item)} />
   )
 
@@ -95,7 +95,7 @@ export default class Home extends Component {
   render () {
     const { isLoading, question } = this.state
     const topBarTitle = (
-      <View style={{height: 51, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
       </View>
     )

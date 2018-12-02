@@ -29,7 +29,7 @@ class Login extends Component {
 
     try {
       const { token, expires, profile } = onLoginWithFB()
-      await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
+      await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
       await saveUserToken()
       navigation.navigate('App')
     } catch (error) {

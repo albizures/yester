@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 
-const TextDivider = ({children}) => {
+const TextDivider = ({ children }) => {
   return (
     <View style={styles.container}>
       <View style={[styles.divider, styles.section]} />

@@ -69,7 +69,7 @@ class Tabs extends Component {
   render () {
     return (
       <TabView
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         navigationState={this.state}
         renderScene={this.renderScene}
         renderTabBar={this.getTabBar}

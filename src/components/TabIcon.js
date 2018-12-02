@@ -45,8 +45,8 @@ TabIcon.propTypes = {
   activeSrc: PropTypes.number.isRequired,
 }
 
-export const tabBarIcon = ({active, inactive}) => {
-  const Icon = ({focused}) => (
+export const tabBarIcon = ({ active, inactive }) => {
+  const Icon = ({ focused }) => (
     <TabIcon
       activeSrc={active}
       src={inactive}

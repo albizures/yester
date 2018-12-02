@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { View, StyleSheet, Image, Dimensions } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 import Picker from '../../components/Picker'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -34,7 +34,7 @@ export default class Place extends Component {
       const { data: countries } = await http.get('/v1/countries')
       this.getStates()
       this.setState({
-        countries: countries.map(({name, iso_code: isoCode}) => ({
+        countries: countries.map(({ name, iso_code: isoCode }) => ({
           label: name,
           value: isoCode,
         })),
@@ -56,7 +56,7 @@ export default class Place extends Component {
     if (country) {
       const { data: states } = await http.get('/v1/states/' + country)
       this.setState({
-        states: states.map(({name, iso_code: isoCode}) => ({
+        states: states.map(({ name, iso_code: isoCode }) => ({
           label: name,
           value: isoCode,
         })),
@@ -106,14 +106,14 @@ export default class Place extends Component {
   render () {
     const { year, countries, states, country, state } = this.state
     const topBarTitle = (
-      <View style={{height: 110, paddingHorizontal: 30}}>
-        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
+      <View style={{ height: 110, paddingHorizontal: 30 }}>
+        <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-end' }}>
           <Heading2 keyName='setup.place.title' data={{ year }}
-            style={[{color: colors.brightTurquoise}]} />
+            style={[{ color: colors.brightTurquoise }]} />
         </View>
-        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-start'}}>
+        <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-start' }}>
           <Heading4 keyName='setup.place.subtitle'
-            style={[{color: colors.white, textAlign: 'center'}]} />
+            style={[{ color: colors.white, textAlign: 'center' }]} />
         </View>
       </View>
     )
@@ -126,9 +126,9 @@ export default class Place extends Component {
       <Container topBar={topBar} >
         <View style={styles.container}>
           <Image source={icons.glove}
-            style={{width: 78, height: 98.88, marginTop: 13, marginBottom: 5}} />
+            style={{ width: 78, height: 98.88, marginTop: 13, marginBottom: 5 }} />
           <Heading4 keyName='setup.place.form.title'
-            style={[{textAlign: 'center'}]}
+            style={[{ textAlign: 'center' }]}
           />
           <Picker
             title='setup.place.form.country'
@@ -139,7 +139,7 @@ export default class Place extends Component {
               label: 'Select a country',
               value: null,
             }}
-            style={{marginTop: 14}}
+            style={{ marginTop: 14 }}
           />
           <Picker
             title='setup.place.form.state'
@@ -152,17 +152,16 @@ export default class Place extends Component {
             }}
           />
           <Button title='setup.continue'
-            style={{marginTop: 51, marginBottom: 20}}
+            style={{ marginTop: 51, marginBottom: 20 }}
             onPress={this.onContinue} />
           <Description keyName='setup.age.disclaimer'
-            style={[{textAlign: 'center', paddingHorizontal: 17}]} />
+            style={[{ textAlign: 'center', paddingHorizontal: 17 }]} />
         </View>
       </Container>
     )
   }
 }
 
-const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
