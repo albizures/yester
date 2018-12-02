@@ -71,17 +71,33 @@ export default class Home extends Component {
 
   onWriteTodayQuestion = () => {
     const { question: item } = this.state
-    const { age_id: ageId, category, description: question, id: questionId, story_id: storyId } = item
-    this.onPressItem({ ageId, category, question, questionId, storyId })
+    const {
+      category,
+      age_id: ageId,
+      description: question,
+      id: questionId,
+      story_id: storyId,
+      category_id: categoryId,
+    } = item
+    this.onPressItem({ ageId, category, question, questionId, storyId, categoryId })
   }
 
   onPressItem = (item) => {
     const { navigation } = this.props
-    const { ageId, category, question, questionId, storyId, content } = item
+    const { ageId, category, question, questionId, storyId, content, categoryId } = item
 
     if (content) {
       return navigation.navigate('Reading', { storyId })
     }
+
+    console.log({
+      ageId,
+      category,
+      question,
+      questionId,
+      storyId,
+      categoryId,
+    })
 
     navigation.navigate('ModalCard', {
       ageId,
@@ -89,6 +105,7 @@ export default class Home extends Component {
       question,
       questionId,
       storyId,
+      categoryId,
     })
   }
 
