@@ -46,9 +46,7 @@ export default class Home extends Component {
       }
     }
 
-    this.setState({
-      isLoading: false,
-    })
+    this.setState({ isLoading: false })
   }
 
   renderChapter = ({item}) => (
@@ -106,7 +104,7 @@ export default class Home extends Component {
       <Container topBar={topBar} isLoading={isLoading} style={styles.container} >
         <View style={styles.view}>
           { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
-          <Tabs onPressItem={this.onPressItem} />
+          { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
         </View>
       </Container>
     )
