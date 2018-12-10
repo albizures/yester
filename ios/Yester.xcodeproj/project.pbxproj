@@ -1451,7 +1451,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.puchicapps.yester;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yester.app;
 				PRODUCT_NAME = Yester;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1484,7 +1484,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.puchicapps.yester;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yester.app;
 				PRODUCT_NAME = Yester;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
