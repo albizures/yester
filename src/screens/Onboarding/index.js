@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import Container from '../../components/Container'
 import Stepper from '../../components/Stepper'
-import {Heading4} from '../../components'
+import { Heading4 } from '../../components'
 import Dots from './Dots'
 import Step from './Step'
 import colors from '../../utils/colors'
@@ -49,10 +49,21 @@ export default class Onboarding extends Component {
 
   getBottomBar = (options) => {
     const { steps } = this.state
-    const { next, currentStep } = options
-    const nextScreen = (steps.length - 1 === currentStep)
-      ? this.toCreateAccount
-      : next
+    const { currentStep } = options
+    // const nextScreen = (steps.length - 1 === currentStep)
+    //   ? this.toCreateAccount
+    //   : next
+
+    const skipProps = {
+      onPress: this.toCreateAccount,
+      style: {
+        color: colors.white,
+        textDecorationLine: 'underline',
+      },
+      keyName: (steps.length - 1 === currentStep)
+        ? 'onboarding.ok'
+        : 'onboarding.skip',
+    }
 
     return (
       <View pointerEvents='box-none' style={styles.container}>
@@ -61,8 +72,8 @@ export default class Onboarding extends Component {
         </View>
         <View pointerEvents='box-none' style={styles.bottomFlex}>
           <View pointerEvents='box-none' style={styles.buttonsView}>
-            <Heading4 keyName='onboarding.skip' onPress={this.toCreateAccount} style={{color: colors.white, textDecorationLine: 'underline'}} />
-            <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{color: colors.white, textDecorationLine: 'underline'}} />
+            <Heading4 {...skipProps} />
+            {/* <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{ color: colors.white, textDecorationLine: 'underline' }} /> */}
           </View>
         </View>
 
@@ -74,7 +85,7 @@ export default class Onboarding extends Component {
     const { steps } = this.state
 
     return (
-      <Container style={{backgroundColor: colors.haiti}}>
+      <Container style={{ backgroundColor: colors.haiti }}>
         <Stepper bottomBar={this.getBottomBar}>
           {steps.map(this.createStep)}
         </Stepper>
@@ -90,7 +101,7 @@ const styles = StyleSheet.create({
     height,
     position: 'absolute',
     justifyContent: 'flex-end',
-    paddingBottom: height * 0.07,
+    paddingBottom: 30,
   },
   topFlex: {
     flex: 8.2,
@@ -101,12 +112,12 @@ const styles = StyleSheet.create({
     flex: 1.8,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginTop: 20,
   },
   buttonsView: {
     width: width * 0.5,
     flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    marginTop: 15,
+    justifyContent: 'center',
   },
 })

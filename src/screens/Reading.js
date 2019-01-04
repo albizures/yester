@@ -96,18 +96,18 @@ class Reading extends Component {
     const { ages } = this.props.contextAges
     const age = (ages[ageId] || {}).name || ''
 
-    const action = (
-      <Title
-        keyName='reading.share'
-        style={{ textDecorationLine: 'underline', color: colors.governorBay }}
-        onPress={this.onShare} />
-    )
+    // const action = (
+    //   <Title
+    //     keyName='reading.share'
+    //     style={{ textDecorationLine: 'underline', color: colors.governorBay }}
+    //     onPress={this.onShare} />
+    // )
 
     const topBar = (
       <TopBar
         transparent
-        onBack={this.onBack}
-        action={action} />
+        // action={action}
+        onBack={this.onBack} />
     )
 
     const TitleComponent = this.getTitleComponent()
