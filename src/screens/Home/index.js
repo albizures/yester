@@ -162,7 +162,7 @@ export default class Home extends Component {
           { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
           { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
         </View>
-        <Animated.View style={[styles.toast, {bottom: positionToast}, { bottom: 40}]}>
+        <Animated.View style={[styles.toast, {bottom: positionToast}]}>
           <Text style={styles.checkMark} >✓</Text>
           <View style={styles.contentToast}>
             <Heading4 keyName='home.toast.story.saved' />
