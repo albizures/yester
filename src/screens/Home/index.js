@@ -162,7 +162,7 @@ export default class Home extends Component {
           { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
           { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
         </View>
-        <Animated.View style={[styles.toast, {bottom: positionToast}]}>
+        <Animated.View style={[styles.toast, {bottom: positionToast}, { bottom: 40}]}>
           <Text style={styles.checkMark} >✓</Text>
           <View style={styles.contentToast}>
             <Heading4 keyName='home.toast.story.saved' />
@@ -180,6 +180,8 @@ export default class Home extends Component {
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   toast: {
+    borderColor: colors.mantis,
+    borderWidth: 1,
     position: 'absolute',
     backgroundColor: colors.white,
     fontSize: 30,
