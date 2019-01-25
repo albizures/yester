@@ -16,4 +16,5 @@ export default {
   haiti: '#1E1437',
   questionCardShadow: '#2699FB',
   shadow: '#4A41B3',
+  mantis: '#77C84F',
 }
