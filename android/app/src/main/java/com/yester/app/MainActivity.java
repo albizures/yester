@@ -1,4 +1,4 @@
-package com.puchicapps.yester;
+package com.yester.app;
 
 import android.content.Intent;
 import com.facebook.react.ReactActivity;
