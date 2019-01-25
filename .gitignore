@@ -242,3 +242,5 @@ buck-out/
 .buckd/
 .buckversion
 .fakebuckversion
+
+ios/Index/DataStore

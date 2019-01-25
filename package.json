@@ -1,9 +1,10 @@
 {
   "name": "yester",
-  "version": "0.0.1",
+  "version": "0.5.1",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "postversion": "react-native-version --never-amend",
     "start:ios": "react-native run-ios",
     "start:android": "react-native run-android",
     "test:lint": "eslint .",
@@ -51,6 +52,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jest": "23.4.1",
     "react-native-dotenv": "^0.2.0",
+    "react-native-version": "^2.6.6",
     "react-test-renderer": "16.4.1"
   },
   "rnpm": {

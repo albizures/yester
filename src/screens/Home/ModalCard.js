@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 
 import colors from '../../utils/colors'
-import icons from '../../utils/icons'
+import { getCategoryIllustration } from '../../utils/icons'
 import { capitalize } from '../../utils'
 
 import Button, { types } from '../../components/Button'
@@ -36,9 +36,10 @@ class ModalCard extends React.Component {
     const { navigation } = this.props
     const { ages } = this.props.contextAges
     const ageId = navigation.getParam('ageId')
-    // const category = navigation.getParam('category')
     const question = navigation.getParam('question', '')
+    const categoryId = navigation.getParam('categoryId')
     const age = (ages[ageId] || {}).name
+    const illustration = getCategoryIllustration(categoryId)
 
     const ComponentQuestion = question.length > 65 ? Heading3 : Heading2
     return (
@@ -48,9 +49,9 @@ class ModalCard extends React.Component {
         </TouchableOpacity>
         <View style={styles.card}>
           <View style={styles.container}>
-            <Image source={icons.cardFamily} style={{ width: 340, height: 250 }} />
-            <View style={{ flex: 1, position: 'absolute', paddingTop: 27 }}>
-              <Heading5 text={capitalize(age)} style={{ textAlign: 'center' }} />
+            <Image source={illustration} style={{width: 340, height: 250}} />
+            <View style={{flex: 1, position: 'absolute', paddingTop: 27}}>
+              <Heading5 text={capitalize(age)} style={{textAlign: 'center'}} />
             </View>
 
             <View style={styles.contentTop}>

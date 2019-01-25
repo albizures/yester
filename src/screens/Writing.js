@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, TextInput, StyleSheet, KeyboardAvoidingView, Alert } from 'react-native'
+import { NavigationActions, StackActions } from 'react-navigation'
 
 import { Description, Title } from '../components'
 import Container from '../components/Container'
@@ -32,9 +33,21 @@ class Writing extends Component {
         'content': content,
       })
 
-      return navigation.replace('Reading', {
-        storyId: data.id,
-      })
+      navigation.dispatch(StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'MainTab',
+            action: NavigationActions.navigate({
+              routeName: 'MyStory',
+              action: NavigationActions.navigate({
+                routeName: 'Home',
+                params: {storyId: data.id},
+              }),
+            }),
+          }),
+        ],
+      }))
     } catch (error) {
       // TODO add a custom response for validation type eg."string.min", "StoryAlreadyExists"
       console.log(error)

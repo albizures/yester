@@ -1,4 +1,4 @@
-package com.puchicapps.yester;
+package com.yester.app;
 
 import android.app.Application;
 

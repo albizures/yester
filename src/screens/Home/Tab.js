@@ -55,8 +55,17 @@ export default class Tab extends Component {
 
   renderItem = ({ item }) => {
     const { onPressItem } = this.props
-    const { category, question_id: questionId, title: question, age_id: ageId, id: storyId, story, content } = item
-    const newItem = { question, questionId, ageId, storyId, content }
+    const {
+      content,
+      story,
+      category,
+      question_id: questionId,
+      title: question,
+      age_id: ageId,
+      id: storyId,
+      category_id: categoryId,
+    } = item
+    const newItem = { question, questionId, ageId, storyId, content, categoryId }
     return (
       <StoryItem
         question={question}

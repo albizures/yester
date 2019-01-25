@@ -47,8 +47,23 @@ export const ages = {
   'Age#61': icons.ageElderly,
 }
 
+export const categories = {
+  'Category#01': icons.cardFamily,
+  'Category#02': icons.cardEducation,
+  'Category#03': icons.cardFriendship,
+  'Category#04': icons.cardGrandparenthood,
+  'Category#05': icons.cardLife,
+  'Category#06': icons.cardLove,
+  'Category#07': icons.cardReligion,
+  'Category#08': icons.cardWork,
+}
+
 export const getAgeIcon = (id) => {
   return ages[id] || icons.ageYoungAdult
+}
+
+export const getCategoryIllustration = (id) => {
+  return categories[id] || icons.cardFamily
 }
 
 export default icons

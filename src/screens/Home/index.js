@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, FlatList, Alert, Image, Dimensions } from 'react-native'
+import { View, StyleSheet, FlatList, Alert, Image, Dimensions, Animated, Text } from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
-import { Title } from '../../components'
+import { Title, Heading4, Heading3 } from '../../components'
 
 import http from '../../utils/http'
 import colors from '../../utils/colors'
@@ -21,13 +21,16 @@ export default class Home extends Component {
   state = {
     isLoading: true,
     item: {},
+    positionToast: new Animated.Value(-100),
   }
 
   async componentDidMount () {
+    const { navigation } = this.props
     this.setState({
       isLoading: true,
     })
 
+    const storyId = navigation.getParam('storyId')
     try {
       const { data: question } = await http.get('/v1/questions')
       // const question = {
@@ -46,9 +49,43 @@ export default class Home extends Component {
       }
     }
 
-    this.setState({
-      isLoading: false,
-    })
+    this.setState({ isLoading: false })
+
+    if (storyId) {
+      Animated.spring(
+        this.state.positionToast,
+        {
+          toValue: 40,
+          bounciness: 3,
+          speed: 3,
+        }
+      ).start()
+
+      this.timeout = setTimeout(this.closeToast, 5000)
+    }
+  }
+
+  onPressToast = () => {
+    const { navigation } = this.props
+    const storyId = navigation.getParam('storyId')
+    this.closeToast()
+    navigation.navigate('Reading', { storyId })
+  }
+
+  closeToast = () => {
+    clearInterval(this.timeout)
+    Animated.spring(
+      this.state.positionToast,
+      {
+        toValue: -100,
+        bounciness: 3,
+        speed: 3,
+      }
+    ).start()
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.timeout)
   }
 
   renderChapter = ({ item }) => (
@@ -71,17 +108,33 @@ export default class Home extends Component {
 
   onWriteTodayQuestion = () => {
     const { question: item } = this.state
-    const { age_id: ageId, category, description: question, id: questionId, story_id: storyId } = item
-    this.onPressItem({ ageId, category, question, questionId, storyId })
+    const {
+      category,
+      age_id: ageId,
+      description: question,
+      id: questionId,
+      story_id: storyId,
+      category_id: categoryId,
+    } = item
+    this.onPressItem({ ageId, category, question, questionId, storyId, categoryId })
   }
 
   onPressItem = (item) => {
     const { navigation } = this.props
-    const { ageId, category, question, questionId, storyId, content } = item
+    const { ageId, category, question, questionId, storyId, content, categoryId } = item
 
     if (content) {
       return navigation.navigate('Reading', { storyId })
     }
+
+    console.log({
+      ageId,
+      category,
+      question,
+      questionId,
+      storyId,
+      categoryId,
+    })
 
     navigation.navigate('ModalCard', {
       ageId,
@@ -89,11 +142,12 @@ export default class Home extends Component {
       question,
       questionId,
       storyId,
+      categoryId,
     })
   }
 
   render () {
-    const { isLoading, question } = this.state
+    const { isLoading, question, positionToast } = this.state
     const topBarTitle = (
       <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
@@ -106,8 +160,18 @@ export default class Home extends Component {
       <Container topBar={topBar} isLoading={isLoading} style={styles.container} >
         <View style={styles.view}>
           { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
-          <Tabs onPressItem={this.onPressItem} />
+          { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
         </View>
+        <Animated.View style={[styles.toast, {bottom: positionToast}]}>
+          <Text style={styles.checkMark} >✓</Text>
+          <View style={styles.contentToast}>
+            <Heading4 keyName='home.toast.story.saved' />
+            <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{textDecorationLine: 'underline'}} />
+          </View>
+          <View style={styles.closeContainer}>
+            <Text style={styles.close} onPress={this.closeToast}>×</Text>
+          </View>
+        </Animated.View>
       </Container>
     )
   }
@@ -115,6 +179,49 @@ export default class Home extends Component {
 
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
+  toast: {
+    position: 'absolute',
+    backgroundColor: colors.white,
+    fontSize: 30,
+    borderRadius: 10,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    shadowColor: colors.brightTurquoise,
+    shadowOpacity: 0.22,
+    shadowRadius: 15,
+    shadowOffset: {
+      height: 10,
+    },
+    elevation: 10,
+  },
+  contentToast: {
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    height: 60,
+  },
+  closeContainer: {
+    marginVertical: 10,
+    paddingHorizontal: 14,
+    borderLeftWidth: 1,
+    borderLeftColor: colors.mischka,
+    height: 40,
+  },
+  close: {
+    fontSize: 30,
+    lineHeight: 40,
+    color: colors.mischka,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  checkMark: {
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    height: 60,
+    width: 60,
+    backgroundColor: colors.mantis,
+    fontSize: 40,
+    color: colors.white,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
