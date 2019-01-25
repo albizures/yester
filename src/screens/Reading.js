@@ -184,5 +184,5 @@ const styles = StyleSheet.create({
   },
   nameText: {
     marginTop: 10,
-  }
+  },
 })

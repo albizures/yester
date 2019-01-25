@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 
 import colors from '../../utils/colors'
-import icons, { getCategoryIllustration } from '../../utils/icons'
+import { getCategoryIllustration } from '../../utils/icons'
 import { capitalize } from '../../utils'
 
 import Button, {types} from '../../components/Button'
@@ -36,7 +36,6 @@ class ModalCard extends React.Component {
     const { navigation } = this.props
     const { ages } = this.props.contextAges
     const ageId = navigation.getParam('ageId')
-    // const category = navigation.getParam('category')
     const question = navigation.getParam('question', '')
     const categoryId = navigation.getParam('categoryId')
     const age = (ages[ageId] || {}).name
