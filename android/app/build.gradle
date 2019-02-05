@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-splash-screen')
     compile project(':react-native-fbsdk')
     compile project(':amazon-cognito-identity-js')
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
