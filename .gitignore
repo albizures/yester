@@ -85,14 +85,14 @@ captures/
 .idea/caches/
 .idea/libraries/
 .idea/shelf/
-.idea/workspace.xml
+android/.idea/workspace.xml
 .idea/tasks.xml
-.idea/.name
+android/.idea/.name
 .idea/compiler.xml
 .idea/copyright/profiles_settings.xml
 .idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
+android/.idea/misc.xml
+android/.idea/modules.xml
 .idea/scopes/scope_settings.xml
 .idea/dictionaries
 .idea/vcs.xml
@@ -105,9 +105,10 @@ captures/
 .idea/assetWizardSettings.xml
 
 # IntelliJ
-.idea/gradle.xml
-.idea/libraries
-.idea/caches
+android/.idea/gradle.xml
+android/.idea/libraries
+android/.idea/caches
+
 
 # User-specific stuff
 .idea/**/workspace.xml
