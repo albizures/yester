@@ -17,4 +17,5 @@ export default {
   questionCardShadow: '#2699FB',
   shadow: '#4A41B3',
   mantis: '#77C84F',
+  boulder: '#7B7B7B',
 }

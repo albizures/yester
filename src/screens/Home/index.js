@@ -167,7 +167,7 @@ export default class Home extends Component {
             <Text style={styles.checkMark} >✓</Text>
             <View style={styles.contentToast}>
               <Heading4 keyName='home.toast.story.saved' />
-              <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{color: colors.mineShaft, textDecorationLine: 'underline'}} />
+              <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{textDecorationLine: 'underline'}} />
             </View>
             <View style={styles.closeContainer}>
               <Text style={styles.close} onPress={this.closeToast}>×</Text>
@@ -193,8 +193,6 @@ const styles = StyleSheet.create({
   },
   toast: {
     flexDirection: 'row',
-    borderColor: colors.mantis,
-    borderWidth: 1,
     backgroundColor: colors.white,
     fontSize: 30,
     borderRadius: 10,
@@ -215,7 +213,7 @@ const styles = StyleSheet.create({
   close: {
     fontSize: 30,
     lineHeight: 40,
-    color: colors.mischka,
+    color: colors.boulder,
     textAlign: 'center',
     fontWeight: 'bold',
   },
