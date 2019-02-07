@@ -25,9 +25,10 @@ class Profile extends Component {
         <View style={styles.topFlex}>
           <Image source={icons.profileMan} style={styles.image} />
           <Heading2 text={name} style={styles.nameText} />
-          {// TODO get the number of answered stories
+          {
+            // TODO get the number of stories
+            // <Heading5 text='3 stories' style={{marginBottom: 30}} />
           }
-          <Heading5 text='3 stories' style={{marginBottom: 30}} />
         </View>
 
         <View style={styles.bottomFlex}>
@@ -57,13 +58,13 @@ const styles = StyleSheet.create({
     height,
   },
   topFlex: {
-    flex: 0.40,
+    flex: 0.35,
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: height * 0.06,
   },
   bottomFlex: {
-    flex: 0.60,
+    flex: 0.65,
     alignItems: 'center',
     paddingHorizontal: width * 0.07,
   },
