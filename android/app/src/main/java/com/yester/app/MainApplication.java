@@ -3,6 +3,7 @@ package com.yester.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -35,7 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FBSDKPackage(),
+            new SplashScreenReactPackage(),
             new RNAWSCognitoPackage(),
             new FBSDKPackage(mCallbackManager),
             new LinearGradientPackage(),
