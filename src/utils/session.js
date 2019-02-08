@@ -126,7 +126,7 @@ export const isSubscribed = async () => {
   return true
 }
 
-export const saveUserData = async ({birthDate, country, state, gender}) => {
+export const saveUserData = async ({ birthDate, country, state, gender }) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
@@ -156,6 +156,13 @@ export const cleanUserData = async () => {
     'custom:state': '',
     'birthdate': '',
     'gender': '',
+    'custom:subscription_status': '',
+  })
+}
+
+export const removeSuscription = async () => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
     'custom:subscription_status': '',
   })
 }
