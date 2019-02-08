@@ -3,6 +3,17 @@ import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import { getUser } from './session'
 
+export const status = {
+  EXPIRE_SUBSCRIPTION: '2',
+  SUBSCRIBED: '1',
+}
+
+export const eventTypes = {
+  INFO: 'INFO',
+  RESTORE: 'RESTORE',
+  PURCHASE: 'PURCHASE',
+}
+
 export const setupRCPurchases = async () => {
   try {
     const user = await getUser()
@@ -23,7 +34,7 @@ export const getEntitlements = async () => {
   }
 }
 
-export const buySubscription = async (productId) => {
+export const buySubscription = (productId) => {
   try {
     Purchases.makePurchase(productId)
   } catch (err) {
@@ -32,32 +43,27 @@ export const buySubscription = async (productId) => {
   }
 }
 
-this.receivePurchaserInfo = (purchaserInfo) => {
-  console.log('purchaserInfo', purchaserInfo)
+const {
+  // addRestoreTransactionsListener,
+  addPurchaserInfoUpdateListener,
+  addPurchaseListener,
+} = Purchases
+
+export const setInfoListener = (callback) => {
+  const handler = (purchaserInfo) => {
+    callback(undefined, purchaserInfo, eventTypes.INFO)
+  }
+  addPurchaserInfoUpdateListener(handler)
+
+  return () => Purchases.removePurchaserInfoUpdateListener(handler)
 }
 
-const purchaserInfoHandler = (purchaserInfo, error) => {
-  if (purchaserInfo) {
-    this.receivePurchaserInfo(purchaserInfo)
+export const setPurchaseListener = (callback) => {
+  const handler = (productIdentifier, purchaserInfo, error) => {
+    callback(error, purchaserInfo, eventTypes.PURCHASE)
   }
+
+  addPurchaseListener(handler)
+
+  return () => Purchases.removePurchaseListener(handler)
 }
-
-Purchases.addPurchaseListener((productIdentifier, purchaserInfo, error) => {
-  if (error && !error.userCancelled) {
-    this.setState({error: error.message})
-    return
-  }
-  purchaserInfoHandler(purchaserInfo)
-})
-
-Purchases.addPurchaserInfoUpdateListener((purchaserInfo, error) => {
-  if (purchaserInfo) {
-    purchaserInfoHandler(purchaserInfo)
-  }
-})
-
-Purchases.addRestoreTransactionsListener((purchaserInfo, error) => {
-  if (purchaserInfo) {
-    purchaserInfoHandler(purchaserInfo)
-  }
-})
