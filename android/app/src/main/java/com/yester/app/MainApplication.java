@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.facebook.react.ReactNativeHost;
@@ -37,7 +36,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNAWSCognitoPackage(),
             new FBSDKPackage(mCallbackManager),
-            new LinearGradientPackage(),
             new ReactNativeLocalizationPackage()
       );
     }
