@@ -134,7 +134,7 @@ class Reading extends Component {
           <Description keyName='reading.by' data={{ author }} />
           {/* TODO: make smaller this font and changes its color to gray */}
           <Description text={created} />
-          <Text maxLength={1000} multiline style={styles.content}>
+          <Text multiline style={styles.content}>
             {content}
           </Text>
         </View>
@@ -174,8 +174,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 29,
   },
   content: {
-    height: 400,
-    marginTop: 40,
+    marginVertical: 40,
     fontFamily: 'Karla-Regular',
     fontSize: 18,
     textAlignVertical: 'top',
