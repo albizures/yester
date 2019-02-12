@@ -18,11 +18,13 @@ class Writing extends Component {
   }
 
   state = {
+    isLoading: false,
     title: this.props.navigation.getParam('question'),
     content: this.props.navigation.getParam('content', ''),
   }
 
   onSave = async () => {
+    this.setState({ isLoading: true })
     const { navigation } = this.props
     const { title, content } = this.state
     const storyId = navigation.getParam('storyId')
@@ -42,7 +44,7 @@ class Writing extends Component {
               routeName: 'MyStory',
               action: NavigationActions.navigate({
                 routeName: 'Home',
-                params: {storyId: data.id},
+                params: { storyId: data.id },
               }),
             }),
           }),
@@ -54,6 +56,8 @@ class Writing extends Component {
       console.log(error.response)
       Alert.alert('Something bad happpend, try again')
     }
+
+    this.setState({ isLoading: true })
   }
 
   onBack = () => {
@@ -69,7 +73,7 @@ class Writing extends Component {
 
   render () {
     const { name } = this.props.contextUser.user
-    const { content, title } = this.state
+    const { content, title, isLoading } = this.state
 
     const action = (
       <Title
@@ -84,7 +88,7 @@ class Writing extends Component {
         action={action} />
     )
     return (
-      <Container scroll topBar={topBar}>
+      <Container scroll isLoading={isLoading} topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={{ paddingHorizontal: 29, paddingTop: 20 }}>
             <TextInput

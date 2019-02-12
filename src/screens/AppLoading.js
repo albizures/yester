@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import debugFactory from 'debug'
 import React, { Component } from 'react'
-import { Text, Alert } from 'react-native'
+import { Alert, View } from 'react-native'
 import moment from 'moment'
 
 import Container from '../components/Container'
@@ -109,7 +109,7 @@ class AppLoading extends Component {
     const { isLoading } = this.state
     return (
       <Container isLoading={isLoading}>
-        <Text>Loading...</Text>
+        <View />
       </Container>
     )
   }
