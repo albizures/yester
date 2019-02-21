@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
+import SplashScreen from 'react-native-splash-screen'
 import debugFactory from 'debug'
 import { translate } from './components/Translate'
 import {
@@ -176,6 +177,7 @@ const RootStack = createSwitchNavigator({
 export default class App extends Component {
   state = {}
   async componentDidMount () {
+    SplashScreen.hide()
     await setAuthHeader()
   }
 
