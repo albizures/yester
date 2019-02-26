@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, KeyboardAvoidingView } from 'react-native'
 import Picker from '../../components/Picker'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -16,6 +16,8 @@ export default class Place extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
+
+  scroll = React.createRef()
 
   constructor (props) {
     super(props)
@@ -103,8 +105,27 @@ export default class Place extends Component {
     }
   }
 
+  onOpenModal = () => {
+    this.setState({
+      marginBottom: 100,
+    })
+    setTimeout(() => {
+      this.scroll.current.scrollToEnd({ animated: true })
+    }, 100)
+  }
+
+  onCloseModal = () => {
+    this.setState({
+      marginBottom: 0,
+    })
+
+    setTimeout(() => {
+      this.scroll.current.scrollTo({ y: 0, animated: true })
+    }, 100)
+  }
+
   render () {
-    const { year, countries, states, country, state } = this.state
+    const { year, countries, states, country, state, marginBottom } = this.state
     const topBarTitle = (
       <View style={{ height: 110, paddingHorizontal: 30 }}>
         <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-end' }}>
@@ -123,40 +144,47 @@ export default class Place extends Component {
     )
 
     return (
-      <Container topBar={topBar} >
-        <View style={styles.container}>
-          <Image source={icons.glove}
-            style={{ width: 78, height: 98.88, marginTop: 13, marginBottom: 5 }} />
-          <Heading4 keyName='setup.place.form.title'
-            style={[{ textAlign: 'center' }]}
-          />
-          <Picker
-            title='setup.place.form.country'
-            items={countries}
-            value={country}
-            onValueChange={this.onChangeCountry}
-            placeholder={{
-              label: 'Select a country',
-              value: null,
-            }}
-            style={{ marginTop: 14 }}
-          />
-          <Picker
-            title='setup.place.form.state'
-            items={states}
-            value={state}
-            onValueChange={this.onChangeState}
-            placeholder={{
-              label: 'Select a state',
-              value: null,
-            }}
-          />
-          <Button title='setup.continue'
-            style={{ marginTop: 51, marginBottom: 20 }}
-            onPress={this.onContinue} />
-          <Description keyName='setup.age.disclaimer'
-            style={[{ textAlign: 'center', paddingHorizontal: 17 }]} />
-        </View>
+      <Container scroll scrollRef={this.scroll}>
+        <KeyboardAvoidingView keyboardVerticalOffset={100} contentContainerStyle={{ flex: 1, height: '100%', width: '100%', marginBottom }} behavior='position' enabled>
+          {topBar}
+          <View style={styles.container}>
+            <Image source={icons.glove}
+              style={{ width: 78, height: 98.88, marginTop: 13, marginBottom: 5 }} />
+            <Heading4 keyName='setup.place.form.title'
+              style={[{ textAlign: 'center' }]}
+            />
+            <Picker
+              title='setup.place.form.country'
+              items={countries}
+              value={country}
+              onOpen={this.onOpenModal}
+              onClose={this.onCloseModal}
+              onValueChange={this.onChangeCountry}
+              placeholder={{
+                label: 'Select a country',
+                value: null,
+              }}
+              style={{ marginTop: 14 }}
+            />
+            <Picker
+              title='setup.place.form.state'
+              items={states}
+              value={state}
+              onOpen={this.onOpenModal}
+              onClose={this.onCloseModal}
+              onValueChange={this.onChangeState}
+              placeholder={{
+                label: 'Select a state',
+                value: null,
+              }}
+            />
+            <Button title='setup.continue'
+              style={{ marginTop: 51, marginBottom: 20 }}
+              onPress={this.onContinue} />
+            <Description keyName='setup.age.disclaimer'
+              style={[{ textAlign: 'center', paddingHorizontal: 17 }]} />
+          </View>
+        </KeyboardAvoidingView>
       </Container>
     )
   }

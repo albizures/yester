@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, TextInput, StyleSheet, KeyboardAvoidingView, Alert } from 'react-native'
+import { NavigationActions, StackActions } from 'react-navigation'
 
 import { Description, Title } from '../components'
 import Container from '../components/Container'
@@ -17,11 +18,13 @@ class Writing extends Component {
   }
 
   state = {
+    isLoading: false,
     title: this.props.navigation.getParam('question'),
     content: this.props.navigation.getParam('content', ''),
   }
 
   onSave = async () => {
+    this.setState({ isLoading: true })
     const { navigation } = this.props
     const { title, content } = this.state
     const storyId = navigation.getParam('storyId')
@@ -32,15 +35,29 @@ class Writing extends Component {
         'content': content,
       })
 
-      return navigation.replace('Reading', {
-        storyId: data.id,
-      })
+      navigation.dispatch(StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({
+            routeName: 'MainTab',
+            action: NavigationActions.navigate({
+              routeName: 'MyStory',
+              action: NavigationActions.navigate({
+                routeName: 'Home',
+                params: { storyId: data.id },
+              }),
+            }),
+          }),
+        ],
+      }))
     } catch (error) {
       // TODO add a custom response for validation type eg."string.min", "StoryAlreadyExists"
       console.log(error)
       console.log(error.response)
       Alert.alert('Something bad happpend, try again')
     }
+
+    this.setState({ isLoading: true })
   }
 
   onBack = () => {
@@ -56,7 +73,7 @@ class Writing extends Component {
 
   render () {
     const { name } = this.props.contextUser.user
-    const { content, title } = this.state
+    const { content, title, isLoading } = this.state
 
     const action = (
       <Title
@@ -71,7 +88,7 @@ class Writing extends Component {
         action={action} />
     )
     return (
-      <Container scroll topBar={topBar}>
+      <Container scroll isLoading={isLoading} topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={{ paddingHorizontal: 29, paddingTop: 20 }}>
             <TextInput

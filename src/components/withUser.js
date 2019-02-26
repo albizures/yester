@@ -8,11 +8,11 @@ export const UserProvider = Provider
 export const shapeContextUser = {
   updateUser: PropTypes.func.isRequired,
   user: PropTypes.shape({
-    country: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-    birthDate: PropTypes.string.isRequired,
-    gender: PropTypes.string.isRequired,
-    locale: PropTypes.string.isRequired,
+    country: PropTypes.string,
+    state: PropTypes.string,
+    birthDate: PropTypes.string,
+    gender: PropTypes.string,
+    locale: PropTypes.string,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
