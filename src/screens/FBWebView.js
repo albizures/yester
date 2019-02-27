@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet, WebView, Alert } from 'react-native'
 import { FACEBOOK_URL_LOGIN } from 'react-native-dotenv'
 import withUser, { shapeContextUser } from '../components/withUser'
-import { strings } from '../components/Translate'
+import { strings, translate } from '../components/Translate'
 import { loginWithFBWebView, updateUserAttribute } from '../utils/session'
 
 class FBWebView extends React.Component {
@@ -26,7 +26,7 @@ class FBWebView extends React.Component {
         } catch (error) {
           console.log('onFBWebViewStateChange', error)
           navigation.goBack()
-          Alert.alert('Error', JSON.stringify(error.message))
+          Alert.alert(translate('login.error.facebook'))
         }
       }
     }

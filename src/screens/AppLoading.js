@@ -8,7 +8,7 @@ import { isSetupFinished, getToken, setLocale } from '../utils/session'
 import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
-import { strings } from '../components/Translate'
+import { strings, translate } from '../components/Translate'
 
 const debugError = debugFactory('yester:error:AppLoading')
 
@@ -35,7 +35,7 @@ class AppLoading extends Component {
       const { data: ages } = await http.get('/v1/ages')
       updateAges(ages)
     } catch (error) {
-      Alert.alert('Error getting the ages')
+      Alert.alert(translate('loading.error'))
       debugError(error)
     }
   }
