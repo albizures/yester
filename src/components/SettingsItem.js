@@ -71,7 +71,6 @@ export default SettingsItem
 const styles = StyleSheet.create({
   itemContainer: {
     height: 75,
-    width: 340,
     flexDirection: 'row',
   },
   textContainer: {

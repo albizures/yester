@@ -12,6 +12,7 @@ import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
+import { translate } from '../../components/Translate'
 
 export default class Home extends Component {
   static propTypes = {
@@ -45,7 +46,7 @@ export default class Home extends Component {
     } catch (error) {
       console.log(error.response)
       if (error.response.status !== 404) {
-        Alert.alert('Yester couldn\'t get today\'s question')
+        Alert.alert(translate('home.error.today.question'))
       }
     }
 
@@ -162,14 +163,16 @@ export default class Home extends Component {
           { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
           { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
         </View>
-        <Animated.View style={[styles.toast, {bottom: positionToast}]}>
-          <Text style={styles.checkMark} >✓</Text>
-          <View style={styles.contentToast}>
-            <Heading4 keyName='home.toast.story.saved' />
-            <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{textDecorationLine: 'underline'}} />
-          </View>
-          <View style={styles.closeContainer}>
-            <Text style={styles.close} onPress={this.closeToast}>×</Text>
+        <Animated.View style={[styles.toastContainer, { bottom: positionToast }]}>
+          <View style={[styles.toast]}>
+            <Text style={styles.checkMark} >✓</Text>
+            <View style={styles.contentToast}>
+              <Heading4 keyName='home.toast.story.saved' />
+              <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{ textDecorationLine: 'underline' }} />
+            </View>
+            <View style={styles.closeContainer}>
+              <Text style={styles.close} onPress={this.closeToast}>×</Text>
+            </View>
           </View>
         </Animated.View>
       </Container>
@@ -179,25 +182,27 @@ export default class Home extends Component {
 
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
-  toast: {
+  toastContainer: {
     position: 'absolute',
+    shadowColor: colors.shadow,
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    shadowOffset: {
+      height: 8,
+    },
+    elevation: 8,
+  },
+  toast: {
+    flexDirection: 'row',
     backgroundColor: colors.white,
     fontSize: 30,
     borderRadius: 10,
     overflow: 'hidden',
-    flexDirection: 'row',
-    shadowColor: colors.brightTurquoise,
-    shadowOpacity: 0.22,
-    shadowRadius: 15,
-    shadowOffset: {
-      height: 10,
-    },
-    elevation: 10,
   },
   contentToast: {
     paddingHorizontal: 15,
     paddingVertical: 10,
-    height: 60,
+    height: 59,
   },
   closeContainer: {
     marginVertical: 10,
@@ -209,7 +214,7 @@ const styles = StyleSheet.create({
   close: {
     fontSize: 30,
     lineHeight: 40,
-    color: colors.mischka,
+    color: colors.boulder,
     textAlign: 'center',
     fontWeight: 'bold',
   },

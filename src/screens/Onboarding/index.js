@@ -49,10 +49,21 @@ export default class Onboarding extends Component {
 
   getBottomBar = (options) => {
     const { steps } = this.state
-    const { next, currentStep } = options
-    const nextScreen = (steps.length - 1 === currentStep)
-      ? this.toCreateAccount
-      : next
+    const { currentStep } = options
+    // const nextScreen = (steps.length - 1 === currentStep)
+    //   ? this.toCreateAccount
+    //   : next
+
+    const skipProps = {
+      onPress: this.toCreateAccount,
+      style: {
+        color: colors.white,
+        textDecorationLine: 'underline',
+      },
+      keyName: (steps.length - 1 === currentStep)
+        ? 'onboarding.ok'
+        : 'onboarding.skip',
+    }
 
     return (
       <View pointerEvents='box-none' style={styles.container}>
@@ -61,8 +72,8 @@ export default class Onboarding extends Component {
         </View>
         <View pointerEvents='box-none' style={styles.bottomFlex}>
           <View pointerEvents='box-none' style={styles.buttonsView}>
-            <Heading4 keyName='onboarding.skip' onPress={this.toCreateAccount} style={{ color: colors.white, textDecorationLine: 'underline' }} />
-            <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{ color: colors.white, textDecorationLine: 'underline' }} />
+            <Heading4 {...skipProps} />
+            {/* <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{ color: colors.white, textDecorationLine: 'underline' }} /> */}
           </View>
         </View>
       </View>
@@ -73,7 +84,7 @@ export default class Onboarding extends Component {
     const { steps } = this.state
 
     return (
-      <Container>
+      <Container style={{ backgroundColor: colors.haiti }}>
         <Stepper bottomBar={this.getBottomBar}>
           {steps.map(this.createStep)}
         </Stepper>
@@ -89,7 +100,7 @@ const styles = StyleSheet.create({
     height,
     position: 'absolute',
     justifyContent: 'flex-end',
-    paddingBottom: height * 0.07,
+    paddingBottom: 30,
   },
   topFlex: {
     flex: 22,
@@ -100,12 +111,12 @@ const styles = StyleSheet.create({
     flex: 6,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginTop: 20,
   },
   buttonsView: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent: 'space-between',
-    paddingHorizontal: '30%',
+    justifyContent: 'center',
   },
 })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, Share, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Share, Image, TouchableOpacity, Alert } from 'react-native'
 
 import { Heading1, Description, Title, Heading2 } from '../components'
 import Container from '../components/Container'
@@ -13,6 +13,7 @@ import colors from '../utils/colors'
 import icons from '../utils/icons'
 import http from '../utils/http'
 import moment from 'moment'
+import { translate } from '../components/Translate'
 
 class Reading extends Component {
   static propTypes = {
@@ -51,6 +52,8 @@ class Reading extends Component {
         created: moment(created).format('LL'),
       })
     } catch (error) {
+      Alert.alert(translate('reading.error'))
+      navigation.goBack()
       console.log(error)
       console.log(error.message)
       console.log(error.response)
@@ -96,18 +99,18 @@ class Reading extends Component {
     const { ages } = this.props.contextAges
     const age = (ages[ageId] || {}).name || ''
 
-    const action = (
-      <Title
-        keyName='reading.share'
-        style={{ textDecorationLine: 'underline', color: colors.governorBay }}
-        onPress={this.onShare} />
-    )
+    // const action = (
+    //   <Title
+    //     keyName='reading.share'
+    //     style={{ textDecorationLine: 'underline', color: colors.governorBay }}
+    //     onPress={this.onShare} />
+    // )
 
     const topBar = (
       <TopBar
         transparent
-        onBack={this.onBack}
-        action={action} />
+        // action={action}
+        onBack={this.onBack} />
     )
 
     const TitleComponent = this.getTitleComponent()

@@ -12,6 +12,7 @@ import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
 import TextInput from '../components/TextInput'
 import TopBar from '../components/TopBar'
+import { translate } from '../components/Translate'
 
 class Login extends Component {
   static propTypes = {
@@ -34,7 +35,7 @@ class Login extends Component {
       navigation.navigate('App')
     } catch (error) {
       console.log('Login', error)
-      Alert.alert(error.message)
+      Alert.alert(translate('login.error.facebook'))
     }
   }
 
@@ -50,7 +51,7 @@ class Login extends Component {
       navigation.navigate('AppLoading')
     } catch (error) {
       console.log('Login', error)
-      Alert.alert(error.message)
+      Alert.alert(translate('login.error'))
     }
   }
 

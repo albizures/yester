@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { View, StyleSheet, Image, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, Image, Alert, KeyboardAvoidingView } from 'react-native'
 import Picker from '../../components/Picker'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -11,6 +11,7 @@ import Button from '../../components/Button'
 import TopBar from '../../components/TopBar'
 import http from '../../utils/http'
 import { extractSetupParams } from '../../utils'
+import { translate } from '../../components/Translate'
 
 export default class Place extends Component {
   static propTypes = {
@@ -43,6 +44,7 @@ export default class Place extends Component {
       })
     } catch (error) {
       console.log('BirthDate', error)
+      Alert.alert(translate('setup.error'))
     }
   }
 

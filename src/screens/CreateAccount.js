@@ -12,6 +12,7 @@ import { Heading2, Description, Heading3, Heading4 } from '../components'
 import Container from '../components/Container'
 import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
+import { translate } from '../components/Translate'
 
 class CreateAccount extends Component {
   static propTypes = {
@@ -34,7 +35,7 @@ class CreateAccount extends Component {
       navigation.navigate('App')
     } catch (error) {
       console.log('FB Create Account:', error)
-      Alert.alert(error.message)
+      Alert.alert(translate('signup.error.facebook'))
     }
   }
 

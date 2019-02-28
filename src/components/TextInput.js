@@ -33,8 +33,7 @@ export default class TextInput extends Component {
           paddingHorizontal={20}
           height={50}
           width={config.width}
-          color={(editable) ? colors.mineShaft : colors.white}
-          style={{ width: config.width }}
+          style={{width: config.width, color: (editable) ? colors.mineShaft : colors.white}}
         />
       </InputContainer>
     )
