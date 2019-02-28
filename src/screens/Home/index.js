@@ -12,6 +12,7 @@ import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
+import { translate } from '../../components/Translate'
 
 export default class Home extends Component {
   static propTypes = {
@@ -45,7 +46,7 @@ export default class Home extends Component {
     } catch (error) {
       console.log(error.response)
       if (error.response.status !== 404) {
-        Alert.alert('Yester couldn\'t get today\'s question')
+        Alert.alert(translate('home.error.today.question'))
       }
     }
 
@@ -88,7 +89,7 @@ export default class Home extends Component {
     clearInterval(this.timeout)
   }
 
-  renderChapter = ({item}) => (
+  renderChapter = ({ item }) => (
     <View style={styles.chapterView}>
       <View style={styles.chapterTitle}>
         <Image source={icons.childhood} style={styles.chapterImage} />
@@ -102,7 +103,7 @@ export default class Home extends Component {
     </View>
   )
 
-  renderStoryItem = ({item}) => (
+  renderStoryItem = ({ item }) => (
     <StoryItem data={item} onPress={() => this.onPressItem(item)} />
   )
 
@@ -149,7 +150,7 @@ export default class Home extends Component {
   render () {
     const { isLoading, question, positionToast } = this.state
     const topBarTitle = (
-      <View style={{height: 51, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
       </View>
     )
@@ -162,12 +163,12 @@ export default class Home extends Component {
           { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
           { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
         </View>
-        <Animated.View style={[styles.toastContainer, {bottom: positionToast}]}>
+        <Animated.View style={[styles.toastContainer, { bottom: positionToast }]}>
           <View style={[styles.toast]}>
             <Text style={styles.checkMark} >✓</Text>
             <View style={styles.contentToast}>
               <Heading4 keyName='home.toast.story.saved' />
-              <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{textDecorationLine: 'underline'}} />
+              <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{ textDecorationLine: 'underline' }} />
             </View>
             <View style={styles.closeContainer}>
               <Text style={styles.close} onPress={this.closeToast}>×</Text>

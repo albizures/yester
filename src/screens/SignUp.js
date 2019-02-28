@@ -9,7 +9,7 @@ import { Heading2, Heading4 } from '../components'
 import TopBar from '../components/TopBar'
 import TextInput from '../components/TextInput'
 import colors from '../utils/colors'
-import { strings } from '../components/Translate'
+import { strings, translate } from '../components/Translate'
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -45,7 +45,7 @@ export default class SignUp extends Component {
       this.props.navigation.navigate('ConfirmAccount', { user, email, password })
     } catch (error) {
       console.log('Create Account: ', error)
-      Alert.alert(error.message)
+      Alert.alert(translate('signup.error'))
     }
   }
 

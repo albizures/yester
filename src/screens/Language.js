@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Alert } from 'react-native'
+
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import SettingsItem from '../components/SettingsItem'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { updateUserAttribute } from '../utils/session'
+import { translate } from '../components/Translate'
 
 const isCheck = (locale, currentLocale) => {
   if (locale === currentLocale) {
@@ -58,7 +60,7 @@ class Language extends Component {
         lastScreen: 'Language',
       })
     } catch (error) {
-      Alert.alert('Error updating the language')
+      Alert.alert(translate('language.error'))
       console.log(error, error.message)
       this.setState({ isLoading: false })
     }
