@@ -47,6 +47,9 @@ DerivedData/
 *.apk
 *.ap_
 
+# VS Code
+.vscode
+
 # Files for the ART/Dalvik VM
 *.dex
 
