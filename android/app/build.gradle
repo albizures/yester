@@ -137,7 +137,6 @@ android {
 }
 
 dependencies {
-    compile project(':amazon-cognito-identity-js')
     implementation project(':react-native-purchases')
     implementation project(':amazon-cognito-identity-js')
     implementation(project(':react-native-fbsdk')){
