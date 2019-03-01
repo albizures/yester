@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, FlatList } from 'react-native'
 
-import Loading from '../../components/Loading'
 import { Heading5, Heading4 } from '../../components'
 import StoryItem from './StoryItem'
 
@@ -14,11 +13,13 @@ export default class Tab extends Component {
   static propTypes = {
     onPressItem: PropTypes.func.isRequired,
     age: PropTypes.string.isRequired,
+    initialStories: PropTypes.array.isRequired,
+    initialEvaluatedKey: PropTypes.object,
   }
 
   state = {
-    isLoading: true,
-    stories: [],
+    lastEvaluatedKey: this.props.initialEvaluatedKey,
+    stories: this.props.initialStories,
   }
 
   onEndReached = (info) => {
@@ -27,7 +28,7 @@ export default class Tab extends Component {
 
   getStories = async () => {
     const { age } = this.props
-    const { lastEvaluatedKey, stories, endReached } = this.state
+    const { lastEvaluatedKey, stories: currentStories, endReached } = this.state
     if (endReached) {
       return
     }
@@ -37,8 +38,10 @@ export default class Tab extends Component {
         lastEvaluatedKey,
       })
 
+      const stories = currentStories.concat(data.items)
+
       this.setState({
-        stories: stories.concat(data.items),
+        stories,
         lastEvaluatedKey: data.lastEvaluatedKey,
         endReached: !data.lastEvaluatedKey,
       })
@@ -48,12 +51,7 @@ export default class Tab extends Component {
     }
   }
 
-  async componentDidMount () {
-    await this.getStories()
-    this.setState({ isLoading: false })
-  }
-
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     const { onPressItem } = this.props
     const {
       content,
@@ -78,7 +76,7 @@ export default class Tab extends Component {
   }
 
   render () {
-    const { isLoading, stories } = this.state
+    const { stories } = this.state
     const content = stories.length === 0 ? (
       <View style={styles.noStoriesContainer}>
         <Heading4 style={[styles.message, styles.highlightMessage]} keyName={'home.empty.tab.title'} />
@@ -87,7 +85,7 @@ export default class Tab extends Component {
     ) : (
       <FlatList
         onEndReached={this.onEndReached}
-        style={{flexGrow: 0}}
+        style={{ flexGrow: 0 }}
         data={stories}
         keyExtractor={indexToString}
         renderItem={this.renderItem}
@@ -96,9 +94,7 @@ export default class Tab extends Component {
 
     return (
       <View style={styles.container}>
-        <Loading isLoading={isLoading} style={styles.loading} >
-          {content}
-        </Loading>
+        {content}
       </View>
     )
   }
