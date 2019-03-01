@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -38,10 +37,9 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3097C0C83B0C4BC49C0C4555 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 956ABA78548C4391B989AC56 /* Karla-Regular.ttf */; };
 		4FDA95282ECB49309421726C /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 506DB15852FD45B18D38AC42 /* Karla-BoldItalic.ttf */; };
-		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		5EA7458077C043F7AEEF6D10 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA7FCF3D3C44971BF898BA1 /* libSplashScreen.a */; };
 		68388539220BD1F300BDBED7 /* Purchases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68388537220BD1F100BDBED7 /* Purchases.framework */; };
 		6838853A220BD1F300BDBED7 /* Purchases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68388537220BD1F100BDBED7 /* Purchases.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		5EA7458077C043F7AEEF6D10 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA7FCF3D3C44971BF898BA1 /* libSplashScreen.a */; };
 		6850881E2145701B00E2ABAE /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6850881A2145701B00E2ABAE /* FBSDKLoginKit.framework */; };
 		6850881F2145701B00E2ABAE /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6850881B2145701B00E2ABAE /* FBSDKCoreKit.framework */; };
 		685088212145701B00E2ABAE /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6850881D2145701B00E2ABAE /* Bolts.framework */; };
@@ -337,6 +335,13 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
+		FC8E868E2229080E0036EFA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNPurchases;
+		};
 		FC934A48220A01830006E955 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 017A04BB9CE14224A91075BA /* SplashScreen.xcodeproj */;
@@ -357,13 +362,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 7B5D9D0A1B6AD0EA00CF3A83;
 			remoteInfo = ReactNativeLocalization;
-		};
-		FCF97AC9218F76B100791543 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNPurchases;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -447,7 +445,6 @@
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				6850881E2145701B00E2ABAE /* FBSDKLoginKit.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				68388538220BD1F100BDBED7 /* Purchases.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				685088212145701B00E2ABAE /* Bolts.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -732,7 +729,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-
+		FC8E86632229080E0036EFA5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC8E868F2229080E0036EFA5 /* libRNPurchases.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		FC934A45220A01830006E955 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -765,14 +769,6 @@
 			isa = PBXGroup;
 			children = (
 				FCAA773220FFA40F00B78EAA /* libReactNativeLocalization.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		FCF97AC6218F76B100791543 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FCF97ACA218F76B100791543 /* libRNPurchases.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -961,8 +957,10 @@
 					ProjectRef = C8418F3797FB422DBC7D9358 /* RNAWSCognito.xcodeproj */;
 				},
 				{
-					ProductGroup = FCF97AC6218F76B100791543 /* Products */;
+					ProductGroup = FC8E86632229080E0036EFA5 /* Products */;
 					ProjectRef = 79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */;
+				},
+				{
 					ProductGroup = FC934A45220A01830006E955 /* Products */;
 					ProjectRef = 017A04BB9CE14224A91075BA /* SplashScreen.xcodeproj */;
 				},
@@ -1244,6 +1242,13 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		FC8E868F2229080E0036EFA5 /* libRNPurchases.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNPurchases.a;
+			remoteRef = FC8E868E2229080E0036EFA5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		FC934A49220A01830006E955 /* libSplashScreen.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1263,13 +1268,6 @@
 			fileType = archive.ar;
 			path = libReactNativeLocalization.a;
 			remoteRef = FCAA773120FFA40F00B78EAA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FCF97ACA218F76B100791543 /* libRNPurchases.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNPurchases.a;
-			remoteRef = FCF97AC9218F76B100791543 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
