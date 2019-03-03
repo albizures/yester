@@ -90,7 +90,7 @@ describe('src/screens/Stepper', () => {
 
       instance.onSwipePageChange({
         viewableItems: [
-          {index: 1},
+          { index: 1 },
         ],
       })
 
@@ -125,7 +125,7 @@ describe('src/screens/Stepper', () => {
 
         instance.onSwipePageChange({
           viewableItems: [
-            {index: 0},
+            { index: 0 },
           ],
         })
 

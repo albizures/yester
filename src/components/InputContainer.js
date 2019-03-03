@@ -32,7 +32,7 @@ const InputContainer = (props) => {
   let descriptionLabel
   if (description) {
     descriptionLabel = (
-      <View style={[styles.labelContainer, {justifyContent: 'flex-end'}]}>
+      <View style={[styles.labelContainer, { justifyContent: 'flex-end' }]}>
         <Description keyName={description} />
       </View>
     )
@@ -54,7 +54,7 @@ const InputContainer = (props) => {
       <TouchableOpacity onPress={show}>
         <View style={styles.showTextView}>
           <Body1 keyName={buttonText}
-            style={{color: colors.royalBlue}} />
+            style={{ color: colors.royalBlue }} />
         </View>
       </TouchableOpacity>
     )
@@ -70,7 +70,7 @@ const InputContainer = (props) => {
   }
 
   return (
-    <View style={[style, {marginBottom: 30}]} >
+    <View style={[style, { marginBottom: 30 }]} >
       <View style={[styles.labelContainer]}>
         <Description keyName={title}
           style={[styles.title, stateStyle.title, validationStyle.title]} />
@@ -79,7 +79,7 @@ const InputContainer = (props) => {
         {children}
         {showIcon}
       </View>
-      <View style={[{justifyContent: 'flex-end'}]}>{/* styles.labelContainer, */}
+      <View style={[{ justifyContent: 'flex-end' }]}>{/* styles.labelContainer, */}
         {validationLabel}
       </View>
       {descriptionLabel}

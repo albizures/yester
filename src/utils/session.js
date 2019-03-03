@@ -109,13 +109,37 @@ export const isSetupFinished = async () => {
   return true
 }
 
-export const saveUserData = async ({birthDate, country, state, gender}) => {
+export const isSubscribed = async () => {
+  const user = await getUser()
+
+  if (!user.attributes) {
+    return false
+  }
+
+  if (!user.attributes['custom:subscription_status']) {
+    return false
+  }
+
+  if (user.attributes['custom:subscription_status'] !== '1') {
+    return false
+  }
+  return true
+}
+
+export const saveUserData = async ({ birthDate, country, state, gender }) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
     'birthdate': birthDate,
     'gender': gender,
+  })
+}
+
+export const saveUserSubscriptionStatus = async (subscriptionStatus) => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:subscription_status': subscriptionStatus,
   })
 }
 
@@ -132,6 +156,14 @@ export const cleanUserData = async () => {
     'custom:state': '',
     'birthdate': '',
     'gender': '',
+    'custom:subscription_status': '',
+  })
+}
+
+export const removeSuscription = async () => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:subscription_status': '',
   })
 }
 

@@ -48,6 +48,9 @@ DerivedData/
 *.ap_
 *.aab
 
+# VS Code
+.vscode
+
 # Files for the ART/Dalvik VM
 *.dex
 
@@ -76,6 +79,13 @@ proguard/
 
 # Android Studio captures folder
 captures/
+
+
+# Android Studio
+.idea
+.gradle
+build/
+output.json 
 
 # IntelliJ IDEA
 *.iml

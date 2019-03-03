@@ -37,7 +37,7 @@ class FBWebView extends React.Component {
       <View style={styles.container}>
         <WebView
           style={styles.webview}
-          source={{uri: FACEBOOK_URL_LOGIN}}
+          source={{ uri: FACEBOOK_URL_LOGIN }}
           onNavigationStateChange={this.onFBWebViewStateChange} />
       </View>
     )

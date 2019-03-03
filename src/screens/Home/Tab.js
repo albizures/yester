@@ -53,7 +53,7 @@ export default class Tab extends Component {
     this.setState({ isLoading: false })
   }
 
-  renderItem = ({item}) => {
+  renderItem = ({ item }) => {
     const { onPressItem } = this.props
     const {
       content,
@@ -87,7 +87,7 @@ export default class Tab extends Component {
     ) : (
       <FlatList
         onEndReached={this.onEndReached}
-        style={{flexGrow: 0}}
+        style={{ flexGrow: 0 }}
         data={stories}
         keyExtractor={indexToString}
         renderItem={this.renderItem}

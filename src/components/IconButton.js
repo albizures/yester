@@ -3,7 +3,7 @@ import { StyleSheet, View, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 
-const IconButton = ({style, children}) => {
+const IconButton = ({ style, children }) => {
   return (
     <View style={[styles.container, style]} >
       {children}
