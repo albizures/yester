@@ -24,12 +24,12 @@ describe('src/screens/Home/index.js', () => {
 
   describe('#componentDidMount', () => {
     it('should return an object with data', async () => {
-      http.get = jest.fn().mockResolvedValue({data: {value: 'test'}})
+      http.get = jest.fn().mockResolvedValue({ data: { value: 'test' } })
       const shallowHome = shallow(<Home navigation={navigation} />)
       const home = shallowHome.instance()
 
       await home.componentDidMount()
-      expect(shallowHome.state()).toMatchObject({isLoading: false, value: 'test'})
+      expect(shallowHome.state()).toMatchObject({ isLoading: false, value: 'test' })
     })
 
     describe('when the request failed', () => {

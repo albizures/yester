@@ -54,7 +54,7 @@ const SettingsItem = (props) => {
         </View>
         {showIcon[type]}
       </View>
-      <Divider style={{ marginLeft: 0 }} />
+      <Divider style={{ width: 323, marginLeft: 0 }} />
     </TouchableOpacity>
   )
 }

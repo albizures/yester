@@ -2,7 +2,6 @@ import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Alert, View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
-
 import icons from '../utils/icons'
 import colors from '../utils/colors'
 import { logIn, saveUserToken } from '../utils/session'
@@ -31,7 +30,7 @@ class Login extends Component {
 
     try {
       const { token, expires, profile } = onLoginWithFB()
-      await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
+      await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
       await saveUserToken()
       navigation.navigate('App')
     } catch (error) {

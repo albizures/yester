@@ -1,35 +1,79 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, Image, Dimensions, Alert } from 'react-native'
 import PropTypes from 'prop-types'
+
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
 import { Title, Description, Heading5 } from '../components'
-import Button, {types} from '../components/Button'
+import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
+import { saveUserSubscriptionStatus, removeSuscription } from '../utils/session'
+import { getEntitlements, buySubscription, status, setPurchaseListener } from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  onPressSubscription = () => {
-    this.props.navigation.navigate('CreateAccount')
+  componentWillUnmount () {
+    if (this.removeListener) {
+      this.removeListener(this.handlePurchaserInfo)
+    }
   }
 
-  onPressLogin = () => {
-    this.props.navigation.navigate('Login')
+  onStartTrial = async () => {
+    const { monthly } = await getEntitlements()
+    this.removeListener = setPurchaseListener(this.handlePurchaserInfo)
+    buySubscription(monthly.identifier)
+  }
+
+  handlePurchaserInfo = async (error, purchaserInfo = {}, type) => {
+    const { navigation } = this.props
+
+    if (this.removeListener) {
+      this.removeListener()
+    }
+
+    if (error) {
+      return Alert.alert("We couldn't process your payment")
+    }
+
+    const { activeSubscriptions = [] } = purchaserInfo
+
+    if (purchaserInfo.activeEntitlements.length === 0) {
+      try {
+        await removeSuscription()
+      } catch (error) {
+        console.error('handlePurchaserInfo', error)
+      }
+      return Alert.alert("We couldn't process your payment")
+    }
+
+    if (activeSubscriptions.length === 0) {
+      return Alert.alert("We couldn't process your payment")
+    }
+
+    try {
+      await saveUserSubscriptionStatus(status.SUBSCRIBED)
+      navigation.navigate('AppLoading')
+    } catch (error) {
+      Alert.alert("We couldn't update your suscription, please contact us")
+    }
+  }
+
+  onRestore = async () => {
   }
 
   render () {
     return (
-      <View style={{position: 'relative'}}>
+      <View style={{ position: 'relative' }}>
 
         <Image source={icons.subscription} style={styles.image} />
         <View style={styles.bottomRibbon}>
-          <Text style={{textAlign: 'center'}}>
+          <Text style={{ textAlign: 'center' }}>
             <Heading5 keyName='subscription.already' style={styles.alreadyText} />
-            <Heading5 keyName='subscription.restore' style={styles.restoreText} onPress={this.onPressLogin} />
+            <Heading5 keyName='subscription.restore' style={styles.restoreText} onPress={this.onRestore} />
           </Text>
         </View>
         <Container scroll style={styles.container} >
@@ -43,7 +87,7 @@ class Subscription extends Component {
             <Title keyName='subscription.receive' style={styles.receiveText} />
             <Description keyName='subscription.then' style={styles.thenText} />
 
-            <Button title='subscription.start' onPress={this.onPressSubscription} type={types.OUTLINED} />
+            <Button title='subscription.start' onPress={this.onStartTrial} type={types.OUTLINED} />
             <Description keyName='subscription.price' style={styles.priceText} />
           </View>
 

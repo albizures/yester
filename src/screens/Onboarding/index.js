@@ -76,7 +76,6 @@ export default class Onboarding extends Component {
             {/* <Heading4 keyName='onboarding.next' onPress={nextScreen} style={{ color: colors.white, textDecorationLine: 'underline' }} /> */}
           </View>
         </View>
-
       </View>
     )
   }
@@ -104,18 +103,18 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   topFlex: {
-    flex: 8.2,
+    flex: 22,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   bottomFlex: {
-    flex: 1.8,
+    flex: 6,
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginTop: 20,
   },
   buttonsView: {
-    width: width * 0.5,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'center',

@@ -4,11 +4,11 @@ import { View, Image, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { capitalize } from '../../utils'
-import Button, {types} from '../../components/Button'
+import Button, { types } from '../../components/Button'
 import { Heading2, Heading5 } from '../../components'
 
 const QuestionCard = (props) => {
-  const {data, onPressWrite, onPressSkip} = props
+  const { data, onPressWrite, onPressSkip } = props
 
   return (
     <View style={styles.card}>
@@ -16,19 +16,19 @@ const QuestionCard = (props) => {
         <View style={styles.illustrationView}>
           <Image source={icons.cardFriendship} />
         </View>
-        <View style={{flex: 1, position: 'absolute', paddingTop: 27}}>
-          <Heading5 text={capitalize(data.age)} style={{textAlign: 'center'}} />
+        <View style={{ flex: 1, position: 'absolute', paddingTop: 27 }}>
+          <Heading5 text={capitalize(data.age)} style={{ textAlign: 'center' }} />
         </View>
 
         <View style={styles.contentTop}>
-          <Heading2 text={capitalize(data.category)} style={{marginBottom: 10}} />
+          <Heading2 text={capitalize(data.category)} style={{ marginBottom: 10 }} />
           <Heading5 text={capitalize(data.text)} />
         </View>
 
         <View style={styles.contentBottom}>
           <Button title='questionCard.write'
             onPress={onPressWrite}
-            style={{marginBottom: 20}} />
+            style={{ marginBottom: 20 }} />
           <Button title='questionCard.skip' onPress={onPressSkip} type={types.OUTLINED} />
         </View>
       </View>

@@ -81,7 +81,7 @@ export default class ConfirmAccount extends Component {
 
             <View style={styles.middleFlex} >
               <Heading4 keyName='confirm.label' />
-              <Heading3 text='{contact}' data={{contact: email || number}}
+              <Heading3 text='{contact}' data={{ contact: email || number }}
                 style={styles.contactText} />
               <Heading4 keyName='confirm.note' style={styles.noteText} />
             </View>

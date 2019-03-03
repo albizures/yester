@@ -10,7 +10,7 @@
   "subscription.then": "(then just $4.99/month)",
   "subscription.price": "$4.99/month after trial ends.",
   "subscription.cancel": "Cancel Anytime",
-  "subscription.recurring": "At Yester is recurring subscription. If you decide to purchase a subscription, an initial payment will be charged to you iTunes account. Shortly before the end of each subscription period, your account will be charged. Auto-renewal may be disabled at any time by going to your settings in the iTunes store after purchase. For more information, please see our Terms of Use and Privacy Policy.",
+  "subscription.recurring": "Yester offers a 1-Month FREE trial with the selection of a subscription option - Monthly plan. When selecting a plan, you will not be charged during the free trial period. If you do not cancel the subscription 24-hours before the current period or free trial is up, the subscription plan will auto-renew and your account will be charged. Please see Apple's auto-renewing subscription details for more information. All of Yester's subscription plans provide FULL access to the above features and ALL future updates. Cancel at anytime. For more information, please see our Terms of Use and Privacy Policy.",
   "subscription.already": "Already purchased? ",
   "subscription.restore": "Restore",
   "subscription.start": "START FREE TRIAL",
