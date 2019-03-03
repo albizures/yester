@@ -17,7 +17,7 @@ const Loading = ({ isLoading, children, top, style }) => {
 
 Loading.propTypes = {
   isLoading: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   top: PropTypes.number,
   style: ViewPropTypes.style,
 }
