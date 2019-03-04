@@ -9,7 +9,12 @@ import { Title, Description, Heading5 } from '../components'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { saveUserSubscriptionStatus, removeSuscription } from '../utils/session'
-import { getEntitlements, buySubscription, status, setPurchaseListener } from '../utils/purchase'
+import {
+  getEntitlements,
+  buySubscription,
+  status,
+  setPurchaseListener,
+} from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
@@ -62,22 +67,26 @@ class Subscription extends Component {
     }
   }
 
-  onRestore = async () => {
-  }
+  onRestore = async () => {}
 
   render () {
     return (
       <View style={{ position: 'relative' }}>
-
         <Image source={icons.subscription} style={styles.image} />
         <View style={styles.bottomRibbon}>
           <Text style={{ textAlign: 'center' }}>
-            <Heading5 keyName='subscription.already' style={styles.alreadyText} />
-            <Heading5 keyName='subscription.restore' style={styles.restoreText} onPress={this.onRestore} />
+            <Heading5
+              keyName='subscription.already'
+              style={styles.alreadyText}
+            />
+            <Heading5
+              keyName='subscription.restore'
+              style={styles.restoreText}
+              onPress={this.onRestore}
+            />
           </Text>
         </View>
-        <Container scroll style={styles.container} >
-
+        <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
             <Image source={icons.logoWhite} style={styles.logo} />
             <Text style={styles.paragraph1}>
@@ -87,17 +96,28 @@ class Subscription extends Component {
             <Title keyName='subscription.receive' style={styles.receiveText} />
             <Description keyName='subscription.then' style={styles.thenText} />
 
-            <Button title='subscription.start' onPress={this.onStartTrial} type={types.OUTLINED} />
-            <Description keyName='subscription.price' style={styles.priceText} />
+            <Button
+              title='subscription.start'
+              onPress={this.onStartTrial}
+              type={types.OUTLINED}
+            />
+            <Description
+              keyName='subscription.price'
+              style={styles.priceText}
+            />
           </View>
 
           <View style={styles.bottomFlex}>
-
             <Divider style={styles.divider} />
 
-            <Description keyName='subscription.cancel' style={styles.cancelText} />
-            <Description keyName='subscription.recurring' style={styles.recurringText} />
-
+            <Description
+              keyName='subscription.cancel'
+              style={styles.cancelText}
+            />
+            <Description
+              keyName='subscription.recurring'
+              style={styles.recurringText}
+            />
           </View>
         </Container>
       </View>
