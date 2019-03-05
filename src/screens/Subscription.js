@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions, Alert } from 'react-native'
+import { StyleSheet, View, Image, Dimensions, Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
-import { Title, Description, Heading5 } from '../components'
+import { Title, Description, Heading1 } from '../components'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { saveUserSubscriptionStatus, removeSuscription } from '../utils/session'
@@ -73,37 +73,24 @@ class Subscription extends Component {
     return (
       <View style={{ position: 'relative' }}>
         <Image source={icons.subscription} style={styles.image} />
-        <View style={styles.bottomRibbon}>
-          <Text style={{ textAlign: 'center' }}>
-            <Heading5
-              keyName='subscription.already'
-              style={styles.alreadyText}
-            />
-            <Heading5
-              keyName='subscription.restore'
-              style={styles.restoreText}
-              onPress={this.onRestore}
-            />
-          </Text>
-        </View>
         <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
-            <Image source={icons.logoWhite} style={styles.logo} />
-            <Text style={styles.paragraph1}>
-              <Title keyName='subscription.weKnow' style={styles.weKnowText} />
-              <Title keyName='subscription.weWant' style={styles.weWantText} />
-            </Text>
-            <Title keyName='subscription.receive' style={styles.receiveText} />
-            <Description keyName='subscription.then' style={styles.thenText} />
+            <Heading1 keyName='subscription.try' style={styles.tryText} />
+            <Description
+              keyName='subscription.price'
+              style={styles.priceText}
+            />
+            <Image source={icons.ballon} style={styles.ballonImage} />
+            <Title keyName='subscription.slogan' style={styles.sloganText} />
+            <Title
+              keyName='subscription.features'
+              style={styles.featuresText}
+            />
 
             <Button
               title='subscription.start'
               onPress={this.onStartTrial}
               type={types.OUTLINED}
-            />
-            <Description
-              keyName='subscription.price'
-              style={styles.priceText}
             />
           </View>
 
@@ -111,12 +98,12 @@ class Subscription extends Component {
             <Divider style={styles.divider} />
 
             <Description
-              keyName='subscription.cancel'
-              style={styles.cancelText}
+              keyName='subscription.termsTitle'
+              style={styles.termsTitleText}
             />
             <Description
-              keyName='subscription.recurring'
-              style={styles.recurringText}
+              keyName='subscription.terms'
+              style={styles.termsText}
             />
           </View>
         </Container>
@@ -168,56 +155,39 @@ const styles = StyleSheet.create({
     width,
     height,
   },
-  logo: {
-    width: 151,
-    height: 39,
+  ballonImage: {
+    width: 78,
+    height: 98.88,
+    marginBottom: height * 0.06,
+  },
+  tryText: {
+    color,
     marginBottom: height * 0.045,
   },
-  paragraph1: {
-    marginBottom: height * 0.03,
-  },
-  weKnowText: {
-    color,
-    textAlign,
-  },
-  weWantText: {
+  sloganText: {
     color,
     textAlign,
     fontWeight: 'bold',
+    marginBottom: height * 0.03,
   },
-  receiveText: {
+  featuresText: {
     color,
     textAlign,
-    marginBottom: height * 0.02,
-  },
-  thenText: {
-    color,
-    textAlign,
-    marginBottom: height * 0.06,
+    marginBottom: height * 0.05,
   },
   priceText: {
     color,
     textAlign,
-    marginTop: height * 0.01,
+    marginBottom: height * 0.06,
   },
-  cancelText: {
+  termsTitleText: {
     textAlign: 'left',
     fontWeight: 'bold',
     color: colors.athensGray,
     marginBottom: height * 0.01,
   },
-  recurringText: {
+  termsText: {
     color: colors.athensGray,
-  },
-  alreadyText: {
-    color,
-    textAlign,
-  },
-  restoreText: {
-    color,
-    textAlign,
-    fontWeight: 'bold',
-    textDecorationLine: 'underline',
   },
   divider: {
     width: 300,
