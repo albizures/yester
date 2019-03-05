@@ -33,7 +33,8 @@ Auth.configure({ storage: Storage })
 
 const cognitoAuthClient = new CognitoAuth(cognitoAuthParams)
 
-const debug = debugFactory('yester:session')
+const debugInfo = debugFactory('yester:session:info')
+const debugError = debugFactory('yester:session:error')
 
 export const extractTokenFromSession = async () => {
   const currentSession = await Auth.currentSession()
@@ -45,12 +46,12 @@ export const getToken = () => extractTokenFromSession()
 export const setAuthHeader = async (token) => {
   try {
     token = token || (await getToken())
-    debug('defining auth header')
+    debugInfo('Defining auth header')
     if (token) {
       instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
     }
   } catch (error) {
-    debug('there is not token', error)
+    debugError('There is not token', error)
   }
 }
 
@@ -184,7 +185,9 @@ export const loginWithFBWebView = (url) => new Promise((resolve, reject) => {
 })
 
 export const setLocale = (locale) => {
+  debugInfo('Saving phone language')
   setHeaderLocale(locale)
   moment.locale(locale)
   strings.setLanguage(locale)
+  debugInfo('Phone language saved')
 }

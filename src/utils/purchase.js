@@ -1,7 +1,12 @@
 import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
+import debugFactory from 'debug'
+
 import { getUser } from './session'
+
+const debugError = debugFactory('yester:purchase:error')
+const debugInfo = debugFactory('yester:purchase:info')
 
 export const status = {
   EXPIRE_SUBSCRIPTION: '2',
@@ -17,20 +22,20 @@ export const eventTypes = {
 export const setupRCPurchases = async () => {
   try {
     const user = await getUser()
-    console.log('User Id', user)
+    debugInfo('User Id', user)
     Purchases.setup(REVENUECAT_API_KEY, user.username)
   } catch (error) {
-    console.log('setupRCPurchases', error)
+    debugError('setupRCPurchases', error)
   }
 }
 
 export const getEntitlements = async () => {
   try {
     const { pro } = await Purchases.getEntitlements()
-    console.log('Entitlement:', pro)
+    debugInfo('Entitlement:', pro)
     return pro
   } catch (error) {
-    console.log('getEntitlements', error)
+    debugError('getEntitlements', error)
   }
 }
 
@@ -38,7 +43,7 @@ export const buySubscription = (productId) => {
   try {
     Purchases.makePurchase(productId)
   } catch (err) {
-    console.warn(err.code, err.message)
+    debugError(err.code, err.message)
     Alert.alert(err.message)
   }
 }
