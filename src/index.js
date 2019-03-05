@@ -40,9 +40,9 @@ import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
 import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
 
-require('moment/locale/es.js')
+const debugInfo = debugFactory('yester:index:info')
 
-debugFactory.enable('yester:*')
+require('moment/locale/es.js')
 
 Amplify.configure({
   storage: Storage,
@@ -180,12 +180,14 @@ export default class App extends Component {
   }
 
   updateUser = async () => {
+    debugInfo('Updating user')
     const user = sanitizeUser(await getUser())
     setLocale(user.locale)
     this.setState({ user })
   }
 
   updateAges = (ages) => {
+    debugInfo('Updating ages', ages)
     this.setState({
       ages: ages.reduce((agesObj, age) => ({
         ...agesObj,

@@ -12,7 +12,8 @@ import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings } from '../components/Translate'
 
-const debugError = debugFactory('yester:error:AppLoading')
+const debugError = debugFactory('yester:AppLoading:error')
+const debugInfo = debugFactory('yester:AppLoading:info')
 
 class AppLoading extends Component {
   static propTypes = {
@@ -34,11 +35,12 @@ class AppLoading extends Component {
     const { contextAges: { updateAges } } = this.props
 
     try {
+      debugInfo('Fetching ages')
       const { data: ages } = await http.get('/v1/ages')
       updateAges(ages)
     } catch (error) {
       Alert.alert('Error getting the ages')
-      debugError(error)
+      debugError('Error getting the ages', error)
     }
   }
 
@@ -53,6 +55,7 @@ class AppLoading extends Component {
     try {
       const userToken = await getToken()
       if (!userToken) {
+        debugInfo('No token found, sending user to Auth flow')
         return navigation.navigate('Auth')
       }
 
@@ -71,6 +74,8 @@ class AppLoading extends Component {
           resolve(purchaserInfo)
         })
       })
+
+      debugInfo(purchaserInfo)
 
       const { activeSubscriptions = [], allExpirationDates = {} } = purchaserInfo || {}
       if (activeSubscriptions.length === 0) {
