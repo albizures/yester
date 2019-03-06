@@ -33,26 +33,36 @@ export default class Settings extends Component {
     navigation.navigate('Auth')
   }
 
-  onPressFacebook = async () => {
-  }
+  onPressFacebook = async () => {}
 
   render () {
-    const topBar = (
-      <TopBar title='settings.title' />
-    )
+    const topBar = <TopBar title='settings.title' />
     return (
-      <Container topBar={topBar} >
-        <View style={styles.container} >
+      <Container topBar={topBar}>
+        <View style={styles.container}>
+          {/*
           <SettingsItem title='Facebook' type={types.TEXT}
             onPress={this.onPressFacebook} />
-          <SettingsItem title='Language' type={types.CHEVRON}
-            onPress={this.onPressLanguage} />
+            */}
+          <SettingsItem
+            title='Language'
+            type={types.CHEVRON}
+            onPress={this.onPressLanguage}
+          />
+          {/*
           <SettingsItem title='Notifications' type={types.CHEVRON}
             onPress={this.onPressNotifications} />
-          <SettingsItem title='Terms and Conditions' type={types.CHEVRON}
-            onPress={this.onPressTerms} />
-          <SettingsItem title='About Yester' type={types.CHEVRON}
-            onPress={this.onPressAbout} />
+            */}
+          <SettingsItem
+            title='Terms and Conditions'
+            type={types.CHEVRON}
+            onPress={this.onPressTerms}
+          />
+          <SettingsItem
+            title='About Yester'
+            type={types.CHEVRON}
+            onPress={this.onPressAbout}
+          />
           <SettingsItem title='Log Out' onPress={this.onLogOut} />
         </View>
       </Container>
