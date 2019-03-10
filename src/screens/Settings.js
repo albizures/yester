@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Linking } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import { logOut } from '../utils/session'
@@ -20,11 +20,13 @@ export default class Settings extends Component {
   }
 
   onPressTerms = () => {
-    this.props.navigation.navigate('Terms')
+    // this.props.navigation.navigate('Terms')
+    Linking.openURL('https://www.yester.app/terms')
   }
 
   onPressAbout = () => {
-    this.props.navigation.navigate('About')
+    // this.props.navigation.navigate('About')
+    Linking.openURL('https://www.yester.app')
   }
 
   onLogOut = async () => {
