@@ -803,8 +803,8 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				FCF97AD2218F7F3A00791543 /* Strip Frameworks */,
 				6838853B220BD1F300BDBED7 /* Embed Frameworks */,
+				FCF97AD2218F7F3A00791543 /* Strip Frameworks */,
 			);
 			buildRules = (
 			);
