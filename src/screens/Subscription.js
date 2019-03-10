@@ -5,10 +5,14 @@ import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
-import { Title, Description, Heading1 } from '../components'
+import { Title, Description, Heading1, Heading3 } from '../components'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { saveUserSubscriptionStatus, removeSuscription } from '../utils/session'
+import {
+  saveUserSubscriptionStatus,
+  removeSuscription,
+  logOut,
+} from '../utils/session'
 import {
   getEntitlements,
   buySubscription,
@@ -25,6 +29,12 @@ class Subscription extends Component {
     if (this.removeListener) {
       this.removeListener(this.handlePurchaserInfo)
     }
+  }
+
+  onLogOut = async () => {
+    const { navigation } = this.props
+    await logOut()
+    navigation.navigate('CreateAccount')
   }
 
   onStartTrial = async () => {
@@ -75,6 +85,11 @@ class Subscription extends Component {
         <Image source={icons.subscription} style={styles.image} />
         <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
+            <Heading3
+              keyName='subscription.close'
+              style={styles.closeText}
+              onPress={this.onLogOut}
+            />
             <Heading1 keyName='subscription.try' style={styles.tryText} />
             <Description
               keyName='subscription.price'
@@ -127,7 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: height * 0.12,
+    paddingTop: height * 0.07,
     paddingHorizontal: width * 0.08,
     paddingBottom: height * 0.06,
   },
@@ -159,6 +174,11 @@ const styles = StyleSheet.create({
     width: 78,
     height: 98.88,
     marginBottom: height * 0.06,
+  },
+  closeText: {
+    color,
+    alignSelf: 'flex-end',
+    marginBottom: height * 0.03,
   },
   tryText: {
     color,
