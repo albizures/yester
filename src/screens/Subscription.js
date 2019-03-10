@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
-import { Title, Description, Heading1, Heading3 } from '../components'
+import { Title, Description, Heading1, Heading5 } from '../components'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import {
@@ -85,7 +85,7 @@ class Subscription extends Component {
         <Image source={icons.subscription} style={styles.image} />
         <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
-            <Heading3
+            <Title
               keyName='subscription.close'
               style={styles.closeText}
               onPress={this.onLogOut}
@@ -106,6 +106,11 @@ class Subscription extends Component {
               title='subscription.start'
               onPress={this.onStartTrial}
               type={types.OUTLINED}
+            />
+            <Heading5
+              keyName='subscription.restore'
+              style={styles.restoreText}
+              onPress={this.onStartTrial}
             />
           </View>
 
@@ -144,7 +149,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: height * 0.07,
     paddingHorizontal: width * 0.08,
-    paddingBottom: height * 0.06,
+    paddingBottom: height * 0.04,
   },
   bottomFlex: {
     flex: 1,
@@ -152,37 +157,31 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingHorizontal: width * 0.08,
   },
-  bottomRibbon: {
-    flex: 1,
-    position: 'absolute',
-    top: height - 51,
-    zIndex: 2,
-    height: 51,
-    width: width,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.governorBay,
-    opacity: 0.79,
-  },
   image: {
     position: 'absolute',
     zIndex: 0,
     width,
     height,
   },
-  ballonImage: {
-    width: 78,
-    height: 98.88,
-    marginBottom: height * 0.06,
-  },
   closeText: {
     color,
     alignSelf: 'flex-end',
+    fontWeight: 'bold',
     marginBottom: height * 0.03,
   },
   tryText: {
     color,
-    marginBottom: height * 0.045,
+    marginBottom: height * 0.01,
+  },
+  priceText: {
+    color,
+    textAlign,
+    marginBottom: height * 0.03,
+  },
+  ballonImage: {
+    width: 78,
+    height: 98.88,
+    marginBottom: height * 0.04,
   },
   sloganText: {
     color,
@@ -195,10 +194,12 @@ const styles = StyleSheet.create({
     textAlign,
     marginBottom: height * 0.05,
   },
-  priceText: {
+  restoreText: {
     color,
     textAlign,
-    marginBottom: height * 0.06,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    marginTop: height * 0.03,
   },
   termsTitleText: {
     textAlign: 'left',
