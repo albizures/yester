@@ -9,7 +9,7 @@ import colors from '../utils/colors'
 const top = Platform.OS === 'ios' ? 20 : 0
 
 const Container = (props) => {
-  const { scroll, isLoading, children, topBar, onRefresh, refreshing, style, scrollRef } = props
+  const { scroll, isLoading, children, topBar, onRefresh, refreshing, style, scrollRef, scrollEvents } = props
   const refreshControl = (scroll && onRefresh && refreshing) ? (
     <RefreshControl
       refreshing={refreshing}
@@ -19,8 +19,11 @@ const Container = (props) => {
 
   const ScrollViewProps = {
     refreshControl,
+    scrollEventThrottle: 16,
+    keyboardDismissMode: 'on-drag',
     style: styles.flex,
     ref: scrollRef,
+    ...scrollEvents,
   }
 
   return (
@@ -40,6 +43,7 @@ Container.propTypes = {
   refreshing: PropTypes.bool,
   children: PropTypes.node.isRequired,
   topBar: PropTypes.node,
+  scrollEvents: PropTypes.object,
   isLoading: PropTypes.bool,
   scroll: PropTypes.bool,
   style: ViewPropTypes.style,
