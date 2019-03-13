@@ -20,9 +20,10 @@ export default class Tab extends Component {
   state = {
     lastEvaluatedKey: this.props.initialEvaluatedKey,
     stories: this.props.initialStories,
+    endReached: !this.props.initialEvaluatedKey,
   }
 
-  onEndReached = (info) => {
+  onEndReached = info => {
     this.getStories()
   }
 
@@ -63,7 +64,14 @@ export default class Tab extends Component {
       id: storyId,
       category_id: categoryId,
     } = item
-    const newItem = { question, questionId, ageId, storyId, content, categoryId }
+    const newItem = {
+      question,
+      questionId,
+      ageId,
+      storyId,
+      content,
+      categoryId,
+    }
     return (
       <StoryItem
         question={question}
@@ -77,26 +85,29 @@ export default class Tab extends Component {
 
   render () {
     const { stories } = this.state
-    const content = stories.length === 0 ? (
-      <View style={styles.noStoriesContainer}>
-        <Heading4 style={[styles.message, styles.highlightMessage]} keyName={'home.empty.tab.title'} />
-        <Heading5 style={styles.message} keyName={'home.empty.tab.subtitle'} />
-      </View>
-    ) : (
-      <FlatList
-        onEndReached={this.onEndReached}
-        style={{ flexGrow: 0 }}
-        data={stories}
-        keyExtractor={indexToString}
-        renderItem={this.renderItem}
-      />
-    )
+    const content =
+      stories.length === 0 ? (
+        <View style={styles.noStoriesContainer}>
+          <Heading4
+            style={[styles.message, styles.highlightMessage]}
+            keyName={'home.empty.tab.title'}
+          />
+          <Heading5
+            style={styles.message}
+            keyName={'home.empty.tab.subtitle'}
+          />
+        </View>
+      ) : (
+        <FlatList
+          onEndReached={this.onEndReached}
+          style={{ flexGrow: 0 }}
+          data={stories}
+          keyExtractor={indexToString}
+          renderItem={this.renderItem}
+        />
+      )
 
-    return (
-      <View style={styles.container}>
-        {content}
-      </View>
-    )
+    return <View style={styles.container}>{content}</View>
   }
 }
 
