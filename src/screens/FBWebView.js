@@ -12,7 +12,7 @@ class FBWebView extends React.Component {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
-  onFBWebViewStateChange = async (event) => {
+  onFBWebViewStateChange = async event => {
     const { updateUser } = this.props.contextUser
     const { navigation } = this.props
     console.log('onFBWebViewStateChange', event.url)
@@ -38,7 +38,8 @@ class FBWebView extends React.Component {
         <WebView
           style={styles.webview}
           source={{ uri: FACEBOOK_URL_LOGIN }}
-          onNavigationStateChange={this.onFBWebViewStateChange} />
+          onNavigationStateChange={this.onFBWebViewStateChange}
+        />
       </View>
     )
   }

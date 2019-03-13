@@ -13,7 +13,7 @@ const QuestionItem = (props) => {
     <TouchableOpacity onPress={onPress} style={styles.container} >
       <View style={styles.card}>
         <View style={styles.topView}>
-          <Title keyName='home.questionItem.dailyTopic!' style={styles.dayTopicText} />
+          <Title keyName='home.questionItem.dailyTopic' style={styles.dayTopicText} />
         </View>
         <View style={styles.newTextContainer}>
           <Description keyName='home.questionItem.new' style={styles.newText} />
