@@ -12,22 +12,38 @@ class FBWebView extends React.Component {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
+  state = {
+    logedIn: false,
+  }
+
   onFBWebViewStateChange = async event => {
     const { updateUser } = this.props.contextUser
     const { navigation } = this.props
-    console.log('onFBWebViewStateChange', event.url)
+    const { logedIn } = this.state
+
+    console.log('onFBWebViewStateChange: ', event.url)
+    console.log('logedIn: ', logedIn)
     if (event.url.startsWith('https://www.yester.app')) {
       if (event.url.includes('access_token=')) {
         try {
+          this.setState({
+            logedIn: true,
+          })
           await loginWithFBWebView(event.url)
           await updateUserAttribute('locale', strings.getLanguage())
           await updateUser()
           return navigation.navigate('AppLoading')
         } catch (error) {
+          this.setState({
+            logedIn: false,
+          })
           console.log('onFBWebViewStateChange', error)
           navigation.goBack()
           Alert.alert(translate('login.error.facebook'))
         }
+      } else if (!logedIn) {
+        Alert.alert(translate('login.error.facebook'))
+        navigation.navigate('CreateAccount')
       }
     }
   }
