@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Dimensions, Alert } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Alert,
+  Text,
+  Linking,
+} from 'react-native'
 import PropTypes from 'prop-types'
-
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
@@ -51,7 +58,12 @@ class Subscription extends Component {
     }
 
     if (error) {
-      return Alert.alert("We couldn't process your payment")
+      console.log('error', error)
+      const message =
+        error.code === 2
+          ? 'Process has been cancelled'
+          : "We couldn't process your payment"
+      return Alert.alert(message)
     }
 
     const { activeSubscriptions = [] } = purchaserInfo
@@ -78,6 +90,16 @@ class Subscription extends Component {
   }
 
   onRestore = async () => {}
+
+  onPressTerms = () => {
+    // this.props.navigation.navigate('Terms')
+    Linking.openURL('https://www.yester.app/terms')
+  }
+
+  onPressPrivacy = () => {
+    // this.props.navigation.navigate('About')
+    Linking.openURL('https://www.yester.app/privacy')
+  }
 
   render () {
     return (
@@ -121,10 +143,26 @@ class Subscription extends Component {
               keyName='subscription.termsTitle'
               style={styles.termsTitleText}
             />
-            <Description
-              keyName='subscription.terms'
-              style={styles.termsText}
-            />
+            <Text style={{ paddingBottom: 40 }}>
+              <Description
+                keyName='subscription.terms'
+                style={styles.termsText}
+              />
+              <Description
+                keyName='subscription.termsLink'
+                style={styles.termsLink}
+                onPress={this.onPressTerms}
+              />
+              <Description
+                keyName='subscription.termsAnd'
+                style={styles.termsText}
+              />
+              <Description
+                keyName='subscription.privacyLink'
+                style={styles.termsLink}
+                onPress={this.onPressPrivacy}
+              />
+            </Text>
           </View>
         </Container>
       </View>
@@ -209,6 +247,11 @@ const styles = StyleSheet.create({
   },
   termsText: {
     color: colors.athensGray,
+  },
+  termsLink: {
+    color,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
   divider: {
     width: 300,
