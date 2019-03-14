@@ -7,50 +7,51 @@ import { strings, translate } from '../components/Translate'
 import { loginWithFBWebView, updateUserAttribute } from '../utils/session'
 
 let attempts = 0
+let logedIn = false
+let alreadyEntry = false
 
 class FBWebView extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
+
   state = {
-    logedIn: false,
+    key: 1,
   }
 
   onFBWebViewStateChange = async event => {
     const { updateUser } = this.props.contextUser
     const { navigation } = this.props
-    const { logedIn } = this.state
 
     console.log('onFBWebViewStateChange: ', event.url)
     console.log('logedIn: ', logedIn)
     if (event.url.startsWith('https://www.yester.app')) {
       if (event.url.includes('access_token=')) {
         try {
-          this.setState({
-            logedIn: true,
-          })
+          logedIn = true
           await loginWithFBWebView(event.url)
           await updateUserAttribute('locale', strings.getLanguage())
           await updateUser()
           return navigation.navigate('AppLoading')
         } catch (error) {
-          this.setState({
-            logedIn: false,
-          })
+          logedIn = false
           console.log('onFBWebViewStateChange', error)
           navigation.goBack()
           Alert.alert(translate('login.error.facebook'))
         }
-      } else if (!logedIn) {
+      } else if (event.url.includes('error_description=Already+found+an+entry+for')) {
+        console.log('Already entry')
+        alreadyEntry = true
+        attempts = 0
+        this.setState({
+          key: this.state.key + 1,
+        })
+      } else if (!logedIn && !alreadyEntry) {
         Alert.alert(translate('login.error.facebook'))
         navigation.navigate('CreateAccount')
       }
-    } else if (
-      event.url.startsWith(
-        'https://m.facebook.com/v2.9/dialog/oauth?client_id='
-      )
-    ) {
+    } else if (event.url.startsWith('https://m.facebook.com/v2.9/dialog/oauth')) {
       attempts = attempts + 1
       console.log('attempts:', attempts)
       if (attempts === 2) {
@@ -65,6 +66,7 @@ class FBWebView extends React.Component {
     return (
       <View style={styles.container}>
         <WebView
+          key={this.state.key}
           style={styles.webview}
           source={{ uri: FACEBOOK_URL_LOGIN }}
           onNavigationStateChange={this.onFBWebViewStateChange}
