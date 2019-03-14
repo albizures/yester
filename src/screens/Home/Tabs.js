@@ -116,6 +116,7 @@ class Tabs extends Component {
           labelStyle={styles.label}
           indicatorStyle={styles.indicator}
           style={styles.header}
+          tabStyle={styles.tabStyle}
         />
       </View>
     )
@@ -161,7 +162,9 @@ export default withAges(Tabs)
 
 const styles = StyleSheet.create({
   tabTitle: {
+    width: 160,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   ageIcon: {
     width: 32,
@@ -181,6 +184,9 @@ const styles = StyleSheet.create({
   },
   indicator: {
     backgroundColor: colors.governorBay,
+  },
+  tabStyle: {
+    width: 160,
   },
 })
 
