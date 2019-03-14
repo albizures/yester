@@ -6,12 +6,13 @@ import withUser, { shapeContextUser } from '../components/withUser'
 import { strings, translate } from '../components/Translate'
 import { loginWithFBWebView, updateUserAttribute } from '../utils/session'
 
+let attempts = 0
+
 class FBWebView extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
-
   state = {
     logedIn: false,
   }
@@ -44,6 +45,18 @@ class FBWebView extends React.Component {
       } else if (!logedIn) {
         Alert.alert(translate('login.error.facebook'))
         navigation.navigate('CreateAccount')
+      }
+    } else if (
+      event.url.startsWith(
+        'https://m.facebook.com/v2.9/dialog/oauth?client_id='
+      )
+    ) {
+      attempts = attempts + 1
+      console.log('attempts:', attempts)
+      if (attempts === 2) {
+        attempts = 0
+        Alert.alert(translate('login.error.facebook'))
+        navigation.goBack()
       }
     }
   }
