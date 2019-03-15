@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Linking } from 'react-native'
+import { View, StyleSheet, Linking, Platform } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import { logOut } from '../utils/session'
@@ -29,6 +29,13 @@ export default class Settings extends Component {
     Linking.openURL('https://www.yester.app')
   }
 
+  onPressManage = () => {
+    // this.props.navigation.navigate('About')
+    Platform.OS === 'ios'
+      ? Linking.openURL('https://apps.apple.com/account/subscriptions')
+      : Linking.openURL('https://play.google.com/store/account/subscriptions')
+  }
+
   onLogOut = async () => {
     const { navigation } = this.props
     await logOut()
@@ -46,11 +53,7 @@ export default class Settings extends Component {
           <SettingsItem title='Facebook' type={types.TEXT}
             onPress={this.onPressFacebook} />
             */}
-          <SettingsItem
-            title='Language'
-            type={types.CHEVRON}
-            onPress={this.onPressLanguage}
-          />
+          <SettingsItem title='Language' type={types.CHEVRON} onPress={this.onPressLanguage} />
           {/*
           <SettingsItem title='Notifications' type={types.CHEVRON}
             onPress={this.onPressNotifications} />
@@ -60,10 +63,11 @@ export default class Settings extends Component {
             type={types.CHEVRON}
             onPress={this.onPressTerms}
           />
+          <SettingsItem title='About Yester' type={types.CHEVRON} onPress={this.onPressAbout} />
           <SettingsItem
-            title='About Yester'
+            title='Manage Subscription'
             type={types.CHEVRON}
-            onPress={this.onPressAbout}
+            onPress={this.onPressManage}
           />
           <SettingsItem title='Log Out' onPress={this.onLogOut} />
         </View>
