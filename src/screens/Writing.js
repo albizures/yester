@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, TextInput, StyleSheet, Alert, Platform, PanResponder, Keyboard, UIManager, Dimensions, findNodeHandle } from 'react-native'
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+  Platform,
+  PanResponder,
+  Keyboard,
+  UIManager,
+  Dimensions,
+  findNodeHandle,
+} from 'react-native'
 import { NavigationActions, StackActions } from 'react-navigation'
-
 import { Description, Title } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import withUser, { shapeContextUser } from '../components/withUser'
-
+import { translate } from '../components/Translate'
 import colors from '../utils/colors'
 import http from '../utils/http'
 
@@ -86,20 +96,23 @@ class Writing extends Component {
       return
     }
 
-    const percentagePosition = ((100 * selection.start) / content.length) / 100
+    const percentagePosition = (100 * selection.start) / content.length / 100
 
-    UIManager.measure(findNodeHandle(this.content.current), (originX, originY, width, height, pageX, pageY) => {
-      const cursorPositionInTextInput = parseInt(height * percentagePosition)
-      const cursorPosition = cursorPositionInTextInput + pageY - headerOffset
-      const viewport = [headerOffset, windowHeight - keyboardHeight - 100]
+    UIManager.measure(
+      findNodeHandle(this.content.current),
+      (originX, originY, width, height, pageX, pageY) => {
+        const cursorPositionInTextInput = parseInt(height * percentagePosition)
+        const cursorPosition = cursorPositionInTextInput + pageY - headerOffset
+        const viewport = [headerOffset, windowHeight - keyboardHeight - 100]
 
-      const scrollOffset = this.getNewScrollOffset(cursorPosition, viewport)
+        const scrollOffset = this.getNewScrollOffset(cursorPosition, viewport)
 
-      this.setState({ shift: keyboardHeight, scrollOffset })
-    })
+        this.setState({ shift: keyboardHeight, scrollOffset })
+      }
+    )
   }
 
-  onKeyboardDidShow = (event) => {
+  onKeyboardDidShow = event => {
     this.keyboardHeight = event.endCoordinates.height
     this.positionateScroll()
   }
@@ -124,33 +137,36 @@ class Writing extends Component {
 
     try {
       const { data } = await http.put('/v1/stories/' + encodeURIComponent(storyId), {
-        'title': title,
-        'content': content,
+        title: title,
+        content: content,
       })
 
-      navigation.dispatch(StackActions.reset({
-        index: 0,
-        actions: [
-          NavigationActions.navigate({
-            routeName: 'MainTab',
-            action: NavigationActions.navigate({
-              routeName: 'MyStory',
+      navigation.dispatch(
+        StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({
+              routeName: 'MainTab',
               action: NavigationActions.navigate({
-                routeName: 'Home',
-                params: { storyId: data.id },
+                routeName: 'MyStory',
+                action: NavigationActions.navigate({
+                  routeName: 'Home',
+                  params: { storyId: data.id },
+                }),
               }),
             }),
-          }),
-        ],
-      }))
+          ],
+        })
+      )
     } catch (error) {
       // TODO add a custom response for validation type eg."string.min", "StoryAlreadyExists"
       console.log(error)
       console.log(error.response)
-      Alert.alert('Something bad happpend, try again')
+      this.setState({ isLoading: false })
+      Alert.alert(translate('writing.error.save'))
     }
 
-    this.setState({ isLoading: true })
+    // this.setState({ isLoading: true })
   }
 
   onBack = () => {
@@ -158,7 +174,7 @@ class Writing extends Component {
     navigation.navigate('Home')
   }
 
-  onContentSizeChange = (event) => {
+  onContentSizeChange = event => {
     if (!this.isFocused) {
       return
     }
@@ -174,13 +190,13 @@ class Writing extends Component {
     })
   }
 
-  onSelectionChange = (event) => {
+  onSelectionChange = event => {
     const { selection } = event.nativeEvent
 
     this.selection = selection
   }
 
-  onScrollPositionMove = (event) => {
+  onScrollPositionMove = event => {
     this.scrollPosition = event.nativeEvent.contentOffset.y
   }
 
@@ -192,14 +208,10 @@ class Writing extends Component {
       <Title
         keyName='writing.action'
         style={{ textDecorationLine: 'underline', color: colors.white }}
-        onPress={this.onSave} />
+        onPress={this.onSave}
+      />
     )
-    const topBar = (
-      <TopBar
-        title='writing.topbar'
-        onBack={this.onBack}
-        action={action} />
-    )
+    const topBar = <TopBar title='writing.topbar' onBack={this.onBack} action={action} />
 
     const scrollEvents = {
       onScroll: this.onScrollPositionMove,
@@ -207,8 +219,17 @@ class Writing extends Component {
     }
 
     return (
-      <Container scroll scrollEvents={scrollEvents} scrollRef={this.scroll} isLoading={isLoading} topBar={topBar}>
-        <View style={{ paddingHorizontal: 29, paddingTop: 20, marginBottom: shift }} {...Platform.OS === 'ios' ? this.panResponder.panHandlers : {}}>
+      <Container
+        scroll
+        scrollEvents={scrollEvents}
+        scrollRef={this.scroll}
+        isLoading={isLoading}
+        topBar={topBar}
+      >
+        <View
+          style={{ paddingHorizontal: 29, paddingTop: 20, marginBottom: shift }}
+          {...(Platform.OS === 'ios' ? this.panResponder.panHandlers : {})}
+        >
           <TextInput
             multiline
             value={title}
