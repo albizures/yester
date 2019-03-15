@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, Image, Dimensions, StyleSheet } from 'react-native'
-import { Heading2, Heading5, Description, Heading3 } from '../components'
+import { Heading2, Description, Heading3 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import Divider from '../components/Divider'
@@ -15,15 +15,16 @@ class Profile extends Component {
   }
 
   render () {
-    const { name, email, country, state } = this.props.contextUser.user
+    const { name, email, country, state, gender } = this.props.contextUser.user
 
-    const topBar = (
-      <TopBar title='profile.title' />
-    )
+    const topBar = <TopBar title='profile.title' />
     return (
       <Container topBar={topBar} style={styles.container}>
         <View style={styles.topFlex}>
-          <Image source={icons.profileMan} style={styles.image} />
+          <Image
+            source={gender === 'male' ? icons.profileMan : icons.profileWoman}
+            style={styles.image}
+          />
           <Heading2 text={name} style={styles.nameText} />
           {
             // TODO get the number of stories
@@ -40,9 +41,10 @@ class Profile extends Component {
           <Divider style={{ width: 323 }} />
           <View style={styles.item}>
             <Description keyName='profile.location' />
-            {// TODO get the country and state correct name
+            {
+              // TODO get the country and state correct name
             }
-            <Heading3 text={`${country}, ${state.substring(3, 5)}`} />
+            <Heading3 text={`${country}, ${state ? state.substring(3, 5) : ''}`} />
           </View>
           <Divider style={{ width: 323 }} />
         </View>
