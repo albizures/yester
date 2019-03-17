@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { View, StyleSheet, Image, Alert, KeyboardAvoidingView } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Image,
+  Alert,
+  KeyboardAvoidingView,
+} from 'react-native'
 import Picker from '../../components/Picker'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -26,7 +32,10 @@ export default class Place extends Component {
     const params = extractSetupParams(navigation)
     this.state = {
       ...params,
-      year: moment(params.birthDate).format('YY').substring(0, 1) + '0',
+      year:
+        moment(params.birthDate)
+          .format('YY')
+          .substring(0, 1) + '0',
       countries: [],
       states: [],
     }
@@ -70,7 +79,15 @@ export default class Place extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
+    const {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      name,
+      gender,
+    } = this.state
 
     if (country && state) {
       navigation.navigate('SetupConfirmation', {
@@ -130,29 +147,62 @@ export default class Place extends Component {
     const { year, countries, states, country, state, marginBottom } = this.state
     const topBarTitle = (
       <View style={{ height: 110, paddingHorizontal: 30 }}>
-        <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-end' }}>
-          <Heading2 keyName='setup.place.title' data={{ year }}
-            style={[{ color: colors.brightTurquoise }]} />
+        <View
+          style={{
+            flex: 0.5,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Heading2
+            keyName='setup.place.title'
+            data={{ year }}
+            style={[{ color: colors.brightTurquoise }]}
+          />
         </View>
-        <View style={{ flex: 0.5, alignItems: 'center', justifyContent: 'flex-start' }}>
-          <Heading4 keyName='setup.place.subtitle'
-            style={[{ color: colors.white, textAlign: 'center' }]} />
+        <View
+          style={{
+            flex: 0.5,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Heading4
+            keyName='setup.place.subtitle'
+            style={[{ color: colors.white, textAlign: 'center' }]}
+          />
         </View>
       </View>
     )
 
-    const topBar = (
-      <TopBar title={topBarTitle} />
-    )
+    const topBar = <TopBar title={topBarTitle} />
 
     return (
       <Container scroll scrollRef={this.scroll}>
-        <KeyboardAvoidingView keyboardVerticalOffset={100} contentContainerStyle={{ flex: 1, height: '100%', width: '100%', marginBottom }} behavior='position' enabled>
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={100}
+          contentContainerStyle={{
+            flex: 1,
+            height: '100%',
+            width: '100%',
+            marginBottom,
+          }}
+          behavior='position'
+          enabled
+        >
           {topBar}
           <View style={styles.container}>
-            <Image source={icons.glove}
-              style={{ width: 78, height: 98.88, marginTop: 13, marginBottom: 5 }} />
-            <Heading4 keyName='setup.place.form.title'
+            <Image
+              source={icons.balloon}
+              style={{
+                width: 78,
+                height: 98.88,
+                marginTop: 13,
+                marginBottom: 5,
+              }}
+            />
+            <Heading4
+              keyName='setup.place.form.title'
               style={[{ textAlign: 'center' }]}
             />
             <Picker
@@ -180,11 +230,15 @@ export default class Place extends Component {
                 value: null,
               }}
             />
-            <Button title='setup.continue'
+            <Button
+              title='setup.continue'
               style={{ marginTop: 51, marginBottom: 20 }}
-              onPress={this.onContinue} />
-            <Description keyName='setup.age.disclaimer'
-              style={[{ textAlign: 'center', paddingHorizontal: 17 }]} />
+              onPress={this.onContinue}
+            />
+            <Description
+              keyName='setup.age.disclaimer'
+              style={[{ textAlign: 'center', paddingHorizontal: 17 }]}
+            />
           </View>
         </KeyboardAvoidingView>
       </Container>

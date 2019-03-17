@@ -15,31 +15,33 @@ export default class Onboarding extends Component {
   }
 
   state = {
-    steps: [{
-      cover: icons.onboarding1,
-      title: 'onboarding.step1.title',
-      title2: 'onboarding.step1.title2',
-      description: 'onboarding.step1.description',
-      description2: 'onboarding.step1.description2',
-    }, {
-      cover: icons.onboarding2,
-      title: 'onboarding.step2.title',
-      title2: 'onboarding.step2.title2',
-      description: 'onboarding.step2.description',
-      description2: 'onboarding.step2.description2',
-    }, {
-      cover: icons.onboarding3,
-      title: 'onboarding.step3.title',
-      title2: 'onboarding.step3.title2',
-      description: 'onboarding.step3.description',
-      description2: 'onboarding.step3.description2',
-    }],
+    steps: [
+      {
+        cover: icons.onboarding1,
+        title: 'onboarding.step1.title',
+        title2: 'onboarding.step1.title2',
+        description: 'onboarding.step1.description',
+        description2: 'onboarding.step1.description2',
+      },
+      {
+        cover: icons.onboarding2,
+        title: 'onboarding.step2.title',
+        title2: 'onboarding.step2.title2',
+        description: 'onboarding.step2.description',
+        description2: 'onboarding.step2.description2',
+      },
+      {
+        cover: icons.onboarding3,
+        title: 'onboarding.step3.title',
+        title2: 'onboarding.step3.title2',
+        description: 'onboarding.step3.description',
+        description2: 'onboarding.step3.description2',
+      },
+    ],
   }
 
   createStep = (customProp, index) => {
-    return (
-      <Step key={index} {...customProp} />
-    )
+    return <Step key={index} {...customProp} />
   }
 
   toCreateAccount = () => {
@@ -47,7 +49,7 @@ export default class Onboarding extends Component {
     navigation.navigate('CreateAccount')
   }
 
-  getBottomBar = (options) => {
+  getBottomBar = options => {
     const { steps } = this.state
     const { currentStep } = options
     // const nextScreen = (steps.length - 1 === currentStep)
@@ -60,9 +62,8 @@ export default class Onboarding extends Component {
         color: colors.white,
         textDecorationLine: 'underline',
       },
-      keyName: (steps.length - 1 === currentStep)
-        ? 'onboarding.ok'
-        : 'onboarding.skip',
+      keyName:
+        steps.length - 1 === currentStep ? 'onboarding.ok' : 'onboarding.skip',
     }
 
     return (
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginTop: 20,
+    paddingBottom: 10,
   },
   buttonsView: {
     width: '100%',

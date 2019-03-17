@@ -6,28 +6,58 @@ import withUser, { shapeContextUser } from '../components/withUser'
 import { strings, translate } from '../components/Translate'
 import { loginWithFBWebView, updateUserAttribute } from '../utils/session'
 
+let attempts = 0
+let logedIn = false
+let alreadyEntry = false
+
 class FBWebView extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
-  onFBWebViewStateChange = async (event) => {
+  state = {
+    key: 1,
+  }
+
+  onFBWebViewStateChange = async event => {
     const { updateUser } = this.props.contextUser
     const { navigation } = this.props
-    console.log('onFBWebViewStateChange', event.url)
+
+    console.log('onFBWebViewStateChange: ', event.url)
+    console.log('logedIn: ', logedIn)
     if (event.url.startsWith('https://www.yester.app')) {
       if (event.url.includes('access_token=')) {
         try {
+          logedIn = true
           await loginWithFBWebView(event.url)
           await updateUserAttribute('locale', strings.getLanguage())
           await updateUser()
           return navigation.navigate('AppLoading')
         } catch (error) {
+          logedIn = false
           console.log('onFBWebViewStateChange', error)
           navigation.goBack()
           Alert.alert(translate('login.error.facebook'))
         }
+      } else if (event.url.includes('error_description=Already+found+an+entry+for')) {
+        console.log('Already entry')
+        alreadyEntry = true
+        attempts = 0
+        this.setState({
+          key: this.state.key + 1,
+        })
+      } else if (!logedIn && !alreadyEntry) {
+        Alert.alert(translate('login.error.facebook'))
+        navigation.navigate('CreateAccount')
+      }
+    } else if (event.url.startsWith('https://m.facebook.com/v2.9/dialog/oauth')) {
+      attempts = attempts + 1
+      console.log('attempts:', attempts)
+      if (attempts === 2) {
+        attempts = 0
+        Alert.alert(translate('login.error.facebook'))
+        navigation.goBack()
       }
     }
   }
@@ -36,9 +66,11 @@ class FBWebView extends React.Component {
     return (
       <View style={styles.container}>
         <WebView
+          key={this.state.key}
           style={styles.webview}
           source={{ uri: FACEBOOK_URL_LOGIN }}
-          onNavigationStateChange={this.onFBWebViewStateChange} />
+          onNavigationStateChange={this.onFBWebViewStateChange}
+        />
       </View>
     )
   }

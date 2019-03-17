@@ -27,7 +27,7 @@ class Tabs extends Component {
   state = {
     isLoading: true,
     index: 0,
-    routes: this.props.contextAges.agesList.map((age) => ({
+    routes: this.props.contextAges.agesList.map(age => ({
       key: age.id,
       title: age.name,
     })),
@@ -41,7 +41,6 @@ class Tabs extends Component {
       })
 
       const { items = [], lastEvaluatedKey } = data
-
       return [undefined, items, lastEvaluatedKey]
     } catch (error) {
       return [error, []]
@@ -54,7 +53,7 @@ class Tabs extends Component {
     const agesByStory = {}
 
     const listOfAgesByStory = await Promise.all(
-      agesList.map(async (age) => {
+      agesList.map(async age => {
         const { id } = age
 
         const [error, items, lastEvaluatedKey] = await this.getStoriesByAge(id)
@@ -68,8 +67,12 @@ class Tabs extends Component {
       })
     )
 
-    const firstAgeWithoutStories = listOfAgesByStory.find(({ error, items }) => !error && items.length === 0)
-    const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(firstAgeWithoutStories)
+    const firstAgeWithoutStories = listOfAgesByStory.find(
+      ({ error, items }) => !error && items.length === 0
+    )
+    const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(
+      firstAgeWithoutStories
+    )
 
     return {
       index: indexOfFirstAgeWithoutStories - 1,
@@ -79,7 +82,6 @@ class Tabs extends Component {
 
   async componentDidMount () {
     const { index, agesByStory } = await this.getStoriesByAges()
-
     this.setState({
       index,
       agesByStory,
@@ -89,19 +91,21 @@ class Tabs extends Component {
 
   onIndexChange = index => this.setState({ index })
 
-  renderLabel = (scene) => {
+  renderLabel = scene => {
     const focused = this.state.routes.indexOf(scene.route) === this.state.index
     const { title, key } = scene.route
 
     const customStyles = tabStyles[focused ? 'focused' : 'normal']
 
-    return <View style={styles.tabTitle}>
-      {focused && <Image style={styles.ageIcon} source={getAgeIcon(key)} />}
-      <Title text={title} numberOfLines={1} style={customStyles} />
-    </View>
+    return (
+      <View style={styles.tabTitle}>
+        {focused && <Image style={styles.ageIcon} source={getAgeIcon(key)} />}
+        <Title text={title} numberOfLines={1} style={customStyles} />
+      </View>
+    )
   }
 
-  getTabBar = (props) => {
+  getTabBar = props => {
     return (
       <View style={styles.headerContainer}>
         <TabBar
@@ -111,7 +115,9 @@ class Tabs extends Component {
           renderLabel={this.renderLabel}
           labelStyle={styles.label}
           indicatorStyle={styles.indicator}
-          style={styles.header} />
+          style={styles.header}
+          tabStyle={styles.tabStyle}
+        />
       </View>
     )
   }
@@ -122,17 +128,20 @@ class Tabs extends Component {
     const { items, lastEvaluatedKey } = agesByStory[route.key]
 
     return (
-      <Tab onPressItem={onPressItem} initialEvaluatedKey={lastEvaluatedKey} initialStories={items} age={route.key} />
+      <Tab
+        onPressItem={onPressItem}
+        initialEvaluatedKey={lastEvaluatedKey}
+        initialStories={items}
+        age={route.key}
+      />
     )
-  };
+  }
 
   render () {
     const { isLoading } = this.state
 
     if (isLoading) {
-      return (
-        <Loading isLoading={isLoading} style={styles.loading} />
-      )
+      return <Loading isLoading={isLoading} style={styles.loading} />
     }
 
     return (
@@ -143,7 +152,8 @@ class Tabs extends Component {
         renderTabBar={this.getTabBar}
         // renderPager={this.renderPager}
         onIndexChange={this.onIndexChange}
-        initialLayout={initialLayout} />
+        initialLayout={initialLayout}
+      />
     )
   }
 }
@@ -152,7 +162,9 @@ export default withAges(Tabs)
 
 const styles = StyleSheet.create({
   tabTitle: {
+    width: 160,
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   ageIcon: {
     width: 32,
@@ -172,6 +184,9 @@ const styles = StyleSheet.create({
   },
   indicator: {
     backgroundColor: colors.governorBay,
+  },
+  tabStyle: {
+    width: 160,
   },
 })
 

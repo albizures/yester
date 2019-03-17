@@ -1,6 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, FlatList, Alert, Image, Dimensions, Animated, Text } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Alert,
+  Image,
+  Dimensions,
+  Animated,
+  Text,
+} from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
@@ -36,7 +45,7 @@ export default class Home extends Component {
       const { data: question } = await http.get('/v1/questions')
       // const question = {
       //   age_id: 'Age#31',
-      //   category: 'Familia',
+      //   category: 'Family',
       //   description: 'What were your favorite hobbies or activities?',
       //   id: 'Question#0099',
       //   sub_category: '',
@@ -53,14 +62,11 @@ export default class Home extends Component {
     this.setState({ isLoading: false })
 
     if (storyId) {
-      Animated.spring(
-        this.state.positionToast,
-        {
-          toValue: 40,
-          bounciness: 3,
-          speed: 3,
-        }
-      ).start()
+      Animated.spring(this.state.positionToast, {
+        toValue: 40,
+        bounciness: 3,
+        speed: 3,
+      }).start()
 
       this.timeout = setTimeout(this.closeToast, 5000)
     }
@@ -75,14 +81,11 @@ export default class Home extends Component {
 
   closeToast = () => {
     clearInterval(this.timeout)
-    Animated.spring(
-      this.state.positionToast,
-      {
-        toValue: -100,
-        bounciness: 3,
-        speed: 3,
-      }
-    ).start()
+    Animated.spring(this.state.positionToast, {
+      toValue: -100,
+      bounciness: 3,
+      speed: 3,
+    }).start()
   }
 
   componentWillUnmount () {
@@ -117,12 +120,27 @@ export default class Home extends Component {
       story_id: storyId,
       category_id: categoryId,
     } = item
-    this.onPressItem({ ageId, category, question, questionId, storyId, categoryId })
+    this.onPressItem({
+      ageId,
+      category,
+      question,
+      questionId,
+      storyId,
+      categoryId,
+    })
   }
 
-  onPressItem = (item) => {
+  onPressItem = item => {
     const { navigation } = this.props
-    const { ageId, category, question, questionId, storyId, content, categoryId } = item
+    const {
+      ageId,
+      category,
+      question,
+      questionId,
+      storyId,
+      content,
+      categoryId,
+    } = item
 
     if (content) {
       return navigation.navigate('Reading', { storyId })
@@ -150,28 +168,41 @@ export default class Home extends Component {
   render () {
     const { isLoading, question, positionToast } = this.state
     const topBarTitle = (
-      <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
+      <View
+        style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}
+      >
         <Image source={icons.logoWhite} style={styles.topBarImage} />
       </View>
     )
-    const topBar = (
-      <TopBar title={topBarTitle} />
-    )
+    const topBar = <TopBar title={topBarTitle} />
     return (
-      <Container topBar={topBar} isLoading={isLoading} style={styles.container} >
+      <Container topBar={topBar} isLoading={isLoading} style={styles.container}>
         <View style={styles.view}>
-          { question && <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />}
-          { !isLoading && <Tabs onPressItem={this.onPressItem} /> }
+          {question && (
+            <QuestionItem
+              text={question.description}
+              onPress={this.onWriteTodayQuestion}
+            />
+          )}
+          {!isLoading && <Tabs onPressItem={this.onPressItem} />}
         </View>
-        <Animated.View style={[styles.toastContainer, { bottom: positionToast }]}>
+        <Animated.View
+          style={[styles.toastContainer, { bottom: positionToast }]}
+        >
           <View style={[styles.toast]}>
-            <Text style={styles.checkMark} >✓</Text>
+            <Text style={styles.checkMark}>✓</Text>
             <View style={styles.contentToast}>
               <Heading4 keyName='home.toast.story.saved' />
-              <Heading3 keyName='home.toast.read.story.now' onPress={this.onPressToast} style={{ textDecorationLine: 'underline' }} />
+              <Heading3
+                keyName='home.toast.read.story.now'
+                onPress={this.onPressToast}
+                style={{ textDecorationLine: 'underline' }}
+              />
             </View>
             <View style={styles.closeContainer}>
-              <Text style={styles.close} onPress={this.closeToast}>×</Text>
+              <Text style={styles.close} onPress={this.closeToast}>
+                ×
+              </Text>
             </View>
           </View>
         </Animated.View>

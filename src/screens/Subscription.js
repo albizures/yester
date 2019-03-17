@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Image, Dimensions, Alert } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Alert,
+  Text,
+  Linking,
+} from 'react-native'
 import PropTypes from 'prop-types'
-
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
-import { Title, Description, Heading5 } from '../components'
+import { Title, Description, Heading1, Heading5 } from '../components'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { saveUserSubscriptionStatus, removeSuscription } from '../utils/session'
-import { getEntitlements, buySubscription, status, setPurchaseListener } from '../utils/purchase'
+import {
+  saveUserSubscriptionStatus,
+  removeSuscription,
+  logOut,
+} from '../utils/session'
+import {
+  getEntitlements,
+  buySubscription,
+  status,
+  setPurchaseListener,
+} from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
@@ -20,6 +36,12 @@ class Subscription extends Component {
     if (this.removeListener) {
       this.removeListener(this.handlePurchaserInfo)
     }
+  }
+
+  onLogOut = async () => {
+    const { navigation } = this.props
+    await logOut()
+    navigation.navigate('CreateAccount')
   }
 
   onStartTrial = async () => {
@@ -36,7 +58,12 @@ class Subscription extends Component {
     }
 
     if (error) {
-      return Alert.alert("We couldn't process your payment")
+      console.log('error', error)
+      const message =
+        error.code === 2
+          ? 'Process has been cancelled'
+          : "We couldn't process your payment"
+      return Alert.alert(message)
     }
 
     const { activeSubscriptions = [] } = purchaserInfo
@@ -62,42 +89,80 @@ class Subscription extends Component {
     }
   }
 
-  onRestore = async () => {
+  onRestore = async () => {}
+
+  onPressTerms = () => {
+    // this.props.navigation.navigate('Terms')
+    Linking.openURL('https://www.yester.app/terms')
+  }
+
+  onPressPrivacy = () => {
+    // this.props.navigation.navigate('About')
+    Linking.openURL('https://www.yester.app/privacy')
   }
 
   render () {
     return (
       <View style={{ position: 'relative' }}>
-
         <Image source={icons.subscription} style={styles.image} />
-        <View style={styles.bottomRibbon}>
-          <Text style={{ textAlign: 'center' }}>
-            <Heading5 keyName='subscription.already' style={styles.alreadyText} />
-            <Heading5 keyName='subscription.restore' style={styles.restoreText} onPress={this.onRestore} />
-          </Text>
-        </View>
-        <Container scroll style={styles.container} >
-
+        <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
-            <Image source={icons.logoWhite} style={styles.logo} />
-            <Text style={styles.paragraph1}>
-              <Title keyName='subscription.weKnow' style={styles.weKnowText} />
-              <Title keyName='subscription.weWant' style={styles.weWantText} />
-            </Text>
-            <Title keyName='subscription.receive' style={styles.receiveText} />
-            <Description keyName='subscription.then' style={styles.thenText} />
+            <Title
+              keyName='subscription.close'
+              style={styles.closeText}
+              onPress={this.onLogOut}
+            />
+            <Heading1 keyName='subscription.try' style={styles.tryText} />
+            <Description
+              keyName='subscription.price'
+              style={styles.priceText}
+            />
+            <Image source={icons.ballon} style={styles.ballonImage} />
+            <Title keyName='subscription.slogan' style={styles.sloganText} />
+            <Title
+              keyName='subscription.features'
+              style={styles.featuresText}
+            />
 
-            <Button title='subscription.start' onPress={this.onStartTrial} type={types.OUTLINED} />
-            <Description keyName='subscription.price' style={styles.priceText} />
+            <Button
+              title='subscription.start'
+              onPress={this.onStartTrial}
+              type={types.OUTLINED}
+            />
+            <Heading5
+              keyName='subscription.restore'
+              style={styles.restoreText}
+              onPress={this.onStartTrial}
+            />
           </View>
 
           <View style={styles.bottomFlex}>
-
             <Divider style={styles.divider} />
 
-            <Description keyName='subscription.cancel' style={styles.cancelText} />
-            <Description keyName='subscription.recurring' style={styles.recurringText} />
-
+            <Description
+              keyName='subscription.termsTitle'
+              style={styles.termsTitleText}
+            />
+            <Text style={{ paddingBottom: 40 }}>
+              <Description
+                keyName='subscription.terms'
+                style={styles.termsText}
+              />
+              <Description
+                keyName='subscription.termsLink'
+                style={styles.termsLink}
+                onPress={this.onPressTerms}
+              />
+              <Description
+                keyName='subscription.termsAnd'
+                style={styles.termsText}
+              />
+              <Description
+                keyName='subscription.privacyLink'
+                style={styles.termsLink}
+                onPress={this.onPressPrivacy}
+              />
+            </Text>
           </View>
         </Container>
       </View>
@@ -120,9 +185,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: height * 0.12,
+    paddingTop: height * 0.07,
     paddingHorizontal: width * 0.08,
-    paddingBottom: height * 0.06,
+    paddingBottom: height * 0.04,
   },
   bottomFlex: {
     flex: 1,
@@ -130,72 +195,61 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingHorizontal: width * 0.08,
   },
-  bottomRibbon: {
-    flex: 1,
-    position: 'absolute',
-    top: height - 51,
-    zIndex: 2,
-    height: 51,
-    width: width,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.governorBay,
-    opacity: 0.79,
-  },
   image: {
     position: 'absolute',
     zIndex: 0,
     width,
     height,
   },
-  logo: {
-    width: 151,
-    height: 39,
-    marginBottom: height * 0.045,
-  },
-  paragraph1: {
+  closeText: {
+    color,
+    alignSelf: 'flex-end',
+    fontWeight: 'bold',
     marginBottom: height * 0.03,
   },
-  weKnowText: {
+  tryText: {
     color,
-    textAlign,
-  },
-  weWantText: {
-    color,
-    textAlign,
-    fontWeight: 'bold',
-  },
-  receiveText: {
-    color,
-    textAlign,
-    marginBottom: height * 0.02,
-  },
-  thenText: {
-    color,
-    textAlign,
-    marginBottom: height * 0.06,
+    marginBottom: height * 0.01,
   },
   priceText: {
     color,
     textAlign,
-    marginTop: height * 0.01,
+    marginBottom: height * 0.03,
   },
-  cancelText: {
+  ballonImage: {
+    width: 78,
+    height: 98.88,
+    marginBottom: height * 0.04,
+  },
+  sloganText: {
+    color,
+    textAlign,
+    fontWeight: 'bold',
+    marginBottom: height * 0.03,
+  },
+  featuresText: {
+    color,
+    textAlign,
+    marginBottom: height * 0.05,
+  },
+  restoreText: {
+    color,
+    textAlign,
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+    marginTop: height * 0.03,
+  },
+  termsTitleText: {
     textAlign: 'left',
     fontWeight: 'bold',
     color: colors.athensGray,
     marginBottom: height * 0.01,
   },
-  recurringText: {
+  termsText: {
     color: colors.athensGray,
   },
-  alreadyText: {
+  termsLink: {
     color,
-    textAlign,
-  },
-  restoreText: {
-    color,
-    textAlign,
     fontWeight: 'bold',
     textDecorationLine: 'underline',
   },
