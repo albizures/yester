@@ -61,6 +61,11 @@ class Login extends Component {
     })
   }
 
+  onForgotPassword = () => {
+    const { navigation } = this.props
+    navigation.navigate('ForgotPassword')
+  }
+
   onBack = () => {
     const { navigation } = this.props
     navigation.navigate('CreateAccount')
@@ -90,7 +95,7 @@ class Login extends Component {
                 value={email} onChangeText={text => this.onChange(text, 'email')} />
               <TextInput title='signup.password' password
                 value={password} onChangeText={text => this.onChange(text, 'password')} />
-              <Description keyName='login.forgotPassword' style={styles.forgotPasswordText} />
+              <Description keyName='login.forgotPassword' onPress={this.onForgotPassword} style={styles.forgotPasswordText} />
               <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
             </View>
 

@@ -21,6 +21,9 @@ import SetupPlace from './screens/Setup/Place'
 import SetupConfirmation from './screens/Setup/Confirmation'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
+import ForgotPassword from './screens/ForgotPassword/index'
+import RecoverCode from './screens/ForgotPassword/RecoverCode'
+import NewPassword from './screens/ForgotPassword/NewPassword'
 import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
@@ -155,6 +158,9 @@ const AuthStack = createStackNavigator({
   Onboarding,
   Login,
   SignUp,
+  ForgotPassword,
+  NewPassword,
+  RecoverCode,
   CreateAccount,
   Subscription,
   ConfirmAccount,
