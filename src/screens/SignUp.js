@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Alert, KeyboardAvoidingView, StyleSheet, Dimensions } from 'react-native'
+import { View, Alert, StyleSheet, Dimensions } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Auth } from 'aws-amplify'
 
 import Container from '../components/Container'
@@ -73,7 +74,7 @@ export default class SignUp extends Component {
     )
     return (
       <Container scroll topBar={topBar}>
-        <KeyboardAvoidingView enabled behavior='position'>
+        <KeyboardAwareScrollView extraScrollHeight={20}>
           <View style={styles.topFlex}>
             <Heading2 keyName='signup.title' style={styles.titleText} />
             <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
@@ -92,7 +93,7 @@ export default class SignUp extends Component {
               description='signup.passwordDescription' />
             <Button title='signup.submit' onPress={this.onPress} />
           </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </Container>
     )
   }
