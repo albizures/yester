@@ -62,7 +62,7 @@ export default class SignUp extends Component {
     const topBar = <TopBar title='signup.topbar' onBack={this.onBack} />
     return (
       <Container scroll topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={20} enableOnAndroid>
+        <KeyboardAwareScrollView extraScrollHeight={140} enableOnAndroid>
           <View style={styles.topFlex}>
             <Heading2 keyName='signup.title' style={styles.titleText} />
             <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
