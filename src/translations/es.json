@@ -45,7 +45,7 @@
   "onboarding.ok": "Ok",
   "setup.continue": "Grabar y Continuar",
   "setup.age.greeting": "Hola, {name} 👋",
-  "setup.age.greeting.subtitle": "Ese es un gran nombre! Ahora, conozcámonos un poco mejor para comenzar",
+  "setup.age.greeting.subtitle": "Ese es un gran nombre! Ahora, para comenzar conozcámonos mejor",
   "setup.age.question": "¿Cuándo viste esta hermosa Tierra por primera vez?",
   "setup.age.birthdate": "El día de tu nacimiento",
   "setup.age.disclaimer": "Te solicitamos esta información para configurar tu experiencia dentro del app",

@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
   },
   tryText: {
     color,
+    textAlign,
     marginBottom: height * 0.01,
   },
   priceText: {
