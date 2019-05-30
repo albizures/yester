@@ -49,7 +49,7 @@ export default class Onboarding extends Component {
     navigation.navigate('CreateAccount')
   }
 
-  getBottomBar = options => {
+  getBottomBar = (options) => {
     const { steps } = this.state
     const { currentStep } = options
     // const nextScreen = (steps.length - 1 === currentStep)
@@ -62,8 +62,7 @@ export default class Onboarding extends Component {
         color: colors.white,
         textDecorationLine: 'underline',
       },
-      keyName:
-        steps.length - 1 === currentStep ? 'onboarding.ok' : 'onboarding.skip',
+      keyName: steps.length - 1 === currentStep ? 'onboarding.continue' : 'onboarding.skip',
     }
 
     return (
@@ -86,9 +85,7 @@ export default class Onboarding extends Component {
 
     return (
       <Container style={{ backgroundColor: colors.haiti }}>
-        <Stepper bottomBar={this.getBottomBar}>
-          {steps.map(this.createStep)}
-        </Stepper>
+        <Stepper bottomBar={this.getBottomBar}>{steps.map(this.createStep)}</Stepper>
       </Container>
     )
   }
@@ -101,15 +98,15 @@ const styles = StyleSheet.create({
     height,
     position: 'absolute',
     justifyContent: 'flex-end',
-    paddingBottom: 30,
+    paddingBottom: 45,
   },
   topFlex: {
-    flex: 22,
+    flex: 15,
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   bottomFlex: {
-    flex: 6,
+    flex: 3,
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginTop: 20,
@@ -119,6 +116,7 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
+    marginRight: 85,
   },
 })
