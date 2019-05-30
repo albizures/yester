@@ -47,7 +47,7 @@ class Reading extends Component {
     try {
       const {
         data: { content, question_id: questionId, age_id: ageId, title, created },
-      } = await http.get(`/v1/stories/${storyId}`)
+      } = await http.get('/v1/stories/' + encodeURIComponent(storyId))
       this.setState({
         storyId,
         content,
