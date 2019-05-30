@@ -27,7 +27,7 @@ class Profile extends Component {
           />
           <Heading2 text={name} style={styles.nameText} />
           {
-            // TODO get the number of stories
+            // TODO get the number of answered stories.
             // <Heading5 text='3 stories' style={{marginBottom: 30}} />
           }
         </View>

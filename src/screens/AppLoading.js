@@ -65,16 +65,14 @@ class AppLoading extends Component {
       const hasSuscription = await isSubscribed()
 
       const purchaserInfo = await new Promise((resolve, reject) => {
-        const removeInforListener = setInfoListener((error, purchaserInfo) => {
-          removeInforListener()
+        const removeInfoListener = setInfoListener((error, purchaserInfo) => {
+          removeInfoListener()
           if (error) {
             return reject(error)
           }
-
           resolve(purchaserInfo)
         })
       })
-
       debugInfo(purchaserInfo)
 
       const { activeSubscriptions = [], allExpirationDates = {} } = purchaserInfo || {}

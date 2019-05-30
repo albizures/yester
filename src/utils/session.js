@@ -4,11 +4,7 @@ import { CognitoAuth } from 'amazon-cognito-auth-js'
 import debugFactory from 'debug'
 import moment from 'moment'
 import { AsyncStorage } from 'react-native'
-import {
-  AWS_USER_POOL_ID,
-  AWS_USER_CLIENT_POOL_ID,
-  HOST,
-} from 'react-native-dotenv'
+import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, HOST } from 'react-native-dotenv'
 import { strings } from '../components/Translate'
 import { instance, setHeaderLocale } from './http'
 
@@ -17,11 +13,7 @@ const cognitoAuthParams = {
   ClientId: AWS_USER_CLIENT_POOL_ID,
   UserPoolId: AWS_USER_POOL_ID,
   AppWebDomain: HOST,
-  TokenScopesArray: [
-    'email',
-    'name',
-    'cover',
-  ],
+  TokenScopesArray: ['email', 'name', 'cover'],
   RedirectUriSignIn: 'https://www.facebook.com',
   RedirectUriSignOut: 'https://www.facebook.com',
   IdentityProvider: 'Facebook',
@@ -132,8 +124,8 @@ export const saveUserData = async ({ birthDate, country, state, gender }) => {
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
-    'birthdate': birthDate,
-    'gender': gender,
+    birthdate: birthDate,
+    gender: gender,
   })
 }
 
@@ -155,12 +147,13 @@ export const cleanUserData = async () => {
   await Auth.updateUserAttributes(user, {
     'custom:country': '',
     'custom:state': '',
-    'birthdate': '',
-    'gender': '',
+    birthdate: '',
+    gender: '',
     'custom:subscription_status': '',
   })
 }
 
+// TODO: Use this.updateUserAttribute
 export const removeSuscription = async () => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
@@ -168,21 +161,22 @@ export const removeSuscription = async () => {
   })
 }
 
-export const loginWithFBWebView = (url) => new Promise((resolve, reject) => {
-  cognitoAuthClient.userhandler = {
-    onSuccess: async result => {
-      const user = await getUser()
-      await saveUserToken()
-      console.log(user, 'Sign in success')
-      resolve(user)
-    },
-    onFailure: err => {
-      console.log(err, 'Sign in error')
-      reject(err)
-    },
-  }
-  cognitoAuthClient.parseCognitoWebResponse(url)
-})
+export const loginWithFBWebView = (url) =>
+  new Promise((resolve, reject) => {
+    cognitoAuthClient.userhandler = {
+      onSuccess: async (result) => {
+        const user = await getUser()
+        await saveUserToken()
+        console.log(user, 'Sign in success')
+        resolve(user)
+      },
+      onFailure: (err) => {
+        console.log(err, 'Sign in error')
+        reject(err)
+      },
+    }
+    cognitoAuthClient.parseCognitoWebResponse(url)
+  })
 
 export const setLocale = (locale) => {
   debugInfo('Saving phone language')
