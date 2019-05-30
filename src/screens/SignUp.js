@@ -25,12 +25,7 @@ export default class SignUp extends Component {
   }
 
   onPress = async () => {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-    } = this.state
+    const { firstName, lastName, email, password } = this.state
 
     try {
       const user = await Auth.signUp({
@@ -62,35 +57,43 @@ export default class SignUp extends Component {
   }
 
   render () {
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-    } = this.state
+    const { firstName, lastName, email, password } = this.state
 
-    const topBar = (
-      <TopBar title='signup.topbar' onBack={this.onBack} />
-    )
+    const topBar = <TopBar title='signup.topbar' onBack={this.onBack} />
     return (
       <Container scroll topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={20}>
+        <KeyboardAwareScrollView extraScrollHeight={20} enableOnAndroid>
           <View style={styles.topFlex}>
             <Heading2 keyName='signup.title' style={styles.titleText} />
             <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
           </View>
 
           <View style={styles.bottomFlex}>
-            <TextInput title='signup.firstName'
-              value={firstName} onChangeText={text => this.onChange(text, 'firstName')} />
-            <TextInput title='signup.lastName'
-              value={lastName} onChangeText={text => this.onChange(text, 'lastName')} />
-            <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
-              value={email} onChangeText={text => this.onChange(text.toLowerCase(), 'email')}
-              description='signup.emailDescription' />
-            <TextInput title='signup.password' password
-              value={password} onChangeText={text => this.onChange(text, 'password')}
-              description='signup.passwordDescription' />
+            <TextInput
+              title='signup.firstName'
+              value={firstName}
+              onChangeText={(text) => this.onChange(text, 'firstName')}
+            />
+            <TextInput
+              title='signup.lastName'
+              value={lastName}
+              onChangeText={(text) => this.onChange(text, 'lastName')}
+            />
+            <TextInput
+              title='signup.email'
+              autoCapitalize='none'
+              keyboardType='email-address'
+              value={email}
+              onChangeText={(text) => this.onChange(text.toLowerCase(), 'email')}
+              description='signup.emailDescription'
+            />
+            <TextInput
+              title='signup.password'
+              password
+              value={password}
+              onChangeText={(text) => this.onChange(text, 'password')}
+              description='signup.passwordDescription'
+            />
             <Button title='signup.submit' onPress={this.onPress} />
           </View>
         </KeyboardAwareScrollView>
