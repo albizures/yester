@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { View, Alert, StyleSheet, Dimensions } from 'react-native'
-import { Auth } from 'aws-amplify'
-
+import { forgotPasswordSubmit } from '../../utils/session'
 import Container from '../../components/Container'
 import Button from '../../components/Button'
 import { Heading2, Heading4 } from '../../components'
@@ -29,7 +28,7 @@ export default class NewPassword extends Component {
     const email = navigation.getParam('email')
 
     try {
-      await Auth.forgotPasswordSubmit(email, code, password)
+      await forgotPasswordSubmit(email, code, password)
       navigation.navigate('AppLoading')
     } catch (error) {
       console.error('NewPassword: ', error)
@@ -51,9 +50,7 @@ export default class NewPassword extends Component {
   render () {
     const { password } = this.state
 
-    const topBar = (
-      <TopBar title='new.password.topbar' onBack={this.onBack} />
-    )
+    const topBar = <TopBar title='new.password.topbar' onBack={this.onBack} />
 
     return (
       <Container topBar={topBar}>
@@ -70,7 +67,8 @@ export default class NewPassword extends Component {
                 password
                 value={password}
                 description='new.password.passwordDescription'
-                onChangeText={text => this.onChange(text.toLowerCase(), 'password')} />
+                onChangeText={(text) => this.onChange(text.toLowerCase(), 'password')}
+              />
               <Button title='forgot.password.submit' onPress={this.onPress} />
             </View>
           </View>
