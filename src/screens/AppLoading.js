@@ -5,9 +5,9 @@ import { Alert, View } from 'react-native'
 import moment from 'moment'
 
 import Container from '../components/Container'
-import { isSubscribed, isSetupFinished, getToken, setLocale, removeSuscription } from '../utils/session'
-import { setupRCPurchases, setInfoListener } from '../utils/purchase'
-import http from '../utils/http'
+import { isSubscribed, isSetupFinished, getToken, setLocale, removeSuscription, saveUserSubscriptionStatus } from '../utils/session'
+import { setupRCPurchases, setInfoListener, status } from '../utils/purchase'
+import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
@@ -29,6 +29,21 @@ class AppLoading extends Component {
   constructor (props) {
     super(props)
     this.bootstrap()
+  }
+
+  returnResponse = (response) => {
+    return response
+  }
+
+  unauthorizedInterceptor = async (error) => {
+    const { status } = error.response
+    const { navigation } = this.props
+
+    if (status === 401) {
+      await removeSuscription()
+      navigation.navigate('Subscription')
+    }
+    return error
   }
 
   getAges = async () => {
@@ -95,6 +110,11 @@ class AppLoading extends Component {
         await removeSuscription()
         return navigation.navigate('Subscription')
       }
+
+      await saveUserSubscriptionStatus(status.SUBSCRIBED)
+
+      instance.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
+      original.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
 
       if (await isSetupFinished()) {
         const lastScreen = navigation.getParam('lastScreen', 'App')
