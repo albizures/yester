@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, Share, Image, TouchableOpacity, Alert } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Share,
+  Image,
+  TouchableOpacity,
+  Alert,
+  StatusBar,
+} from 'react-native'
 
-import { Heading1, Description, Title, Heading2 } from '../components'
+import { Heading1, Description, Heading2 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import withUser, { shapeContextUser } from '../components/withUser'
@@ -36,13 +45,9 @@ class Reading extends Component {
     this.setState({ isLoading: true })
 
     try {
-      const { data: {
-        content,
-        question_id: questionId,
-        age_id: ageId,
-        title,
-        created,
-      } } = await http.get(`/v1/stories/${storyId}`)
+      const {
+        data: { content, question_id: questionId, age_id: ageId, title, created },
+      } = await http.get(`/v1/stories/${storyId}`)
       this.setState({
         storyId,
         content,
@@ -81,9 +86,7 @@ class Reading extends Component {
       return Heading2
     }
 
-    return (props) => (
-      <Heading1 {...props} style={[props.style, { fontSize: 40 }]} />
-    )
+    return (props) => <Heading1 {...props} style={[props.style, { fontSize: 40 }]} />
   }
 
   onEdit = () => {
@@ -110,7 +113,8 @@ class Reading extends Component {
       <TopBar
         transparent
         // action={action}
-        onBack={this.onBack} />
+        onBack={this.onBack}
+      />
     )
 
     const TitleComponent = this.getTitleComponent()
@@ -118,6 +122,7 @@ class Reading extends Component {
     return (
       <Container scroll isLoading={isLoading} topBar={topBar}>
         <View style={styles.container}>
+          <StatusBar barStyle='dark-content' />
           <View style={styles.topRow}>
             <View style={styles.topLeftRow}>
               <Image source={icons.flatFeather} style={styles.feather} />

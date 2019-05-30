@@ -1,7 +1,16 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, AsyncStorage, Alert, Image, Dimensions } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  AsyncStorage,
+  Alert,
+  Image,
+  Dimensions,
+  StatusBar,
+} from 'react-native'
 
 import icons from '../utils/icons'
 import colors from '../utils/colors'
@@ -30,7 +39,11 @@ class CreateAccount extends Component {
 
     try {
       const { token, expires, profile } = await onLoginWithFB()
-      const { sessionToken } = await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
+      const { sessionToken } = await Auth.federatedSignIn(
+        'facebook',
+        { token, expires_at: expires },
+        profile
+      )
       AsyncStorage.setItem('userToken', sessionToken)
       navigation.navigate('App')
     } catch (error) {
@@ -56,8 +69,9 @@ class CreateAccount extends Component {
     return (
       <Container isLoading={isLoading}>
         <View style={styles.container}>
+          <StatusBar barStyle='dark-content' />
 
-          <View style={styles.topFlex} >
+          <View style={styles.topFlex}>
             <Image source={icons.yester} style={styles.image} />
             <Heading2 keyName='createAccount.start' style={styles.accentColor} />
             <Heading4 keyName='createAccount.begin' />
@@ -76,10 +90,13 @@ class CreateAccount extends Component {
             <Divider style={styles.divider} />
             <Text>
               <Heading4 keyName='createAccount.member' />
-              <Heading3 keyName='createAccount.login' style={styles.accentColor} onPress={this.onLogin} />
+              <Heading3
+                keyName='createAccount.login'
+                style={styles.accentColor}
+                onPress={this.onLogin}
+              />
             </Text>
           </View>
-
         </View>
       </Container>
     )
@@ -93,13 +110,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.athensGray,
     paddingHorizontal: width * 0.07,
-    paddingTop: height * 0.10,
+    paddingTop: height * 0.1,
     paddingBottom: height * 0.04,
   },
   image: {
     width: 225,
     height: 60,
-    marginBottom: height * 0.10,
+    marginBottom: height * 0.1,
   },
   topFlex: {
     flex: 4.0,
