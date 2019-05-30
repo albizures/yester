@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
 import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
 import Amplify from 'aws-amplify'
+import SplashScreen from 'react-native-splash-screen'
 import debugFactory from 'debug'
 import { translate } from './components/Translate'
 import {
@@ -20,6 +21,9 @@ import SetupPlace from './screens/Setup/Place'
 import SetupConfirmation from './screens/Setup/Confirmation'
 import Login from './screens/Login'
 import SignUp from './screens/SignUp'
+import ForgotPassword from './screens/ForgotPassword/index'
+import RecoverCode from './screens/ForgotPassword/RecoverCode'
+import NewPassword from './screens/ForgotPassword/NewPassword'
 import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
@@ -40,9 +44,9 @@ import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
 import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
 
-require('moment/locale/es.js')
+const debugInfo = debugFactory('yester:index:info')
 
-debugFactory.enable('yester:*')
+require('moment/locale/es.js')
 
 Amplify.configure({
   storage: Storage,
@@ -154,6 +158,9 @@ const AuthStack = createStackNavigator({
   Onboarding,
   Login,
   SignUp,
+  ForgotPassword,
+  NewPassword,
+  RecoverCode,
   CreateAccount,
   Subscription,
   ConfirmAccount,
@@ -176,16 +183,19 @@ const RootStack = createSwitchNavigator({
 export default class App extends Component {
   state = {}
   async componentDidMount () {
+    SplashScreen.hide()
     await setAuthHeader()
   }
 
   updateUser = async () => {
+    debugInfo('Updating user')
     const user = sanitizeUser(await getUser())
     setLocale(user.locale)
     this.setState({ user })
   }
 
   updateAges = (ages) => {
+    debugInfo('Updating ages', ages)
     this.setState({
       ages: ages.reduce((agesObj, age) => ({
         ...agesObj,
@@ -210,7 +220,7 @@ export default class App extends Component {
     return (
       <AgesProvider value={agesContextValue}>
         <UserProvider value={userContextValue}>
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <StatusBar barStyle='light-content' />
             <RootStack />
           </View>

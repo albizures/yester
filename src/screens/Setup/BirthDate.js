@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Image, Dimensions } from 'react-native'
-
+import {
+  View,
+  StyleSheet,
+  Image,
+  Dimensions,
+  KeyboardAvoidingView,
+} from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
 import Button from '../../components/Button'
@@ -12,11 +17,15 @@ import DatePicker from '../../components/DatePicker'
 import Picker from '../../components/Picker'
 import TopBar from '../../components/TopBar'
 import { extractSetupParams } from '../../utils'
+import { Auth } from 'aws-amplify'
+import { USER_PASSWORD_ADMIN, USER_PASSWORD_DEFAULT } from 'react-native-dotenv'
 
 export default class BirthDate extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
+
+  scroll = React.createRef()
 
   constructor (props) {
     super(props)
@@ -24,7 +33,10 @@ export default class BirthDate extends Component {
     this.state = {
       ...extractSetupParams(navigation),
       name: '',
-      genders: [{value: 'female', label: 'Female'}, {value: 'male', label: 'Male'}],
+      genders: [
+        { value: 'female', label: 'Female' },
+        { value: 'male', label: 'Male' },
+      ],
     }
   }
 
@@ -40,11 +52,31 @@ export default class BirthDate extends Component {
     this.setState({
       name: user.attributes.given_name,
     })
+
+    /* To turn user into CONFIRMED status: */
+    // TODO Ask new password to user
+    if (user.attributes.createdBy === 'admin') {
+      let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
+      const complete = await Auth.completeNewPassword(
+        userNC,
+        USER_PASSWORD_DEFAULT
+      )
+      userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
+      console.log('complete:', complete)
+    }
   }
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
+    const {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      name,
+      gender,
+    } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
         birthDate,
@@ -69,56 +101,114 @@ export default class BirthDate extends Component {
     }
   }
 
+  onOpenModal = () => {
+    this.setState({
+      marginBottom: 100,
+    })
+    setTimeout(() => {
+      this.scroll.current.scrollToEnd({ animated: true })
+    }, 100)
+  }
+
+  onCloseModal = () => {
+    this.setState({
+      marginBottom: 0,
+    })
+
+    setTimeout(() => {
+      this.scroll.current.scrollTo({ y: 0, animated: true })
+    }, 100)
+  }
+
   render () {
-    const { name, birthDate, genders, gender } = this.state
+    const { name, birthDate, genders, gender, marginBottom } = this.state
     const topBarTitle = (
-      <View style={{height: 110, paddingHorizontal: 30}}>
-        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-end'}}>
-          <Heading2 keyName='setup.age.greeting' data={{ name }}
-            style={[{color: colors.brightTurquoise}]} />
+      <View style={{ height: 110, paddingHorizontal: 30 }}>
+        <View
+          style={{
+            flex: 0.5,
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Heading2
+            keyName='setup.age.greeting'
+            data={{ name }}
+            style={[{ color: colors.brightTurquoise }]}
+          />
         </View>
-        <View style={{flex: 0.5, alignItems: 'center', justifyContent: 'flex-start'}}>
-          <Heading4 keyName='setup.age.greeting.subtitle'
-            style={[{color: colors.white, textAlign: 'center'}]} />
+        <View
+          style={{
+            flex: 0.5,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Heading4
+            keyName='setup.age.greeting.subtitle'
+            style={[{ color: colors.white, textAlign: 'center' }]}
+          />
         </View>
       </View>
     )
 
-    const topBar = (
-      <TopBar title={topBarTitle} />
-    )
+    const topBar = <TopBar title={topBarTitle} />
     return (
-      <Container topBar={topBar}>
-        <View style={styles.container}>
-          <View style={styles.topFlex}>
-            <Image source={icons.childhood}
-              style={styles.image} />
-            <Heading4 keyName='setup.age.question' style={styles.questionText} />
-          </View>
+      <Container scroll scrollRef={this.scroll}>
+        <KeyboardAvoidingView
+          contentContainerStyle={{
+            flex: 1,
+            height: '100%',
+            width: '100%',
+            marginBottom,
+          }}
+          behavior='position'
+          enabled
+        >
+          {topBar}
+          <View style={styles.container}>
+            <View style={styles.topFlex}>
+              <Image source={icons.childhood} style={styles.image} />
+              <Heading4
+                keyName='setup.age.question'
+                style={styles.questionText}
+              />
+            </View>
 
-          <View style={styles.bottomFlex}>
-            <DatePicker title='setup.age.birthdate'
-              value={birthDate}
-              onDateChange={(birthDate) => {
-                this.setState({birthDate})
-              }}
-            />
-            <Picker
-              title='setup.age.form.gender'
-              items={genders}
-              value={gender}
-              onValueChange={this.onChangeGender}
-              placeholder={{
-                label: 'Select a gender',
-                value: null,
-              }}
-            />
-            <Button title='setup.continue' style={styles.button} onPress={this.onContinue} />
-            <Description keyName='setup.age.disclaimer'
-              style={styles.disclaimerText} />
+            <View style={styles.bottomFlex}>
+              <DatePicker
+                title='setup.age.birthdate'
+                value={birthDate}
+                onDateChange={birthDate => {
+                  this.setState({ birthDate })
+                }}
+                onCloseModal={this.onCloseModal}
+                onOpenModal={this.onOpenModal}
+              />
+              <Picker
+                title='setup.age.form.gender'
+                items={genders}
+                value={gender}
+                onOpen={this.onOpenModal}
+                onClose={this.onCloseModal}
+                onValueChange={this.onChangeGender}
+                placeholder={{
+                  label: 'Select a gender',
+                  value: null,
+                }}
+              />
+              <Button
+                title='setup.continue'
+                style={styles.button}
+                onPress={this.onContinue}
+              />
+              <Description
+                keyName='setup.age.disclaimer'
+                style={styles.disclaimerText}
+              />
+            </View>
           </View>
-
-        </View>
+        </KeyboardAvoidingView>
       </Container>
     )
   }

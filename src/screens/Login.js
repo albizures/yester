@@ -1,8 +1,8 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Alert, View, StyleSheet, KeyboardAvoidingView, Dimensions } from 'react-native'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { Alert, View, StyleSheet, Dimensions } from 'react-native'
 import icons from '../utils/icons'
 import colors from '../utils/colors'
 import { logIn, saveUserToken } from '../utils/session'
@@ -13,6 +13,7 @@ import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
 import TextInput from '../components/TextInput'
 import TopBar from '../components/TopBar'
+import { translate } from '../components/Translate'
 
 class Login extends Component {
   static propTypes = {
@@ -30,12 +31,12 @@ class Login extends Component {
 
     try {
       const { token, expires, profile } = onLoginWithFB()
-      await Auth.federatedSignIn('facebook', {token, expires_at: expires}, profile)
+      await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
       await saveUserToken()
       navigation.navigate('App')
     } catch (error) {
       console.log('Login', error)
-      Alert.alert(error.message)
+      Alert.alert(translate('login.error.facebook'))
     }
   }
 
@@ -51,7 +52,7 @@ class Login extends Component {
       navigation.navigate('AppLoading')
     } catch (error) {
       console.log('Login', error)
-      Alert.alert(error.message)
+      Alert.alert(translate('login.error'))
     }
   }
 
@@ -61,6 +62,11 @@ class Login extends Component {
     })
   }
 
+  onForgotPassword = () => {
+    const { navigation } = this.props
+    navigation.navigate('ForgotPassword')
+  }
+
   onBack = () => {
     const { navigation } = this.props
     navigation.navigate('CreateAccount')
@@ -68,34 +74,46 @@ class Login extends Component {
 
   render () {
     const { email, password } = this.state
-    const topBar = (
-      <TopBar title='createAccount.login' onBack={this.onBack} />
-    )
+    const topBar = <TopBar title='createAccount.login' onBack={this.onBack} />
     return (
       <Container topBar={topBar}>
-        <KeyboardAvoidingView enabled behavior='position'>
+        <KeyboardAwareScrollView extraScrollHeight={170} enableOnAndroid>
           <View style={styles.view}>
-
             <View style={styles.topFlex}>
               <Button title='createAccount.continue' icon={icons.fb} onPress={this.onFBWebView} />
-              <Description keyName='createAccount.recommendation' style={styles.recommendationText} />
+              <Description
+                keyName='createAccount.recommendation'
+                style={styles.recommendationText}
+              />
               <TextDivider>
                 <Heading3 keyName='createAccount.or' />
               </TextDivider>
               <Heading2 keyName='login.loginAccount' style={styles.loginAccountText} />
             </View>
 
-            <View style={styles.bottomFlex} >
-              <TextInput title='signup.email' autoCapitalize='none' keyboardType='email-address'
-                value={email} onChangeText={text => this.onChange(text, 'email')} />
-              <TextInput title='signup.password' password
-                value={password} onChangeText={text => this.onChange(text, 'password')} />
-              <Description keyName='login.forgotPassword' style={styles.forgotPasswordText} />
+            <View style={styles.bottomFlex}>
+              <TextInput
+                title='signup.email'
+                autoCapitalize='none'
+                keyboardType='email-address'
+                value={email}
+                onChangeText={(text) => this.onChange(text, 'email')}
+              />
+              <TextInput
+                title='signup.password'
+                password
+                value={password}
+                onChangeText={(text) => this.onChange(text, 'password')}
+              />
+              <Description
+                keyName='login.forgotPassword'
+                onPress={this.onForgotPassword}
+                style={styles.forgotPasswordText}
+              />
               <Button onPress={this.onLogin} title='createAccount.login' type={Button.OUTLINED} />
             </View>
-
           </View>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
       </Container>
     )
   }

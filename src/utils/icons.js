@@ -4,7 +4,7 @@ const icons = {
   chevronDown: require('../assets/chevron/chevron-down.png'),
   buttonPlus: require('../assets/plus-circle.png'),
   childhood: require('../assets/images/tmp-childhood.png'),
-  glove: require('../assets/images/tmp-glove.png'),
+  ballon: require('../assets/images/fly-balloon.png'),
   emptyCard: require('../assets/images/tmp-emptyCard.png'),
   yester: require('../assets/images/tmp-yester.png'),
   feather: require('../assets/images/yester-feather.png'),
@@ -58,11 +58,11 @@ export const categories = {
   'Category#08': icons.cardWork,
 }
 
-export const getAgeIcon = (id) => {
+export const getAgeIcon = id => {
   return ages[id] || icons.ageYoungAdult
 }
 
-export const getCategoryIllustration = (id) => {
+export const getCategoryIllustration = id => {
   return categories[id] || icons.cardFamily
 }
 

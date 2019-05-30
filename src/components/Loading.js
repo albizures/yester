@@ -8,13 +8,16 @@ const Loading = ({ isLoading, children, top, style }) => {
     <Fragment>
       {children}
       {isLoading && <ActivityIndicator color={colors.black} size='large' style={[styles.loader, { top }, style]} />}
+      {/* {isLoading && <View style={[styles.loader, { top }, style]}>
+        <Image style={{ flex: 0.5, resizeMode: 'contain' }} source={require('../assets/Yester-loop_1.gif')} />
+      </View>} */}
     </Fragment>
   )
 }
 
 Loading.propTypes = {
   isLoading: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   top: PropTypes.number,
   style: ViewPropTypes.style,
 }

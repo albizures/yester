@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Text, StyleSheet, Share, Image, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Share,
+  Image,
+  TouchableOpacity,
+  Alert,
+  StatusBar,
+} from 'react-native'
 
-import { Heading1, Description, Title, Heading2 } from '../components'
+import { Heading1, Description, Heading2 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import withUser, { shapeContextUser } from '../components/withUser'
@@ -13,6 +22,7 @@ import colors from '../utils/colors'
 import icons from '../utils/icons'
 import http from '../utils/http'
 import moment from 'moment'
+import { translate } from '../components/Translate'
 
 class Reading extends Component {
   static propTypes = {
@@ -35,13 +45,9 @@ class Reading extends Component {
     this.setState({ isLoading: true })
 
     try {
-      const { data: {
-        content,
-        question_id: questionId,
-        age_id: ageId,
-        title,
-        created,
-      } } = await http.get(`/v1/stories/${storyId}`)
+      const {
+        data: { content, question_id: questionId, age_id: ageId, title, created },
+      } = await http.get(`/v1/stories/${storyId}`)
       this.setState({
         storyId,
         content,
@@ -51,6 +57,8 @@ class Reading extends Component {
         created: moment(created).format('LL'),
       })
     } catch (error) {
+      Alert.alert(translate('reading.error'))
+      navigation.goBack()
       console.log(error)
       console.log(error.message)
       console.log(error.response)
@@ -78,9 +86,7 @@ class Reading extends Component {
       return Heading2
     }
 
-    return (props) => (
-      <Heading1 {...props} style={[props.style, { fontSize: 40 }]} />
-    )
+    return (props) => <Heading1 {...props} style={[props.style, { fontSize: 40 }]} />
   }
 
   onEdit = () => {
@@ -107,7 +113,8 @@ class Reading extends Component {
       <TopBar
         transparent
         // action={action}
-        onBack={this.onBack} />
+        onBack={this.onBack}
+      />
     )
 
     const TitleComponent = this.getTitleComponent()
@@ -115,6 +122,7 @@ class Reading extends Component {
     return (
       <Container scroll isLoading={isLoading} topBar={topBar}>
         <View style={styles.container}>
+          <StatusBar barStyle='dark-content' />
           <View style={styles.topRow}>
             <View style={styles.topLeftRow}>
               <Image source={icons.flatFeather} style={styles.feather} />
@@ -129,12 +137,12 @@ class Reading extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <TitleComponent text={title} style={{color: colors.governorBay, marginTop: 40}} />
+          <TitleComponent text={title} style={{ color: colors.governorBay, marginTop: 40 }} />
           {/* TODO: make smaller this font */}
           <Description keyName='reading.by' data={{ author }} />
           {/* TODO: make smaller this font and changes its color to gray */}
           <Description text={created} />
-          <Text maxLength={1000} multiline style={styles.content}>
+          <Text multiline style={styles.content}>
             {content}
           </Text>
         </View>
@@ -174,8 +182,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 29,
   },
   content: {
-    height: 400,
-    marginTop: 40,
+    marginVertical: 40,
     fontFamily: 'Karla-Regular',
     fontSize: 18,
     textAlignVertical: 'top',

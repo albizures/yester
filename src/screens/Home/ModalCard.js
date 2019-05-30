@@ -6,7 +6,7 @@ import colors from '../../utils/colors'
 import { getCategoryIllustration } from '../../utils/icons'
 import { capitalize } from '../../utils'
 
-import Button, {types} from '../../components/Button'
+import Button, { types } from '../../components/Button'
 import { Heading2, Heading5, Heading3 } from '../../components'
 import withAges, { shapeContextAges } from '../../components/withAges'
 
@@ -56,11 +56,11 @@ class ModalCard extends React.Component {
 
             <View style={styles.contentTop}>
               {/* <Heading2 text={capitalize(category)} style={{marginBottom: 10}} /> */}
-              <ComponentQuestion style={{textAlign: 'center'}} text={capitalize(question)} />
+              <ComponentQuestion style={{ textAlign: 'center' }} text={capitalize(question)} />
             </View>
 
             <View style={styles.contentBottom}>
-              <Button title='questionCard.write' onPress={this.onWrite} style={{marginBottom: 20}} />
+              <Button title='questionCard.write' onPress={this.onWrite} style={{ marginBottom: 20 }} />
               <Button title='questionCard.skip' onPress={this.onSkip} type={types.OUTLINED} />
             </View>
           </View>

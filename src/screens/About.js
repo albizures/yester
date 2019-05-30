@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Text, View, Button } from 'react-native'
+import { View } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 

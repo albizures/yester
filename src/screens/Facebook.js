@@ -6,7 +6,7 @@ const uri = 'https://tatalapp.auth.us-east-2.amazoncognito.com/oauth2/authorize?
 export default class Facebook extends Component {
   render () {
     return (
-      <WebView source={{ uri }} style={{marginTop: 20}} />
+      <WebView source={{ uri }} style={{ marginTop: 20 }} />
     )
   }
 }

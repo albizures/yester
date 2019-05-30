@@ -1,4 +1,3 @@
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet } from 'react-native'
@@ -6,7 +5,7 @@ import { View, StyleSheet } from 'react-native'
 import colors from '../../utils/colors'
 
 const Dot = ({ active }) => {
-  return <View style={[styles.dot, {backgroundColor: active ? colors.black : colors.gray}]} />
+  return <View style={[styles.dot, { backgroundColor: active ? colors.white : 'transparent' }]} />
 }
 
 Dot.propTypes = {
@@ -18,6 +17,8 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: colors.white,
     marginHorizontal: 5,
   },
 })

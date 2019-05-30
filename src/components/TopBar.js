@@ -1,5 +1,13 @@
 import React from 'react'
-import { SafeAreaView, View, TouchableOpacity, Image, StyleSheet, Dimensions } from 'react-native'
+import {
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Dimensions,
+  StatusBar,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import icons from '../utils/icons'
 import colors from '../utils/colors'
@@ -11,19 +19,23 @@ const getBackIcon = (modal, transparent) => {
       ? require('../assets/chevron/chevron-down.png')
       : require('../assets/arrows/arrow-left.png')
   }
+  // TODO add the white down chevro asset
   return modal
-    // TODO add the white down chevro asset
     ? require('../assets/chevron/chevron-down.png')
     : require('../assets/arrows/arrow-left-white.png')
 }
 
 const TopBar = (props) => {
   const { title, onBack, modal, action, transparent } = props
-  const titleElement = typeof title === 'string' ? (
-    <View style={styles.titleView} >
-      <Title keyName={title} style={styles.text} />
-    </View>
-  ) : title
+  const titleElement =
+    typeof title === 'string' ? (
+      <View style={styles.titleView}>
+        <StatusBar barStyle='light-content' />
+        <Title keyName={title} style={styles.text} />
+      </View>
+    ) : (
+      title
+    )
 
   const topBarHeight = {
     height: titleElement != null ? titleElement.props.style.height : 51,
@@ -39,22 +51,17 @@ const TopBar = (props) => {
     <SafeAreaView style={safeAreaStyles}>
       <View style={styles.container}>
         {!transparent ? (
-          <View style={[styles.backgrounContainer, topBarHeight]} >
+          <View style={[styles.backgrounContainer, topBarHeight]}>
             <Image source={icons.header} style={styles.backgrounImage} />
           </View>
-        ) : null
-        }
+        ) : null}
         {onBack ? (
           <TouchableOpacity onPress={onBack} style={styles.leftView}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
         ) : null}
         {titleElement}
-        {action && (
-          <View style={styles.rightView}>
-            {action}
-          </View>
-        )}
+        {action && <View style={styles.rightView}>{action}</View>}
       </View>
     </SafeAreaView>
   )

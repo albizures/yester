@@ -3,10 +3,11 @@ package com.yester.app;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactlibrary.RNPurchasesPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.amazonaws.RNAWSCognitoPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+import com.amazonaws.RNAWSCognitoPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -35,10 +36,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new FBSDKPackage(),
+            new RNPurchasesPackage(),
+            new SplashScreenReactPackage(),
             new RNAWSCognitoPackage(),
             new FBSDKPackage(mCallbackManager),
-            new LinearGradientPackage(),
             new ReactNativeLocalizationPackage()
       );
     }
