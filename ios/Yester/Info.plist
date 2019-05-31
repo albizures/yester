@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1329</string>
+	<string>1330</string>
 	<key>FacebookAppID</key>
 	<string>2180194482022432</string>
 	<key>FacebookDisplayName</key>
@@ -54,8 +54,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This permission stems from a library we use and will never be called anyway. If you see this, deny access.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This permission stems from a library we use and will never be called anyway. If you see this, deny access.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string />
+	<string>This permission stems from a library we use and will never be called anyway. If you see this, deny access.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Karla-Bold.ttf</string>

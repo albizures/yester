@@ -30,7 +30,6 @@ const TopBar = (props) => {
   const titleElement =
     typeof title === 'string' ? (
       <View style={styles.titleView}>
-        <StatusBar barStyle='light-content' />
         <Title keyName={title} style={styles.text} />
       </View>
     ) : (
@@ -50,6 +49,7 @@ const TopBar = (props) => {
   return (
     <SafeAreaView style={safeAreaStyles}>
       <View style={styles.container}>
+        <StatusBar barStyle='light-content' />
         {!transparent ? (
           <View style={[styles.backgrounContainer, topBarHeight]}>
             <Image source={icons.header} style={styles.backgrounImage} />
