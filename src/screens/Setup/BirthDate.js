@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  View,
-  StyleSheet,
-  Image,
-  Dimensions,
-  KeyboardAvoidingView,
-} from 'react-native'
+import { View, StyleSheet, Image, Dimensions, KeyboardAvoidingView } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
+import { translate } from './components/Translate'
 import Button from '../../components/Button'
 import { getUser } from '../../utils/session'
 import colors from '../../utils/colors'
@@ -33,10 +28,7 @@ export default class BirthDate extends Component {
     this.state = {
       ...extractSetupParams(navigation),
       name: '',
-      genders: [
-        { value: 'female', label: 'Female' },
-        { value: 'male', label: 'Male' },
-      ],
+      genders: [{ value: 'female', label: 'Female' }, { value: 'male', label: 'Male' }],
     }
   }
 
@@ -57,10 +49,7 @@ export default class BirthDate extends Component {
     // TODO Ask new password to user
     if (user.attributes.createdBy === 'admin') {
       let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
-      const complete = await Auth.completeNewPassword(
-        userNC,
-        USER_PASSWORD_DEFAULT
-      )
+      const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
       userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
       console.log('complete:', complete)
     }
@@ -68,15 +57,7 @@ export default class BirthDate extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const {
-      birthDate,
-      country,
-      state,
-      countryName,
-      stateName,
-      name,
-      gender,
-    } = this.state
+    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
         birthDate,
@@ -169,17 +150,14 @@ export default class BirthDate extends Component {
           <View style={styles.container}>
             <View style={styles.topFlex}>
               <Image source={icons.childhood} style={styles.image} />
-              <Heading4
-                keyName='setup.age.question'
-                style={styles.questionText}
-              />
+              <Heading4 keyName='setup.age.question' style={styles.questionText} />
             </View>
 
             <View style={styles.bottomFlex}>
               <DatePicker
                 title='setup.age.birthdate'
                 value={birthDate}
-                onDateChange={birthDate => {
+                onDateChange={(birthDate) => {
                   this.setState({ birthDate })
                 }}
                 onCloseModal={this.onCloseModal}
@@ -193,19 +171,12 @@ export default class BirthDate extends Component {
                 onClose={this.onCloseModal}
                 onValueChange={this.onChangeGender}
                 placeholder={{
-                  label: 'Select a gender',
+                  label: translate('setup.age.form.gender.placeholder'),
                   value: null,
                 }}
               />
-              <Button
-                title='setup.continue'
-                style={styles.button}
-                onPress={this.onContinue}
-              />
-              <Description
-                keyName='setup.age.disclaimer'
-                style={styles.disclaimerText}
-              />
+              <Button title='setup.continue' style={styles.button} onPress={this.onContinue} />
+              <Description keyName='setup.age.disclaimer' style={styles.disclaimerText} />
             </View>
           </View>
         </KeyboardAvoidingView>
