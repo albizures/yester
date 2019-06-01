@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Dimensions, Alert, Text, Linking } from 'react-native'
+import { StyleSheet, View, Image, Dimensions, Alert, Text, Linking, Platform } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
@@ -83,6 +83,7 @@ class Subscription extends Component {
   }
 
   render () {
+    const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
     return (
       <View style={{ position: 'relative' }}>
         <Image source={icons.subscription} style={styles.image} />
@@ -111,7 +112,7 @@ class Subscription extends Component {
 
             <Description keyName='subscription.termsTitle' style={styles.termsTitleText} />
             <Text style={{ paddingBottom: 40 }}>
-              <Description keyName='subscription.terms' style={styles.termsText} />
+              <Description keyName={terms} style={styles.termsText} />
               <Description
                 keyName='subscription.termsLink'
                 style={styles.termsLink}
