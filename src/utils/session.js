@@ -68,6 +68,11 @@ export const logOut = async () => {
 
 export const getUser = () => Auth.currentAuthenticatedUser()
 
+export const getUserBypassCache = () =>
+  Auth.currentAuthenticatedUser({
+    bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+  })
+
 export const sanitizeUser = (user) => ({
   country: user.attributes['custom:country'],
   state: user.attributes['custom:state'],

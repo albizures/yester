@@ -21,7 +21,8 @@ const LanguageItem = (props) => {
     <SettingsItem
       {...props}
       type={isCheck(locale, currentLocale)}
-      onPress={() => onPress(locale)} />
+      onPress={() => onPress(locale)}
+    />
   )
 }
 
@@ -69,23 +70,23 @@ class Language extends Component {
   render () {
     const { isLoading } = this.state
     const { locale: currentLocale } = this.props.contextUser.user
-    const topBar = (
-      <TopBar title='language.title' onBack={this.onBack} />
-    )
+    const topBar = <TopBar title='language.title' onBack={this.onBack} />
 
     return (
       <Container topBar={topBar} isLoading={isLoading}>
-        <View style={styles.container} >
+        <View style={styles.container}>
           <LanguageItem
             title='English'
             currentLocale={currentLocale}
             locale='en'
-            onPress={this.onPress} />
+            onPress={this.onPress}
+          />
           <LanguageItem
             title='Español'
             currentLocale={currentLocale}
             locale='es'
-            onPress={this.onPress} />
+            onPress={this.onPress}
+          />
         </View>
       </Container>
     )
