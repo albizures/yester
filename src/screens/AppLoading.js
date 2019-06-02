@@ -5,8 +5,15 @@ import { Alert, View } from 'react-native'
 import moment from 'moment'
 
 import Container from '../components/Container'
-import { isSubscribed, isSetupFinished, getToken, setLocale, removeSuscription, saveUserSubscriptionStatus } from '../utils/session'
-import { setupRCPurchases, setInfoListener, status } from '../utils/purchase'
+import {
+  isSubscribed,
+  isSetupFinished,
+  getToken,
+  setLocale,
+  removeSubscription,
+  saveUserSubscriptionStatus,
+} from '../utils/session'
+import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
 import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
@@ -40,14 +47,16 @@ class AppLoading extends Component {
     const { navigation } = this.props
 
     if (status === 401) {
-      await removeSuscription()
+      await removeSubscription()
       navigation.navigate('Subscription')
     }
     return error
   }
 
   getAges = async () => {
-    const { contextAges: { updateAges } } = this.props
+    const {
+      contextAges: { updateAges },
+    } = this.props
 
     try {
       debugInfo('Fetching ages')
@@ -76,38 +85,28 @@ class AppLoading extends Component {
 
       await updateUser()
       await this.getAges()
-      await setupRCPurchases()
+      await setupPurchases()
       const hasSuscription = await isSubscribed()
-
-      const purchaserInfo = await new Promise((resolve, reject) => {
-        const removeInfoListener = setInfoListener((error, purchaserInfo) => {
-          removeInfoListener()
-          if (error) {
-            return reject(error)
-          }
-          resolve(purchaserInfo)
-        })
-      })
-      debugInfo(purchaserInfo)
+      const purchaserInfo = await getPurchaserInfo()
 
       const { activeSubscriptions = [], allExpirationDates = {} } = purchaserInfo || {}
       if (activeSubscriptions.length === 0) {
         if (hasSuscription) {
-          await removeSuscription()
+          await removeSubscription()
         }
         return navigation.navigate('Subscription')
       }
 
       // checking expiration dates
-      const subscriptionsAreActive = activeSubscriptions.every((suscriptionName) => {
+      const subscriptionsAreActive = activeSubscriptions.every((subscriptionName) => {
         const nowDate = moment()
-        const expirationDate = moment(allExpirationDates[suscriptionName])
+        const expirationDate = moment(allExpirationDates[subscriptionName])
 
         return expirationDate.isAfter(nowDate)
       })
 
       if (!subscriptionsAreActive) {
-        await removeSuscription()
+        await removeSubscription()
         return navigation.navigate('Subscription')
       }
 
