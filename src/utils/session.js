@@ -164,7 +164,7 @@ export const cleanUserData = async () => {
 }
 
 // TODO: Use this.updateUserAttribute
-export const removeSuscription = async () => {
+export const removeSubscription = async () => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:subscription_status': '',
