@@ -3,7 +3,7 @@ import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
 
-import { getUser } from './session'
+import { getUser, saveUserSubscriptionStatus, removeSubscription } from './session'
 
 const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
@@ -19,56 +19,66 @@ export const eventTypes = {
   PURCHASE: 'PURCHASE',
 }
 
-export const setupRCPurchases = async () => {
+export const setupPurchases = async () => {
   try {
     const user = await getUser()
-    debugInfo('User Id', user)
     Purchases.setup(REVENUECAT_API_KEY, user.username)
   } catch (error) {
-    debugError('setupRCPurchases', error)
+    debugError('setupPurchases', error)
   }
 }
 
 export const getEntitlements = async () => {
   try {
-    const { pro } = await Purchases.getEntitlements()
-    debugInfo('Entitlement:', pro)
-    return pro
+    const entitlements = await Purchases.getEntitlements()
+    debugInfo('entitlements:', entitlements)
+    return entitlements
   } catch (error) {
     debugError('getEntitlements', error)
   }
 }
 
-export const buySubscription = (productId) => {
+export const getPurchaserInfo = async () => {
   try {
-    Purchases.makePurchase(productId)
-  } catch (err) {
-    debugError(err.code, err.message)
-    Alert.alert(err.message)
+    const purchaserInfo = await Purchases.getPurchaserInfo()
+    debugInfo('purchaserInfo:', purchaserInfo)
+    return purchaserInfo
+  } catch (error) {
+    debugError('getPurchaserInfo', error)
   }
 }
 
-const {
-  // addRestoreTransactionsListener,
-  addPurchaserInfoUpdateListener,
-  addPurchaseListener,
-} = Purchases
+export const buySubscription = async (productId) => {
+  try {
+    const purchaseMade = await Purchases.makePurchase(productId)
 
-export const setInfoListener = (callback) => {
-  const handler = (purchaserInfo) => {
-    callback(undefined, purchaserInfo, eventTypes.INFO)
+    if (purchaseMade.purchaserInfo.activeEntitlements.length === 0) {
+      try {
+        await removeSubscription()
+      } catch (error) {
+        console.error('removeSubscription', error)
+      }
+      return Alert.alert("We couldn't process your payment")
+    }
+
+    const { activeSubscriptions = [] } = purchaseMade.purchaserInfo
+    if (activeSubscriptions.length === 0) {
+      return Alert.alert("We couldn't process your payment")
+    }
+
+    try {
+      await saveUserSubscriptionStatus(status.SUBSCRIBED)
+    } catch (error) {
+      Alert.alert("We couldn't update your suscription, please contact us")
+    }
+  } catch (e) {
+    if (!e.userCancelled) {
+      console.log(`Error handling ${JSON.stringify(e)}`)
+      debugError(e.code, e.message)
+      Alert.alert(`We couldn't process your payment`)
+    } else {
+      console.log(`User cancelled ${JSON.stringify(e)}`)
+      Alert.alert('Process has been cancelled')
+    }
   }
-  addPurchaserInfoUpdateListener(handler)
-
-  return () => Purchases.removePurchaserInfoUpdateListener(handler)
-}
-
-export const setPurchaseListener = (callback) => {
-  const handler = (productIdentifier, purchaserInfo, error) => {
-    callback(error, purchaserInfo, eventTypes.PURCHASE)
-  }
-
-  addPurchaseListener(handler)
-
-  return () => Purchases.removePurchaseListener(handler)
 }

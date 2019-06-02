@@ -1,15 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  Alert,
-  Image,
-  Dimensions,
-  Animated,
-  Text,
-} from 'react-native'
+import { View, StyleSheet, FlatList, Alert, Image, Dimensions, Animated, Text } from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
@@ -22,6 +13,10 @@ import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
 import { translate } from '../../components/Translate'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Home:error')
+const debugInfo = debugFactory('yester:Home:info')
 
 export default class Home extends Component {
   static propTypes = {
@@ -53,7 +48,7 @@ export default class Home extends Component {
 
       this.setState({ question })
     } catch (error) {
-      console.log(error.response)
+      debugError('today question:', error.response)
       if (error.response.status !== 404) {
         Alert.alert(translate('home.error.today.question'))
       }
@@ -106,9 +101,7 @@ export default class Home extends Component {
     </View>
   )
 
-  renderStoryItem = ({ item }) => (
-    <StoryItem data={item} onPress={() => this.onPressItem(item)} />
-  )
+  renderStoryItem = ({ item }) => <StoryItem data={item} onPress={() => this.onPressItem(item)} />
 
   onWriteTodayQuestion = () => {
     const { question: item } = this.state
@@ -130,17 +123,9 @@ export default class Home extends Component {
     })
   }
 
-  onPressItem = item => {
+  onPressItem = (item) => {
     const { navigation } = this.props
-    const {
-      ageId,
-      category,
-      question,
-      questionId,
-      storyId,
-      content,
-      categoryId,
-    } = item
+    const { ageId, category, question, questionId, storyId, content, categoryId } = item
 
     if (content) {
       return navigation.navigate('Reading', { storyId })
@@ -168,9 +153,7 @@ export default class Home extends Component {
   render () {
     const { isLoading, question, positionToast } = this.state
     const topBarTitle = (
-      <View
-        style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}
-      >
+      <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
       </View>
     )
@@ -179,16 +162,11 @@ export default class Home extends Component {
       <Container topBar={topBar} isLoading={isLoading} style={styles.container}>
         <View style={styles.view}>
           {question && (
-            <QuestionItem
-              text={question.description}
-              onPress={this.onWriteTodayQuestion}
-            />
+            <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />
           )}
           {!isLoading && <Tabs onPressItem={this.onPressItem} />}
         </View>
-        <Animated.View
-          style={[styles.toastContainer, { bottom: positionToast }]}
-        >
+        <Animated.View style={[styles.toastContainer, { bottom: positionToast }]}>
           <View style={[styles.toast]}>
             <Text style={styles.checkMark}>✓</Text>
             <View style={styles.contentToast}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Dimensions, Alert, Text, Linking, Platform } from 'react-native'
+import { StyleSheet, View, Image, Dimensions, Text, Linking, Platform } from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
@@ -7,17 +7,27 @@ import Container from '../components/Container'
 import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } from '../components'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { saveUserSubscriptionStatus, removeSuscription, logOut } from '../utils/session'
-import { getEntitlements, buySubscription, status, setPurchaseListener } from '../utils/purchase'
+import { logOut } from '../utils/session'
+import { getEntitlements, buySubscription } from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
 
-  componentWillUnmount () {
-    if (this.removeListener) {
-      this.removeListener(this.handlePurchaserInfo)
+  state = {
+    entitlements: [],
+  }
+
+  async componentDidMount () {
+    try {
+      const entitlements = await getEntitlements()
+      // console.log(JSON.stringify(entitlements))
+      this.setState({
+        entitlements,
+      })
+    } catch (e) {
+      console.log('Error handling')
     }
   }
 
@@ -28,46 +38,9 @@ class Subscription extends Component {
   }
 
   onStartTrial = async () => {
-    const { monthly } = await getEntitlements()
-    this.removeListener = setPurchaseListener(this.handlePurchaserInfo)
-    buySubscription(monthly.identifier)
-  }
-
-  handlePurchaserInfo = async (error, purchaserInfo = {}, type) => {
     const { navigation } = this.props
-
-    if (this.removeListener) {
-      this.removeListener()
-    }
-
-    if (error) {
-      console.log('error', error)
-      const message =
-        error.code === 2 ? 'Process has been cancelled' : "We couldn't process your payment"
-      return Alert.alert(message)
-    }
-
-    const { activeSubscriptions = [] } = purchaserInfo
-
-    if (purchaserInfo.activeEntitlements.length === 0) {
-      try {
-        await removeSuscription()
-      } catch (error) {
-        console.error('handlePurchaserInfo', error)
-      }
-      return Alert.alert("We couldn't process your payment")
-    }
-
-    if (activeSubscriptions.length === 0) {
-      return Alert.alert("We couldn't process your payment")
-    }
-
-    try {
-      await saveUserSubscriptionStatus(status.SUBSCRIBED)
-      navigation.navigate('AppLoading')
-    } catch (error) {
-      Alert.alert("We couldn't update your suscription, please contact us")
-    }
+    await buySubscription(this.state.entitlements.pro.monthly.identifier)
+    navigation.navigate('AppLoading')
   }
 
   onRestore = async () => {}
