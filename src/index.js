@@ -1,7 +1,11 @@
 import './base64Polyfill'
 import React, { Component } from 'react'
 import { StatusBar, View } from 'react-native'
-import { createStackNavigator, createSwitchNavigator, createBottomTabNavigator } from 'react-navigation'
+import {
+  createStackNavigator,
+  createSwitchNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation'
 import Amplify from 'aws-amplify'
 import SplashScreen from 'react-native-splash-screen'
 import debugFactory from 'debug'
@@ -42,7 +46,13 @@ import About from './screens/About'
 
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import { setAuthHeader, Storage, getUser, sanitizeUser, setLocale } from './utils/session'
+import {
+  setAuthHeader,
+  Storage,
+  getUserBypassCache,
+  sanitizeUser,
+  setLocale,
+} from './utils/session'
 
 const debugInfo = debugFactory('yester:index:info')
 
@@ -58,127 +68,150 @@ Amplify.configure({
     mandatorySignIn: true,
   },
   API: {
-    endpoints: [{
-      name: 'main',
-      endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
-    }],
+    endpoints: [
+      {
+        name: 'main',
+        endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
+      },
+    ],
   },
 })
 
-const SetupStack = createStackNavigator({
-  SetupBirthDate,
-  SetupPlace,
-  SetupConfirmation,
-}, {
-  headerMode: 'none',
-  initialRouteName: 'SetupBirthDate',
-})
+const SetupStack = createStackNavigator(
+  {
+    SetupBirthDate,
+    SetupPlace,
+    SetupConfirmation,
+  },
+  {
+    headerMode: 'none',
+    initialRouteName: 'SetupBirthDate',
+  }
+)
 
-const FeedStack = createStackNavigator({
-  Home,
-  ModalCard,
-}, {
-  mode: 'modal',
-  headerMode: 'none',
-  initialRouteName: 'Home',
-})
+const FeedStack = createStackNavigator(
+  {
+    Home,
+    ModalCard,
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    initialRouteName: 'Home',
+  }
+)
 
-const SettingsStack = createStackNavigator({
-  SettingsHome: Settings,
-  Language,
-  Notifications,
-  Terms,
-  About,
-}, {
-  mode: 'modal',
-  headerMode: 'none',
-  initialRouteName: 'SettingsHome',
-})
+const SettingsStack = createStackNavigator(
+  {
+    SettingsHome: Settings,
+    Language,
+    Notifications,
+    Terms,
+    About,
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    initialRouteName: 'SettingsHome',
+  }
+)
 
-const MainTab = createBottomTabNavigator({
-  MyStory: {
-    screen: FeedStack,
-    navigationOptions: () => ({
-      title: translate('home.bottomBar.myStory'),
-      tabBarIcon: tabBarIcon({
-        active: require('./assets/feed.png'),
-        inactive: require('./assets/feed-disabled.png'),
+const MainTab = createBottomTabNavigator(
+  {
+    MyStory: {
+      screen: FeedStack,
+      navigationOptions: () => ({
+        title: translate('home.bottomBar.myStory'),
+        tabBarIcon: tabBarIcon({
+          active: require('./assets/feed.png'),
+          inactive: require('./assets/feed-disabled.png'),
+        }),
       }),
-    }),
-  },
-  Profile: {
-    screen: Profile,
-    navigationOptions: () => ({
-      title: translate('home.bottomBar.profile'),
-      tabBarIcon: tabBarIcon({
-        active: require('./assets/profile.png'),
-        inactive: require('./assets/profile-disabled.png'),
-      }),
-    }),
-  },
-  Settings: {
-    screen: SettingsStack,
-    navigationOptions: () => ({
-      title: translate('home.bottomBar.settings'),
-      tabBarIcon: tabBarIcon({
-        active: require('./assets/settings.png'),
-        inactive: require('./assets/settings-disabled.png'),
-      }),
-    }),
-  },
-}, {
-  animationEnabled: true,
-  swipeEnabled: true,
-  initialRouteName: 'MyStory',
-  headerMode: 'none',
-  tabBarOptions: {
-    activeTintColor: colors.white,
-    inactiveTintColor: colors.moonRaker,
-    style: {
-      backgroundColor: colors.governorBay,
     },
-    labelStyle: {
-      fontWeight: 'bold',
-      marginTop: 0,
+    Profile: {
+      screen: Profile,
+      navigationOptions: () => ({
+        title: translate('home.bottomBar.profile'),
+        tabBarIcon: tabBarIcon({
+          active: require('./assets/profile.png'),
+          inactive: require('./assets/profile-disabled.png'),
+        }),
+      }),
+    },
+    Settings: {
+      screen: SettingsStack,
+      navigationOptions: () => ({
+        title: translate('home.bottomBar.settings'),
+        tabBarIcon: tabBarIcon({
+          active: require('./assets/settings.png'),
+          inactive: require('./assets/settings-disabled.png'),
+        }),
+      }),
     },
   },
-})
+  {
+    animationEnabled: true,
+    swipeEnabled: true,
+    initialRouteName: 'MyStory',
+    headerMode: 'none',
+    tabBarOptions: {
+      activeTintColor: colors.white,
+      inactiveTintColor: colors.moonRaker,
+      style: {
+        backgroundColor: colors.governorBay,
+      },
+      labelStyle: {
+        fontWeight: 'bold',
+        marginTop: 0,
+      },
+    },
+  }
+)
 
-const AppStack = createStackNavigator({
-  MainTab,
-  Writing,
-  Reading,
-}, {
-  headerMode: 'none',
-  mode: 'modal',
-  initialRouteName: 'MainTab',
-})
+const AppStack = createStackNavigator(
+  {
+    MainTab,
+    Writing,
+    Reading,
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal',
+    initialRouteName: 'MainTab',
+  }
+)
 
-const AuthStack = createStackNavigator({
-  Onboarding,
-  Login,
-  SignUp,
-  ForgotPassword,
-  NewPassword,
-  RecoverCode,
-  CreateAccount,
-  Subscription,
-  ConfirmAccount,
-  FBWebView,
-}, {
-  headerMode: 'none',
-  mode: 'modal',
-  initialRouteName: 'Onboarding',
-})
+const AuthStack = createStackNavigator(
+  {
+    Onboarding,
+    Login,
+    SignUp,
+    ForgotPassword,
+    NewPassword,
+    RecoverCode,
+    CreateAccount,
+    Subscription,
+    ConfirmAccount,
+    FBWebView,
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal',
+    initialRouteName: 'Onboarding',
+  }
+)
 
-const RootStack = createSwitchNavigator({
-  App: AppStack,
-  Auth: AuthStack,
-  AppLoading,
-  Setup: SetupStack,
-}, {
-  initialRouteName: 'AppLoading',
-})
+const RootStack = createSwitchNavigator(
+  {
+    App: AppStack,
+    Auth: AuthStack,
+    AppLoading,
+    Setup: SetupStack,
+  },
+  {
+    initialRouteName: 'AppLoading',
+  }
+)
 
 export default class App extends Component {
   state = {}
@@ -189,7 +222,7 @@ export default class App extends Component {
 
   updateUser = async () => {
     debugInfo('Updating user')
-    const user = sanitizeUser(await getUser())
+    const user = sanitizeUser(await getUserBypassCache())
     setLocale(user.locale)
     this.setState({ user })
   }
@@ -197,10 +230,13 @@ export default class App extends Component {
   updateAges = (ages) => {
     debugInfo('Updating ages', ages)
     this.setState({
-      ages: ages.reduce((agesObj, age) => ({
-        ...agesObj,
-        [age.id]: age,
-      }), {}),
+      ages: ages.reduce(
+        (agesObj, age) => ({
+          ...agesObj,
+          [age.id]: age,
+        }),
+        {}
+      ),
       agesList: ages,
     })
   }

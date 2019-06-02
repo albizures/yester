@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import {
-  View,
-  StyleSheet,
-  Image,
-  Alert,
-  KeyboardAvoidingView,
-} from 'react-native'
+import { View, StyleSheet, Image, Alert, KeyboardAvoidingView } from 'react-native'
 import Picker from '../../components/Picker'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
@@ -79,15 +73,7 @@ export default class Place extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const {
-      birthDate,
-      country,
-      state,
-      countryName,
-      stateName,
-      name,
-      gender,
-    } = this.state
+    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
 
     if (country && state) {
       navigation.navigate('SetupConfirmation', {
@@ -201,10 +187,7 @@ export default class Place extends Component {
                 marginBottom: 5,
               }}
             />
-            <Heading4
-              keyName='setup.place.form.title'
-              style={[{ textAlign: 'center' }]}
-            />
+            <Heading4 keyName='setup.place.form.title' style={[{ textAlign: 'center' }]} />
             <Picker
               title='setup.place.form.country'
               items={countries}
@@ -213,7 +196,7 @@ export default class Place extends Component {
               onClose={this.onCloseModal}
               onValueChange={this.onChangeCountry}
               placeholder={{
-                label: 'Select a country',
+                label: translate('setup.place.form.country.placeholder'),
                 value: null,
               }}
               style={{ marginTop: 14 }}
@@ -226,7 +209,7 @@ export default class Place extends Component {
               onClose={this.onCloseModal}
               onValueChange={this.onChangeState}
               placeholder={{
-                label: 'Select a state',
+                label: translate('setup.place.form.state.placeholder'),
                 value: null,
               }}
             />
