@@ -64,6 +64,7 @@ export const forgotPasswordSubmit = async (email, code, password) => {
 export const logOut = async () => {
   await AsyncStorage.clear()
   delete instance.defaults.headers.common['Authorization']
+  debugInfo('User logued out')
 }
 
 export const getUser = () => Auth.currentAuthenticatedUser()

@@ -1,6 +1,6 @@
 import './base64Polyfill'
 import React, { Component } from 'react'
-import { StatusBar, View } from 'react-native'
+import { StatusBar, View, Platform } from 'react-native'
 import {
   createStackNavigator,
   createSwitchNavigator,
@@ -253,11 +253,13 @@ export default class App extends Component {
       agesList,
     }
 
+    const statusBarStyle = Platform.OS === 'ios' ? 'light-content' : 'dark-content'
+
     return (
       <AgesProvider value={agesContextValue}>
         <UserProvider value={userContextValue}>
           <View style={{ flex: 1 }}>
-            <StatusBar barStyle='light-content' />
+            <StatusBar barStyle={statusBarStyle} />
             <RootStack />
           </View>
         </UserProvider>

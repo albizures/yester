@@ -86,18 +86,22 @@ class AppLoading extends Component {
       await updateUser()
       await this.getAges()
       await setupPurchases()
-      const hasSuscription = await isSubscribed()
+      const hasSubscription = await isSubscribed()
       const purchaserInfo = await getPurchaserInfo()
 
-      const { activeSubscriptions = [], allExpirationDates = {} } = purchaserInfo || {}
-      if (activeSubscriptions.length === 0) {
-        if (hasSuscription) {
+      // const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
+
+      const { activeEntitlements = [] } = purchaserInfo || {}
+      debugInfo('Active entitlements:', activeEntitlements)
+      if (activeEntitlements === 'undefined' || !activeEntitlements.includes('pro')) {
+        if (hasSubscription) {
           await removeSubscription()
         }
         return navigation.navigate('Subscription')
       }
 
       // checking expiration dates
+      /*
       const subscriptionsAreActive = activeSubscriptions.every((subscriptionName) => {
         const nowDate = moment()
         const expirationDate = moment(allExpirationDates[subscriptionName])
@@ -109,7 +113,7 @@ class AppLoading extends Component {
         await removeSubscription()
         return navigation.navigate('Subscription')
       }
-
+      */
       await saveUserSubscriptionStatus(status.SUBSCRIBED)
 
       instance.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
