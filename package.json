@@ -21,7 +21,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.8.3",
     "react-addons-test-utils": "^15.6.2",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.8.6",
     "react-native": "^0.59.8",
     "react-native-datepicker": "^1.7.2",
     "react-native-fbsdk": "^0.8.0",
