@@ -23,6 +23,7 @@ export const setupPurchases = async () => {
   try {
     const user = await getUser()
     Purchases.setup(REVENUECAT_API_KEY, user.username)
+    Purchases.setAllowSharingStoreAccount(true)
   } catch (error) {
     debugError('setupPurchases', error)
   }
@@ -31,7 +32,7 @@ export const setupPurchases = async () => {
 export const getEntitlements = async () => {
   try {
     const entitlements = await Purchases.getEntitlements()
-    debugInfo('entitlements:', entitlements)
+    debugInfo('Available entitlements:', entitlements)
     return entitlements
   } catch (error) {
     debugError('getEntitlements', error)
@@ -41,10 +42,10 @@ export const getEntitlements = async () => {
 export const getPurchaserInfo = async () => {
   try {
     const purchaserInfo = await Purchases.getPurchaserInfo()
-    debugInfo('purchaserInfo:', purchaserInfo)
+    debugInfo('Purchaser info:', purchaserInfo)
     return purchaserInfo
   } catch (error) {
-    debugError('getPurchaserInfo', error)
+    debugError('getPurchaserInfo:', error)
   }
 }
 
