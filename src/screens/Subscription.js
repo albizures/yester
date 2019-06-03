@@ -22,12 +22,11 @@ class Subscription extends Component {
   async componentDidMount () {
     try {
       const entitlements = await getEntitlements()
-      // console.log(JSON.stringify(entitlements))
       this.setState({
         entitlements,
       })
     } catch (e) {
-      console.log('Error handling')
+      console.log('Error in  Subscription componentDidMount', e)
     }
   }
 
