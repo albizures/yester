@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Alert,
   StatusBar,
+  Platform,
 } from 'react-native'
 
 import { Heading1, Description, Heading2 } from '../components'
@@ -101,6 +102,7 @@ class Reading extends Component {
     const { name: author } = this.props.contextUser.user
     const { ages } = this.props.contextAges
     const age = (ages[ageId] || {}).name || ''
+    const statusBarStyle = Platform.OS === 'ios' ? 'dark-content' : 'light-content'
 
     // const action = (
     //   <Title
@@ -122,7 +124,7 @@ class Reading extends Component {
     return (
       <Container scroll isLoading={isLoading} topBar={topBar}>
         <View style={styles.container}>
-          <StatusBar barStyle='dark-content' />
+          <StatusBar barStyle={statusBarStyle} />
           <View style={styles.topRow}>
             <View style={styles.topLeftRow}>
               <Image source={icons.flatFeather} style={styles.feather} />

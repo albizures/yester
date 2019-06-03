@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   StatusBar,
+  Platform,
 } from 'react-native'
 import PropTypes from 'prop-types'
 import icons from '../utils/icons'
@@ -46,10 +47,13 @@ const TopBar = (props) => {
     styles.safeArea,
     transparent ? [styles.containerTransparent] : []
   )
+
+  const statusBarStyle = Platform.OS === 'ios' ? 'light-content' : 'dark-content'
+
   return (
     <SafeAreaView style={safeAreaStyles}>
       <View style={styles.container}>
-        <StatusBar barStyle='light-content' />
+        <StatusBar barStyle={statusBarStyle} />
         {!transparent ? (
           <View style={[styles.backgrounContainer, topBarHeight]}>
             <Image source={icons.header} style={styles.backgrounImage} />
