@@ -107,6 +107,8 @@
   "login.forgotPassword": "¿Olvidaste tu contraseña?",
   "login.error.facebook": "Hubo un error en el sistema. Prueba de nuevo.",
   "login.error": "Hubo un error. Prueba de nuevo por favor.",
+  "login.error.notAuthorized": "El usuario o contraseña es incorrecto. Por favor prueba de nuevo.",
+  "login.error.userNotFound": "Este usuario no existe en Yester. Por favor prueba de nuevo.",
   "settings.title": "Configuración",
   "profile.title": "Mi Perfil",
   "profile.email": "Correo",

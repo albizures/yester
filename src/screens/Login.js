@@ -14,6 +14,10 @@ import TextDivider from '../components/TextDivider'
 import TextInput from '../components/TextInput'
 import TopBar from '../components/TopBar'
 import { translate } from '../components/Translate'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Login:error')
+const debugInfo = debugFactory('yester:Login:info')
 
 class Login extends Component {
   static propTypes = {
@@ -51,8 +55,14 @@ class Login extends Component {
       await logIn(email, password)
       navigation.navigate('AppLoading')
     } catch (error) {
-      console.log('Login', error)
-      Alert.alert(translate('login.error'))
+      debugError('Login', error)
+      if (error.code === 'NotAuthorizedException') {
+        Alert.alert(translate('login.error.notAuthorized'))
+      } else if (error.code === 'UserNotFoundException') {
+        Alert.alert(translate('login.error.userNotFound'))
+      } else {
+        Alert.alert(translate('login.error'))
+      }
     }
   }
 
