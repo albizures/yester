@@ -1,10 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, WebView, Alert } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
+import { WebView } from 'react-native-webview'
 import { FACEBOOK_URL_LOGIN } from 'react-native-dotenv'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { strings, translate } from '../components/Translate'
 import { loginWithFBWebView, updateUserAttribute } from '../utils/session'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:FBWebView:error')
+const debugInfo = debugFactory('yester:FBWebView:info')
 
 let attempts = 0
 let logedIn = false
@@ -20,12 +25,12 @@ class FBWebView extends React.Component {
     key: 1,
   }
 
-  onFBWebViewStateChange = async event => {
+  onFBWebViewStateChange = async (event) => {
     const { updateUser } = this.props.contextUser
     const { navigation } = this.props
 
-    console.log('onFBWebViewStateChange: ', event.url)
-    console.log('logedIn: ', logedIn)
+    debugInfo('onFBWebViewStateChange: ', event.url)
+    debugInfo('logedIn: ', logedIn)
     if (event.url.startsWith('https://www.yester.app')) {
       if (event.url.includes('access_token=')) {
         try {
@@ -36,12 +41,12 @@ class FBWebView extends React.Component {
           return navigation.navigate('AppLoading')
         } catch (error) {
           logedIn = false
-          console.log('onFBWebViewStateChange', error)
+          debugError('onFBWebViewStateChange', error)
           navigation.goBack()
           Alert.alert(translate('login.error.facebook'))
         }
       } else if (event.url.includes('error_description=Already+found+an+entry+for')) {
-        console.log('Already entry')
+        debugError('Already entry')
         alreadyEntry = true
         attempts = 0
         this.setState({

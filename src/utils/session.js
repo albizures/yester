@@ -43,7 +43,7 @@ export const setAuthHeader = async (token) => {
       instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
     }
   } catch (error) {
-    debugError('There is not token', error)
+    debugError('There is no token', error)
   }
 }
 
@@ -178,11 +178,11 @@ export const loginWithFBWebView = (url) =>
       onSuccess: async (result) => {
         const user = await getUser()
         await saveUserToken()
-        console.log(user, 'Sign in success')
+        debugInfo(user, 'Sign in success')
         resolve(user)
       },
       onFailure: (err) => {
-        console.log(err, 'Sign in error')
+        debugError(err, 'Sign in error')
         reject(err)
       },
     }
