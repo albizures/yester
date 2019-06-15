@@ -4,7 +4,7 @@ import { CognitoAuth } from 'amazon-cognito-auth-js'
 import debugFactory from 'debug'
 import moment from 'moment'
 import { AsyncStorage } from 'react-native'
-import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, HOST } from 'react-native-dotenv'
+import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, COGNITO_DOMAIN } from 'react-native-dotenv'
 import { strings } from '../components/Translate'
 import { instance, setHeaderLocale } from './http'
 
@@ -12,12 +12,12 @@ export const Storage = new StorageHelper().getStorage()
 const cognitoAuthParams = {
   ClientId: AWS_USER_CLIENT_POOL_ID,
   UserPoolId: AWS_USER_POOL_ID,
-  AppWebDomain: HOST,
-  TokenScopesArray: ['email', 'name', 'cover'],
-  RedirectUriSignIn: 'https://www.facebook.com',
-  RedirectUriSignOut: 'https://www.facebook.com',
+  AppWebDomain: COGNITO_DOMAIN,
+  TokenScopesArray: ['email', 'name', 'cover', 'openid', 'aws.cognito.signin.user.admin'],
+  RedirectUriSignIn: 'https://www.yester.app/auth',
+  RedirectUriSignOut: 'https://www.yester.app/auth',
   IdentityProvider: 'Facebook',
-  ResponseType: 'token',
+  ResponseType: 'code',
   Storage,
 }
 
@@ -30,6 +30,7 @@ const debugError = debugFactory('yester:session:error')
 
 export const extractTokenFromSession = async () => {
   const currentSession = await Auth.currentSession()
+  debugInfo('Auth.currentSession: ', currentSession)
   return currentSession.accessToken.jwtToken
 }
 
@@ -43,7 +44,7 @@ export const setAuthHeader = async (token) => {
       instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
     }
   } catch (error) {
-    debugError('There is not token', error)
+    debugError('There is no token', error)
   }
 }
 
@@ -178,11 +179,11 @@ export const loginWithFBWebView = (url) =>
       onSuccess: async (result) => {
         const user = await getUser()
         await saveUserToken()
-        console.log(user, 'Sign in success')
+        debugInfo(user, 'Sign in success')
         resolve(user)
       },
       onFailure: (err) => {
-        console.log(err, 'Sign in error')
+        debugError(err, 'Sign in error')
         reject(err)
       },
     }

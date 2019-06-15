@@ -39,7 +39,7 @@ class Login extends Component {
       await saveUserToken()
       navigation.navigate('App')
     } catch (error) {
-      console.log('Login', error)
+      debugError('NativeFB Login', error)
       Alert.alert(translate('login.error.facebook'))
     }
   }
