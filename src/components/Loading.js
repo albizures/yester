@@ -7,7 +7,13 @@ const Loading = ({ isLoading, children, top, style }) => {
   return (
     <Fragment>
       {children}
-      {isLoading && <ActivityIndicator color={colors.black} size='large' style={[styles.loader, { top }, style]} />}
+      {isLoading && (
+        <ActivityIndicator
+          color={colors.black}
+          size='large'
+          style={[styles.loader, { top }, style]}
+        />
+      )}
       {/* {isLoading && <View style={[styles.loader, { top }, style]}>
         <Image style={{ flex: 0.5, resizeMode: 'contain' }} source={require('../assets/Yester-loop_1.gif')} />
       </View>} */}
@@ -25,7 +31,7 @@ Loading.propTypes = {
 const styles = StyleSheet.create({
   loader: {
     position: 'absolute',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
     height: '100%',
     width: '100%',
     top: 0,

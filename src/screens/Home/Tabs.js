@@ -27,7 +27,7 @@ class Tabs extends Component {
   state = {
     isLoading: true,
     index: 0,
-    routes: this.props.contextAges.agesList.map(age => ({
+    routes: this.props.contextAges.agesList.map((age) => ({
       key: age.id,
       title: age.name,
     })),
@@ -53,7 +53,7 @@ class Tabs extends Component {
     const agesByStory = {}
 
     const listOfAgesByStory = await Promise.all(
-      agesList.map(async age => {
+      agesList.map(async (age) => {
         const { id } = age
 
         const [error, items, lastEvaluatedKey] = await this.getStoriesByAge(id)
@@ -70,9 +70,7 @@ class Tabs extends Component {
     const firstAgeWithoutStories = listOfAgesByStory.find(
       ({ error, items }) => !error && items.length === 0
     )
-    const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(
-      firstAgeWithoutStories
-    )
+    const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(firstAgeWithoutStories)
 
     return {
       index: indexOfFirstAgeWithoutStories - 1,
@@ -89,9 +87,9 @@ class Tabs extends Component {
     })
   }
 
-  onIndexChange = index => this.setState({ index })
+  onIndexChange = (index) => this.setState({ index })
 
-  renderLabel = scene => {
+  renderLabel = (scene) => {
     const focused = this.state.routes.indexOf(scene.route) === this.state.index
     const { title, key } = scene.route
 
@@ -105,7 +103,7 @@ class Tabs extends Component {
     )
   }
 
-  getTabBar = props => {
+  getTabBar = (props) => {
     return (
       <View style={styles.headerContainer}>
         <TabBar
@@ -141,7 +139,7 @@ class Tabs extends Component {
     const { isLoading } = this.state
 
     if (isLoading) {
-      return <Loading isLoading={isLoading} style={styles.loading} />
+      return null // <Loading isLoading={isLoading} style={styles.loading} />
     }
 
     return (
