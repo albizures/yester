@@ -32,7 +32,7 @@ class FBWebView extends React.Component {
     debugInfo('onFBWebViewStateChange: ', event.url)
     debugInfo('logedIn: ', logedIn)
     if (event.url.startsWith('https://www.yester.app')) {
-      if (event.url.includes('access_token=')) {
+      if (event.url.includes('code=')) {
         try {
           logedIn = true
           await loginWithFBWebView(event.url)
@@ -68,6 +68,7 @@ class FBWebView extends React.Component {
   }
 
   render () {
+    debugInfo('FB_URL_Login:', FACEBOOK_URL_LOGIN)
     return (
       <View style={styles.container}>
         <WebView
