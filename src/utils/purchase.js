@@ -22,6 +22,7 @@ export const eventTypes = {
 export const setupPurchases = async () => {
   try {
     const user = await getUser()
+    Purchases.setDebugLogsEnabled(false)
     Purchases.setup(REVENUECAT_API_KEY, user.username)
     Purchases.setAllowSharingStoreAccount(true)
   } catch (error) {
@@ -81,5 +82,19 @@ export const buySubscription = async (productId) => {
       console.log(`User cancelled ${JSON.stringify(e)}`)
       Alert.alert('Process has been cancelled')
     }
+  }
+}
+
+export const restoreSubscription = async () => {
+  try {
+    const restore = await Purchases.restoreTransactions()
+    debugInfo('Restoring: ', restore)
+    if (restore.activeEntitlements[0] === undefined) {
+      Alert.alert(`You don't have an active subscription to be restored.`)
+    }
+    return restore
+  } catch (e) {
+    debugError('Restoring: ', e)
+    Alert.alert(`We couldn't process your restore transaction.`)
   }
 }

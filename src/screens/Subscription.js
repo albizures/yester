@@ -8,7 +8,7 @@ import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } fro
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { logOut } from '../utils/session'
-import { getEntitlements, buySubscription } from '../utils/purchase'
+import { getEntitlements, buySubscription, restoreSubscription } from '../utils/purchase'
 
 class Subscription extends Component {
   static propTypes = {
@@ -42,7 +42,11 @@ class Subscription extends Component {
     navigation.navigate('AppLoading')
   }
 
-  onRestore = async () => {}
+  onRestore = async () => {
+    const { navigation } = this.props
+    await restoreSubscription()
+    navigation.navigate('AppLoading')
+  }
 
   onPressTerms = () => {
     // this.props.navigation.navigate('Terms')
@@ -75,7 +79,7 @@ class Subscription extends Component {
             <Body1
               keyName='subscription.restore'
               style={styles.restoreText}
-              onPress={this.onStartTrial}
+              onPress={this.onRestore}
             />
           </View>
 
