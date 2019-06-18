@@ -112,7 +112,7 @@ class Writing extends Component {
     )
   }
 
-  onKeyboardDidShow = event => {
+  onKeyboardDidShow = (event) => {
     this.keyboardHeight = event.endCoordinates.height
     this.positionateScroll()
   }
@@ -174,7 +174,7 @@ class Writing extends Component {
     navigation.navigate('Home')
   }
 
-  onContentSizeChange = event => {
+  onContentSizeChange = (event) => {
     if (!this.isFocused) {
       return
     }
@@ -190,13 +190,13 @@ class Writing extends Component {
     })
   }
 
-  onSelectionChange = event => {
+  onSelectionChange = (event) => {
     const { selection } = event.nativeEvent
 
     this.selection = selection
   }
 
-  onScrollPositionMove = event => {
+  onScrollPositionMove = (event) => {
     this.scrollPosition = event.nativeEvent.contentOffset.y
   }
 
@@ -233,7 +233,7 @@ class Writing extends Component {
           <TextInput
             multiline
             value={title}
-            onChangeText={value => this.onChangeText('title', value)}
+            onChangeText={(value) => this.onChangeText('title', value)}
             style={styles.title}
             placeholder='Name your story...'
           />
@@ -242,13 +242,13 @@ class Writing extends Component {
             ref={this.content}
             value={content}
             placeholder='Your story...'
-            maxLength={1024}
+            maxLength={2048}
             multiline
             onFocus={this.onFocus}
             onBlur={this.onBlur}
             onSelectionChange={this.onSelectionChange}
             onContentSizeChange={this.onContentSizeChange}
-            onChangeText={value => this.onChangeText('content', value)}
+            onChangeText={(value) => this.onChangeText('content', value)}
             style={styles.textArea}
           />
         </View>
