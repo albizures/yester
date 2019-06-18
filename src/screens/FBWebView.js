@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Alert } from 'react-native'
+import { View, StyleSheet, Alert, Dimensions } from 'react-native'
 import { WebView } from 'react-native-webview'
 import { FACEBOOK_URL_LOGIN } from 'react-native-dotenv'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { strings, translate } from '../components/Translate'
-import { loginWithFBWebView, updateUserAttribute } from '../utils/session'
+import { loginWithFBWebView, updateUserAttribute, logOut } from '../utils/session'
+import { Title } from '../components'
+import colors from '../utils/colors'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:FBWebView:error')
@@ -14,6 +16,7 @@ const debugInfo = debugFactory('yester:FBWebView:info')
 let attempts = 0
 let logedIn = false
 let alreadyEntry = false
+let processingCode = false
 
 class FBWebView extends React.Component {
   static propTypes = {
@@ -52,7 +55,14 @@ class FBWebView extends React.Component {
         this.setState({
           key: this.state.key + 1,
         })
-      } else if (!logedIn && !alreadyEntry) {
+      } else if (event.url.includes('error_description=Exception+processing+authorization+code')) {
+        debugError('Exception processing authorization code')
+        processingCode = true
+        attempts = 0
+        this.setState({
+          key: this.state.key + 1,
+        })
+      } else if (!logedIn && !alreadyEntry && !processingCode) {
         Alert.alert(translate('login.error.facebook'))
         navigation.navigate('CreateAccount')
       }
@@ -67,10 +77,21 @@ class FBWebView extends React.Component {
     }
   }
 
+  onLogOut = async () => {
+    const { navigation } = this.props
+    try {
+      await logOut()
+    } catch (error) {
+      debugError(error)
+    }
+    navigation.navigate('CreateAccount')
+  }
+
   render () {
     debugInfo('FB_URL_Login:', FACEBOOK_URL_LOGIN)
     return (
       <View style={styles.container}>
+        <Title keyName='subscription.close' style={styles.closeText} onPress={this.onLogOut} />
         <WebView
           key={this.state.key}
           style={styles.webview}
@@ -82,6 +103,9 @@ class FBWebView extends React.Component {
   }
 }
 
+const color = colors.black
+const { height, width } = Dimensions.get('window')
+
 const styles = StyleSheet.create({
   webview: {
     flex: 1,
@@ -89,8 +113,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
     width: '100%',
+  },
+  closeText: {
+    color,
+    alignSelf: 'flex-end',
+    fontWeight: 'bold',
+    marginBottom: height * 0.02,
+    marginRight: width * 0.08,
   },
 })
 
