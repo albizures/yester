@@ -15,7 +15,9 @@ class Profile extends Component {
   }
 
   render () {
-    const { name, email, country, state, gender } = this.props.contextUser.user
+    const { name, email, country, state, gender, birthPlace } = this.props.contextUser.user
+    const location =
+      birthPlace !== undefined ? birthPlace : `${country}, ${state ? state.substring(3, 5) : ''}`
 
     const topBar = <TopBar title='profile.title' />
     return (
@@ -44,7 +46,7 @@ class Profile extends Component {
             {
               // TODO get the country and state correct name
             }
-            <Heading3 text={`${country}, ${state ? state.substring(3, 5) : ''}`} />
+            <Heading3 text={location} />
           </View>
           <Divider style={{ width: 323 }} />
         </View>

@@ -14,6 +14,10 @@ import TopBar from '../../components/TopBar'
 import { extractSetupParams } from '../../utils'
 import { Auth } from 'aws-amplify'
 import { USER_PASSWORD_ADMIN, USER_PASSWORD_DEFAULT } from 'react-native-dotenv'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:BirthDate:error')
+const debugInfo = debugFactory('yester:BirthDate:info')
 
 export default class BirthDate extends Component {
   static propTypes = {
@@ -57,7 +61,16 @@ export default class BirthDate extends Component {
 
   onContinue = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
+    const {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      name,
+      gender,
+      birthPlace,
+    } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
         birthDate,
@@ -67,6 +80,7 @@ export default class BirthDate extends Component {
         stateName,
         name,
         gender,
+        birthPlace,
       })
     }
   }
@@ -107,7 +121,7 @@ export default class BirthDate extends Component {
       <View style={{ height: 110, paddingHorizontal: 30 }}>
         <View
           style={{
-            flex: 0.5,
+            flex: 1,
             alignItems: 'center',
             justifyContent: 'flex-end',
           }}
@@ -120,7 +134,7 @@ export default class BirthDate extends Component {
         </View>
         <View
           style={{
-            flex: 0.5,
+            flex: 1,
             alignItems: 'center',
             justifyContent: 'flex-start',
           }}
@@ -135,7 +149,7 @@ export default class BirthDate extends Component {
 
     const topBar = <TopBar title={topBarTitle} />
     return (
-      <Container scroll scrollRef={this.scroll}>
+      <Container topBar={topBar} scroll scrollRef={this.scroll}>
         <KeyboardAvoidingView
           contentContainerStyle={{
             flex: 1,
@@ -146,7 +160,6 @@ export default class BirthDate extends Component {
           behavior='position'
           enabled
         >
-          {topBar}
           <View style={styles.container}>
             <View style={styles.topFlex}>
               <Image source={icons.childhood} style={styles.image} />

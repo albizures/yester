@@ -84,6 +84,7 @@ export default class Place extends Component {
         stateName,
         name,
         gender,
+        birthPlace: stateName + ', ' + countryName,
       })
     }
   }
@@ -164,7 +165,7 @@ export default class Place extends Component {
     const topBar = <TopBar title={topBarTitle} />
 
     return (
-      <Container scroll scrollRef={this.scroll}>
+      <Container topBar={topBar} scroll scrollRef={this.scroll}>
         <KeyboardAvoidingView
           keyboardVerticalOffset={100}
           contentContainerStyle={{
@@ -176,7 +177,6 @@ export default class Place extends Component {
           behavior='position'
           enabled
         >
-          {topBar}
           <View style={styles.container}>
             <Image
               source={icons.balloon}

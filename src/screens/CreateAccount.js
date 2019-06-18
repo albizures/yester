@@ -11,10 +11,8 @@ import {
   Dimensions,
   StatusBar,
 } from 'react-native'
-
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-
 import Button from '../components/Button'
 import Divider from '../components/Divider'
 import { Heading2, Description, Heading3, Heading4 } from '../components'

@@ -78,6 +78,7 @@ export const getUserBypassCache = () =>
 export const sanitizeUser = (user) => ({
   country: user.attributes['custom:country'],
   state: user.attributes['custom:state'],
+  birthPlace: user.attributes['custom:birthPlace'],
   birthDate: user.attributes['birthdate'],
   gender: user.attributes['gender'],
   locale: user.attributes['locale'],
@@ -131,11 +132,12 @@ export const isSubscribed = async () => {
   return true
 }
 
-export const saveUserData = async ({ birthDate, country, state, gender }) => {
+export const saveUserData = async ({ birthDate, country, state, gender, birthPlace }) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
+    'custom:birthPlace': birthPlace,
     birthdate: birthDate,
     gender: gender,
   })
@@ -159,6 +161,7 @@ export const cleanUserData = async () => {
   await Auth.updateUserAttributes(user, {
     'custom:country': '',
     'custom:state': '',
+    'custom:birthPlace': '',
     birthdate: '',
     gender: '',
     'custom:subscription_status': '',

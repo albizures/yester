@@ -8,10 +8,12 @@ import { saveUserData } from '../../utils/session'
 import colors from '../../utils/colors'
 import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
+import withUser, { shapeContextUser } from '../../components/withUser'
 
-export default class Confirmation extends Component {
+class Confirmation extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   constructor (props) {
@@ -21,14 +23,28 @@ export default class Confirmation extends Component {
   }
 
   onContinue = async () => {
-    const { birthDate, country, state, gender } = this.state
-    await saveUserData({ birthDate, country, state, gender })
-    this.props.navigation.navigate('Home')
+    const {
+      navigation,
+      contextUser: { updateUser },
+    } = this.props
+    const { birthDate, country, state, gender, birthPlace } = this.state
+    await saveUserData({ birthDate, country, state, gender, birthPlace })
+    await updateUser()
+    navigation.navigate('Home')
   }
 
   onEdit = () => {
     const { navigation } = this.props
-    const { birthDate, country, state, countryName, stateName, name, gender } = this.state
+    const {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      name,
+      gender,
+      birthPlace,
+    } = this.state
     navigation.navigate('SetupBirthDate', {
       birthDate,
       country,
@@ -37,34 +53,34 @@ export default class Confirmation extends Component {
       stateName,
       name,
       gender,
+      birthPlace,
     })
   }
 
   render () {
-    const {
-      name,
-      stateName,
-    } = this.state
+    const { name, stateName } = this.state
     return (
       <Container style={styles.container}>
         <Image source={icons.confirmation} style={styles.image} />
 
         <View style={styles.topFlex}>
-          <Heading2 keyName='setup.confirmation.title'
+          <Heading2
+            keyName='setup.confirmation.title'
             data={{ state: stateName, name }}
-            style={styles.titleText} />
+            style={styles.titleText}
+          />
 
-          <Heading4 keyName='setup.confirmation.subtitle'
-            style={styles.subtitleText} />
+          <Heading4 keyName='setup.confirmation.subtitle' style={styles.subtitleText} />
         </View>
 
         <View style={styles.bottomFlex}>
-          <Body2 keyName='setup.confirmation.edit'
-            style={styles.editText} onPress={this.onEdit} />
+          <Body2 keyName='setup.confirmation.edit' style={styles.editText} onPress={this.onEdit} />
 
-          <Button title='setup.confirmation.continue'
+          <Button
+            title='setup.confirmation.continue'
             onPress={this.onContinue}
-            type={Button.OUTLINED} />
+            type={Button.OUTLINED}
+          />
         </View>
       </Container>
     )
@@ -106,7 +122,9 @@ const styles = StyleSheet.create({
   editText: {
     color: colors.white,
     textAlign: 'center',
-    'textDecorationLine': 'underline',
+    textDecorationLine: 'underline',
     marginBottom: height * 0.06,
   },
 })
+
+export default withUser(Confirmation)
