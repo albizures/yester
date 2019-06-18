@@ -51,11 +51,16 @@ export default class BirthDate extends Component {
 
     /* To turn user into CONFIRMED status: */
     // TODO Ask new password to user
-    if (user.attributes.createdBy === 'admin') {
-      let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
-      const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
-      userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
-      console.log('complete:', complete)
+    try {
+      debugInfo('getUser:', user)
+      if (user.attributes['custom:createdBy'] === 'admin') {
+        let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
+        const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
+        userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
+        debugInfo('complete:', complete)
+      }
+    } catch (error) {
+      debugError(error)
     }
   }
 
