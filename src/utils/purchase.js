@@ -91,6 +91,8 @@ export const restoreSubscription = async () => {
     debugInfo('Restoring: ', restore)
     if (restore.activeEntitlements[0] === undefined) {
       Alert.alert(`You don't have an active subscription to be restored.`)
+    } else {
+      return Alert.alert('Great! Your subscription has been restored.')
     }
     return restore
   } catch (e) {
