@@ -14,7 +14,7 @@ const debugError = debugFactory('yester:FBWebView:error')
 const debugInfo = debugFactory('yester:FBWebView:info')
 
 let attempts = 0
-let logedIn = false
+let loggedIn = false
 let alreadyEntry = false
 let processingCode = false
 
@@ -22,6 +22,13 @@ class FBWebView extends React.Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
+  }
+
+  componentDidMount () {
+    loggedIn = false
+    this.setState({
+      key: 1,
+    })
   }
 
   state = {
@@ -33,20 +40,29 @@ class FBWebView extends React.Component {
     const { navigation } = this.props
 
     debugInfo('onFBWebViewStateChange: ', event.url)
-    debugInfo('logedIn: ', logedIn)
+    debugInfo('loggedIn: ', loggedIn)
     if (event.url.startsWith('https://www.yester.app')) {
       if (event.url.includes('code=')) {
         try {
-          logedIn = true
+          if (loggedIn) {
+            return
+          }
+          loggedIn = true
           await loginWithFBWebView(event.url)
           await updateUserAttribute('locale', strings.getLanguage())
           await updateUser()
+
           return navigation.navigate('AppLoading')
         } catch (error) {
-          logedIn = false
           debugError('onFBWebViewStateChange', error)
-          navigation.goBack()
+
+          if (error.error === 'invalid_grant') {
+            return
+          }
+
+          loggedIn = false
           Alert.alert(translate('login.error.facebook'))
+          return navigation.goBack()
         }
       } else if (event.url.includes('error_description=Already+found+an+entry+for')) {
         debugError('Already entry')
@@ -62,13 +78,13 @@ class FBWebView extends React.Component {
         this.setState({
           key: this.state.key + 1,
         })
-      } else if (!logedIn && !alreadyEntry && !processingCode) {
+      } else if (!loggedIn && !alreadyEntry && !processingCode) {
         Alert.alert(translate('login.error.facebook'))
         navigation.navigate('CreateAccount')
       }
     } else if (event.url.startsWith('https://m.facebook.com/v2.9/dialog/oauth')) {
       attempts = attempts + 1
-      console.log('attempts:', attempts)
+      debugInfo('attempts:', attempts)
       if (attempts === 2) {
         attempts = 0
         Alert.alert(translate('login.error.facebook'))
@@ -88,7 +104,7 @@ class FBWebView extends React.Component {
   }
 
   render () {
-    debugInfo('FB_URL_Login:', FACEBOOK_URL_LOGIN)
+    // debugInfo('FB_URL_Login:', FACEBOOK_URL_LOGIN)
     return (
       <View style={styles.container}>
         <Title keyName='subscription.close' style={styles.closeText} onPress={this.onLogOut} />

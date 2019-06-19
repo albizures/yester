@@ -186,7 +186,7 @@ export const loginWithFBWebView = (url) =>
         resolve(user)
       },
       onFailure: (err) => {
-        debugError(err, 'Sign in error')
+        debugError('Sign in error', err)
         reject(err)
       },
     }
