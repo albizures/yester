@@ -5,6 +5,7 @@ import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import { logOut } from '../utils/session'
 import SettingsItem, { types } from '../components/SettingsItem'
+import { translate } from '../components/Translate'
 
 export default class Settings extends Component {
   static propTypes = {
@@ -50,26 +51,34 @@ export default class Settings extends Component {
       <Container topBar={topBar}>
         <View style={styles.container}>
           {/*
-          <SettingsItem title='Facebook' type={types.TEXT}
+          <SettingsItem title={translate('settings.item.facebook')} type={types.TEXT}
             onPress={this.onPressFacebook} />
             */}
-          <SettingsItem title='Language' type={types.CHEVRON} onPress={this.onPressLanguage} />
+          <SettingsItem
+            title={translate('settings.item.language')}
+            type={types.CHEVRON}
+            onPress={this.onPressLanguage}
+          />
           {/*
-          <SettingsItem title='Notifications' type={types.CHEVRON}
+          <SettingsItem title={translate('settings.item.notifications')} type={types.CHEVRON}
             onPress={this.onPressNotifications} />
             */}
           <SettingsItem
-            title='Terms and Conditions'
+            title={translate('settings.item.terms')}
             type={types.CHEVRON}
             onPress={this.onPressTerms}
           />
-          <SettingsItem title='About Yester' type={types.CHEVRON} onPress={this.onPressAbout} />
           <SettingsItem
-            title='Manage Subscription'
+            title={translate('settings.item.about')}
+            type={types.CHEVRON}
+            onPress={this.onPressAbout}
+          />
+          <SettingsItem
+            title={translate('settings.item.subscription')}
             type={types.CHEVRON}
             onPress={this.onPressManage}
           />
-          <SettingsItem title='Log Out' onPress={this.onLogOut} />
+          <SettingsItem title={translate('settings.item.logOut')} onPress={this.onLogOut} />
         </View>
       </Container>
     )
