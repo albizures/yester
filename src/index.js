@@ -15,7 +15,9 @@ import {
   AWS_IDENTITY_POOL_ID,
   AWS_USER_POOL_ID,
   AWS_USER_CLIENT_POOL_ID,
+  ONESIGNAL_APPID,
 } from 'react-native-dotenv'
+import OneSignal from 'react-native-onesignal'
 
 import { UserProvider } from './components/withUser'
 import { AgesProvider } from './components/withAges'
@@ -218,6 +220,34 @@ export default class App extends Component {
   async componentDidMount () {
     SplashScreen.hide()
     await setAuthHeader()
+
+    OneSignal.init(ONESIGNAL_APPID, { kOSSettingsKeyAutoPrompt: true })
+
+    OneSignal.addEventListener('received', this.onReceived)
+    OneSignal.addEventListener('opened', this.onOpened)
+    OneSignal.addEventListener('ids', this.onIds)
+    OneSignal.configure()
+  }
+
+  componentWillUnmount () {
+    OneSignal.removeEventListener('received', this.onReceived)
+    OneSignal.removeEventListener('opened', this.onOpened)
+    OneSignal.removeEventListener('ids', this.onIds)
+  }
+
+  onReceived (notification) {
+    debugInfo('Notification received: ', notification)
+  }
+
+  onOpened (openResult) {
+    debugInfo('Message: ', openResult.notification.payload.body)
+    debugInfo('Data: ', openResult.notification.payload.additionalData)
+    debugInfo('isActive: ', openResult.notification.isAppInFocus)
+    debugInfo('openResult: ', openResult)
+  }
+
+  onIds (device) {
+    debugInfo('Device info: ', device)
   }
 
   updateUser = async () => {
