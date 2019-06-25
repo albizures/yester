@@ -8,6 +8,7 @@ import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
+import OneSignal from 'react-native-onesignal'
 import moment from 'moment'
 import {
   isSubscribed,
@@ -103,8 +104,10 @@ class AppLoading extends Component {
         if (hasSubscription) {
           await removeSubscription()
         }
+        OneSignal.sendTags({ subscriptionStatus: 'none' })
         return navigation.navigate('Subscription')
       }
+      OneSignal.sendTags({ subscriptionStatus: 'pro' })
 
       // checking expiration dates
       /*

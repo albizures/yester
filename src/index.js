@@ -18,7 +18,6 @@ import {
   ONESIGNAL_APPID,
 } from 'react-native-dotenv'
 import OneSignal from 'react-native-onesignal'
-
 import { UserProvider } from './components/withUser'
 import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
@@ -227,6 +226,7 @@ export default class App extends Component {
     OneSignal.addEventListener('opened', this.onOpened)
     OneSignal.addEventListener('ids', this.onIds)
     OneSignal.configure()
+    OneSignal.sendTags({ subscriptionStatus: 'none' })
   }
 
   componentWillUnmount () {
