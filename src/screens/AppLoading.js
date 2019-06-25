@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types'
 import debugFactory from 'debug'
 import React, { Component } from 'react'
-import { Alert, View } from 'react-native'
-import moment from 'moment'
-
+import { Alert, View, Platform } from 'react-native'
 import Container from '../components/Container'
+import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
+import http, { instance, original } from '../utils/http'
+import withUser, { shapeContextUser } from '../components/withUser'
+import withAges, { shapeContextAges } from '../components/withAges'
+import { strings, translate } from '../components/Translate'
+import moment from 'moment'
 import {
   isSubscribed,
   isSetupFinished,
@@ -12,12 +16,8 @@ import {
   setLocale,
   removeSubscription,
   saveUserSubscriptionStatus,
+  updateUserAttribute,
 } from '../utils/session'
-import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
-import http, { instance, original } from '../utils/http'
-import withUser, { shapeContextUser } from '../components/withUser'
-import withAges, { shapeContextAges } from '../components/withAges'
-import { strings, translate } from '../components/Translate'
 
 const debugError = debugFactory('yester:AppLoading:error')
 const debugInfo = debugFactory('yester:AppLoading:info')
@@ -71,8 +71,10 @@ class AppLoading extends Component {
   async bootstrap () {
     const {
       navigation,
-      contextUser: { updateUser },
+      contextUser: { updateUser, user },
     } = this.props
+
+    const { platform } = user
 
     setLocale(strings.getLanguage())
 
@@ -84,6 +86,10 @@ class AppLoading extends Component {
       }
 
       await updateUser()
+      if (!platform) {
+        updateUserAttribute('custom:platform', Platform.OS)
+      }
+
       await this.getAges()
       await setupPurchases()
       const hasSubscription = await isSubscribed()

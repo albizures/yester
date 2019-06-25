@@ -11,4 +11,5 @@ export const extractSetupParams = (navigation) => ({
   name: navigation.getParam('name'),
   gender: navigation.getParam('gender', ''),
   birthPlace: navigation.getParam('birthPlace'),
+  platform: navigation.getParam('platform'),
 })

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Image, StyleSheet, Dimensions, Platform } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
@@ -28,7 +28,7 @@ class Confirmation extends Component {
       contextUser: { updateUser },
     } = this.props
     const { birthDate, country, state, gender, birthPlace } = this.state
-    await saveUserData({ birthDate, country, state, gender, birthPlace })
+    await saveUserData({ birthDate, country, state, gender, birthPlace, platform: Platform.OS })
     await updateUser()
     navigation.navigate('Home')
   }
