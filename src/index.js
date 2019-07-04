@@ -15,9 +15,14 @@ import {
   AWS_IDENTITY_POOL_ID,
   AWS_USER_POOL_ID,
   AWS_USER_CLIENT_POOL_ID,
-  ONESIGNAL_APPID,
 } from 'react-native-dotenv'
-import OneSignal from 'react-native-onesignal'
+import {
+  initNotifications,
+  configureNotifications,
+  addEventListener,
+  removeEventListener,
+  sendTags,
+} from './utils/notifications'
 import { UserProvider } from './components/withUser'
 import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
@@ -220,19 +225,18 @@ export default class App extends Component {
     SplashScreen.hide()
     await setAuthHeader()
 
-    OneSignal.init(ONESIGNAL_APPID, { kOSSettingsKeyAutoPrompt: true })
-
-    OneSignal.addEventListener('received', this.onReceived)
-    OneSignal.addEventListener('opened', this.onOpened)
-    OneSignal.addEventListener('ids', this.onIds)
-    OneSignal.configure()
-    OneSignal.sendTags({ subscriptionStatus: 'none' })
+    initNotifications()
+    addEventListener('received', this.onReceived)
+    addEventListener('opened', this.onOpened)
+    addEventListener('ids', this.onIds)
+    configureNotifications()
+    sendTags({ subscriptionStatus: 'none' })
   }
 
   componentWillUnmount () {
-    OneSignal.removeEventListener('received', this.onReceived)
-    OneSignal.removeEventListener('opened', this.onOpened)
-    OneSignal.removeEventListener('ids', this.onIds)
+    removeEventListener('received', this.onReceived)
+    removeEventListener('opened', this.onOpened)
+    removeEventListener('ids', this.onIds)
   }
 
   onReceived (notification) {
