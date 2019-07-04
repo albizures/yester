@@ -59,10 +59,13 @@ export default class Settings extends Component {
             type={types.CHEVRON}
             onPress={this.onPressLanguage}
           />
-          {/*
-          <SettingsItem title={translate('settings.item.notifications')} type={types.CHEVRON}
-            onPress={this.onPressNotifications} />
-            */}
+          {
+            <SettingsItem
+              title={translate('settings.item.notifications')}
+              type={types.CHEVRON}
+              onPress={this.onPressNotifications}
+            />
+          }
           <SettingsItem
             title={translate('settings.item.terms')}
             type={types.CHEVRON}

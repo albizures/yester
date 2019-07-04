@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Alert } from 'react-native'
-
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import SettingsItem from '../components/SettingsItem'
