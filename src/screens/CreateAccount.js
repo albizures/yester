@@ -1,6 +1,15 @@
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import icons from '../utils/icons'
+import colors from '../utils/colors'
+import Button from '../components/Button'
+import Divider from '../components/Divider'
+import { Heading2, Description, Heading3, Heading4 } from '../components'
+import Container from '../components/Container'
+import TextDivider from '../components/TextDivider'
+import withFBLogin from '../components/withFBLogin'
+import { translate } from '../components/Translate'
 import {
   View,
   Text,
@@ -11,15 +20,6 @@ import {
   Dimensions,
   StatusBar,
 } from 'react-native'
-import icons from '../utils/icons'
-import colors from '../utils/colors'
-import Button from '../components/Button'
-import Divider from '../components/Divider'
-import { Heading2, Description, Heading3, Heading4 } from '../components'
-import Container from '../components/Container'
-import TextDivider from '../components/TextDivider'
-import withFBLogin from '../components/withFBLogin'
-import { translate } from '../components/Translate'
 
 class CreateAccount extends Component {
   static propTypes = {

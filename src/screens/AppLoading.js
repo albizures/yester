@@ -72,10 +72,8 @@ class AppLoading extends Component {
   async bootstrap () {
     const {
       navigation,
-      contextUser: { updateUser, user },
+      contextUser: { updateUser },
     } = this.props
-
-    const { platform } = user
 
     setLocale(strings.getLanguage())
 
@@ -86,10 +84,8 @@ class AppLoading extends Component {
         return navigation.navigate('Auth')
       }
 
+      await updateUserAttribute('custom:platform', Platform.OS)
       await updateUser()
-      if (!platform) {
-        updateUserAttribute('custom:platform', Platform.OS)
-      }
 
       await this.getAges()
       await setupPurchases()
@@ -136,7 +132,7 @@ class AppLoading extends Component {
       }
     } catch (error) {
       navigation.navigate('Auth')
-      debugError(error)
+      debugError('hola', error)
     }
   }
 

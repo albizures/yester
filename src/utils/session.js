@@ -154,7 +154,9 @@ export const saveUserSubscriptionStatus = async (subscriptionStatus) => {
 
 export const updateUserAttribute = async (name, value) => {
   const user = await getUser()
-  await Auth.updateUserAttributes(user, { [name]: value })
+  if (user[name] !== value) {
+    await Auth.updateUserAttributes(user, { [name]: value })
+  }
 }
 
 // NOTE this is only for dev purposes
