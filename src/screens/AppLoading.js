@@ -8,7 +8,7 @@ import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import { sendTags, checkPermissions } from '../utils/notifications'
+import { sendTags, checkNotificationsStatus } from '../utils/notifications'
 import moment from 'moment'
 import {
   isSubscribed,
@@ -87,6 +87,8 @@ class AppLoading extends Component {
       await updateUserAttribute('custom:platform', Platform.OS)
       await updateUser()
 
+      await checkNotificationsStatus()
+
       await this.getAges()
       await setupPurchases()
       const hasSubscription = await isSubscribed()
@@ -103,7 +105,6 @@ class AppLoading extends Component {
         sendTags({ subscriptionStatus: 'none' })
         return navigation.navigate('Subscription')
       }
-      // checkPermissions()
       sendTags({ subscriptionStatus: 'pro' })
 
       // checking expiration dates
@@ -133,7 +134,7 @@ class AppLoading extends Component {
       }
     } catch (error) {
       navigation.navigate('Auth')
-      debugError('hola', error)
+      debugError('bootstrap: ', error)
     }
   }
 
