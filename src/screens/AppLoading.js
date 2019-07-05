@@ -87,9 +87,13 @@ class AppLoading extends Component {
       await updateUserAttribute('custom:platform', Platform.OS)
       await updateUser()
 
+      const hasFinishedSetup = await isSetupFinished()
+      if (!hasFinishedSetup) {
+        navigation.navigate('Setup')
+      }
+
       await checkNotificationsStatus()
 
-      await this.getAges()
       await setupPurchases()
       const hasSubscription = await isSubscribed()
       const purchaserInfo = await getPurchaserInfo()
@@ -126,12 +130,9 @@ class AppLoading extends Component {
       instance.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
       original.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
 
-      if (await isSetupFinished()) {
-        const lastScreen = navigation.getParam('lastScreen', 'App')
-        navigation.navigate(lastScreen)
-      } else {
-        navigation.navigate('Setup')
-      }
+      await this.getAges()
+      const lastScreen = navigation.getParam('lastScreen', 'App')
+      navigation.navigate(lastScreen)
     } catch (error) {
       navigation.navigate('Auth')
       debugError('bootstrap: ', error)

@@ -28,9 +28,16 @@ class Confirmation extends Component {
       contextUser: { updateUser },
     } = this.props
     const { birthDate, country, state, gender, birthPlace } = this.state
-    await saveUserData({ birthDate, country, state, gender, birthPlace, platform: Platform.OS })
+    await saveUserData({
+      birthDate,
+      country,
+      state,
+      gender,
+      birthPlace,
+      platform: Platform.OS,
+    })
     await updateUser()
-    navigation.navigate('Home')
+    navigation.navigate('AppLoading')
   }
 
   onEdit = () => {
