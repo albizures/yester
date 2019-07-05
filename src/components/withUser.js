@@ -15,6 +15,7 @@ export const shapeContextUser = {
     locale: PropTypes.string,
     birthPlace: PropTypes.string,
     platform: PropTypes.string,
+    notifications: PropTypes.boolean,
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,

@@ -80,6 +80,7 @@ export const sanitizeUser = (user) => ({
   state: user.attributes['custom:state'],
   birthPlace: user.attributes['custom:birthPlace'],
   platform: user.attributes['custom:platform'],
+  notifications: user.attributes['custom:notifications'],
   birthDate: user.attributes['birthdate'],
   gender: user.attributes['gender'],
   locale: user.attributes['locale'],
@@ -133,13 +134,22 @@ export const isSubscribed = async () => {
   return true
 }
 
-export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
+export const saveUserData = async ({
+  birthDate,
+  country,
+  state,
+  gender,
+  birthPlace,
+  platform,
+  notifications,
+}) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
     'custom:birthPlace': birthPlace,
     'custom:platform': platform,
+    'custom:notifications': notifications,
     birthdate: birthDate,
     gender: gender,
   })

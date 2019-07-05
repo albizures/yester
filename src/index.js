@@ -251,7 +251,7 @@ export default class App extends Component {
   }
 
   onIds (device) {
-    debugInfo('Device info: ', device)
+    debugInfo('Listener ids device: ', device)
   }
 
   updateUser = async () => {

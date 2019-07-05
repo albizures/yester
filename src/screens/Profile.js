@@ -43,9 +43,6 @@ class Profile extends Component {
           <Divider style={{ width: 323 }} />
           <View style={styles.item}>
             <Description keyName='profile.location' />
-            {
-              // TODO get the country and state correct name
-            }
             <Heading3 text={location} />
           </View>
           <Divider style={{ width: 323 }} />
