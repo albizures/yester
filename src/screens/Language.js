@@ -75,13 +75,13 @@ class Language extends Component {
       <Container topBar={topBar} isLoading={isLoading}>
         <View style={styles.container}>
           <LanguageItem
-            title='English'
+            title={translate('settings.language.item.en')}
             currentLocale={currentLocale}
             locale='en'
             onPress={this.onPress}
           />
           <LanguageItem
-            title='Español'
+            title={translate('settings.language.item.es')}
             currentLocale={currentLocale}
             locale='es'
             onPress={this.onPress}
