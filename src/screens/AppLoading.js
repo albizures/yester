@@ -8,11 +8,7 @@ import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import {
-  sendTags,
-  checkNotificationsStatus,
-  getPermissionSubscriptionState,
-} from '../utils/notifications'
+import { sendTags, getPermissionSubscriptionState } from '../utils/notifications'
 import moment from 'moment'
 import {
   isSubscribed,
@@ -21,7 +17,6 @@ import {
   setLocale,
   removeSubscription,
   saveUserSubscriptionStatus,
-  updateUserAttribute,
 } from '../utils/session'
 
 const debugError = debugFactory('yester:AppLoading:error')
@@ -92,15 +87,12 @@ class AppLoading extends Component {
         return navigation.navigate('Auth')
       }
 
-      await updateUserAttribute('custom:platform', Platform.OS)
-      await updateUser()
-
-      const hasFinishedSetup = await isSetupFinished()
-      if (!hasFinishedSetup) {
-        navigation.navigate('Setup')
+      const { finished, params } = await isSetupFinished()
+      if (!finished) {
+        return navigation.navigate('SetupBirthDate', params)
       }
 
-      await checkNotificationsStatus()
+      await updateUser()
 
       await setupPurchases()
       const hasSubscription = await isSubscribed()

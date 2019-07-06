@@ -1,7 +1,7 @@
 import { ONESIGNAL_APPID } from 'react-native-dotenv'
 import OneSignal from 'react-native-onesignal'
 import debugFactory from 'debug'
-import { updateUserAttribute, getUser } from './session'
+import { updateUserAttribute, getUser, sanitizeUser } from './session'
 
 const debugInfo = debugFactory('yester:notifications:info')
 const debugError = debugFactory('yester:notifications:error')
@@ -96,23 +96,18 @@ export const registerForPushNotifications = () => {
 
 export const checkNotificationsStatus = async () => {
   try {
-    const user = await getUser()
-    const { sub, email } = user.attributes
-    let isEnabled = true
-    if (user.attributes['custom:notifications'] !== undefined) {
-      isEnabled = user.attributes['custom:notifications']
-    }
+    const user = sanitizeUser(await getUser())
+    const { userId, email } = user
 
-    if (isEnabled) {
-      OneSignal.promptForPushNotificationsWithUserResponse(async (permission) => {
-        await updateUserAttribute('custom:notifications', permission.toString())
-      })
-    }
-    OneSignal.setExternalUserId(sub)
-    OneSignal.setEmail(email)
+    registerForPushNotifications()
+
+    if (userId) OneSignal.setExternalUserId(userId)
+    if (email) OneSignal.setEmail(email)
     configureNotifications()
-    getPermissionSubscriptionState((status) => {
-      debugInfo('Status: ', status)
+
+    getPermissionSubscriptionState(async (status) => {
+      debugInfo('checkNotificationsStatus: ', status)
+      await updateUserAttribute('custom:notifications', status.subscriptionEnabled.toString())
     })
   } catch (error) {
     debugError('checkNotificationsStatus', error)

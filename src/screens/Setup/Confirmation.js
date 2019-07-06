@@ -9,6 +9,7 @@ import colors from '../../utils/colors'
 import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
+import { sendTags, checkNotificationsStatus } from '../../utils/notifications'
 
 class Confirmation extends Component {
   static propTypes = {
@@ -36,6 +37,7 @@ class Confirmation extends Component {
       birthPlace,
       platform: Platform.OS,
     })
+    await checkNotificationsStatus()
     await updateUser()
     navigation.navigate('AppLoading')
   }

@@ -5,7 +5,10 @@ import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import SettingsItem from '../components/SettingsItem'
 import withUser, { shapeContextUser } from '../components/withUser'
-import { updateUserAttribute } from '../utils/session'
+import {
+  updateUserAttribute,
+  // cleanUserNotifications,
+} from '../utils/session'
 import { translate } from '../components/Translate'
 
 const isCheck = (locale, currentLocale) => {
@@ -44,6 +47,8 @@ class Language extends Component {
       locale,
       isLoading: false,
     }
+    // Dev purposes, delete after test
+    // cleanUserNotifications()
   }
 
   onBack = () => {
