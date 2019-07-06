@@ -8,7 +8,11 @@ import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import { sendTags, checkNotificationsStatus } from '../utils/notifications'
+import {
+  sendTags,
+  checkNotificationsStatus,
+  getPermissionSubscriptionState,
+} from '../utils/notifications'
 import moment from 'moment'
 import {
   isSubscribed,
@@ -74,6 +78,10 @@ class AppLoading extends Component {
       navigation,
       contextUser: { updateUser },
     } = this.props
+
+    getPermissionSubscriptionState((status) => {
+      debugInfo('Status: ', status)
+    })
 
     setLocale(strings.getLanguage())
 

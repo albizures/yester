@@ -1,22 +1,26 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import SettingsItem, { types } from '../components/SettingsItem'
 import {
   getPermissionSubscriptionState,
   setSubscription,
-  requestPermissions,
+  registerForPushNotifications,
 } from '../utils/notifications'
+import { translate } from '../components/Translate'
+import { updateUserAttribute } from '../utils/session'
+import withUser, { shapeContextUser } from '../components/withUser'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Notifications:info')
 const debugError = debugFactory('yester:Notifications:error')
 
-export default class Notificacions extends Component {
+class Notificacions extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   state = {
@@ -24,22 +28,44 @@ export default class Notificacions extends Component {
   }
 
   componentDidMount () {
-    getPermissionSubscriptionState(this.setStatus)
-  }
+    getPermissionSubscriptionState((status) => {
+      const { notifications } = this.props.contextUser.user
+      this.setState({
+        subscriptionEnabled: notifications,
+      })
 
-  setStatus = (status) => {
-    debugInfo(status)
-    const { subscriptionEnabled } = status
-    this.setState({
-      subscriptionEnabled,
+      debugInfo('DidMount custom:notifications: ', notifications)
+      debugInfo('DidMount Status: ', status)
+      if (notifications !== status.subscriptionEnabled) {
+        setSubscription(notifications)
+      }
     })
   }
 
-  onPress = () => {
-    const { subscriptionEnabled } = this.state
-    requestPermissions()
-    setSubscription(!subscriptionEnabled)
-    getPermissionSubscriptionState(this.setStatus)
+  onPress = async () => {
+    getPermissionSubscriptionState(async (status) => {
+      debugInfo('OnPress Status: ', status)
+      const { hasPrompted, notificationsEnabled } = status
+      const { updateUser } = this.props.contextUser
+      const { subscriptionEnabled } = this.state
+
+      if (!hasPrompted && !subscriptionEnabled) {
+        registerForPushNotifications()
+      }
+
+      if (hasPrompted && !notificationsEnabled && !subscriptionEnabled) {
+        Alert.alert(translate('settings.notifications.alert.manualAction'))
+        return
+      }
+
+      this.setState({
+        subscriptionEnabled: !subscriptionEnabled,
+      })
+
+      await updateUserAttribute('custom:notifications', (!subscriptionEnabled).toString())
+      updateUser()
+      setSubscription(!subscriptionEnabled)
+    })
   }
 
   onBack = () => {
@@ -54,7 +80,7 @@ export default class Notificacions extends Component {
       <Container topBar={topBar}>
         <View style={styles.container}>
           <SettingsItem
-            title='Push notifications'
+            title={translate('settings.notifications.item.enabled')}
             type={types.TOGGLE}
             onPress={this.onPress}
             valueToggle={subscriptionEnabled}
@@ -77,3 +103,5 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
 })
+
+export default withUser(Notificacions)
