@@ -8,8 +8,12 @@ import http, { instance, original } from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import { sendTags, getPermissionSubscriptionState } from '../utils/notifications'
-import moment from 'moment'
+import {
+  sendTags,
+  getPermissionSubscriptionState,
+  checkNotificationsStatus,
+} from '../utils/notifications'
+// import moment from 'moment'
 import {
   isSubscribed,
   isSetupFinished,
@@ -74,10 +78,6 @@ class AppLoading extends Component {
       contextUser: { updateUser },
     } = this.props
 
-    getPermissionSubscriptionState((status) => {
-      debugInfo('Status: ', status)
-    })
-
     setLocale(strings.getLanguage())
 
     try {
@@ -86,13 +86,22 @@ class AppLoading extends Component {
         debugInfo('No token found, sending user to Auth flow')
         return navigation.navigate('Auth')
       }
+      // Set user in context
+      await updateUser()
+      const { user } = this.props.contextUser
+
+      getPermissionSubscriptionState((status) => {
+        debugInfo('Status: ', status)
+        // If notifications are set to true in the cloud but hasn't been prompted in current device
+        if (!status.hasPrompted && user.notifications) {
+          checkNotificationsStatus()
+        }
+      })
 
       const { finished, params } = await isSetupFinished()
       if (!finished) {
         return navigation.navigate('SetupBirthDate', params)
       }
-
-      await updateUser()
 
       await setupPurchases()
       const hasSubscription = await isSubscribed()
