@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 80,
     alignItems: 'center',
-    paddingVertical: 40,
+    paddingTop: 40,
   },
   editLabel: {
     fontWeight: 'bold',
