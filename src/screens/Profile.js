@@ -8,10 +8,17 @@ import Divider from '../components/Divider'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import withUser, { shapeContextUser } from '../components/withUser'
+import { isSetupFinished } from '../utils/session'
 
 class Profile extends Component {
   static propTypes = {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
+  }
+
+  onPressEdit = async () => {
+    const { navigation } = this.props
+    const { params } = await isSetupFinished()
+    return navigation.navigate('SetupBirthDate', params)
   }
 
   render () {
@@ -46,6 +53,13 @@ class Profile extends Component {
             <Heading3 text={location} />
           </View>
           <Divider style={{ width: 323 }} />
+          <View style={styles.edit}>
+            <Description
+              keyName='profile.edit'
+              style={styles.editLabel}
+              onPress={this.onPressEdit}
+            />
+          </View>
         </View>
       </Container>
     )
@@ -82,6 +96,16 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'flex-start',
     paddingVertical: 20,
+  },
+  edit: {
+    width: 300,
+    height: 80,
+    alignItems: 'center',
+    paddingVertical: 40,
+  },
+  editLabel: {
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 })
 
