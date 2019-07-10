@@ -5,7 +5,7 @@ import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
 import { translate } from '../../components/Translate'
 import Button from '../../components/Button'
-import { getUser } from '../../utils/session'
+import { getUser, updateUserAttribute } from '../../utils/session'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import DatePicker from '../../components/DatePicker'
@@ -34,6 +34,7 @@ export default class BirthDate extends Component {
       name: '',
       genders: [{ value: 'female', label: 'Female' }, { value: 'male', label: 'Male' }],
     }
+    // debugInfo('State: ', this.state)
   }
 
   onDidFocus = () => {
@@ -57,6 +58,7 @@ export default class BirthDate extends Component {
         let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
         const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
         userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
+        await updateUserAttribute('custom:createdBy', 'admin_confirmed')
         debugInfo('complete:', complete)
       }
     } catch (error) {
@@ -75,6 +77,7 @@ export default class BirthDate extends Component {
       name,
       gender,
       birthPlace,
+      updateSetup,
     } = this.state
     if (birthDate) {
       navigation.navigate('SetupPlace', {
@@ -86,6 +89,7 @@ export default class BirthDate extends Component {
         name,
         gender,
         birthPlace,
+        updateSetup,
       })
     }
   }

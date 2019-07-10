@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import debugFactory from 'debug'
 import React, { Component } from 'react'
-import { Alert, View, Platform } from 'react-native'
+import { Alert, View } from 'react-native'
 import Container from '../components/Container'
 import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
 import http, { instance, original } from '../utils/http'

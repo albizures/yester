@@ -105,11 +105,15 @@ export const isSetupFinished = async () => {
   if (!user.state) return notFinished
   if (!user.birthDate) return notFinished
   if (!user.gender) return notFinished
-  if (!user.birthPlace) return notFinished
-  if (!user.platform) return notFinished
-  if (!user.notifications) return notFinished
 
-  return { finished: true, params: {} }
+  Object.assign(user, { updateSetup: true })
+  const notUpdated = { finished: false, params: user }
+
+  if (!user.birthPlace) return notUpdated
+  if (!user.platform) return notUpdated
+  if (!user.notifications) return notUpdated
+
+  return { finished: true, params: user }
 }
 
 export const isSubscribed = async () => {

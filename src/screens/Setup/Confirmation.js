@@ -53,6 +53,7 @@ class Confirmation extends Component {
       name,
       gender,
       birthPlace,
+      updateSetup,
     } = this.state
     navigation.navigate('SetupBirthDate', {
       birthDate,
@@ -63,33 +64,39 @@ class Confirmation extends Component {
       name,
       gender,
       birthPlace,
+      updateSetup,
     })
   }
 
   render () {
-    const { name, stateName } = this.state
+    const { name, stateName, updateSetup } = this.state
+    let titleKeyName = 'setup.confirmation.title'
+    let subtitleKeyName = 'setup.confirmation.subtitle'
+    let continueKeyName = 'setup.confirmation.continue'
+    if (updateSetup) {
+      titleKeyName = 'setup.confirmation.update.title'
+      subtitleKeyName = 'setup.confirmation.update.subtitle'
+      continueKeyName = 'setup.confirmation.update.continue'
+    }
+
     return (
       <Container style={styles.container}>
         <Image source={icons.confirmation} style={styles.image} />
 
         <View style={styles.topFlex}>
           <Heading2
-            keyName='setup.confirmation.title'
+            keyName={titleKeyName}
             data={{ state: stateName, name }}
             style={styles.titleText}
           />
 
-          <Heading4 keyName='setup.confirmation.subtitle' style={styles.subtitleText} />
+          <Heading4 keyName={subtitleKeyName} style={styles.subtitleText} />
         </View>
 
         <View style={styles.bottomFlex}>
           <Body2 keyName='setup.confirmation.edit' style={styles.editText} onPress={this.onEdit} />
 
-          <Button
-            title='setup.confirmation.continue'
-            onPress={this.onContinue}
-            type={Button.OUTLINED}
-          />
+          <Button title={continueKeyName} onPress={this.onContinue} type={Button.OUTLINED} />
         </View>
       </Container>
     )
