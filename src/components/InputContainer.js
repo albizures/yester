@@ -24,8 +24,18 @@ export const types = {
 }
 
 const InputContainer = (props) => {
-  const { title, editable, description, validation, style,
-    validationMessage, show, children, type, buttonText } = props
+  const {
+    title,
+    editable,
+    description,
+    validation,
+    style,
+    validationMessage,
+    show,
+    children,
+    type,
+    buttonText,
+  } = props
   const stateStyle = stateStyles[editable ? states.ENABLED : states.DISABLED]
   const validationStyle = validationStyles[validation]
 
@@ -53,8 +63,7 @@ const InputContainer = (props) => {
     showIcon = (
       <TouchableOpacity onPress={show}>
         <View style={styles.showTextView}>
-          <Body1 keyName={buttonText}
-            style={{ color: colors.royalBlue }} />
+          <Body1 keyName={buttonText} style={{ color: colors.royalBlue }} />
         </View>
       </TouchableOpacity>
     )
@@ -62,24 +71,25 @@ const InputContainer = (props) => {
   if (type === types.PICKER) {
     showIcon = (
       <View style={styles.showIconView}>
-        <Image
-          source={icons.chevronDown}
-          style={{ width: 15, height: 8, marginRight: 20 }} />
+        <Image source={icons.chevronDown} style={{ width: 15, height: 8, marginRight: 20 }} />
       </View>
     )
   }
 
   return (
-    <View style={[style, { marginBottom: 30 }]} >
+    <View style={[style, { marginBottom: 30 }]}>
       <View style={[styles.labelContainer]}>
-        <Description keyName={title}
-          style={[styles.title, stateStyle.title, validationStyle.title]} />
+        <Description
+          keyName={title}
+          style={[styles.title, stateStyle.title, validationStyle.title]}
+        />
       </View>
       <View style={[styles.input, stateStyle.input, validationStyle.input]}>
         {children}
         {showIcon}
       </View>
-      <View style={[{ justifyContent: 'flex-end' }]}>{/* styles.labelContainer, */}
+      <View style={[{ justifyContent: 'flex-end' }]}>
+        {/* styles.labelContainer, */}
         {validationLabel}
       </View>
       {descriptionLabel}
@@ -127,8 +137,7 @@ const styles = StyleSheet.create({
   labelContainer: {
     minHeight: 24,
   },
-  validation: {
-  },
+  validation: {},
   showTextView: {
     flex: 1,
     width: 100,
@@ -149,12 +158,12 @@ const stateStyles = {
       backgroundColor: colors.white,
       borderColor: colors.white,
       borderWidth: 0.5,
+      overflow: 'hidden',
     },
     title: {
       color: colors.governorBay,
     },
-    validation: {
-    },
+    validation: {},
   }),
   [states.DISABLED]: StyleSheet.create({
     input: {
@@ -165,19 +174,15 @@ const stateStyles = {
     title: {
       color: colors.mischka,
     },
-    validation: {
-    },
+    validation: {},
   }),
 }
 
 const validationStyles = {
   [validations.NONE]: StyleSheet.create({
-    input: {
-    },
-    title: {
-    },
-    validation: {
-    },
+    input: {},
+    title: {},
+    validation: {},
   }),
   [validations.GOOD]: StyleSheet.create({
     input: {
