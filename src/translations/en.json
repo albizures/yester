@@ -65,7 +65,7 @@
   "setup.confirmation.continue": "Let's Begin!",
   "setup.confirmation.update.title": "Alrighty,\n{name} from {state},\nthanks for update your info\n🤝",
   "setup.confirmation.update.subtitle": "Now we can continue our journey \nthrough your incredible story",
-  "setup.confirmation.update.continue": "Let's Continue!",
+  "setup.confirmation.update.continue": "Let's Go!",
   "setup.error": "We couldn't update this list. Try again.",
   "signup.topbar": "Register",
   "signup.title": "Join Yester",
