@@ -2,9 +2,18 @@ import PropTypes from 'prop-types'
 import debugFactory from 'debug'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
-import moment from 'moment'
-
 import Container from '../components/Container'
+import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
+import http, { instance, original } from '../utils/http'
+import withUser, { shapeContextUser } from '../components/withUser'
+import withAges, { shapeContextAges } from '../components/withAges'
+import { strings, translate } from '../components/Translate'
+import {
+  sendTags,
+  getPermissionSubscriptionState,
+  checkNotificationsStatus,
+} from '../utils/notifications'
+// import moment from 'moment'
 import {
   isSubscribed,
   isSetupFinished,
@@ -13,11 +22,6 @@ import {
   removeSubscription,
   saveUserSubscriptionStatus,
 } from '../utils/session'
-import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
-import http, { instance, original } from '../utils/http'
-import withUser, { shapeContextUser } from '../components/withUser'
-import withAges, { shapeContextAges } from '../components/withAges'
-import { strings, translate } from '../components/Translate'
 
 const debugError = debugFactory('yester:AppLoading:error')
 const debugInfo = debugFactory('yester:AppLoading:info')
@@ -82,9 +86,23 @@ class AppLoading extends Component {
         debugInfo('No token found, sending user to Auth flow')
         return navigation.navigate('Auth')
       }
-
+      // Set user in context
       await updateUser()
-      await this.getAges()
+      const { user } = this.props.contextUser
+
+      getPermissionSubscriptionState((status) => {
+        debugInfo('Status: ', status)
+        // If notifications are set to true in the cloud but hasn't been prompted in current device
+        if (!status.hasPrompted && user.notifications) {
+          checkNotificationsStatus()
+        }
+      })
+
+      const { finished, params } = await isSetupFinished()
+      if (!finished) {
+        return navigation.navigate('SetupBirthDate', params)
+      }
+
       await setupPurchases()
       const hasSubscription = await isSubscribed()
       const purchaserInfo = await getPurchaserInfo()
@@ -97,8 +115,10 @@ class AppLoading extends Component {
         if (hasSubscription) {
           await removeSubscription()
         }
+        sendTags({ subscriptionStatus: 'none' })
         return navigation.navigate('Subscription')
       }
+      sendTags({ subscriptionStatus: 'pro' })
 
       // checking expiration dates
       /*
@@ -119,15 +139,12 @@ class AppLoading extends Component {
       instance.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
       original.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
 
-      if (await isSetupFinished()) {
-        const lastScreen = navigation.getParam('lastScreen', 'App')
-        navigation.navigate(lastScreen)
-      } else {
-        navigation.navigate('Setup')
-      }
+      await this.getAges()
+      const lastScreen = navigation.getParam('lastScreen', 'App')
+      navigation.navigate(lastScreen)
     } catch (error) {
       navigation.navigate('Auth')
-      debugError(error)
+      debugError('bootstrap: ', error)
     }
   }
 

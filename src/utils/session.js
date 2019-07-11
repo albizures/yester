@@ -75,44 +75,45 @@ export const getUserBypassCache = () =>
     bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
   })
 
-export const sanitizeUser = (user) => ({
-  country: user.attributes['custom:country'],
-  state: user.attributes['custom:state'],
-  birthPlace: user.attributes['custom:birthPlace'],
-  birthDate: user.attributes['birthdate'],
-  gender: user.attributes['gender'],
-  locale: user.attributes['locale'],
-  name: user.attributes['name'] || `${user.attributes.given_name} ${user.attributes.family_name}`,
-  givenName: user.attributes.given_name,
-  lastName: user.attributes.family_name,
-  email: user.attributes['email'],
-  userId: user.attributes['sub'],
-})
+export const sanitizeUser = (user) => {
+  if (!user.attributes) {
+    return {}
+  }
+  return {
+    country: user.attributes['custom:country'],
+    state: user.attributes['custom:state'],
+    birthPlace: user.attributes['custom:birthPlace'],
+    platform: user.attributes['custom:platform'],
+    notifications: user.attributes['custom:notifications'],
+    birthDate: user.attributes['birthdate'],
+    gender: user.attributes['gender'],
+    locale: user.attributes['locale'],
+    name: user.attributes['name'] || `${user.attributes.given_name} ${user.attributes.family_name}`,
+    givenName: user.attributes.given_name,
+    lastName: user.attributes.family_name,
+    email: user.attributes['email'],
+    userId: user.attributes['sub'],
+  }
+}
 
 export const isSetupFinished = async () => {
-  const user = await getUser()
+  const user = sanitizeUser(await getUserBypassCache())
+  const notFinished = { finished: false, params: user }
 
-  if (!user.attributes) {
-    return false
-  }
+  if (!Object.keys(user).length) return notFinished
+  if (!user.country) return notFinished
+  if (!user.state) return notFinished
+  if (!user.birthDate) return notFinished
+  if (!user.gender) return notFinished
 
-  if (!user.attributes['custom:country']) {
-    return false
-  }
+  Object.assign(user, { updateSetup: true })
+  const notUpdated = { finished: false, params: user }
 
-  if (!user.attributes['custom:state']) {
-    return false
-  }
+  if (!user.birthPlace) return notUpdated
+  if (!user.platform) return notUpdated
+  if (!user.notifications) return notUpdated
 
-  if (!user.attributes['birthdate']) {
-    return false
-  }
-
-  if (!user.attributes['gender']) {
-    return false
-  }
-
-  return true
+  return { finished: true, params: user }
 }
 
 export const isSubscribed = async () => {
@@ -132,12 +133,13 @@ export const isSubscribed = async () => {
   return true
 }
 
-export const saveUserData = async ({ birthDate, country, state, gender, birthPlace }) => {
+export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
   const user = await getUser()
   await Auth.updateUserAttributes(user, {
     'custom:country': country,
     'custom:state': state,
     'custom:birthPlace': birthPlace,
+    'custom:platform': platform,
     birthdate: birthDate,
     gender: gender,
   })
@@ -152,7 +154,9 @@ export const saveUserSubscriptionStatus = async (subscriptionStatus) => {
 
 export const updateUserAttribute = async (name, value) => {
   const user = await getUser()
-  await Auth.updateUserAttributes(user, { [name]: value })
+  if (user[name] !== value) {
+    await Auth.updateUserAttributes(user, { [name]: value })
+  }
 }
 
 // NOTE this is only for dev purposes
@@ -162,9 +166,18 @@ export const cleanUserData = async () => {
     'custom:country': '',
     'custom:state': '',
     'custom:birthPlace': '',
+    'custom:platform': '',
     birthdate: '',
     gender: '',
     'custom:subscription_status': '',
+  })
+}
+
+// NOTE this is only for dev purposes
+export const cleanUserNotifications = async () => {
+  const user = await getUser()
+  await Auth.updateUserAttributes(user, {
+    'custom:notifications': '',
   })
 }
 

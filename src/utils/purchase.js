@@ -2,7 +2,6 @@ import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
-
 import { getUser, saveUserSubscriptionStatus, removeSubscription } from './session'
 
 const debugError = debugFactory('yester:purchase:error')

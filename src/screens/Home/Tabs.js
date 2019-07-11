@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Dimensions, StyleSheet, View, Image } from 'react-native'
-import { TabView, TabBar } from 'react-native-tab-view'
-
+import { TabView, TabBar, PagerScroll } from 'react-native-tab-view'
 import { Title } from '../../components'
-import Loading from '../../components/Loading'
+// import Loading from '../../components/Loading'
 import Tab from './Tab'
 import withAges, { shapeContextAges } from '../../components/withAges'
 import colors from '../../utils/colors'
 import { getAgeIcon } from '../../utils/icons'
 import http from '../../utils/http'
+import debugFactory from 'debug'
+
+const debugInfo = debugFactory('yester:Tabs:info')
+const debugError = debugFactory('yester:Tabs:error')
 
 const { width } = Dimensions.get('window')
 
@@ -115,6 +118,11 @@ class Tabs extends Component {
           indicatorStyle={styles.indicator}
           style={styles.header}
           tabStyle={styles.tabStyle}
+          onTabLongPress={(scene) => {
+            const { route } = scene
+            debugInfo('onTabLongPress', scene)
+            props.jumpTo(route.key)
+          }}
         />
       </View>
     )
@@ -137,6 +145,7 @@ class Tabs extends Component {
 
   render () {
     const { isLoading } = this.state
+    console.log('State', this.state)
 
     if (isLoading) {
       return null // <Loading isLoading={isLoading} style={styles.loading} />
@@ -148,6 +157,7 @@ class Tabs extends Component {
         navigationState={this.state}
         renderScene={this.renderScene}
         renderTabBar={this.getTabBar}
+        renderPager={(props) => <PagerScroll {...props} />}
         // renderPager={this.renderPager}
         onIndexChange={this.onIndexChange}
         initialLayout={initialLayout}

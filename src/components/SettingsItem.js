@@ -15,23 +15,17 @@ export const types = {
 }
 
 const SettingsItem = (props) => {
-  const { onPress, title, type } = props
+  const { onPress, title, type, valueToggle } = props
 
   let showIcon = {
     [types.CHEVRON]: (
       <View style={styles.iconContainer}>
-        <Image
-          source={icons.chevronRight}
-          style={styles.chevron}
-        />
+        <Image source={icons.chevronRight} style={styles.chevron} />
       </View>
     ),
     [types.CHECK]: (
       <View style={styles.iconContainer}>
-        <Image
-          source={icons.check}
-          style={styles.check}
-        />
+        <Image source={icons.check} style={styles.check} />
       </View>
     ),
     [types.TEXT]: (
@@ -41,13 +35,13 @@ const SettingsItem = (props) => {
     ),
     [types.TOGGLE]: (
       <View style={styles.textButton}>
-        <Switch style={{}} />
+        <Switch style={{}} value={valueToggle} onValueChange={onPress} />
       </View>
     ),
   }
 
   return (
-    <TouchableOpacity onPress={onPress} >
+    <TouchableOpacity onPress={onPress}>
       <View style={[styles.itemContainer]}>
         <View style={styles.textContainer}>
           <Heading4 text={title} style={styles.item} />
@@ -65,6 +59,7 @@ SettingsItem.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   type: PropTypes.oneOf(Object.keys(types)),
+  valueToggle: PropTypes.bool,
 }
 export default SettingsItem
 

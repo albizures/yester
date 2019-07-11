@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, StyleSheet, Dimensions } from 'react-native'
+import { View, Image, StyleSheet, Dimensions, Platform } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Body2 } from '../../components'
 import Button from '../../components/Button'
@@ -9,6 +9,7 @@ import colors from '../../utils/colors'
 import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
+import { sendTags, checkNotificationsStatus } from '../../utils/notifications'
 
 class Confirmation extends Component {
   static propTypes = {
@@ -28,9 +29,17 @@ class Confirmation extends Component {
       contextUser: { updateUser },
     } = this.props
     const { birthDate, country, state, gender, birthPlace } = this.state
-    await saveUserData({ birthDate, country, state, gender, birthPlace })
+    await saveUserData({
+      birthDate,
+      country,
+      state,
+      gender,
+      birthPlace,
+      platform: Platform.OS,
+    })
+    await checkNotificationsStatus()
     await updateUser()
-    navigation.navigate('Home')
+    navigation.navigate('AppLoading')
   }
 
   onEdit = () => {
@@ -44,6 +53,7 @@ class Confirmation extends Component {
       name,
       gender,
       birthPlace,
+      updateSetup,
     } = this.state
     navigation.navigate('SetupBirthDate', {
       birthDate,
@@ -54,33 +64,39 @@ class Confirmation extends Component {
       name,
       gender,
       birthPlace,
+      updateSetup,
     })
   }
 
   render () {
-    const { name, stateName } = this.state
+    const { name, stateName, updateSetup } = this.state
+    let titleKeyName = 'setup.confirmation.title'
+    let subtitleKeyName = 'setup.confirmation.subtitle'
+    let continueKeyName = 'setup.confirmation.continue'
+    if (updateSetup) {
+      titleKeyName = 'setup.confirmation.update.title'
+      subtitleKeyName = 'setup.confirmation.update.subtitle'
+      continueKeyName = 'setup.confirmation.update.continue'
+    }
+
     return (
       <Container style={styles.container}>
         <Image source={icons.confirmation} style={styles.image} />
 
         <View style={styles.topFlex}>
           <Heading2
-            keyName='setup.confirmation.title'
+            keyName={titleKeyName}
             data={{ state: stateName, name }}
             style={styles.titleText}
           />
 
-          <Heading4 keyName='setup.confirmation.subtitle' style={styles.subtitleText} />
+          <Heading4 keyName={subtitleKeyName} style={styles.subtitleText} />
         </View>
 
         <View style={styles.bottomFlex}>
           <Body2 keyName='setup.confirmation.edit' style={styles.editText} onPress={this.onEdit} />
 
-          <Button
-            title='setup.confirmation.continue'
-            onPress={this.onContinue}
-            type={Button.OUTLINED}
-          />
+          <Button title={continueKeyName} onPress={this.onContinue} type={Button.OUTLINED} />
         </View>
       </Container>
     )

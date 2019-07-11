@@ -16,7 +16,13 @@ import {
   AWS_USER_POOL_ID,
   AWS_USER_CLIENT_POOL_ID,
 } from 'react-native-dotenv'
-
+import {
+  initNotifications,
+  configureNotifications,
+  addEventListener,
+  removeEventListener,
+  sendTags,
+} from './utils/notifications'
 import { UserProvider } from './components/withUser'
 import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
@@ -218,6 +224,34 @@ export default class App extends Component {
   async componentDidMount () {
     SplashScreen.hide()
     await setAuthHeader()
+
+    initNotifications()
+    addEventListener('received', this.onReceived)
+    addEventListener('opened', this.onOpened)
+    addEventListener('ids', this.onIds)
+    configureNotifications()
+    sendTags({ subscriptionStatus: 'none' })
+  }
+
+  componentWillUnmount () {
+    removeEventListener('received', this.onReceived)
+    removeEventListener('opened', this.onOpened)
+    removeEventListener('ids', this.onIds)
+  }
+
+  onReceived (notification) {
+    debugInfo('Notification received: ', notification)
+  }
+
+  onOpened (openResult) {
+    debugInfo('Message: ', openResult.notification.payload.body)
+    debugInfo('Data: ', openResult.notification.payload.additionalData)
+    debugInfo('isActive: ', openResult.notification.isAppInFocus)
+    debugInfo('openResult: ', openResult)
+  }
+
+  onIds (device) {
+    debugInfo('Listener ids device: ', device)
   }
 
   updateUser = async () => {

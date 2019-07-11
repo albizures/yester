@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Alert } from 'react-native'
-
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import SettingsItem from '../components/SettingsItem'
 import withUser, { shapeContextUser } from '../components/withUser'
-import { updateUserAttribute } from '../utils/session'
+import {
+  updateUserAttribute,
+  // cleanUserNotifications,
+} from '../utils/session'
 import { translate } from '../components/Translate'
 
 const isCheck = (locale, currentLocale) => {
@@ -45,6 +47,8 @@ class Language extends Component {
       locale,
       isLoading: false,
     }
+    // Dev purposes, delete after test
+    // cleanUserNotifications()
   }
 
   onBack = () => {
@@ -76,13 +80,13 @@ class Language extends Component {
       <Container topBar={topBar} isLoading={isLoading}>
         <View style={styles.container}>
           <LanguageItem
-            title='English'
+            title={translate('settings.language.item.en')}
             currentLocale={currentLocale}
             locale='en'
             onPress={this.onPress}
           />
           <LanguageItem
-            title='Español'
+            title={translate('settings.language.item.es')}
             currentLocale={currentLocale}
             locale='es'
             onPress={this.onPress}
