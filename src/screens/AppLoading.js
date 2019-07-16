@@ -22,6 +22,7 @@ import {
   removeSubscription,
   saveUserSubscriptionStatus,
 } from '../utils/session'
+import { identify } from '../utils/analytics'
 
 const debugError = debugFactory('yester:AppLoading:error')
 const debugInfo = debugFactory('yester:AppLoading:info')
@@ -89,6 +90,7 @@ class AppLoading extends Component {
       // Set user in context
       await updateUser()
       const { user } = this.props.contextUser
+      identify()
 
       getPermissionSubscriptionState((status) => {
         debugInfo('Status: ', status)
