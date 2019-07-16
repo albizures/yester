@@ -53,6 +53,8 @@ target 'Yester' do
 
   # Pods for Yester
 
+  pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
+
   target 'YesterTests' do
     inherit! :search_paths
     # Pods for testing
