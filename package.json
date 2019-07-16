@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@segment/analytics-react-native": "^1.1.0-beta.0",
     "amazon-cognito-auth-js": "^1.3.2",
     "aws-amplify": "^1.1.28",
     "aws-amplify-react-native": "^2.1.12",

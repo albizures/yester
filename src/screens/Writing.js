@@ -20,6 +20,7 @@ import withUser, { shapeContextUser } from '../components/withUser'
 import { translate } from '../components/Translate'
 import colors from '../utils/colors'
 import http from '../utils/http'
+import { screen, track } from '../utils/analytics'
 
 class Writing extends Component {
   static propTypes = {
@@ -40,6 +41,7 @@ class Writing extends Component {
   }
 
   componentWillMount () {
+    screen('Writing', {})
     if (Platform.OS === 'ios') {
       this.panResponder = PanResponder.create({
         onStartShouldSetPanResponderCapture: () => true,
@@ -121,10 +123,6 @@ class Writing extends Component {
     this.isFocused = true
   }
 
-  onFocus = () => {
-    this.isFocused = true
-  }
-
   onBlur = () => {
     this.isFocused = false
   }
@@ -134,6 +132,8 @@ class Writing extends Component {
     const { navigation } = this.props
     const { title, content } = this.state
     const storyId = navigation.getParam('storyId')
+
+    track('Save Story', { title })
 
     try {
       const { data } = await http.put('/v1/stories/' + encodeURIComponent(storyId), {

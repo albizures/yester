@@ -7,16 +7,16 @@ import Tabs from './Tabs'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
 import { Title, Heading4, Heading3 } from '../../components'
-
 import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
 import { translate } from '../../components/Translate'
+import { screen, track } from '../../utils/analytics'
 import debugFactory from 'debug'
 
-const debugError = debugFactory('yester:Home:error')
 const debugInfo = debugFactory('yester:Home:info')
+const debugError = debugFactory('yester:Home:error')
 
 export default class Home extends Component {
   static propTypes = {
@@ -29,7 +29,12 @@ export default class Home extends Component {
     positionToast: new Animated.Value(-100),
   }
 
+  willFocusListener = null
+
   async componentDidMount () {
+    const { addListener } = this.props.navigation
+    this.willFocusListener = addListener('willFocus', this.load)
+
     const { navigation } = this.props
     this.setState({
       isLoading: true,
@@ -67,6 +72,10 @@ export default class Home extends Component {
     }
   }
 
+  load = () => {
+    screen('My Story', { age: 'childhood' })
+  }
+
   onPressToast = () => {
     const { navigation } = this.props
     const storyId = navigation.getParam('storyId')
@@ -85,6 +94,7 @@ export default class Home extends Component {
 
   componentWillUnmount () {
     clearInterval(this.timeout)
+    this.willFocusListener.remove()
   }
 
   renderChapter = ({ item }) => (
@@ -127,18 +137,13 @@ export default class Home extends Component {
     const { navigation } = this.props
     const { ageId, category, question, questionId, storyId, content, categoryId } = item
 
+    track('Tap Story', { ageId, category, title: question })
+
     if (content) {
       return navigation.navigate('Reading', { storyId })
     }
 
-    console.log({
-      ageId,
-      category,
-      question,
-      questionId,
-      storyId,
-      categoryId,
-    })
+    debugInfo(item)
 
     navigation.navigate('ModalCard', {
       ageId,

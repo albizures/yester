@@ -49,7 +49,6 @@ import Notifications from './screens/Notifications'
 import AppLoading from './screens/AppLoading'
 import Terms from './screens/Terms'
 import About from './screens/About'
-
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
 import {
@@ -59,6 +58,7 @@ import {
   sanitizeUser,
   setLocale,
 } from './utils/session'
+import { setupAnalytics } from './utils/analytics'
 
 const debugInfo = debugFactory('yester:index:info')
 
@@ -231,6 +231,8 @@ export default class App extends Component {
     addEventListener('ids', this.onIds)
     configureNotifications()
     sendTags({ subscriptionStatus: 'none' })
+
+    setupAnalytics()
   }
 
   componentWillUnmount () {
