@@ -10,6 +10,7 @@ import {
   // cleanUserNotifications,
 } from '../utils/session'
 import { translate } from '../components/Translate'
+import { screen } from '../utils/analytics'
 
 const isCheck = (locale, currentLocale) => {
   if (locale === currentLocale) {
@@ -49,6 +50,10 @@ class Language extends Component {
     }
     // Dev purposes, delete after test
     // cleanUserNotifications()
+  }
+
+  componentDidMount () {
+    screen('Language', {})
   }
 
   onBack = () => {

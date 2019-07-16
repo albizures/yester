@@ -12,6 +12,7 @@ import TopBar from '../../components/TopBar'
 import http from '../../utils/http'
 import { extractSetupParams } from '../../utils'
 import { translate } from '../../components/Translate'
+import { screen } from '../../utils/analytics'
 
 export default class Place extends Component {
   static propTypes = {
@@ -37,6 +38,7 @@ export default class Place extends Component {
 
   async componentDidMount () {
     try {
+      screen('Place', {})
       const { data: countries } = await http.get('/v1/countries')
       this.getStates()
       this.setState({

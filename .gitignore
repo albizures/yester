@@ -296,3 +296,6 @@ ios/Index/DataStore
 
 # Cocoapods
 ios/Pods/
+
+# Carthage
+ios/Carthage/

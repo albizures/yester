@@ -9,10 +9,27 @@ import colors from '../utils/colors'
 import icons from '../utils/icons'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { isSetupFinished } from '../utils/session'
+import { screen } from '../utils/analytics'
 
 class Profile extends Component {
   static propTypes = {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
+    navigation: PropTypes.object.isRequired,
+  }
+
+  willFocusListener = null
+
+  componentDidMount () {
+    const { addListener } = this.props.navigation
+    this.willFocusListener = addListener('willFocus', this.load)
+  }
+
+  componentWillUnmount () {
+    this.willFocusListener.remove()
+  }
+
+  load = () => {
+    screen('Profile', {})
   }
 
   onPressEdit = async () => {

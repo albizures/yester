@@ -14,6 +14,7 @@ import TopBar from '../../components/TopBar'
 import { extractSetupParams } from '../../utils'
 import { Auth } from 'aws-amplify'
 import { USER_PASSWORD_ADMIN, USER_PASSWORD_DEFAULT } from 'react-native-dotenv'
+import { screen } from '../../utils/analytics'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:BirthDate:error')
@@ -45,6 +46,7 @@ export default class BirthDate extends Component {
   async componentDidMount () {
     const { navigation } = this.props
     navigation.addListener('didFocus', this.onDidFocus)
+    screen('BirthDate', {})
     const user = await getUser()
     this.setState({
       name: user.attributes.given_name,

@@ -111,7 +111,7 @@ export const isSetupFinished = async () => {
 
   if (!user.birthPlace) return notUpdated
   if (!user.platform) return notUpdated
-  if (!user.notifications) return notUpdated
+  if (user.notifications === undefined) return notUpdated
 
   return { finished: true, params: user }
 }
