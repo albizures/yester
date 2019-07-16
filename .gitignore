@@ -293,3 +293,6 @@ buck-out/
 .fakebuckversion
 
 ios/Index/DataStore
+
+# Cocoapods
+ios/Pods/
