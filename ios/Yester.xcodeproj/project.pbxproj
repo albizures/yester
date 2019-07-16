@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -52,6 +53,9 @@
 		BA47AFCF9E764D8D823FDAA1 /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 289C87213D444A4A8D7F697E /* libRCTFBSDK.a */; };
 		D5858EE0B25F414EA1E4676D /* libRNCWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC1E11DEA534C74AF91C0CF /* libRNCWebView.a */; };
 		FC18453821826A2900B04FD8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC18453721826A2900B04FD8 /* StoreKit.framework */; };
+		FC30832022DDB0C5006018DE /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC30831D22DDB097006018DE /* Analytics.framework */; };
+		FC30832122DDB0C5006018DE /* Analytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FC30831D22DDB097006018DE /* Analytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FC30832422DE4BB0006018DE /* libRNAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3082B022DDAB12006018DE /* libRNAnalytics.a */; };
 		FC6B3C0C216C11370047B5F6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC6B3C0B216C11370047B5F6 /* FBSDKShareKit.framework */; };
 		FC827130229FBDC800C25025 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC827105229FBDC800C25025 /* JavaScriptCore.framework */; };
 		FC827132229FBE0F00C25025 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC827131229FBE0E00C25025 /* JavaScriptCore.framework */; };
@@ -323,6 +327,34 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RNCWebView;
 		};
+		FC3082AF22DDAB12006018DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC30828222DDAB12006018DE /* RNAnalytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNAnalytics;
+		};
+		FC30831C22DDB097006018DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC30831722DDB097006018DE /* Analytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EADEB85B1DECD080005322DA;
+			remoteInfo = Analytics;
+		};
+		FC30831E22DDB097006018DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC30831722DDB097006018DE /* Analytics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EADEB86A1DECD0EF005322DA;
+			remoteInfo = AnalyticsTests;
+		};
+		FC30832222DDB0C5006018DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FC30831722DDB097006018DE /* Analytics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EADEB85A1DECD080005322DA;
+			remoteInfo = Analytics;
+		};
 		FC82716A229FCCCE00C25025 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -403,6 +435,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				6838853A220BD1F300BDBED7 /* Purchases.framework in Embed Frameworks */,
+				FC30832122DDB0C5006018DE /* Analytics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +503,8 @@
 		EEC1E11DEA534C74AF91C0CF /* libRNCWebView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCWebView.a; sourceTree = "<group>"; };
 		EFA6C2695F874A0CB1BC9F9E /* RNCWebView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCWebView.xcodeproj; path = "../node_modules/react-native-webview/ios/RNCWebView.xcodeproj"; sourceTree = "<group>"; };
 		FC18453721826A2900B04FD8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FC30828222DDAB12006018DE /* RNAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNAnalytics.xcodeproj; path = "../node_modules/@segment/analytics-react-native/ios/RNAnalytics.xcodeproj"; sourceTree = "<group>"; };
+		FC30831722DDB097006018DE /* Analytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Analytics.xcodeproj; path = "Carthage/Checkouts/analytics-ios/Analytics.xcodeproj"; sourceTree = "<group>"; };
 		FC6B3C0B216C11370047B5F6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		FC827105229FBDC800C25025 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FC827131229FBE0E00C25025 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.2.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -495,11 +530,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC30832422DE4BB0006018DE /* libRNAnalytics.a in Frameworks */,
 				FC827130229FBDC800C25025 /* JavaScriptCore.framework in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				6850881E2145701B00E2ABAE /* FBSDKLoginKit.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
+				FC30832022DDB0C5006018DE /* Analytics.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				685088212145701B00E2ABAE /* Bolts.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -736,6 +773,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FC30831722DDB097006018DE /* Analytics.xcodeproj */,
+				FC30828222DDAB12006018DE /* RNAnalytics.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -810,6 +849,23 @@
 			isa = PBXGroup;
 			children = (
 				FC23102C22B495FE00B36325 /* libRNCWebView.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FC30828322DDAB12006018DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC3082B022DDAB12006018DE /* libRNAnalytics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FC30831822DDB097006018DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FC30831D22DDB097006018DE /* Analytics.framework */,
+				FC30831F22DDB097006018DE /* AnalyticsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -915,6 +971,7 @@
 			);
 			dependencies = (
 				FCBA0F3D22BC963400B0484E /* PBXTargetDependency */,
+				FC30832322DDB0C5006018DE /* PBXTargetDependency */,
 			);
 			name = Yester;
 			productName = "Hello World";
@@ -1037,6 +1094,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = FC30831822DDB097006018DE /* Products */;
+					ProjectRef = FC30831722DDB097006018DE /* Analytics.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -1095,6 +1156,10 @@
 				{
 					ProductGroup = FCAA772E20FFA40F00B78EAA /* Products */;
 					ProjectRef = 210B1EF30FBB49B9A66A440D /* ReactNativeLocalization.xcodeproj */;
+				},
+				{
+					ProductGroup = FC30828322DDAB12006018DE /* Products */;
+					ProjectRef = FC30828222DDAB12006018DE /* RNAnalytics.xcodeproj */;
 				},
 				{
 					ProductGroup = 68842F2F21437213002BF723 /* Products */;
@@ -1370,6 +1435,27 @@
 			remoteRef = FC23102B22B495FE00B36325 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		FC3082B022DDAB12006018DE /* libRNAnalytics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNAnalytics.a;
+			remoteRef = FC3082AF22DDAB12006018DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FC30831D22DDB097006018DE /* Analytics.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Analytics.framework;
+			remoteRef = FC30831C22DDB097006018DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		FC30831F22DDB097006018DE /* AnalyticsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AnalyticsTests.xctest;
+			remoteRef = FC30831E22DDB097006018DE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		FC82716B229FCCCE00C25025 /* libjsi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1583,6 +1669,11 @@
 			isa = PBXTargetDependency;
 			target = 2D02E47A1E0B4A5D006451C7 /* Yester-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
+		};
+		FC30832322DDB0C5006018DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Analytics;
+			targetProxy = FC30832222DDB0C5006018DE /* PBXContainerItemProxy */;
 		};
 		FCBA0F3D22BC963400B0484E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
