@@ -10,6 +10,7 @@ import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
 import { sendTags, checkNotificationsStatus } from '../../utils/notifications'
+import { screen } from '../../utils/analytics'
 
 class Confirmation extends Component {
   static propTypes = {
@@ -21,6 +22,10 @@ class Confirmation extends Component {
     super(props)
     const { navigation } = this.props
     this.state = extractSetupParams(navigation)
+  }
+
+  componentDidMount () {
+    screen('Confirmation', {})
   }
 
   onContinue = async () => {

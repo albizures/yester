@@ -14,10 +14,10 @@ import TextDivider from '../components/TextDivider'
 import TextInput from '../components/TextInput'
 import TopBar from '../components/TopBar'
 import { translate } from '../components/Translate'
+import { screen } from '../utils/analytics'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:Login:error')
-const debugInfo = debugFactory('yester:Login:info')
 
 class Login extends Component {
   static propTypes = {
@@ -28,6 +28,10 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
+  }
+
+  componentDidMount () {
+    screen('Login', {})
   }
 
   onFBLogin = async () => {

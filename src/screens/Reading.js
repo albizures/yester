@@ -18,12 +18,12 @@ import TopBar from '../components/TopBar'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import IconButton from '../components/IconButton'
-
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import http from '../utils/http'
 import moment from 'moment'
 import { translate } from '../components/Translate'
+import { screen, track } from '../utils/analytics'
 
 class Reading extends Component {
   static propTypes = {
@@ -42,6 +42,7 @@ class Reading extends Component {
   async componentDidMount () {
     const { navigation } = this.props
     const storyId = navigation.getParam('storyId')
+    screen('Reading', {})
 
     this.setState({ isLoading: true })
 
@@ -93,6 +94,8 @@ class Reading extends Component {
   onEdit = () => {
     const { navigation } = this.props
     const { title: question, content, ageId, storyId } = this.state
+
+    track('Edit Story', { title: question })
 
     navigation.replace('Writing', { ageId, question, storyId, content })
   }

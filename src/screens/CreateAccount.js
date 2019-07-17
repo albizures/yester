@@ -20,6 +20,7 @@ import {
   Dimensions,
   StatusBar,
 } from 'react-native'
+import { screen, track } from '../utils/analytics'
 
 class CreateAccount extends Component {
   static propTypes = {
@@ -30,6 +31,10 @@ class CreateAccount extends Component {
   state = {
     fbWebViewVisible: false,
     isLoading: false,
+  }
+
+  componentDidMount () {
+    screen('CreateAccount', {})
   }
 
   onFBNativeLogin = async () => {
@@ -51,6 +56,7 @@ class CreateAccount extends Component {
   }
 
   onFBWebView = async () => {
+    track('To FBWebView', {})
     this.props.navigation.navigate('FBWebView')
   }
 

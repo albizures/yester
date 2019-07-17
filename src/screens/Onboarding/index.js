@@ -8,6 +8,7 @@ import Dots from './Dots'
 import Step from './Step'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
+import { screen } from '../../utils/analytics'
 
 export default class Onboarding extends Component {
   static propTypes = {
@@ -38,6 +39,10 @@ export default class Onboarding extends Component {
         description2: 'onboarding.step3.description2',
       },
     ],
+  }
+
+  componentDidMount () {
+    screen('Onboarding', {})
   }
 
   createStep = (customProp, index) => {

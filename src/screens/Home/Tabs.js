@@ -12,7 +12,7 @@ import http from '../../utils/http'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Tabs:info')
-const debugError = debugFactory('yester:Tabs:error')
+// const debugError = debugFactory('yester:Tabs:error')
 
 const { width } = Dimensions.get('window')
 

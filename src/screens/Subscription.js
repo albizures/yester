@@ -9,6 +9,7 @@ import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { logOut } from '../utils/session'
 import { getEntitlements, buySubscription, restoreSubscription } from '../utils/purchase'
+import { screen, track } from '../utils/analytics'
 
 class Subscription extends Component {
   static propTypes = {
@@ -20,6 +21,7 @@ class Subscription extends Component {
   }
 
   async componentDidMount () {
+    screen('Subscription', {})
     try {
       const entitlements = await getEntitlements()
       this.setState({
@@ -39,10 +41,18 @@ class Subscription extends Component {
   onStartTrial = async () => {
     const { navigation } = this.props
     await buySubscription(this.state.entitlements.pro.monthly.identifier)
+    track('Trial Started', {
+      item: this.state.entitlements.pro.monthly.identifier,
+      revenue: 0.0,
+    })
     navigation.navigate('AppLoading')
   }
 
   onRestore = async () => {
+    track('Susbcription Restore', {
+      item: 'pro',
+      revenue: 4.99,
+    })
     const { navigation } = this.props
     await restoreSubscription()
     navigation.navigate('AppLoading')

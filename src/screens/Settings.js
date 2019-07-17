@@ -6,10 +6,26 @@ import TopBar from '../components/TopBar'
 import { logOut } from '../utils/session'
 import SettingsItem, { types } from '../components/SettingsItem'
 import { translate } from '../components/Translate'
+import { reset, screen, track } from '../utils/analytics'
 
 export default class Settings extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+  }
+
+  willFocusListener = null
+
+  componentDidMount () {
+    const { addListener } = this.props.navigation
+    this.willFocusListener = addListener('willFocus', this.load)
+  }
+
+  componentWillUnmount () {
+    this.willFocusListener.remove()
+  }
+
+  load = () => {
+    screen('Settings', {})
   }
 
   onPressLanguage = () => {
@@ -21,17 +37,17 @@ export default class Settings extends Component {
   }
 
   onPressTerms = () => {
-    // this.props.navigation.navigate('Terms')
+    track('Terms', {})
     Linking.openURL('https://www.yester.app/terms')
   }
 
   onPressAbout = () => {
-    // this.props.navigation.navigate('About')
+    track('About', {})
     Linking.openURL('https://www.yester.app')
   }
 
   onPressManage = () => {
-    // this.props.navigation.navigate('About')
+    track('Manage Subscription', {})
     Platform.OS === 'ios'
       ? Linking.openURL('https://apps.apple.com/account/subscriptions')
       : Linking.openURL('https://play.google.com/store/account/subscriptions')
@@ -40,6 +56,8 @@ export default class Settings extends Component {
   onLogOut = async () => {
     const { navigation } = this.props
     await logOut()
+    track('Log Out', {})
+    reset()
     navigation.navigate('Auth')
   }
 

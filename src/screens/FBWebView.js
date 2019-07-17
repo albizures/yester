@@ -8,6 +8,7 @@ import { strings, translate } from '../components/Translate'
 import { loginWithFBWebView, updateUserAttribute, logOut } from '../utils/session'
 import { Title } from '../components'
 import colors from '../utils/colors'
+import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:FBWebView:error')
@@ -25,6 +26,7 @@ class FBWebView extends React.Component {
   }
 
   componentDidMount () {
+    screen('FBWebView', {})
     loggedIn = false
     this.setState({
       key: 1,
@@ -52,6 +54,9 @@ class FBWebView extends React.Component {
           await updateUserAttribute('locale', strings.getLanguage())
           await updateUser()
 
+          track('FB Login', {
+            type: 'web',
+          })
           return navigation.navigate('AppLoading')
         } catch (error) {
           debugError('onFBWebViewStateChange', error)
