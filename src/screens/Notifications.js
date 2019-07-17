@@ -12,10 +12,11 @@ import {
 import { translate } from '../components/Translate'
 import { updateUserAttribute } from '../utils/session'
 import withUser, { shapeContextUser } from '../components/withUser'
+import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Notifications:info')
-const debugError = debugFactory('yester:Notifications:error')
+// const debugError = debugFactory('yester:Notifications:error')
 
 class Notificacions extends Component {
   static propTypes = {
@@ -28,6 +29,7 @@ class Notificacions extends Component {
   }
 
   componentDidMount () {
+    screen('Notifications', {})
     getPermissionSubscriptionState((status) => {
       const { notifications } = this.props.contextUser.user
       this.setState({
@@ -48,6 +50,7 @@ class Notificacions extends Component {
       const { hasPrompted, notificationsEnabled } = status
       const { updateUser } = this.props.contextUser
       const { subscriptionEnabled } = this.state
+      track('Notifications', { status: !subscriptionEnabled })
 
       if (!hasPrompted && !subscriptionEnabled) {
         registerForPushNotifications()
