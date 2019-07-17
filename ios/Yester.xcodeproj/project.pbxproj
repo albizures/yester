@@ -505,7 +505,7 @@
 		FC18453721826A2900B04FD8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		FC30828222DDAB12006018DE /* RNAnalytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNAnalytics.xcodeproj; path = "../node_modules/@segment/analytics-react-native/ios/RNAnalytics.xcodeproj"; sourceTree = "<group>"; };
 		FC30831722DDB097006018DE /* Analytics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Analytics.xcodeproj; path = "Carthage/Checkouts/analytics-ios/Analytics.xcodeproj"; sourceTree = "<group>"; };
-		FC6B3C0B216C11370047B5F6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		FC6B3C0B216C11370047B5F6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		FC827105229FBDC800C25025 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FC827131229FBE0E00C25025 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.2.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FCBA0F3122BC95AE00B0484E /* Yester.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Yester.entitlements; path = Yester/Yester.entitlements; sourceTree = "<group>"; };
@@ -530,34 +530,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC30832422DE4BB0006018DE /* libRNAnalytics.a in Frameworks */,
-				FC827130229FBDC800C25025 /* JavaScriptCore.framework in Frameworks */,
+				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
-				6850881E2145701B00E2ABAE /* FBSDKLoginKit.framework in Frameworks */,
-				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				FC30832022DDB0C5006018DE /* Analytics.framework in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
-				685088212145701B00E2ABAE /* Bolts.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
-				6850881F2145701B00E2ABAE /* FBSDKCoreKit.framework in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
-				68388539220BD1F300BDBED7 /* Purchases.framework in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				D5858EE0B25F414EA1E4676D /* libRNCWebView.a in Frameworks */,
+				FC827130229FBDC800C25025 /* JavaScriptCore.framework in Frameworks */,
+				FC8736F722302F0F005DAE53 /* libRNPurchases.a in Frameworks */,
+				68388539220BD1F300BDBED7 /* Purchases.framework in Frameworks */,
+				FC18453821826A2900B04FD8 /* StoreKit.framework in Frameworks */,
 				88D53C4AE0BC4CB99EE39738 /* libReactNativeLocalization.a in Frameworks */,
-				FC6B3C0C216C11370047B5F6 /* FBSDKShareKit.framework in Frameworks */,
+				5EA7458077C043F7AEEF6D10 /* libSplashScreen.a in Frameworks */,
 				8CC51EAAF7614521A571550B /* libRNAWSCognito.a in Frameworks */,
 				BA47AFCF9E764D8D823FDAA1 /* libRCTFBSDK.a in Frameworks */,
-				FC18453821826A2900B04FD8 /* StoreKit.framework in Frameworks */,
-				FC8736F722302F0F005DAE53 /* libRNPurchases.a in Frameworks */,
-				5EA7458077C043F7AEEF6D10 /* libSplashScreen.a in Frameworks */,
-				D5858EE0B25F414EA1E4676D /* libRNCWebView.a in Frameworks */,
+				6850881F2145701B00E2ABAE /* FBSDKCoreKit.framework in Frameworks */,
+				6850881E2145701B00E2ABAE /* FBSDKLoginKit.framework in Frameworks */,
+				FC6B3C0C216C11370047B5F6 /* FBSDKShareKit.framework in Frameworks */,
+				685088212145701B00E2ABAE /* Bolts.framework in Frameworks */,
 				20AC3FE479DF42489456117A /* libRCTOneSignal.a in Frameworks */,
+				FC30832022DDB0C5006018DE /* Analytics.framework in Frameworks */,
+				FC30832422DE4BB0006018DE /* libRNAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -724,11 +724,11 @@
 				FC827131229FBE0E00C25025 /* JavaScriptCore.framework */,
 				68388537220BD1F100BDBED7 /* Purchases.framework */,
 				FC18453721826A2900B04FD8 /* StoreKit.framework */,
-				FC6B3C0B216C11370047B5F6 /* FBSDKShareKit.framework */,
-				6850881D2145701B00E2ABAE /* Bolts.framework */,
+				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				6850881B2145701B00E2ABAE /* FBSDKCoreKit.framework */,
 				6850881A2145701B00E2ABAE /* FBSDKLoginKit.framework */,
-				2D16E6891FA4F8E400B85C8A /* libReact.a */,
+				FC6B3C0B216C11370047B5F6 /* FBSDKShareKit.framework */,
+				6850881D2145701B00E2ABAE /* Bolts.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
