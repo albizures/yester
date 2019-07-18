@@ -86,9 +86,9 @@ export const setSubscription = (enable) => {
   }
 }
 
-export const registerForPushNotifications = () => {
+export const registerForPushNotifications = async () => {
   try {
-    OneSignal.registerForPushNotifications()
+    await OneSignal.registerForPushNotifications()
   } catch (error) {
     debugError('registerForPushNotifications', error)
   }
@@ -99,7 +99,7 @@ export const checkNotificationsStatus = async () => {
     const user = sanitizeUser(await getUser())
     const { userId, email } = user
 
-    registerForPushNotifications()
+    await registerForPushNotifications()
 
     if (userId) OneSignal.setExternalUserId(userId)
     if (email) OneSignal.setEmail(email)
