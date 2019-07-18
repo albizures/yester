@@ -70,6 +70,8 @@ class Subscription extends Component {
 
   render () {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
+    const { entitlements } = this.state
+
     return (
       <View style={{ position: 'relative' }}>
         <Image source={icons.subscription} style={styles.image} />
@@ -84,7 +86,12 @@ class Subscription extends Component {
             <Heading3 keyName='subscription.slogan' style={styles.sloganText} />
             <Heading4 keyName='subscription.features' style={styles.featuresText} />
 
-            <Button title='subscription.start' onPress={this.onStartTrial} type={types.OUTLINED} />
+            <Button
+              title='subscription.start'
+              onPress={this.onStartTrial}
+              type={types.OUTLINED}
+              disabled={entitlements.length === 0}
+            />
             <Body1 keyName='subscription.priceAfter' style={styles.priceAfterText} />
             <Body1
               keyName='subscription.restore'
