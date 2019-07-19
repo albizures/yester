@@ -39,8 +39,6 @@
 		3097C0C83B0C4BC49C0C4555 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 956ABA78548C4391B989AC56 /* Karla-Regular.ttf */; };
 		4FDA95282ECB49309421726C /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 506DB15852FD45B18D38AC42 /* Karla-BoldItalic.ttf */; };
 		5EA7458077C043F7AEEF6D10 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA7FCF3D3C44971BF898BA1 /* libSplashScreen.a */; };
-		68388539220BD1F300BDBED7 /* Purchases.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68388537220BD1F100BDBED7 /* Purchases.framework */; };
-		6838853A220BD1F300BDBED7 /* Purchases.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 68388537220BD1F100BDBED7 /* Purchases.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6B180156D1C14B6A8EDA50BC /* libPods-YesterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E140796922F2AB85B4E30F63 /* libPods-YesterTests.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		879867A7A4A84368B0CE1610 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B2D465195764778BC703069 /* Karla-Italic.ttf */; };
@@ -57,7 +55,6 @@
 		FC30832422DE4BB0006018DE /* libRNAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3082B022DDAB12006018DE /* libRNAnalytics.a */; };
 		FC827130229FBDC800C25025 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC827105229FBDC800C25025 /* JavaScriptCore.framework */; };
 		FC827132229FBE0F00C25025 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC827131229FBE0E00C25025 /* JavaScriptCore.framework */; };
-		FC8736F722302F0F005DAE53 /* libRNPurchases.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D64869A4DBB14163BD6EC6EC /* libRNPurchases.a */; };
 		FCBA0F3A22BC963400B0484E /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBA0F3922BC963400B0484E /* NotificationService.m */; };
 		FCBA0F3E22BC963400B0484E /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FCBA0F3622BC963400B0484E /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FCBA0F4422BC96BF00B0484E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCBA0F4322BC96BE00B0484E /* UIKit.framework */; };
@@ -381,13 +378,6 @@
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
-		FC8E868E2229080E0036EFA5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNPurchases;
-		};
 		FC934A48220A01830006E955 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 017A04BB9CE14224A91075BA /* SplashScreen.xcodeproj */;
@@ -418,7 +408,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6838853A220BD1F300BDBED7 /* Purchases.framework in Embed Frameworks */,
 				FC30832122DDB0C5006018DE /* Analytics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -470,11 +459,9 @@
 		4FDA960CBACF43B2A02DDA09 /* libRNAWSCognito.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNAWSCognito.a; sourceTree = "<group>"; };
 		506DB15852FD45B18D38AC42 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-BoldItalic.ttf"; path = "../src/assets/fonts/Karla-BoldItalic.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
-		68388537220BD1F100BDBED7 /* Purchases.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Purchases.framework; path = "../node_modules/react-native-purchases/ios/Purchases.framework"; sourceTree = "<group>"; };
 		70C28C64BB53297BF26EEDDF /* libPods-Yester-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Yester-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7769432B4D5467AC644A4369 /* Pods-Yester.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester.release.xcconfig"; path = "Target Support Files/Pods-Yester/Pods-Yester.release.xcconfig"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
-		79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPurchases.xcodeproj; path = "../node_modules/react-native-purchases/ios/RNPurchases.xcodeproj"; sourceTree = "<group>"; };
 		7FF3B24D10359DB086219B6C /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		85FD8F9799F2711B34E65E93 /* libPods-OneSignalNotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -538,8 +525,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				D5858EE0B25F414EA1E4676D /* libRNCWebView.a in Frameworks */,
 				FC827130229FBDC800C25025 /* JavaScriptCore.framework in Frameworks */,
-				FC8736F722302F0F005DAE53 /* libRNPurchases.a in Frameworks */,
-				68388539220BD1F300BDBED7 /* Purchases.framework in Frameworks */,
 				FC18453821826A2900B04FD8 /* StoreKit.framework in Frameworks */,
 				88D53C4AE0BC4CB99EE39738 /* libReactNativeLocalization.a in Frameworks */,
 				5EA7458077C043F7AEEF6D10 /* libSplashScreen.a in Frameworks */,
@@ -713,7 +698,6 @@
 				FCBA0F4322BC96BE00B0484E /* UIKit.framework */,
 				FC827105229FBDC800C25025 /* JavaScriptCore.framework */,
 				FC827131229FBE0E00C25025 /* JavaScriptCore.framework */,
-				68388537220BD1F100BDBED7 /* Purchases.framework */,
 				FC18453721826A2900B04FD8 /* StoreKit.framework */,
 				2D16E6891FA4F8E400B85C8A /* libReact.a */,
 				85FD8F9799F2711B34E65E93 /* libPods-OneSignalNotificationServiceExtension.a */,
@@ -781,7 +765,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				210B1EF30FBB49B9A66A440D /* ReactNativeLocalization.xcodeproj */,
 				C8418F3797FB422DBC7D9358 /* RNAWSCognito.xcodeproj */,
-				79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */,
 				017A04BB9CE14224A91075BA /* SplashScreen.xcodeproj */,
 				EFA6C2695F874A0CB1BC9F9E /* RNCWebView.xcodeproj */,
 			);
@@ -874,14 +857,6 @@
 			children = (
 				FC30831D22DDB097006018DE /* Analytics.framework */,
 				FC30831F22DDB097006018DE /* AnalyticsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		FC8E86632229080E0036EFA5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FC8E868F2229080E0036EFA5 /* libRNPurchases.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1158,10 +1133,6 @@
 				{
 					ProductGroup = FC23100022B495FE00B36325 /* Products */;
 					ProjectRef = EFA6C2695F874A0CB1BC9F9E /* RNCWebView.xcodeproj */;
-				},
-				{
-					ProductGroup = FC8E86632229080E0036EFA5 /* Products */;
-					ProjectRef = 79E6759CDBDD465992067DD5 /* RNPurchases.xcodeproj */;
 				},
 				{
 					ProductGroup = FC934A45220A01830006E955 /* Products */;
@@ -1472,13 +1443,6 @@
 			fileType = archive.ar;
 			path = "libjsiexecutor-tvOS.a";
 			remoteRef = FC827170229FCCCE00C25025 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FC8E868F2229080E0036EFA5 /* libRNPurchases.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNPurchases.a;
-			remoteRef = FC8E868E2229080E0036EFA5 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		FC934A49220A01830006E955 /* libSplashScreen.a */ = {
@@ -1890,17 +1854,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../node_modules/react-native-purchases/ios",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-localization",
 					"$(SRCROOT)/../node_modules/amazon-cognito-identity-js/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)/../node_modules/react-native-purchases/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/**",
 				);
 				INFOPLIST_FILE = Yester/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1934,17 +1894,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../node_modules/react-native-purchases/ios",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-localization",
 					"$(SRCROOT)/../node_modules/amazon-cognito-identity-js/ios/**",
-					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)/../node_modules/react-native-purchases/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 					"$(SRCROOT)/../node_modules/react-native-webview/ios",
-					"$(SRCROOT)/../node_modules/react-native-onesignal/ios/**",
 				);
 				INFOPLIST_FILE = Yester/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

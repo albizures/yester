@@ -19,6 +19,7 @@ PODS:
     - glog
   - glog (0.3.5)
   - OneSignal (2.10.0)
+  - Purchases (2.3.0)
   - React (0.59.8):
     - React/Core (= 0.59.8)
   - react-native-onesignal (3.2.14):
@@ -79,6 +80,9 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - RNPurchases (2.2.1):
+    - Purchases (~> 2.3.0)
+    - React
   - yoga (0.59.8.React)
 
 DEPENDENCIES:
@@ -105,6 +109,7 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNPurchases (from `../node_modules/react-native-purchases`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -115,6 +120,7 @@ SPEC REPOS:
     - FBSDKLoginKit
     - FBSDKShareKit
     - OneSignal
+    - Purchases
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -127,6 +133,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal/react-native-onesignal.podspec"
+  RNPurchases:
+    :path: "../node_modules/react-native-purchases"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -140,10 +148,12 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   OneSignal: 0f5ff711d9f25da54885e4ab06ef0abc221a46ef
+  Purchases: 75f0143a1dfc086fc8d4a21910706e171885df80
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
   react-native-onesignal: 4d16f59736eb92e892fb009cb66a7c508fdeead0
+  RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: e76f8ffb082f134517624c4557d0bb67fe3bd2ec
+PODFILE CHECKSUM: f5c45a9bee57a81e14c33662bf8e31fc6f47037a
 
 COCOAPODS: 1.7.4
