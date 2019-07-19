@@ -1,4 +1,4 @@
-#import <RCTOneSignalExtensionService.h>
+#import <OneSignal/OneSignal.h>
 
 #import "NotificationService.h"
 
@@ -17,7 +17,7 @@
   self.contentHandler = contentHandler;
   self.bestAttemptContent = [request.content mutableCopy];
   
-  [RCTOneSignalExtensionService didReceiveNotificationRequest:self.receivedRequest withContent:self.bestAttemptContent];
+  [OneSignal didReceiveNotificationExtensionRequest:self.receivedRequest withMutableNotificationContent:self.bestAttemptContent];
   
   // DEBUGGING: Uncomment the 2 lines below and comment out the one above to ensure this extension is excuting
   //            Note, this extension only runs when mutable-content is set
@@ -32,7 +32,7 @@
   // Called just before the extension will be terminated by the system.
   // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
   
-  [RCTOneSignalExtensionService serviceExtensionTimeWillExpireRequest:self.receivedRequest withMutableNotificationContent:self.bestAttemptContent];
+  [OneSignal serviceExtensionTimeWillExpireRequest:self.receivedRequest withMutableNotificationContent:self.bestAttemptContent];
   
   self.contentHandler(self.bestAttemptContent);
 }
