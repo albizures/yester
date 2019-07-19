@@ -1,4 +1,5 @@
 PODS:
+  - Analytics (3.6.10)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -18,12 +19,17 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - JKBigInteger2 (0.0.5)
   - OneSignal (2.10.0)
   - Purchases (2.3.0)
   - React (0.59.8):
     - React/Core (= 0.59.8)
   - react-native-onesignal (3.2.14):
     - OneSignal (= 2.10.0)
+    - React
+  - react-native-splash-screen (3.2.0):
+    - React
+  - react-native-webview (5.12.0):
     - React
   - React/Core (0.59.8):
     - yoga (= 0.59.8.React)
@@ -80,6 +86,14 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
+  - ReactNativeLocalization (2.1.2):
+    - React
+  - RNAnalytics (1.1.0-beta.0):
+    - Analytics
+    - React
+  - RNAWSCognito (3.0.12):
+    - JKBigInteger2 (= 0.0.5)
+    - React
   - RNPurchases (2.2.1):
     - Purchases (~> 2.3.0)
     - React
@@ -94,6 +108,8 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - OneSignal (< 3.0, >= 2.9.3)
   - react-native-onesignal (from `../node_modules/react-native-onesignal/react-native-onesignal.podspec`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -109,16 +125,21 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
+  - ReactNativeLocalization (from `../node_modules/react-native-localization`)
+  - "RNAnalytics (from `../node_modules/@segment/analytics-react-native`)"
+  - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Analytics
     - Bolts
     - boost-for-react-native
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
+    - JKBigInteger2
     - OneSignal
     - Purchases
 
@@ -133,12 +154,23 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal/react-native-onesignal.podspec"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
+  ReactNativeLocalization:
+    :path: "../node_modules/react-native-localization"
+  RNAnalytics:
+    :path: "../node_modules/@segment/analytics-react-native"
+  RNAWSCognito:
+    :path: "../node_modules/amazon-cognito-identity-js"
   RNPurchases:
     :path: "../node_modules/react-native-purchases"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Analytics: 63744ad4afa65c3bcdcdb7a94b62515bde5b3900
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
@@ -147,13 +179,19 @@ SPEC CHECKSUMS:
   FBSDKShareKit: 0e45916f4150da485928ae2a17ca021950b194f5
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
+  JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   OneSignal: 0f5ff711d9f25da54885e4ab06ef0abc221a46ef
   Purchases: 75f0143a1dfc086fc8d4a21910706e171885df80
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
   react-native-onesignal: 4d16f59736eb92e892fb009cb66a7c508fdeead0
+  react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-webview: 26d8993b090ca5d59eb9a9466dcb8291baa3223e
+  ReactNativeLocalization: 00800abad36a2a902b131c690d3e6143198ccc8a
+  RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
+  RNAWSCognito: 32012f57b04ef9c2e7742dbf997e28f2906c2e66
   RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: f5c45a9bee57a81e14c33662bf8e31fc6f47037a
+PODFILE CHECKSUM: b725dec5722704c68ff36b1fafafb3ea11dce025
 
 COCOAPODS: 1.7.4
