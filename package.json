@@ -27,7 +27,7 @@
     "react-native": "^0.59.8",
     "react-native-aws4": "^1.2.1",
     "react-native-datepicker": "^1.7.2",
-    "react-native-fbsdk": "^0.8.0",
+    "react-native-fbsdk": "^0.10.1",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-localization": "^2.1.2",
     "react-native-onesignal": "^3.2.14",
