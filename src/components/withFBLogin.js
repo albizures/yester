@@ -6,11 +6,14 @@ const permissions = ['email', 'public_profile']
 
 export default (Component) => {
   const onLoginWithFB = async () => {
-    const { isCancelled } = await LoginManager.logInWithReadPermissions(permissions)
+    const { isCancelled } = await LoginManager.logInWithPermissions(permissions)
     if (isCancelled) {
       throw new Error('Login cancelled')
     }
-    const { accessToken: token, expirationTime: expires } = await AccessToken.getCurrentAccessToken()
+    const {
+      accessToken: token,
+      expirationTime: expires,
+    } = await AccessToken.getCurrentAccessToken()
     const profile = await getCurrentProfile()
     return {
       profile,
@@ -20,9 +23,7 @@ export default (Component) => {
   }
 
   const withFBLogin = (props) => {
-    return (
-      <Component {...props} onLoginWithFB={onLoginWithFB} />
-    )
+    return <Component {...props} onLoginWithFB={onLoginWithFB} />
   }
 
   return withFBLogin
