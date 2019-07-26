@@ -6,7 +6,7 @@ import {
   createSwitchNavigator,
   createBottomTabNavigator,
 } from 'react-navigation'
-import Amplify from 'aws-amplify'
+import Amplify, { Hub } from 'aws-amplify'
 import SplashScreen from 'react-native-splash-screen'
 import debugFactory from 'debug'
 import { translate } from './components/Translate'
@@ -15,6 +15,8 @@ import {
   AWS_IDENTITY_POOL_ID,
   AWS_USER_POOL_ID,
   AWS_USER_CLIENT_POOL_ID,
+  COGNITO_DOMAIN,
+  // REDIRECT_URI,
 } from 'react-native-dotenv'
 import {
   initNotifications,
@@ -64,6 +66,14 @@ const debugInfo = debugFactory('yester:index:info')
 
 require('moment/locale/es.js')
 
+const oauth = {
+  domain: COGNITO_DOMAIN,
+  scope: ['email', 'profile', 'openid'],
+  // redirectSignIn: REDIRECT_URI,
+  // redirectSignOut: REDIRECT_URI,
+  responseType: 'token',
+}
+
 Amplify.configure({
   storage: Storage,
   Auth: {
@@ -73,14 +83,11 @@ Amplify.configure({
     userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
     mandatorySignIn: true,
   },
-  API: {
-    endpoints: [
-      {
-        name: 'main',
-        endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
-      },
-    ],
-  },
+  oauth: oauth,
+})
+
+Hub.listen('auth', (data) => {
+  debugInfo(data)
 })
 
 const SetupStack = createStackNavigator(
