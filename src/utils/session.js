@@ -3,6 +3,7 @@ import { StorageHelper } from '@aws-amplify/core'
 import { CognitoAuth } from 'amazon-cognito-auth-js'
 import debugFactory from 'debug'
 import moment from 'moment'
+import aws4 from 'react-native-aws4'
 import { AsyncStorage } from 'react-native'
 import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, COGNITO_DOMAIN } from 'react-native-dotenv'
 import { strings } from '../components/Translate'
@@ -65,6 +66,7 @@ export const forgotPasswordSubmit = async (email, code, password) => {
 export const logOut = async () => {
   await AsyncStorage.clear()
   delete instance.defaults.headers.common['Authorization']
+  await Auth.signOut()
   debugInfo('User logued out')
 }
 
@@ -212,4 +214,18 @@ export const setLocale = (locale) => {
   moment.locale(locale)
   strings.setLanguage(locale)
   debugInfo('Phone language saved')
+}
+
+export const signRequest = async (request) => {
+  const credentials = await Auth.currentCredentials()
+  const signedRequest = aws4.sign(request, {
+    secretAccessKey: credentials.secretAccessKey,
+    accessKeyId: credentials.accessKeyId,
+    sessionToken: credentials.sessionToken,
+  })
+
+  debugInfo('signedRequest: ', signedRequest)
+  delete signedRequest.headers['Content-Length']
+
+  return signedRequest
 }
