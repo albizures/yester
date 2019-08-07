@@ -16,6 +16,7 @@ import {
   AWS_USER_POOL_ID,
   AWS_USER_CLIENT_POOL_ID,
   COGNITO_DOMAIN,
+  HOST,
   // REDIRECT_URI,
 } from 'react-native-dotenv'
 import {
@@ -84,6 +85,14 @@ Amplify.configure({
     mandatorySignIn: true,
   },
   oauth: oauth,
+  API: {
+    endpoints: [
+      {
+        name: 'MainAPI',
+        endpoint: HOST,
+      },
+    ],
+  },
 })
 
 Hub.listen('auth', (data) => {
@@ -229,6 +238,8 @@ const RootStack = createSwitchNavigator(
 export default class App extends Component {
   state = {}
   async componentDidMount () {
+    console.log('Disabling debug', debugFactory.disable())
+    debugFactory.enable('yester:http*')
     SplashScreen.hide()
     await setAuthHeader()
 
