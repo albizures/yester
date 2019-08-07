@@ -145,7 +145,7 @@ class Tabs extends Component {
 
   render () {
     const { isLoading } = this.state
-    console.log('State', this.state)
+    debugInfo('State', this.state)
 
     if (isLoading) {
       return null // <Loading isLoading={isLoading} style={styles.loading} />
