@@ -7,7 +7,7 @@ import aws4 from 'react-native-aws4'
 import { AsyncStorage } from 'react-native'
 import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, COGNITO_DOMAIN } from 'react-native-dotenv'
 import { strings } from '../components/Translate'
-import { instance, setHeaderLocale } from './http'
+import http, { instance, setHeaderLocale } from './http'
 
 export const Storage = new StorageHelper().getStorage()
 const cognitoAuthParams = {
@@ -98,6 +98,30 @@ export const sanitizeUser = (user) => {
   }
 }
 
+export const getAPIUser = () => {
+  try {
+    const { data: user } = http.getAPI('/v2/users/')
+    debugInfo('Got user:', user)
+    return user
+  } catch (e) {
+    debugError(e)
+  }
+}
+
+export const postAPIUser = (user) => {
+  try {
+    const { email } = getAPIUser()
+    if (email) {
+      if (user['given_name'] !== undefined) delete user['given_name']
+      if (user['family_name'] !== undefined) delete user['family_name']
+    }
+    http.postAPI('/v2/users/', user)
+    debugInfo('Posted user:', user)
+  } catch (e) {
+    debugError(e)
+  }
+}
+
 export const isSetupFinished = async () => {
   const user = sanitizeUser(await getUserBypassCache())
   const notFinished = { finished: false, params: user }
@@ -159,6 +183,7 @@ export const updateUserAttribute = async (name, value) => {
   if (user[name] !== value) {
     await Auth.updateUserAttributes(user, { [name]: value })
   }
+  postAPIUser({ email: user.attributes['email'], [name]: value })
 }
 
 // NOTE this is only for dev purposes
