@@ -39,7 +39,7 @@ class Tabs extends Component {
 
   async getStoriesByAge (id) {
     try {
-      const { data = {} } = await http.get('/v1/stories', {
+      const { data = {} } = await http.getAPI('/v2/stories', {
         age_id: id,
       })
 
@@ -52,7 +52,6 @@ class Tabs extends Component {
 
   async getStoriesByAges () {
     const { agesList } = this.props.contextAges
-
     const agesByStory = {}
 
     const listOfAgesByStory = await Promise.all(

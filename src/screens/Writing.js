@@ -136,7 +136,7 @@ class Writing extends Component {
     track('Save Story', { title })
 
     try {
-      const { data } = await http.put('/v1/stories/' + encodeURIComponent(storyId), {
+      const { data } = await http.putAPI('/v2/stories/' + encodeURIComponent(storyId), {
         title: title,
         content: content,
       })
@@ -178,8 +178,6 @@ class Writing extends Component {
     if (!this.isFocused) {
       return
     }
-
-    console.log('fuck')
 
     this.positionateScroll()
   }

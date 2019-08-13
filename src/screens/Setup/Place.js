@@ -39,7 +39,7 @@ export default class Place extends Component {
   async componentDidMount () {
     try {
       screen('Place', {})
-      const { data: countries } = await http.get('/v1/countries')
+      const { data: countries } = await http.getAPI('/v2/countries')
       this.getStates()
       this.setState({
         countries: countries.map(({ name, iso_code: isoCode }) => ({
@@ -63,7 +63,7 @@ export default class Place extends Component {
   async getStates () {
     const { country } = this.state
     if (country) {
-      const { data: states } = await http.get('/v1/states/' + country)
+      const { data: states } = await http.getAPI('/v2/states/' + country)
       this.setState({
         states: states.map(({ name, iso_code: isoCode }) => ({
           label: name,

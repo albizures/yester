@@ -42,7 +42,7 @@ export default class Home extends Component {
 
     const storyId = navigation.getParam('storyId')
     try {
-      const { data: question } = await http.get('/v1/questions')
+      const { data: question } = await http.getAPI('/v2/questions')
       // const question = {
       //   age_id: 'Age#31',
       //   category: 'Family',

@@ -65,7 +65,7 @@ class AppLoading extends Component {
 
     try {
       debugInfo('Fetching ages')
-      const { data: ages } = await http.get('/v1/ages')
+      const { data: ages } = await http.getAPI('/v2/ages')
       updateAges(ages)
     } catch (error) {
       Alert.alert(translate('loading.error'))

@@ -23,7 +23,7 @@ export default class Tab extends Component {
     endReached: !this.props.initialEvaluatedKey,
   }
 
-  onEndReached = info => {
+  onEndReached = (info) => {
     this.getStories()
   }
 
@@ -34,7 +34,7 @@ export default class Tab extends Component {
       return
     }
     try {
-      const { data } = await http.get('/v1/stories', {
+      const { data } = await http.getAPI('/v2/stories', {
         age_id: age,
         lastEvaluatedKey,
       })
@@ -92,10 +92,7 @@ export default class Tab extends Component {
             style={[styles.message, styles.highlightMessage]}
             keyName={'home.empty.tab.title'}
           />
-          <Heading5
-            style={styles.message}
-            keyName={'home.empty.tab.subtitle'}
-          />
+          <Heading5 style={styles.message} keyName={'home.empty.tab.subtitle'} />
         </View>
       ) : (
         <FlatList
