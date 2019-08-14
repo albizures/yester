@@ -82,23 +82,23 @@ export const getUserBypassCache = () =>
   })
 
 export const sanitizeUser = (user) => {
-  if (!user.attributes) {
+  if (!user) {
     return {}
   }
   return {
-    country: user.attributes['custom:country'],
-    state: user.attributes['custom:state'],
-    birthPlace: user.attributes['custom:birthPlace'],
-    platform: user.attributes['custom:platform'],
-    notifications: user.attributes['custom:notifications'],
-    birthDate: user.attributes['birthdate'],
-    gender: user.attributes['gender'],
-    locale: user.attributes['locale'],
-    name: user.attributes['name'] || `${user.attributes.given_name} ${user.attributes.family_name}`,
-    givenName: user.attributes.given_name,
-    lastName: user.attributes.family_name,
-    email: user.attributes['email'],
-    userId: user.attributes['sub'],
+    country: user['country'],
+    state: user['state'],
+    birthPlace: user['birthplace'],
+    platform: user['platform'],
+    notifications: user['notifications'],
+    birthDate: user['birthdate'],
+    gender: user['gender'],
+    locale: user['locale'],
+    name: user['name'] || `${user['given_name']} ${user['family_name']}`,
+    givenName: user['given_name'],
+    lastName: user['family_name'],
+    email: user['email'],
+    userId: user['user_id'],
   }
 }
 
