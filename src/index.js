@@ -54,13 +54,7 @@ import Terms from './screens/Terms'
 import About from './screens/About'
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
-import {
-  setAuthHeader,
-  Storage,
-  getUserBypassCache,
-  sanitizeUser,
-  setLocale,
-} from './utils/session'
+import { setAuthHeader, Storage, getAPIUser, sanitizeUser, setLocale } from './utils/session'
 import { setupAnalytics } from './utils/analytics'
 
 const debugInfo = debugFactory('yester:index:info')
@@ -239,7 +233,7 @@ export default class App extends Component {
   state = {}
   async componentDidMount () {
     console.log('Disabling debug', debugFactory.disable())
-    debugFactory.enable('yester:http*')
+    debugFactory.enable('yester:session*, yester:http*, yester:Create*, yester:AppLoading*')
     SplashScreen.hide()
     await setAuthHeader()
 
@@ -276,7 +270,7 @@ export default class App extends Component {
 
   updateUser = async () => {
     debugInfo('Updating user')
-    const user = sanitizeUser(await getUserBypassCache())
+    const user = sanitizeUser(await getAPIUser())
     setLocale(user.locale)
     this.setState({ user })
   }
