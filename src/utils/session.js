@@ -31,11 +31,15 @@ const debugError = debugFactory('yester:session:error')
 
 export const extractTokenFromSession = async () => {
   const currentSession = await Auth.currentSession()
-  debugInfo('Auth.currentSession: ', currentSession)
   return currentSession.accessToken.jwtToken
 }
 
-export const getToken = () => extractTokenFromSession()
+export const extractTokenFromCredentials = async () => {
+  const currentCredentials = await Auth.currentCredentials()
+  return currentCredentials.sessionToken
+}
+
+export const getToken = () => extractTokenFromCredentials()
 
 export const setAuthHeader = async (token) => {
   try {
@@ -45,7 +49,7 @@ export const setAuthHeader = async (token) => {
       instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
     }
   } catch (error) {
-    debugError('There is no token', error)
+    debugError('There is no token to set', error)
   }
 }
 
@@ -110,8 +114,7 @@ export const getAPIUser = () => {
 
 export const postAPIUser = (user) => {
   try {
-    const { email } = getAPIUser()
-    if (email) {
+    if (getAPIUser()) {
       if (user['given_name'] !== undefined) delete user['given_name']
       if (user['family_name'] !== undefined) delete user['family_name']
     }
