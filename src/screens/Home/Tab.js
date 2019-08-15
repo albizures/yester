@@ -36,7 +36,7 @@ export default class Tab extends Component {
     try {
       const { data } = await http.getAPI('/v2/stories', {
         age_id: age,
-        lastEvaluatedKey,
+        lastEvaluatedKey: JSON.stringify(lastEvaluatedKey),
       })
 
       const stories = currentStories.concat(data.items)
