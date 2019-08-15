@@ -36,7 +36,7 @@ class Notificacions extends Component {
         subscriptionEnabled: notifications,
       })
 
-      debugInfo('DidMount custom:notifications: ', notifications)
+      debugInfo('DidMount notifications: ', notifications)
       debugInfo('DidMount Status: ', status)
       if (notifications !== status.subscriptionEnabled) {
         setSubscription(notifications)
@@ -65,7 +65,7 @@ class Notificacions extends Component {
         subscriptionEnabled: !subscriptionEnabled,
       })
 
-      await updateUserAttribute('custom:notifications', (!subscriptionEnabled).toString())
+      await updateUserAttribute('notifications', !subscriptionEnabled)
       updateUser()
       setSubscription(!subscriptionEnabled)
     })
