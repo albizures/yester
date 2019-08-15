@@ -1,7 +1,6 @@
 import { SEGMENT_KEY } from 'react-native-dotenv'
 import analytics from '@segment/analytics-react-native'
 import debugFactory from 'debug'
-import { getUser, sanitizeUser } from './session'
 
 const debugError = debugFactory('yester:analytics:error')
 
@@ -20,9 +19,8 @@ export const setupAnalytics = async () => {
   }
 }
 
-export const identify = async () => {
+export const identify = async (user) => {
   try {
-    const user = sanitizeUser(await getUser())
     const { userId, email } = user
     analytics.identify(userId, {
       email: email,

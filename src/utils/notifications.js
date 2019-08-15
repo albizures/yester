@@ -1,7 +1,7 @@
 import { ONESIGNAL_APPID } from 'react-native-dotenv'
 import OneSignal from 'react-native-onesignal'
 import debugFactory from 'debug'
-import { updateUserAttribute, getUser, sanitizeUser } from './session'
+import { updateUserAttribute } from './session'
 
 const debugInfo = debugFactory('yester:notifications:info')
 const debugError = debugFactory('yester:notifications:error')
@@ -94,9 +94,8 @@ export const registerForPushNotifications = async () => {
   }
 }
 
-export const checkNotificationsStatus = async () => {
+export const checkNotificationsStatus = async (user) => {
   try {
-    const user = sanitizeUser(await getUser())
     const { userId, email } = user
 
     await registerForPushNotifications()
@@ -107,7 +106,7 @@ export const checkNotificationsStatus = async () => {
 
     getPermissionSubscriptionState(async (status) => {
       debugInfo('checkNotificationsStatus: ', status)
-      await updateUserAttribute('custom:notifications', status.subscriptionEnabled.toString())
+      await updateUserAttribute('notifications', status.subscriptionEnabled)
     })
   } catch (error) {
     debugError('checkNotificationsStatus', error)

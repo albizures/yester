@@ -33,8 +33,11 @@ class Profile extends Component {
   }
 
   onPressEdit = async () => {
-    const { navigation } = this.props
-    const { params } = await isSetupFinished()
+    const {
+      navigation,
+      contextUser: { user },
+    } = this.props
+    const { params } = await isSetupFinished(user)
     return navigation.navigate('SetupBirthDate', params)
   }
 

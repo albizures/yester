@@ -81,7 +81,8 @@ export const getUserBypassCache = () =>
     bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
   })
 
-export const sanitizeUser = (user) => {
+export const sanitizeUser = async (user) => {
+  user = await getAPIUser()
   if (!user) {
     return {}
   }
@@ -99,34 +100,30 @@ export const sanitizeUser = (user) => {
     lastName: user['family_name'],
     email: user['email'],
     userId: user['user_id'],
+    subscriptionStatus: user['subscription_status'],
   }
 }
 
-export const getAPIUser = () => {
+export const getAPIUser = async () => {
   try {
-    const { data: user } = http.getAPI('/v2/users/')
-    debugInfo('Got user:', user)
+    debugInfo('API call get user')
+    const { data: user } = await http.getAPI('/v2/users/')
     return user
   } catch (e) {
     debugError(e)
   }
 }
 
-export const postAPIUser = (user) => {
+export const postAPIUser = async (user) => {
   try {
-    if (getAPIUser()) {
-      if (user['given_name'] !== undefined) delete user['given_name']
-      if (user['family_name'] !== undefined) delete user['family_name']
-    }
-    http.postAPI('/v2/users/', user)
-    debugInfo('Posted user:', user)
+    debugInfo('API call post user')
+    await http.postAPI('/v2/users/', user)
   } catch (e) {
     debugError(e)
   }
 }
 
-export const isSetupFinished = async () => {
-  const user = sanitizeUser(await getUserBypassCache())
+export const isSetupFinished = async (user) => {
   const notFinished = { finished: false, params: user }
 
   if (!Object.keys(user).length) return notFinished
@@ -145,77 +142,80 @@ export const isSetupFinished = async () => {
   return { finished: true, params: user }
 }
 
-export const isSubscribed = async () => {
-  const user = await getUser()
-
-  if (!user.attributes) {
+export const isSubscribed = async (user) => {
+  if (!user.subscriptionStatus) {
     return false
   }
 
-  if (!user.attributes['custom:subscription_status']) {
-    return false
-  }
-
-  if (user.attributes['custom:subscription_status'] !== '1') {
+  if (user.subscriptionStatus !== '1') {
     return false
   }
   return true
 }
 
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
-  const user = await getUser()
-  await Auth.updateUserAttributes(user, {
-    'custom:country': country,
-    'custom:state': state,
-    'custom:birthPlace': birthPlace,
-    'custom:platform': platform,
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    country: country,
+    state: state,
+    birthplace: birthPlace,
+    platform: platform,
     birthdate: birthDate,
     gender: gender,
   })
 }
 
 export const saveUserSubscriptionStatus = async (subscriptionStatus) => {
-  const user = await getUser()
-  await Auth.updateUserAttributes(user, {
-    'custom:subscription_status': subscriptionStatus,
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    subscription_status: subscriptionStatus,
   })
 }
 
 export const updateUserAttribute = async (name, value) => {
-  const user = await getUser()
-  if (user[name] !== value) {
-    await Auth.updateUserAttributes(user, { [name]: value })
-  }
-  postAPIUser({ email: user.attributes['email'], [name]: value })
+  // TODO async storage to compare local and cloud attributes
+  // const user = await sanitizeUser()
+  // if (user[name] !== value) {
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    [name]: value,
+  })
+  // }
 }
 
 // NOTE this is only for dev purposes
 export const cleanUserData = async () => {
-  const user = await getUser()
-  await Auth.updateUserAttributes(user, {
-    'custom:country': '',
-    'custom:state': '',
-    'custom:birthPlace': '',
-    'custom:platform': '',
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    country: '',
+    state: '',
+    birthplace: '',
+    platform: '',
     birthdate: '',
     gender: '',
-    'custom:subscription_status': '',
+    subscription_status: '',
   })
 }
 
 // NOTE this is only for dev purposes
 export const cleanUserNotifications = async () => {
-  const user = await getUser()
-  await Auth.updateUserAttributes(user, {
-    'custom:notifications': '',
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    notifications: '',
   })
 }
 
 // TODO: Use this.updateUserAttribute
 export const removeSubscription = async () => {
-  const user = await getUser()
-  await Auth.updateUserAttributes(user, {
-    'custom:subscription_status': '',
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    subscription_status: '',
   })
 }
 
@@ -237,11 +237,11 @@ export const loginWithFBWebView = (url) =>
   })
 
 export const setLocale = (locale) => {
-  debugInfo('Saving phone language')
+  locale = locale || 'en'
+  debugInfo('Setting app language: ', locale)
   setHeaderLocale(locale)
   moment.locale(locale)
   strings.setLanguage(locale)
-  debugInfo('Phone language saved')
 }
 
 export const signRequest = async (request) => {

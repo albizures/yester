@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import debugFactory from 'debug'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
@@ -23,6 +22,7 @@ import {
   saveUserSubscriptionStatus,
 } from '../utils/session'
 import { identify } from '../utils/analytics'
+import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:AppLoading:error')
 const debugInfo = debugFactory('yester:AppLoading:info')
@@ -64,7 +64,7 @@ class AppLoading extends Component {
     } = this.props
 
     try {
-      debugInfo('Fetching ages')
+      debugInfo('API call get ages')
       const { data: ages } = await http.getAPI('/v2/ages')
       updateAges(ages)
     } catch (error) {
@@ -79,9 +79,8 @@ class AppLoading extends Component {
       contextUser: { updateUser },
     } = this.props
 
-    setLocale(strings.getLanguage())
-
     try {
+      setLocale(strings.getLanguage())
       const userToken = await getToken()
       if (!userToken) {
         debugInfo('No token found, sending user to Auth flow')
@@ -90,29 +89,29 @@ class AppLoading extends Component {
       // Set user in context
       await updateUser()
       const { user } = this.props.contextUser
-      identify()
+      identify(user)
+      await setupPurchases(user)
 
       getPermissionSubscriptionState((status) => {
         debugInfo('Status: ', status)
         // If notifications are set to true in the cloud but hasn't been prompted in current device
         if (!status.hasPrompted && user.notifications) {
-          checkNotificationsStatus()
+          checkNotificationsStatus(user)
         }
       })
 
-      const { finished, params } = await isSetupFinished()
+      const { finished, params } = await isSetupFinished(user)
       if (!finished) {
         return navigation.navigate('SetupBirthDate', params)
       }
 
-      await setupPurchases()
-      const hasSubscription = await isSubscribed()
+      const hasSubscription = await isSubscribed(user)
       const purchaserInfo = await getPurchaserInfo()
 
       // const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
 
       const { activeEntitlements = [] } = purchaserInfo || {}
-      debugInfo('Active entitlements:', activeEntitlements)
+      debugInfo('Active entitlements: ', activeEntitlements)
       if (activeEntitlements === 'undefined' || !activeEntitlements.includes('pro')) {
         if (hasSubscription) {
           await removeSubscription()

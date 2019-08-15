@@ -2,7 +2,7 @@ import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
-import { getUser, saveUserSubscriptionStatus, removeSubscription } from './session'
+import { saveUserSubscriptionStatus, removeSubscription } from './session'
 
 const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
@@ -18,11 +18,10 @@ export const eventTypes = {
   PURCHASE: 'PURCHASE',
 }
 
-export const setupPurchases = async () => {
+export const setupPurchases = async (user) => {
   try {
-    const user = await getUser()
     Purchases.setDebugLogsEnabled(false)
-    Purchases.setup(REVENUECAT_API_KEY, user.username)
+    Purchases.setup(REVENUECAT_API_KEY, user.userId)
     Purchases.setAllowSharingStoreAccount(true)
   } catch (error) {
     debugError('setupPurchases', error)

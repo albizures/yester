@@ -9,7 +9,7 @@ import colors from '../../utils/colors'
 import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
-import { sendTags, checkNotificationsStatus } from '../../utils/notifications'
+import { checkNotificationsStatus } from '../../utils/notifications'
 import { screen } from '../../utils/analytics'
 
 class Confirmation extends Component {
@@ -31,7 +31,7 @@ class Confirmation extends Component {
   onContinue = async () => {
     const {
       navigation,
-      contextUser: { updateUser },
+      contextUser: { updateUser, user },
     } = this.props
     const { birthDate, country, state, gender, birthPlace } = this.state
     await saveUserData({
@@ -42,7 +42,8 @@ class Confirmation extends Component {
       birthPlace,
       platform: Platform.OS,
     })
-    await checkNotificationsStatus()
+
+    await checkNotificationsStatus(user)
     await updateUser()
     navigation.navigate('AppLoading')
   }

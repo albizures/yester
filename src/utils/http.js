@@ -30,7 +30,7 @@ export default {
       queryStringParameters: params,
     }
     const response = await API.get('MainAPI', path, myInit)
-    debugInfo('http.getAPI ' + path + JSON.stringify(params || ''), response)
+    debugInfo('http.getAPI ' + path + ' params: ' + JSON.stringify(params || {}), response)
     return response
   },
   postAPI: async (path, body) => {
