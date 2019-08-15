@@ -63,7 +63,7 @@ export default class Place extends Component {
   async getStates () {
     const { country } = this.state
     if (country) {
-      const { data: states } = await http.getAPI('/v2/states/' + country)
+      const { data: states } = await http.getAPI('/v2/states/' + encodeURIComponent(country))
       this.setState({
         states: states.map(({ name, iso_code: isoCode }) => ({
           label: name,
