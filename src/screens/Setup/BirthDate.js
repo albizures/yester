@@ -5,7 +5,6 @@ import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
 import { translate } from '../../components/Translate'
 import Button from '../../components/Button'
-import { getUser, updateUserAttribute } from '../../utils/session'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import DatePicker from '../../components/DatePicker'
@@ -16,13 +15,15 @@ import { Auth } from 'aws-amplify'
 import { USER_PASSWORD_ADMIN, USER_PASSWORD_DEFAULT } from 'react-native-dotenv'
 import { screen } from '../../utils/analytics'
 import debugFactory from 'debug'
+import withUser, { shapeContextUser } from '../../components/withUser'
 
 const debugError = debugFactory('yester:BirthDate:error')
 const debugInfo = debugFactory('yester:BirthDate:info')
 
-export default class BirthDate extends Component {
+class BirthDate extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   scroll = React.createRef()
@@ -45,27 +46,27 @@ export default class BirthDate extends Component {
 
   async componentDidMount () {
     const { navigation } = this.props
+    const { user } = this.props.contextUser
     navigation.addListener('didFocus', this.onDidFocus)
     screen('BirthDate', {})
-    const user = await getUser()
     this.setState({
-      name: user.attributes.given_name,
+      name: user.givenName,
     })
 
     /* To turn user into CONFIRMED status: */
-    // TODO Ask new password to user
+    // TODO Remove this:
+    /*
     try {
-      debugInfo('getUser:', user)
-      if (user.attributes['custom:createdBy'] === 'admin') {
-        let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
+      if (user['createdBy'] === 'admin') {
+        let userNC = await Auth.signIn(user.email, USER_PASSWORD_ADMIN)
         const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
-        userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
-        await updateUserAttribute('custom:createdBy', 'admin_confirmed')
+        userNC = await Auth.signIn(user.email, USER_PASSWORD_DEFAULT)
+        await updateUserAttribute('createdBy', 'admin_confirmed')
         debugInfo('complete:', complete)
       }
     } catch (error) {
       debugError(error)
-    }
+    } */
   }
 
   onContinue = () => {
@@ -208,6 +209,8 @@ export default class BirthDate extends Component {
     )
   }
 }
+
+export default withUser(BirthDate)
 
 const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({
