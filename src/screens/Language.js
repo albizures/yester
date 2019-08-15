@@ -11,6 +11,10 @@ import {
 } from '../utils/session'
 import { translate } from '../components/Translate'
 import { screen } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Language:error')
+const debugInfo = debugFactory('yester:Language:info')
 
 const isCheck = (locale, currentLocale) => {
   if (locale === currentLocale) {
@@ -62,23 +66,26 @@ class Language extends Component {
   }
 
   onPress = async (locale) => {
-    const { navigation } = this.props
-    this.setState({ isLoading: true })
+    const {
+      navigation,
+      contextUser: { updateUser },
+    } = this.props
+    this.setState({ isLoading: true, locale })
     try {
       await updateUserAttribute('locale', locale)
+      await updateUser()
       navigation.navigate('AppLoading', {
         lastScreen: 'Language',
       })
     } catch (error) {
       Alert.alert(translate('language.error'))
-      console.log(error, error.message)
+      debugError(error, error.message)
       this.setState({ isLoading: false })
     }
   }
 
   render () {
-    const { isLoading } = this.state
-    const { locale: currentLocale } = this.props.contextUser.user
+    const { isLoading, locale: currentLocale } = this.state
     const topBar = <TopBar title='language.title' onBack={this.onBack} />
 
     return (
