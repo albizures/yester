@@ -2,10 +2,10 @@ import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Alert, View, StyleSheet, Dimensions } from 'react-native'
+import { Alert, View, StyleSheet, Dimensions, Platform } from 'react-native'
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-import { logIn, saveUserToken } from '../utils/session'
+import { logIn, postAPIUser } from '../utils/session'
 import Button from '../components/Button'
 import { Heading2, Heading3, Description } from '../components'
 import Container from '../components/Container'
@@ -17,6 +17,7 @@ import { translate } from '../components/Translate'
 import { screen } from '../utils/analytics'
 import debugFactory from 'debug'
 
+const debugInfo = debugFactory('yester:Login:info')
 const debugError = debugFactory('yester:Login:error')
 
 class Login extends Component {
@@ -34,14 +35,23 @@ class Login extends Component {
     screen('Login', {})
   }
 
-  onFBLogin = async () => {
+  onFBNativeLogin = async () => {
     const { onLoginWithFB, navigation } = this.props
 
     try {
-      const { token, expires, profile } = onLoginWithFB()
+      const { token, expires, profile } = await onLoginWithFB()
+      debugInfo('Profile: ', profile, expires)
       await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
-      await saveUserToken()
-      navigation.navigate('App')
+
+      const currentUser = await Auth.currentAuthenticatedUser()
+      await postAPIUser({
+        email: currentUser.email,
+        given_name: profile['first_name'],
+        family_name: profile['last_name'],
+        platform: Platform.OS,
+      })
+
+      return navigation.navigate('AppLoading')
     } catch (error) {
       debugError('NativeFB Login', error)
       Alert.alert(translate('login.error.facebook'))
@@ -57,7 +67,17 @@ class Login extends Component {
     const { email, password } = this.state
     try {
       await logIn(email, password)
-      navigation.navigate('AppLoading')
+
+      // When isn't federatedSignIn, the user comes from CognitoUP
+      // so it has got to use 'attributes' in order to get email.
+      const currentUser = await Auth.currentAuthenticatedUser()
+      console.log('currentUser', currentUser)
+      await postAPIUser({
+        email: currentUser.attributes.email,
+        platform: Platform.OS,
+      })
+
+      return navigation.navigate('AppLoading')
     } catch (error) {
       debugError('Login', error)
       if (error.code === 'NotAuthorizedException') {
@@ -94,7 +114,11 @@ class Login extends Component {
         <KeyboardAwareScrollView extraScrollHeight={170} enableOnAndroid>
           <View style={styles.view}>
             <View style={styles.topFlex}>
-              <Button title='createAccount.continue' icon={icons.fb} onPress={this.onFBWebView} />
+              <Button
+                title='createAccount.continue'
+                icon={icons.fb}
+                onPress={this.onFBNativeLogin}
+              />
               <Description
                 keyName='createAccount.recommendation'
                 style={styles.recommendationText}
