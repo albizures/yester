@@ -13,6 +13,7 @@ import { translate } from '../components/Translate'
 import { View, Text, StyleSheet, Alert, Image, Dimensions, StatusBar, Platform } from 'react-native'
 import { screen, track } from '../utils/analytics'
 import { postAPIUser } from '../utils/session'
+import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:CreateAccount:info')
@@ -48,6 +49,8 @@ class CreateAccount extends Component {
         given_name: profile['first_name'],
         family_name: profile['last_name'],
         platform: Platform.OS,
+        build: DeviceInfo.getBuildNumber(),
+        version: DeviceInfo.getVersion(),
       })
 
       return navigation.navigate('AppLoading')

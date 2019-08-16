@@ -18,6 +18,7 @@ import TextInput from '../components/TextInput'
 import { logIn, postAPIUser } from '../utils/session'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
+import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:ConfirmAccount:error')
@@ -57,6 +58,8 @@ export default class ConfirmAccount extends Component {
         family_name: currentUser.attributes['family_name'],
         locale: currentUser.attributes['locale'],
         platform: Platform.OS,
+        build: DeviceInfo.getBuildNumber(),
+        version: DeviceInfo.getVersion(),
       })
       return navigation.navigate('AppLoading')
     } catch (error) {

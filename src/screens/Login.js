@@ -15,6 +15,7 @@ import TextInput from '../components/TextInput'
 import TopBar from '../components/TopBar'
 import { translate } from '../components/Translate'
 import { screen } from '../utils/analytics'
+import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Login:info')
@@ -49,6 +50,8 @@ class Login extends Component {
         given_name: profile['first_name'],
         family_name: profile['last_name'],
         platform: Platform.OS,
+        build: DeviceInfo.getBuildNumber(),
+        version: DeviceInfo.getVersion(),
       })
 
       return navigation.navigate('AppLoading')
@@ -74,6 +77,8 @@ class Login extends Component {
       await postAPIUser({
         email: currentUser.attributes.email,
         platform: Platform.OS,
+        build: DeviceInfo.getBuildNumber(),
+        version: DeviceInfo.getVersion(),
       })
 
       return navigation.navigate('AppLoading')
