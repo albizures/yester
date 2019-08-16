@@ -10,17 +10,13 @@ import Container from '../components/Container'
 import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
 import { translate } from '../components/Translate'
-import {
-  View,
-  Text,
-  StyleSheet,
-  AsyncStorage,
-  Alert,
-  Image,
-  Dimensions,
-  StatusBar,
-} from 'react-native'
+import { View, Text, StyleSheet, Alert, Image, Dimensions, StatusBar, Platform } from 'react-native'
 import { screen, track } from '../utils/analytics'
+import { postAPIUser } from '../utils/session'
+import debugFactory from 'debug'
+
+const debugInfo = debugFactory('yester:CreateAccount:info')
+const debugError = debugFactory('yester:CreateAccount:error')
 
 class CreateAccount extends Component {
   static propTypes = {
@@ -42,15 +38,21 @@ class CreateAccount extends Component {
 
     try {
       const { token, expires, profile } = await onLoginWithFB()
-      const { sessionToken } = await Auth.federatedSignIn(
-        'facebook',
-        { token, expires_at: expires },
-        profile
-      )
-      AsyncStorage.setItem('userToken', sessionToken)
-      navigation.navigate('App')
+      debugInfo('Profile: ', profile, expires)
+      await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
+      // AsyncStorage.setItem('userToken', credentials.sessionToken)
+
+      const currentUser = await Auth.currentAuthenticatedUser()
+      await postAPIUser({
+        email: currentUser.email,
+        given_name: profile['first_name'],
+        family_name: profile['last_name'],
+        platform: Platform.OS,
+      })
+
+      return navigation.navigate('AppLoading')
     } catch (error) {
-      console.log('FB Create Account:', error)
+      debugError('FB Create Account:', JSON.stringify(error))
       Alert.alert(translate('signup.error.facebook'))
     }
   }
@@ -82,7 +84,7 @@ class CreateAccount extends Component {
           </View>
 
           <View style={styles.middleFlex}>
-            <Button title='createAccount.continue' onPress={this.onFBWebView} icon={icons.fb} />
+            <Button title='createAccount.continue' onPress={this.onFBNativeLogin} icon={icons.fb} />
             <Description keyName='createAccount.recommendation' style={styles.recommendationText} />
             <TextDivider>
               <Heading3 keyName='createAccount.or' />
