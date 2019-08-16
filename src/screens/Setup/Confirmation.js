@@ -56,7 +56,7 @@ class Confirmation extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       birthPlace,
       updateSetup,
@@ -67,7 +67,7 @@ class Confirmation extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       birthPlace,
       updateSetup,
@@ -75,7 +75,7 @@ class Confirmation extends Component {
   }
 
   render () {
-    const { name, stateName, updateSetup } = this.state
+    const { givenName, stateName, updateSetup } = this.state
     let titleKeyName = 'setup.confirmation.title'
     let subtitleKeyName = 'setup.confirmation.subtitle'
     let continueKeyName = 'setup.confirmation.continue'
@@ -92,7 +92,7 @@ class Confirmation extends Component {
         <View style={styles.topFlex}>
           <Heading2
             keyName={titleKeyName}
-            data={{ state: stateName, name }}
+            data={{ state: stateName, givenName }}
             style={styles.titleText}
           />
 

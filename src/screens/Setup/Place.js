@@ -85,7 +85,7 @@ export default class Place extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       updateSetup,
     } = this.state
@@ -97,7 +97,7 @@ export default class Place extends Component {
         state,
         countryName,
         stateName,
-        name,
+        givenName,
         gender,
         birthPlace: stateName + ', ' + countryName,
         updateSetup,

@@ -11,8 +11,6 @@ import DatePicker from '../../components/DatePicker'
 import Picker from '../../components/Picker'
 import TopBar from '../../components/TopBar'
 import { extractSetupParams } from '../../utils'
-import { Auth } from 'aws-amplify'
-import { USER_PASSWORD_ADMIN, USER_PASSWORD_DEFAULT } from 'react-native-dotenv'
 import { screen } from '../../utils/analytics'
 import debugFactory from 'debug'
 import withUser, { shapeContextUser } from '../../components/withUser'
@@ -33,10 +31,8 @@ class BirthDate extends Component {
     const { navigation } = this.props
     this.state = {
       ...extractSetupParams(navigation),
-      name: '',
       genders: [{ value: 'female', label: 'Female' }, { value: 'male', label: 'Male' }],
     }
-    // debugInfo('State: ', this.state)
   }
 
   onDidFocus = () => {
@@ -50,7 +46,7 @@ class BirthDate extends Component {
     navigation.addListener('didFocus', this.onDidFocus)
     screen('BirthDate', {})
     this.setState({
-      name: user.givenName,
+      givenName: user.givenName,
     })
 
     /* To turn user into CONFIRMED status: */
@@ -77,7 +73,7 @@ class BirthDate extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       birthPlace,
       updateSetup,
@@ -89,7 +85,7 @@ class BirthDate extends Component {
         state,
         countryName,
         stateName,
-        name,
+        givenName,
         gender,
         birthPlace,
         updateSetup,
@@ -128,7 +124,7 @@ class BirthDate extends Component {
   }
 
   render () {
-    const { name, birthDate, genders, gender, marginBottom } = this.state
+    const { givenName, birthDate, genders, gender, marginBottom } = this.state
     const topBarTitle = (
       <View style={{ height: 110, paddingHorizontal: 30 }}>
         <View
@@ -140,7 +136,7 @@ class BirthDate extends Component {
         >
           <Heading2
             keyName='setup.age.greeting'
-            data={{ name }}
+            data={{ givenName }}
             style={[{ color: colors.brightTurquoise }]}
           />
         </View>
