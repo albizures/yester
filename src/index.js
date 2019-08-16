@@ -233,7 +233,7 @@ export default class App extends Component {
   state = {}
   async componentDidMount () {
     console.log('Disabling debug', debugFactory.disable())
-    debugFactory.enable('yester:AppLoading*')
+    // debugFactory.enable('yester:AppLoading*, yester:http*')
     SplashScreen.hide()
 
     initNotifications()
