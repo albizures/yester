@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { View, Alert, StyleSheet, Dimensions } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Auth } from 'aws-amplify'
-
 import Container from '../components/Container'
 import Button from '../components/Button'
 import { Heading2, Heading4 } from '../components'
@@ -25,6 +24,7 @@ export default class SignUp extends Component {
   }
 
   onPress = async () => {
+    const { navigation } = this.props
     const { firstName, lastName, email, password } = this.state
 
     try {
@@ -38,7 +38,7 @@ export default class SignUp extends Component {
         },
       })
 
-      this.props.navigation.navigate('ConfirmAccount', { user, email, password })
+      return navigation.navigate('ConfirmAccount', { user, email, password })
     } catch (error) {
       console.log('Create Account: ', error)
       Alert.alert(translate('signup.error'))

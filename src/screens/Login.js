@@ -71,7 +71,6 @@ class Login extends Component {
       // When isn't federatedSignIn, the user comes from CognitoUP
       // so it has got to use 'attributes' in order to get email.
       const currentUser = await Auth.currentAuthenticatedUser()
-      console.log('currentUser', currentUser)
       await postAPIUser({
         email: currentUser.attributes.email,
         platform: Platform.OS,

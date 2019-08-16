@@ -1,15 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Alert, StyleSheet, Image, KeyboardAvoidingView, Dimensions } from 'react-native'
+import {
+  View,
+  Alert,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+  Dimensions,
+  Platform,
+} from 'react-native'
 import { Auth } from 'aws-amplify'
 import { Body1, Heading2, Heading3, Heading4 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
 import Button from '../components/Button'
 import TextInput from '../components/TextInput'
-import { logIn } from '../utils/session'
+import { logIn, postAPIUser } from '../utils/session'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:ConfirmAccount:error')
+const debugInfo = debugFactory('yester:ConfirmAccount:info')
 
 export default class ConfirmAccount extends Component {
   static propTypes = {
@@ -36,7 +48,17 @@ export default class ConfirmAccount extends Component {
     const password = navigation.getParam('password')
     try {
       await logIn(email, password)
-      navigation.navigate('AppLoading')
+
+      // TODO Find the best way to allow manual name update.
+      const currentUser = await Auth.currentAuthenticatedUser()
+      await postAPIUser({
+        email: currentUser.attributes.email,
+        given_name: currentUser.attributes['given_name'],
+        family_name: currentUser.attributes['family_name'],
+        locale: currentUser.attributes['locale'],
+        platform: Platform.OS,
+      })
+      return navigation.navigate('AppLoading')
     } catch (error) {
       navigation.navigate('Login')
     }
@@ -51,14 +73,15 @@ export default class ConfirmAccount extends Component {
       await Auth.confirmSignUp(email, code)
       this.postConfirm()
     } catch (error) {
-      console.log('ConfirmAccount', error)
+      debugError('ConfirmAccount', error)
       Alert.alert(error.message || error)
     }
   }
 
   onPressResend () {
-    // Get user's email to send another verification code
-    // const user = Auth.resendSignUp({username: email})
+    const { navigation } = this.props
+    const email = navigation.getParam('email')
+    Auth.resendSignUp({ username: email })
   }
 
   render () {
@@ -66,12 +89,10 @@ export default class ConfirmAccount extends Component {
     const { navigation } = this.props
     const email = navigation.getParam('email')
     const number = navigation.getParam('number')
-    const topBar = (
-      <TopBar title='confirm.topbar' onBack={this.onBack} />
-    )
+    const topBar = <TopBar title='confirm.topbar' onBack={this.onBack} />
     return (
       <Container topBar={topBar}>
-        <KeyboardAvoidingView enabled behavior='position' >
+        <KeyboardAvoidingView enabled behavior='position'>
           <View style={styles.container}>
             <View style={styles.topFlex}>
               <Image source={icons.feather} style={styles.image} />
@@ -79,18 +100,28 @@ export default class ConfirmAccount extends Component {
               <Heading4 keyName='confirm.subtitle' style={styles.subtitleText} />
             </View>
 
-            <View style={styles.middleFlex} >
+            <View style={styles.middleFlex}>
               <Heading4 keyName='confirm.label' />
-              <Heading3 text='{contact}' data={{ contact: email || number }}
-                style={styles.contactText} />
+              <Heading3
+                text='{contact}'
+                data={{ contact: email || number }}
+                style={styles.contactText}
+              />
               <Heading4 keyName='confirm.note' style={styles.noteText} />
             </View>
 
             <View style={styles.bottomFlex}>
-              <TextInput title='confirm.inputLabel' keyboardType='numeric'
-                value={code} onChangeText={text => this.onChange(text, 'code')} />
-              <Body1 keyName='confirm.resendCode' style={styles.resendText}
-                onPress={this.onPressResend} />
+              <TextInput
+                title='confirm.inputLabel'
+                keyboardType='numeric'
+                value={code}
+                onChangeText={(text) => this.onChange(text, 'code')}
+              />
+              <Body1
+                keyName='confirm.resendCode'
+                style={styles.resendText}
+                onPress={this.onPressResend}
+              />
               <Button title='confirm.submit' onPress={this.onPress} />
             </View>
           </View>
@@ -110,13 +141,13 @@ const styles = StyleSheet.create({
     // paddingBottom: height * 0.18,
   },
   topFlex: {
-    flex: 0.30,
+    flex: 0.3,
     alignItems: 'center',
     paddingTop: height * 0.07,
     paddingBottom: height * 0.022,
   },
   middleFlex: {
-    flex: 0.20,
+    flex: 0.2,
     alignItems: 'center',
   },
   bottomFlex: {
