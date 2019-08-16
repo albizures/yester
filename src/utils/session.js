@@ -8,6 +8,7 @@ import { AsyncStorage } from 'react-native'
 import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, COGNITO_DOMAIN } from 'react-native-dotenv'
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
+import { LoginManager } from 'react-native-fbsdk'
 
 export const Storage = new StorageHelper().getStorage()
 const cognitoAuthParams = {
@@ -71,6 +72,7 @@ export const logOut = async () => {
   await AsyncStorage.clear()
   delete instance.defaults.headers.common['Authorization']
   await Auth.signOut()
+  await LoginManager.logOut()
   debugInfo('User logued out')
 }
 
