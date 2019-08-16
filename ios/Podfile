@@ -54,7 +54,7 @@ target 'Yester' do
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   # Pods for Yester
 
-  # pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   target 'YesterTests' do
     inherit! :search_paths

@@ -106,6 +106,8 @@ PODS:
   - RNAWSCognito (3.0.12):
     - JKBigInteger2 (= 0.0.5)
     - React
+  - RNDeviceInfo (2.3.2):
+    - React
   - RNPurchases (2.2.1):
     - Purchases (~> 2.3.0)
     - React
@@ -138,6 +140,7 @@ DEPENDENCIES:
   - ReactNativeLocalization (from `../node_modules/react-native-localization`)
   - "RNAnalytics (from `../node_modules/@segment/analytics-react-native`)"
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -175,6 +178,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@segment/analytics-react-native"
   RNAWSCognito:
     :path: "../node_modules/amazon-cognito-identity-js"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNPurchases:
     :path: "../node_modules/react-native-purchases"
   yoga:
@@ -200,9 +205,10 @@ SPEC CHECKSUMS:
   ReactNativeLocalization: 00800abad36a2a902b131c690d3e6143198ccc8a
   RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
   RNAWSCognito: 32012f57b04ef9c2e7742dbf997e28f2906c2e66
+  RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
   RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 31d82fa754c5aaa10468e94d465bdc1af4e6ebb5
+PODFILE CHECKSUM: 62344cdac248131469e4ed0890e957365de1c28a
 
 COCOAPODS: 1.7.4
