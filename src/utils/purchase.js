@@ -2,7 +2,8 @@ import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
-import { saveUserSubscriptionStatus, removeSubscription } from './session'
+import { saveUserSubscriptionStatus, removeSubscription, updateUserAttribute } from './session'
+import moment from 'moment'
 
 const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
@@ -68,6 +69,7 @@ export const buySubscription = async (productId) => {
 
     try {
       await saveUserSubscriptionStatus(status.SUBSCRIBED)
+      await updateUserAttribute('trial_date', moment().format())
     } catch (error) {
       Alert.alert("We couldn't update your suscription, please contact us")
     }
