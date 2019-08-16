@@ -20,6 +20,7 @@ import {
   setLocale,
   removeSubscription,
   saveUserSubscriptionStatus,
+  logOut,
 } from '../utils/session'
 import { identify } from '../utils/analytics'
 import debugFactory from 'debug'
@@ -89,6 +90,8 @@ class AppLoading extends Component {
       // Set user in context
       await updateUser()
       const { user } = this.props.contextUser
+      if (!user.email) throw new Error('User has no email')
+
       identify(user)
       await setupPurchases(user)
 
@@ -144,6 +147,7 @@ class AppLoading extends Component {
       const lastScreen = navigation.getParam('lastScreen', 'App')
       navigation.navigate(lastScreen)
     } catch (error) {
+      logOut()
       navigation.navigate('Auth')
       debugError('bootstrap: ', error)
     }
