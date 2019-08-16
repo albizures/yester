@@ -10,6 +10,10 @@ import Divider from '../components/Divider'
 import { logOut } from '../utils/session'
 import { getEntitlements, buySubscription, restoreSubscription } from '../utils/purchase'
 import { screen, track } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Subscription:error')
+const debugInfo = debugFactory('yester:Subscription:info')
 
 class Subscription extends Component {
   static propTypes = {
@@ -28,7 +32,7 @@ class Subscription extends Component {
         entitlements,
       })
     } catch (e) {
-      console.log('Error in  Subscription componentDidMount', e)
+      debugError('componentDidMount', e)
     }
   }
 

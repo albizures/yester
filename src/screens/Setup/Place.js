@@ -13,6 +13,10 @@ import http from '../../utils/http'
 import { extractSetupParams } from '../../utils'
 import { translate } from '../../components/Translate'
 import { screen } from '../../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Place:error')
+const debugInfo = debugFactory('yester:Place:info')
 
 export default class Place extends Component {
   static propTypes = {
@@ -48,7 +52,7 @@ export default class Place extends Component {
         })),
       })
     } catch (error) {
-      console.log('BirthDate', error)
+      debugError(error)
       Alert.alert(translate('setup.error'))
     }
   }

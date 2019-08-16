@@ -21,6 +21,10 @@ import { translate } from '../components/Translate'
 import colors from '../utils/colors'
 import http from '../utils/http'
 import { screen, track } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Writing:error')
+const debugInfo = debugFactory('yester:Writing:info')
 
 class Writing extends Component {
   static propTypes = {
@@ -160,8 +164,8 @@ class Writing extends Component {
       )
     } catch (error) {
       // TODO add a custom response for validation type eg."string.min", "StoryAlreadyExists"
-      console.log(error)
-      console.log(error.response)
+      debugError(error)
+      debugError(error.response)
       this.setState({ isLoading: false })
       Alert.alert(translate('writing.error.save'))
     }

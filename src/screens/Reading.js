@@ -11,7 +11,6 @@ import {
   StatusBar,
   Platform,
 } from 'react-native'
-
 import { Heading1, Description, Heading2 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
@@ -24,6 +23,10 @@ import http from '../utils/http'
 import moment from 'moment'
 import { translate } from '../components/Translate'
 import { screen, track } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Reading:error')
+const debugInfo = debugFactory('yester:Reading:info')
 
 class Reading extends Component {
   static propTypes = {
@@ -61,9 +64,9 @@ class Reading extends Component {
     } catch (error) {
       Alert.alert(translate('reading.error'))
       navigation.goBack()
-      console.log(error)
-      console.log(error.message)
-      console.log(error.response)
+      debugError(error)
+      debugError(error.message)
+      debugError(error.response)
     }
 
     this.setState({ isLoading: false })

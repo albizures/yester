@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, FlatList } from 'react-native'
-
 import { Heading5, Heading4 } from '../../components'
 import StoryItem from './StoryItem'
-
 import colors from '../../utils/colors'
 import http from '../../utils/http'
 import { indexToString } from '../../utils'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Tab:error')
+const debugInfo = debugFactory('yester:Tab:info')
 
 export default class Tab extends Component {
   static propTypes = {
@@ -47,8 +49,8 @@ export default class Tab extends Component {
         endReached: !data.lastEvaluatedKey,
       })
     } catch (error) {
-      console.log(error)
-      console.log(error.response)
+      debugError(error)
+      debugError(error.response)
     }
   }
 

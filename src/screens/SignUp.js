@@ -10,6 +10,10 @@ import TopBar from '../components/TopBar'
 import TextInput from '../components/TextInput'
 import colors from '../utils/colors'
 import { strings, translate } from '../components/Translate'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:SignUp:error')
+const debugInfo = debugFactory('yester:SignUp:info')
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -40,7 +44,7 @@ export default class SignUp extends Component {
 
       return navigation.navigate('ConfirmAccount', { user, email, password })
     } catch (error) {
-      console.log('Create Account: ', error)
+      debugError(error)
       Alert.alert(translate('signup.error'))
     }
   }

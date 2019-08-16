@@ -56,7 +56,7 @@ export const buySubscription = async (productId) => {
       try {
         await removeSubscription()
       } catch (error) {
-        console.error('removeSubscription', error)
+        debugError('removeSubscription', error)
       }
       return Alert.alert("We couldn't process your payment")
     }
@@ -73,11 +73,11 @@ export const buySubscription = async (productId) => {
     }
   } catch (e) {
     if (!e.userCancelled) {
-      console.log(`Error handling ${JSON.stringify(e)}`)
+      debugError(`Error handling ${JSON.stringify(e)}`)
       debugError(e.code, e.message, e)
       Alert.alert(`We couldn't process your payment`)
     } else {
-      console.log(`User cancelled ${JSON.stringify(e)}`)
+      debugError(`User cancelled ${JSON.stringify(e)}`)
       debugError(e.code, e.message, e)
       Alert.alert(
         'Process has been cancelled.\n\nIf you already have a subscription with us 👍, please tap on Restore Subscription.'
