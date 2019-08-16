@@ -59,12 +59,12 @@ export const saveUserToken = async () => {
 
 export const logIn = async (email, password) => {
   await Auth.signIn(email, password)
-  await saveUserToken()
+  // await saveUserToken()
 }
 
 export const forgotPasswordSubmit = async (email, code, password) => {
   await Auth.forgotPasswordSubmit(email, code, password)
-  await saveUserToken()
+  // await saveUserToken()
 }
 
 export const logOut = async () => {
@@ -224,7 +224,7 @@ export const loginWithFBWebView = (url) =>
     cognitoAuthClient.userhandler = {
       onSuccess: async (result) => {
         const user = await getUser()
-        await saveUserToken()
+        // await saveUserToken()
         debugInfo(user, 'Sign in success')
         resolve(user)
       },
