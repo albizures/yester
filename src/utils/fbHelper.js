@@ -5,11 +5,9 @@ export const getCurrentProfile = () =>
     const req = new GraphRequest(
       '/me',
       {
-        httpMethod: 'GET',
-        version: 'v2.5',
         parameters: {
           fields: {
-            string: 'email,name,cover,first_name,last_name,locale',
+            string: 'email,name,first_name,last_name',
           },
         },
       },

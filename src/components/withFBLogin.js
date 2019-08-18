@@ -1,6 +1,10 @@
 import React from 'react'
 import { LoginManager, AccessToken } from 'react-native-fbsdk'
 import { getCurrentProfile } from '../utils/fbHelper'
+import debugFactory from 'debug'
+
+const debugInfo = debugFactory('yester:withFBLogin:info')
+const debugError = debugFactory('yester:withFBLogin:error')
 
 const permissions = ['email', 'public_profile']
 
@@ -8,6 +12,7 @@ export default (Component) => {
   const onLoginWithFB = async () => {
     const { isCancelled } = await LoginManager.logInWithPermissions(permissions)
     if (isCancelled) {
+      debugError('Login cancelled')
       throw new Error('Login cancelled')
     }
     const {
@@ -15,6 +20,7 @@ export default (Component) => {
       expirationTime: expires,
     } = await AccessToken.getCurrentAccessToken()
     const profile = await getCurrentProfile()
+    debugInfo(profile)
     return {
       profile,
       token,
