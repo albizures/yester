@@ -21,7 +21,10 @@ class Confirmation extends Component {
   constructor (props) {
     super(props)
     const { navigation } = this.props
-    this.state = extractSetupParams(navigation)
+    this.state = {
+      ...extractSetupParams(navigation),
+      isLoading: false,
+    }
   }
 
   componentDidMount () {
@@ -34,6 +37,7 @@ class Confirmation extends Component {
       contextUser: { updateUser, user },
     } = this.props
     const { birthDate, country, state, gender, birthPlace } = this.state
+    this.setState({ isLoading: true })
     await saveUserData({
       birthDate,
       country,
@@ -75,7 +79,7 @@ class Confirmation extends Component {
   }
 
   render () {
-    const { givenName, stateName, updateSetup } = this.state
+    const { givenName, stateName, updateSetup, isLoading } = this.state
     let titleKeyName = 'setup.confirmation.title'
     let subtitleKeyName = 'setup.confirmation.subtitle'
     let continueKeyName = 'setup.confirmation.continue'
@@ -86,7 +90,7 @@ class Confirmation extends Component {
     }
 
     return (
-      <Container style={styles.container}>
+      <Container isLoading={isLoading} style={styles.container}>
         <Image source={icons.confirmation} style={styles.image} />
 
         <View style={styles.topFlex}>

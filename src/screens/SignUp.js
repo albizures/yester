@@ -27,11 +27,14 @@ export default class SignUp extends Component {
     lastName: '',
     email: '',
     password: '',
+    isLoading: false,
   }
 
   onPress = async () => {
     const { navigation } = this.props
     const { firstName, lastName, email, password } = this.state
+
+    this.setState({ isLoading: true })
 
     try {
       await Auth.signUp({
@@ -60,6 +63,7 @@ export default class SignUp extends Component {
 
       return navigation.navigate('ConfirmAccount', { email, signUpVerify: true })
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError(error)
       if (error.code === 'UsernameExistsException') {
         Alert.alert(translate('signup.usernameExistsException'))
@@ -79,12 +83,11 @@ export default class SignUp extends Component {
   }
 
   render () {
-    const { firstName, lastName, email, password } = this.state
-
+    const { firstName, lastName, email, password, isLoading } = this.state
     const topBar = <TopBar title='signup.topbar' onBack={this.onBack} />
     return (
-      <Container scroll topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={470} enableOnAndroid>
+      <Container isLoading={isLoading} scroll topBar={topBar}>
+        <KeyboardAwareScrollView extraScrollHeight={170} enableOnAndroid>
           <View style={styles.topFlex}>
             <Heading2 keyName='signup.title' style={styles.titleText} />
             <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
