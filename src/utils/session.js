@@ -102,6 +102,7 @@ export const sanitizeUser = async (user) => {
     email: user['email'],
     userId: user['user_id'],
     subscriptionStatus: user['subscription_status'],
+    emailVerified: user['email_verified'],
   }
 }
 

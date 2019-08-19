@@ -19,6 +19,7 @@ export const shapeContextUser = {
     name: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
+    emailVerified: PropTypes.boolean,
   }),
 }
 
