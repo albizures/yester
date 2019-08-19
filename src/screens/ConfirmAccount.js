@@ -28,26 +28,24 @@ export default class ConfirmAccount extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
-  constructor () {
+  constructor (props) {
     super()
-    Auth.verifyCurrentUserAttribute('email')
+    const { navigation } = props
     this.state = {
       code: '',
+      email: navigation.getParam('email'),
+      number: navigation.getParam('number'),
+      signUpVerify: navigation.getParam('signUpVerify'),
+      isLoading: false,
     }
   }
 
-  componentDidMount () {
-    const { navigation } = this.props
-    const email = navigation.getParam('email')
-    const number = navigation.getParam('number')
-    const signUpVerify = navigation.getParam('signUpVerify')
-
-    this.setState({
-      code: '',
-      email,
-      number,
-      signUpVerify,
-    })
+  async componentDidMount () {
+    const currentUser = await Auth.currentAuthenticatedUser()
+    debugInfo(currentUser)
+    if (currentUser.attributes && !currentUser.attributes['email_verified']) {
+      Auth.verifyCurrentUserAttribute('email')
+    }
   }
 
   onChange = (value, name) => {
@@ -58,13 +56,19 @@ export default class ConfirmAccount extends Component {
 
   onPressContinue = async () => {
     const { navigation } = this.props
-    const { code } = this.state
+    const { code, signUpVerify } = this.state
+    this.setState({ isLoading: true })
 
     try {
       await Auth.verifyCurrentUserAttributeSubmit('email', code)
       await updateUserAttribute('email_verified', true)
-      return navigation.navigate('AppLoading')
+
+      if (signUpVerify) return navigation.navigate('AppLoading')
+      return navigation.navigate('AppLoading', {
+        lastScreen: 'Profile',
+      })
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError('ConfirmAccount', error)
       Alert.alert(error.message || error)
     }
@@ -72,6 +76,7 @@ export default class ConfirmAccount extends Component {
 
   onPressSkip = async () => {
     const { navigation } = this.props
+    this.setState({ isLoading: true })
     return navigation.navigate('AppLoading')
   }
 
@@ -79,8 +84,12 @@ export default class ConfirmAccount extends Component {
     Auth.verifyCurrentUserAttribute('email')
   }
 
+  onBack = () => {
+    this.props.navigation.navigate('Profile')
+  }
+
   render () {
-    const { code, email, number, signUpVerify } = this.state
+    const { code, email, number, signUpVerify, isLoading } = this.state
 
     const skipElement = (
       <TouchableOpacity>
@@ -88,15 +97,25 @@ export default class ConfirmAccount extends Component {
       </TouchableOpacity>
     )
 
-    const topBar = <TopBar title='confirm.topbar' onBack={this.onBack} />
+    const topBar = <TopBar title='confirm.topbar' onBack={!signUpVerify ? this.onBack : null} />
+
+    let titleKeyName = 'confirm.title'
+    let subtitleKeyName = 'confirm.subtitle'
+    let submitKeyName = 'confirm.submit'
+    if (!signUpVerify) {
+      titleKeyName = 'confirm.profile.title'
+      subtitleKeyName = 'confirm.profile.subtitle'
+      submitKeyName = 'confirm.profile.submit'
+    }
+
     return (
-      <Container topBar={topBar}>
+      <Container isLoading={isLoading} topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={styles.container}>
             <View style={styles.topFlex}>
               <Image source={icons.feather} style={styles.image} />
-              <Heading2 keyName='confirm.title' style={styles.titleText} />
-              <Heading4 keyName='confirm.subtitle' style={styles.subtitleText} />
+              <Heading2 keyName={titleKeyName} style={styles.titleText} />
+              <Heading4 keyName={subtitleKeyName} style={styles.subtitleText} />
               <Heading4 keyName='confirm.label' />
               <Heading3
                 text='{contact}'
@@ -120,7 +139,7 @@ export default class ConfirmAccount extends Component {
                   onPress={this.onPressResend}
                 />
               </TouchableOpacity>
-              <Button title='confirm.submit' onPress={this.onPressContinue} />
+              <Button title={submitKeyName} onPress={this.onPressContinue} />
               {signUpVerify ? skipElement : null}
             </View>
           </View>
