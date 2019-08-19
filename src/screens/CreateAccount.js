@@ -51,6 +51,7 @@ class CreateAccount extends Component {
         platform: Platform.OS,
         build: DeviceInfo.getBuildNumber(),
         version: DeviceInfo.getVersion(),
+        email_verified: true,
       })
 
       return navigation.navigate('AppLoading')
