@@ -20,9 +20,10 @@ export const eventTypes = {
 }
 
 export const setupPurchases = async (user) => {
+  const { userId } = user
   try {
     Purchases.setDebugLogsEnabled(false)
-    Purchases.setup(REVENUECAT_API_KEY, user.userId)
+    Purchases.setup(REVENUECAT_API_KEY, userId)
     Purchases.setAllowSharingStoreAccount(true)
   } catch (error) {
     debugError('setupPurchases', error)
@@ -101,5 +102,15 @@ export const restoreSubscription = async () => {
   } catch (e) {
     debugError('Restoring: ', e)
     Alert.alert(`We couldn't process your restore transaction.`)
+  }
+}
+
+export const resetPurchases = async () => {
+  try {
+    const resetObject = await Purchases.reset()
+    debugInfo('Reseting: ', resetObject)
+    return resetObject
+  } catch (e) {
+    debugError('Reseting: ', e)
   }
 }

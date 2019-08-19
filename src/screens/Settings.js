@@ -6,7 +6,8 @@ import TopBar from '../components/TopBar'
 import { logOut } from '../utils/session'
 import SettingsItem, { types } from '../components/SettingsItem'
 import { translate } from '../components/Translate'
-import { reset, screen, track } from '../utils/analytics'
+import { resetAnalytics, screen, track } from '../utils/analytics'
+import { resetPurchases } from '../utils/purchase'
 
 export default class Settings extends Component {
   static propTypes = {
@@ -56,8 +57,9 @@ export default class Settings extends Component {
   onLogOut = async () => {
     const { navigation } = this.props
     await logOut()
+    await resetPurchases()
     track('Log Out', {})
-    reset()
+    resetAnalytics()
     navigation.navigate('Auth')
   }
 

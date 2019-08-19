@@ -9,7 +9,6 @@ import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, COGNITO_DOMAIN } from 'react
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
-
 export const Storage = new StorageHelper().getStorage()
 const cognitoAuthParams = {
   ClientId: AWS_USER_CLIENT_POOL_ID,

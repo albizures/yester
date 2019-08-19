@@ -22,7 +22,7 @@ import {
   saveUserSubscriptionStatus,
   logOut,
 } from '../utils/session'
-import { identify } from '../utils/analytics'
+import { identifyAnalytics } from '../utils/analytics'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:AppLoading:error')
@@ -92,7 +92,7 @@ class AppLoading extends Component {
       const { user } = this.props.contextUser
       if (!user.email) throw new Error('User has no email')
 
-      identify(user)
+      identifyAnalytics(user)
       await setupPurchases(user)
 
       getPermissionSubscriptionState((status) => {

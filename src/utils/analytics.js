@@ -19,7 +19,7 @@ export const setupAnalytics = async () => {
   }
 }
 
-export const identify = async (user) => {
+export const identifyAnalytics = async (user) => {
   try {
     const { userId, email } = user
     analytics.identify(userId, {
@@ -46,7 +46,7 @@ export const screen = (name, properties) => {
   }
 }
 
-export const reset = () => {
+export const resetAnalytics = () => {
   try {
     analytics.reset()
   } catch (error) {
