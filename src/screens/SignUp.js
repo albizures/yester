@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Alert, StyleSheet, Dimensions } from 'react-native'
+import { View, Alert, StyleSheet, Dimensions, Platform } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Auth } from 'aws-amplify'
 import Container from '../components/Container'
@@ -10,6 +10,8 @@ import TopBar from '../components/TopBar'
 import TextInput from '../components/TextInput'
 import colors from '../utils/colors'
 import { strings, translate } from '../components/Translate'
+import { logIn, postAPIUser } from '../utils/session'
+import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:SignUp:error')
@@ -32,7 +34,7 @@ export default class SignUp extends Component {
     const { firstName, lastName, email, password } = this.state
 
     try {
-      const user = await Auth.signUp({
+      await Auth.signUp({
         username: email,
         password,
         attributes: {
@@ -41,11 +43,27 @@ export default class SignUp extends Component {
           locale: strings.getLanguage(),
         },
       })
+      await logIn(email, password)
 
-      return navigation.navigate('ConfirmAccount', { user, email, password })
+      // TODO Find the best way to allow manual name update.
+      const currentUser = await Auth.currentAuthenticatedUser()
+      await postAPIUser({
+        email: currentUser.attributes.email,
+        given_name: currentUser.attributes['given_name'],
+        family_name: currentUser.attributes['family_name'],
+        locale: currentUser.attributes['locale'],
+        platform: Platform.OS,
+        build: DeviceInfo.getBuildNumber(),
+        version: DeviceInfo.getVersion(),
+        email_verified: false,
+      })
+
+      return navigation.navigate('ConfirmAccount', { email, signUpVerify: true })
     } catch (error) {
       debugError(error)
-      Alert.alert(translate('signup.error'))
+      if (error.code === 'UsernameExistsException') {
+        Alert.alert(translate('signup.usernameExistsException'))
+      } else Alert.alert(translate('signup.error'))
     }
   }
 
@@ -66,7 +84,7 @@ export default class SignUp extends Component {
     const topBar = <TopBar title='signup.topbar' onBack={this.onBack} />
     return (
       <Container scroll topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={140} enableOnAndroid>
+        <KeyboardAwareScrollView extraScrollHeight={470} enableOnAndroid>
           <View style={styles.topFlex}>
             <Heading2 keyName='signup.title' style={styles.titleText} />
             <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
@@ -91,6 +109,15 @@ export default class SignUp extends Component {
               onChangeText={(text) => this.onChange(text.toLowerCase(), 'email')}
               description='signup.emailDescription'
             />
+            {/*
+            <TextInput
+              title='signup.confirmEmail'
+              autoCapitalize='none'
+              keyboardType='email-address'
+              value={email}
+              onChangeText={(text) => this.onChange(text.toLowerCase(), 'confirmEmail')}
+            />
+            */}
             <TextInput
               title='signup.password'
               password
@@ -98,6 +125,14 @@ export default class SignUp extends Component {
               onChangeText={(text) => this.onChange(text, 'password')}
               description='signup.passwordDescription'
             />
+            {/*
+            <TextInput
+              title='signup.confirmPassword'
+              password
+              value={password}
+              onChangeText={(text) => this.onChange(text, 'confirmPassword')}
+            />
+            */}
             <Button title='signup.submit' onPress={this.onPress} />
           </View>
         </KeyboardAwareScrollView>
@@ -109,13 +144,11 @@ export default class SignUp extends Component {
 const { height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   topFlex: {
-    flex: 0.25,
     justifyContent: 'flex-start',
     paddingTop: height * 0.045,
-    paddingBottom: height * 0.045,
+    marginBottom: height * 0.045,
   },
   bottomFlex: {
-    flex: 0.75,
     alignItems: 'center',
   },
   titleText: {
