@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.reactlibrary.RNPurchasesPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
@@ -43,7 +42,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNDeviceInfo(),
             new RNAnalyticsPackage(),
             new ReactNativeOneSignalPackage(),
-            new RNCWebViewPackage(),
             new RNPurchasesPackage(),
             new SplashScreenReactPackage(),
             new RNAWSCognitoPackage(),

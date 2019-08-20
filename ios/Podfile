@@ -47,7 +47,6 @@ target 'Yester' do
   pod 'RNPurchases', :path => '../node_modules/react-native-purchases',
   :inhibit_warnings => true
 
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
   pod 'ReactNativeLocalization', :path => '../node_modules/react-native-localization'
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'

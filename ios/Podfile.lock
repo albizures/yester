@@ -41,8 +41,6 @@ PODS:
     - React
   - react-native-splash-screen (3.2.0):
     - React
-  - react-native-webview (5.12.0):
-    - React
   - React/Core (0.59.8):
     - yoga (= 0.59.8.React)
   - React/CxxBridge (0.59.8):
@@ -103,7 +101,7 @@ PODS:
   - RNAnalytics (1.1.0-beta.0):
     - Analytics
     - React
-  - RNAWSCognito (3.0.12):
+  - RNAWSCognito (3.0.15):
     - JKBigInteger2 (= 0.0.5)
     - React
   - RNDeviceInfo (2.3.2):
@@ -121,7 +119,6 @@ DEPENDENCIES:
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal/react-native-onesignal.podspec`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
-  - react-native-webview (from `../node_modules/react-native-webview`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -170,8 +167,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-onesignal/react-native-onesignal.podspec"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
-  react-native-webview:
-    :path: "../node_modules/react-native-webview"
   ReactNativeLocalization:
     :path: "../node_modules/react-native-localization"
   RNAnalytics:
@@ -201,14 +196,13 @@ SPEC CHECKSUMS:
   react-native-fbsdk: 38ee580e77319d03f8ed0bf4a020cbfd70dc4d2d
   react-native-onesignal: 4d16f59736eb92e892fb009cb66a7c508fdeead0
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
-  react-native-webview: 26d8993b090ca5d59eb9a9466dcb8291baa3223e
   ReactNativeLocalization: 00800abad36a2a902b131c690d3e6143198ccc8a
   RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
-  RNAWSCognito: 32012f57b04ef9c2e7742dbf997e28f2906c2e66
+  RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
   RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
   RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 62344cdac248131469e4ed0890e957365de1c28a
+PODFILE CHECKSUM: ba932e91be2285828fd5586eb72c7e3d0f533bf7
 
 COCOAPODS: 1.7.4

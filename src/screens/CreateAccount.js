@@ -11,7 +11,7 @@ import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
 import { translate } from '../components/Translate'
 import { View, Text, StyleSheet, Alert, Image, Dimensions, StatusBar, Platform } from 'react-native'
-import { screen, track } from '../utils/analytics'
+import { screen } from '../utils/analytics'
 import { postAPIUser } from '../utils/session'
 import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
@@ -26,7 +26,6 @@ class CreateAccount extends Component {
   }
 
   state = {
-    fbWebViewVisible: false,
     isLoading: false,
   }
 
@@ -59,11 +58,6 @@ class CreateAccount extends Component {
       debugError('FB Create Account:', JSON.stringify(error))
       Alert.alert(translate('signup.error.facebook'))
     }
-  }
-
-  onFBWebView = async () => {
-    track('To FBWebView', {})
-    this.props.navigation.navigate('FBWebView')
   }
 
   onSignIn = () => {

@@ -40,7 +40,6 @@ import NewPassword from './screens/ForgotPassword/NewPassword'
 import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
-import FBWebView from './screens/FBWebView'
 import Home from './screens/Home'
 import ModalCard from './screens/Home/ModalCard'
 import Writing from './screens/Writing'
@@ -208,7 +207,6 @@ const AuthStack = createStackNavigator(
     CreateAccount,
     Subscription,
     ConfirmAccount,
-    FBWebView,
   },
   {
     headerMode: 'none',

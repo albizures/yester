@@ -62,10 +62,6 @@ class Login extends Component {
     }
   }
 
-  onFBWebView = async () => {
-    this.props.navigation.navigate('FBWebView')
-  }
-
   onLogin = async () => {
     const { navigation } = this.props
     const { email, password } = this.state
