@@ -1,30 +1,15 @@
 import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
-import { CognitoAuth } from 'amazon-cognito-auth-js'
 import debugFactory from 'debug'
 import moment from 'moment'
 import aws4 from 'react-native-aws4'
 import { AsyncStorage } from 'react-native'
-import { AWS_USER_POOL_ID, AWS_USER_CLIENT_POOL_ID, COGNITO_DOMAIN } from 'react-native-dotenv'
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
 export const Storage = new StorageHelper().getStorage()
-const cognitoAuthParams = {
-  ClientId: AWS_USER_CLIENT_POOL_ID,
-  UserPoolId: AWS_USER_POOL_ID,
-  AppWebDomain: COGNITO_DOMAIN,
-  TokenScopesArray: ['email', 'name', 'cover', 'openid', 'aws.cognito.signin.user.admin'],
-  RedirectUriSignIn: 'https://www.yester.app/auth',
-  RedirectUriSignOut: 'https://www.yester.app/auth',
-  IdentityProvider: 'Facebook',
-  ResponseType: 'code',
-  Storage,
-}
 
 Auth.configure({ storage: Storage })
-
-const cognitoAuthClient = new CognitoAuth(cognitoAuthParams)
 
 const debugInfo = debugFactory('yester:session:info')
 const debugError = debugFactory('yester:session:error')
@@ -220,23 +205,6 @@ export const removeSubscription = async () => {
     subscription_status: '',
   })
 }
-
-export const loginWithFBWebView = (url) =>
-  new Promise((resolve, reject) => {
-    cognitoAuthClient.userhandler = {
-      onSuccess: async (result) => {
-        const user = await getUser()
-        // await saveUserToken()
-        debugInfo(user, 'Sign in success')
-        resolve(user)
-      },
-      onFailure: (err) => {
-        debugError('Sign in error', err)
-        reject(err)
-      },
-    }
-    cognitoAuthClient.parseCognitoWebResponse(url)
-  })
 
 export const setLocale = (locale) => {
   locale = locale || 'en'
