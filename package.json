@@ -24,7 +24,6 @@
     "react-addons-test-utils": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-native": "^0.59.8",
-    "react-native-aws4": "^1.2.1",
     "react-native-datepicker": "^1.7.2",
     "react-native-device-info": "^2.3.2",
     "react-native-fbsdk": "^0.10.1",

@@ -2,7 +2,6 @@ import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
 import debugFactory from 'debug'
 import moment from 'moment'
-import aws4 from 'react-native-aws4'
 import { AsyncStorage } from 'react-native'
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
@@ -212,18 +211,4 @@ export const setLocale = (locale) => {
   setHeaderLocale(locale)
   moment.locale(locale)
   strings.setLanguage(locale)
-}
-
-export const signRequest = async (request) => {
-  const credentials = await Auth.currentCredentials()
-  const signedRequest = aws4.sign(request, {
-    secretAccessKey: credentials.secretAccessKey,
-    accessKeyId: credentials.accessKeyId,
-    sessionToken: credentials.sessionToken,
-  })
-
-  debugInfo('signedRequest: ', signedRequest)
-  delete signedRequest.headers['Content-Length']
-
-  return signedRequest
 }
