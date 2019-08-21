@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Dimensions, StyleSheet, View, Image } from 'react-native'
-import { TabView, TabBar, PagerScroll } from 'react-native-tab-view'
+import { TabView, TabBar } from 'react-native-tab-view'
 import { Title } from '../../components'
 // import Loading from '../../components/Loading'
 import Tab from './Tab'
@@ -156,8 +156,7 @@ class Tabs extends Component {
         navigationState={this.state}
         renderScene={this.renderScene}
         renderTabBar={this.getTabBar}
-        renderPager={(props) => <PagerScroll {...props} />}
-        // renderPager={this.renderPager}
+        // renderPager={(props) => <PagerScroll {...props} />}
         onIndexChange={this.onIndexChange}
         initialLayout={initialLayout}
       />
