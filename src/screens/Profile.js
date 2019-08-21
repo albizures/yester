@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, Dimensions, StyleSheet } from 'react-native'
+import { View, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import { Heading2, Description, Heading5 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
@@ -110,11 +110,13 @@ class Profile extends Component {
           </View>
           <Divider style={{ width: 323 }} />
           <View style={styles.edit}>
-            <Description
-              keyName='profile.edit'
-              style={styles.editLabel}
-              onPress={this.onPressEdit}
-            />
+            <TouchableOpacity>
+              <Description
+                keyName='profile.edit'
+                style={styles.editLabel}
+                onPress={this.onPressEdit}
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </Container>
