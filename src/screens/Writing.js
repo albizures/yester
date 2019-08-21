@@ -175,7 +175,10 @@ class Writing extends Component {
 
   onBack = () => {
     const { navigation } = this.props
-    navigation.navigate('Home')
+    Alert.alert(translate('writing.unsaved.title'), translate('writing.unsaved.message'), [
+      { text: 'Cancel' },
+      { text: 'OK', onPress: () => navigation.navigate('Home') },
+    ])
   }
 
   onContentSizeChange = (event) => {

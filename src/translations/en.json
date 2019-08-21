@@ -156,6 +156,8 @@
   "writing.action": "Save",
   "writing.by": "By {author}",
   "writing.error.save": "Something bad happpend, to save your story please write at least a 5-letter word.",
+  "writing.unsaved.title": "Are you sure?",
+  "writing.unsaved.message": "Any unsaved progress on your story will be lost.",
   "reading.topbar": "Reading",
   "reading.by": "By {author}",
   "reading.edit.story": "Edit Story",

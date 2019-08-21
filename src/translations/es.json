@@ -156,6 +156,8 @@
   "writing.action": "Guardar",
   "writing.by": "Por {author}",
   "writing.error.save": "Algo está mal, para guardar tu historia por favor escribe al menos una palabra de 5 letras.",
+  "writing.unsaved.title": "Quieres proceder?",
+  "writing.unsaved.message": "Cualquier progreso no guardado en tu historia será perdido.",
   "reading.topbar": "Leyendo",
   "reading.by": "Por {author}",
   "reading.edit.story": "Editar Historia",
