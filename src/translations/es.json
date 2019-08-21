@@ -138,6 +138,7 @@
   "profile.verifiedEmail.confirmed": "Confirmado",
   "profile.verifiedEmail.unconfirmed": "No confirmado",
   "profile.verifiedEmail.confirm": "Confirmar",
+  "profile.stories.answered": "{answered} historias\n{completed}% de tu historia",
   "home.title": "yester",
   "home.questionItem.new": "NUEVA!",
   "home.questionItem.dailyTopic": "Tu tema del día!",

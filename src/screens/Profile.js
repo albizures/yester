@@ -10,6 +10,11 @@ import icons from '../utils/icons'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { isSetupFinished } from '../utils/session'
 import { screen } from '../utils/analytics'
+import http from '../utils/http'
+import debugFactory from 'debug'
+
+const debugInfo = debugFactory('yester:Profile:info')
+// const debugError = debugFactory('yester:Profile:error')
 
 class Profile extends Component {
   static propTypes = {
@@ -22,12 +27,12 @@ class Profile extends Component {
     const {
       contextUser: { user },
     } = props
-    this.state = { user }
+    this.state = { user, isLoading: true }
   }
 
   willFocusListener = null
 
-  componentDidMount () {
+  async componentDidMount () {
     const { navigation } = this.props
     const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
@@ -37,8 +42,20 @@ class Profile extends Component {
     this.willFocusListener.remove()
   }
 
-  load = () => {
+  load = async () => {
+    this.setState({
+      isLoading: true,
+    })
     screen('Profile', {})
+
+    const { data = {} } = await http.getAPI('/v2/stories/stats')
+    const { Count: count, answered } = data
+    debugInfo('data:', count, answered)
+    this.setState({
+      isLoading: false,
+      count,
+      answered,
+    })
   }
 
   onPressEdit = async () => {
@@ -57,6 +74,8 @@ class Profile extends Component {
   }
 
   render () {
+    const { isLoading, count, answered } = this.state
+    const completed = answered ? Math.round((answered / count) * 100) : '...'
     const { name, email, country, state, gender, birthPlace, emailVerified } = this.state.user
     const location =
       birthPlace !== undefined ? birthPlace : `${country}, ${state ? state.substring(3, 5) : ''}`
@@ -83,17 +102,18 @@ class Profile extends Component {
     }
 
     return (
-      <Container topBar={topBar} style={styles.container}>
+      <Container topBar={topBar} isLoading={isLoading} style={styles.container}>
         <View style={styles.topFlex}>
           <Image
             source={gender === 'male' ? icons.profileMan : icons.profileWoman}
             style={styles.image}
           />
           <Heading2 text={name} style={styles.nameText} />
-          {
-            // TODO get the number of answered stories.
-            // <Heading5 text='3 stories' style={{marginBottom: 30}} />
-          }
+          <Heading5
+            keyName='profile.stories.answered'
+            data={{ answered: answered || '...', completed }}
+            style={{ marginBottom: 30, textAlign: 'center' }}
+          />
         </View>
 
         <View style={styles.bottomFlex}>
