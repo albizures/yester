@@ -50,7 +50,7 @@ class Profile extends Component {
 
     const { data = {} } = await http.getAPI('/v2/stories/stats')
     const { Count: count, answered } = data
-    debugInfo('data:', count, answered)
+    // debugInfo('data:', await http.getAPI('/v2/stories', { answered: true }))
     this.setState({
       isLoading: false,
       count,

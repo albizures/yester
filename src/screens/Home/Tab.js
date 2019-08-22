@@ -17,6 +17,7 @@ export default class Tab extends Component {
     age: PropTypes.string.isRequired,
     initialStories: PropTypes.array.isRequired,
     initialEvaluatedKey: PropTypes.object,
+    answered: PropTypes.bool,
   }
 
   state = {
@@ -30,16 +31,19 @@ export default class Tab extends Component {
   }
 
   getStories = async () => {
-    const { age } = this.props
+    const { age, answered } = this.props
     const { lastEvaluatedKey, stories: currentStories, endReached } = this.state
     if (endReached) {
       return
     }
+
+    const queryParams = {
+      age_id: age,
+      lastEvaluatedKey: JSON.stringify(lastEvaluatedKey),
+      answered,
+    }
     try {
-      const { data } = await http.getAPI('/v2/stories', {
-        age_id: age,
-        lastEvaluatedKey: JSON.stringify(lastEvaluatedKey),
-      })
+      const { data } = await http.getAPI('/v2/stories', queryParams)
 
       const stories = currentStories.concat(data.items)
 

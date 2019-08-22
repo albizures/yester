@@ -25,6 +25,7 @@ class Tabs extends Component {
   static propTypes = {
     onPressItem: PropTypes.func.isRequired,
     contextAges: PropTypes.shape(shapeContextAges).isRequired,
+    answered: PropTypes.bool,
   }
 
   state = {
@@ -38,10 +39,13 @@ class Tabs extends Component {
   }
 
   async getStoriesByAge (id) {
+    const { answered } = this.props
+    const queryParams = {
+      age_id: id,
+      answered,
+    }
     try {
-      const { data = {} } = await http.getAPI('/v2/stories', {
-        age_id: id,
-      })
+      const { data = {} } = await http.getAPI('/v2/stories', queryParams)
 
       const { items = [], lastEvaluatedKey } = data
       return [undefined, items, lastEvaluatedKey]
@@ -128,7 +132,7 @@ class Tabs extends Component {
   }
 
   renderScene = ({ route }) => {
-    const { onPressItem } = this.props
+    const { onPressItem, answered } = this.props
     const { agesByStory } = this.state
     const { items, lastEvaluatedKey } = agesByStory[route.key]
 
@@ -138,6 +142,7 @@ class Tabs extends Component {
         initialEvaluatedKey={lastEvaluatedKey}
         initialStories={items}
         age={route.key}
+        answered={answered}
       />
     )
   }
