@@ -15,10 +15,10 @@ import { translate } from '../../components/Translate'
 import { screen, track } from '../../utils/analytics'
 import debugFactory from 'debug'
 
-const debugInfo = debugFactory('yester:Home:info')
-const debugError = debugFactory('yester:Home:error')
+const debugInfo = debugFactory('yester:Stories:info')
+const debugError = debugFactory('yester:Stories:error')
 
-export default class Home extends Component {
+export default class Stories extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
   }
@@ -32,25 +32,16 @@ export default class Home extends Component {
   willFocusListener = null
 
   async componentDidMount () {
-    const { addListener } = this.props.navigation
+    const { navigation } = this.props
+    const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
 
-    const { navigation } = this.props
+    /*
     this.setState({
       isLoading: true,
     })
-
-    const storyId = navigation.getParam('storyId')
     try {
       const { data: question } = await http.getAPI('/v2/questions')
-      // const question = {
-      //   age_id: 'Age#31',
-      //   category: 'Family',
-      //   description: 'What were your favorite hobbies or activities?',
-      //   id: 'Question#0099',
-      //   sub_category: '',
-      // }
-
       this.setState({ question })
     } catch (error) {
       debugError('today question:', error.response)
@@ -58,11 +49,13 @@ export default class Home extends Component {
         Alert.alert(translate('home.error.today.question'))
       }
     }
-
+*/
     this.setState({ isLoading: false })
 
+    const { positionToast } = this.state
+    const storyId = navigation.getParam('storyId')
     if (storyId) {
-      Animated.spring(this.state.positionToast, {
+      Animated.spring(positionToast, {
         toValue: 40,
         bounciness: 3,
         speed: 3,
@@ -84,8 +77,9 @@ export default class Home extends Component {
   }
 
   closeToast = () => {
+    const { positionToast } = this.state
     clearInterval(this.timeout)
-    Animated.spring(this.state.positionToast, {
+    Animated.spring(positionToast, {
       toValue: -100,
       bounciness: 3,
       speed: 3,
@@ -97,19 +91,18 @@ export default class Home extends Component {
     this.willFocusListener.remove()
   }
 
-  renderChapter = ({ item }) => (
-    <View style={styles.chapterView}>
-      <View style={styles.chapterTitle}>
-        <Image source={icons.childhood} style={styles.chapterImage} />
-        <Title text={capitalize(item.text)} style={styles.chapterText} />
+  renderChapter = ({ item }) => {
+    const { questions } = this.state
+    return (
+      <View style={styles.chapterView}>
+        <View style={styles.chapterTitle}>
+          <Image source={icons.childhood} style={styles.chapterImage} />
+          <Title text={capitalize(item.text)} style={styles.chapterText} />
+        </View>
+        <FlatList data={questions} renderItem={this.renderStoryItem} keyExtractor={indexToString} />
       </View>
-      <FlatList
-        data={this.state.questions}
-        renderItem={this.renderStoryItem}
-        keyExtractor={indexToString}
-      />
-    </View>
-  )
+    )
+  }
 
   renderStoryItem = ({ item }) => <StoryItem data={item} onPress={() => this.onPressItem(item)} />
 
@@ -169,7 +162,7 @@ export default class Home extends Component {
           {question && (
             <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />
           )}
-          {!isLoading && <Tabs onPressItem={this.onPressItem} answered={false} />}
+          {!isLoading && <Tabs onPressItem={this.onPressItem} answered />}
         </View>
         <Animated.View style={[styles.toastContainer, { bottom: positionToast }]}>
           <View style={[styles.toast]}>

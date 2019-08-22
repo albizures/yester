@@ -41,6 +41,7 @@ import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
 import Home from './screens/Home'
+import Stories from './screens/Home/Stories'
 import ModalCard from './screens/Home/ModalCard'
 import Writing from './screens/Writing'
 import Reading from './screens/Reading'
@@ -116,6 +117,17 @@ const FeedStack = createStackNavigator(
   }
 )
 
+const StoryStack = createStackNavigator(
+  {
+    Stories,
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    initialRouteName: 'Stories',
+  }
+)
+
 const SettingsStack = createStackNavigator(
   {
     SettingsHome: Settings,
@@ -133,8 +145,18 @@ const SettingsStack = createStackNavigator(
 
 const MainTab = createBottomTabNavigator(
   {
-    MyStory: {
+    Feed: {
       screen: FeedStack,
+      navigationOptions: () => ({
+        title: translate('home.bottomBar.feed'),
+        tabBarIcon: tabBarIcon({
+          active: require('./assets/feed.png'),
+          inactive: require('./assets/feed-disabled.png'),
+        }),
+      }),
+    },
+    MyStory: {
+      screen: StoryStack,
       navigationOptions: () => ({
         title: translate('home.bottomBar.myStory'),
         tabBarIcon: tabBarIcon({
@@ -167,7 +189,7 @@ const MainTab = createBottomTabNavigator(
   {
     animationEnabled: true,
     swipeEnabled: true,
-    initialRouteName: 'MyStory',
+    initialRouteName: 'Feed',
     headerMode: 'none',
     tabBarOptions: {
       activeTintColor: colors.white,
@@ -231,7 +253,7 @@ export default class App extends Component {
   state = {}
   async componentDidMount () {
     console.log('Disabling debug', debugFactory.disable())
-    // debugFactory.enable('yester:http*, yester:Profile*')
+    debugFactory.enable('yester:http*, yester:Profile*')
     SplashScreen.hide()
 
     initNotifications()
