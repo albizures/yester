@@ -42,6 +42,7 @@ class Login extends Component {
     try {
       const { token, expires, profile } = await onLoginWithFB()
       debugInfo('Profile: ', profile, expires)
+      this.setState({ isLoading: true })
       await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
 
       const currentUser = await Auth.currentAuthenticatedUser()
@@ -57,6 +58,7 @@ class Login extends Component {
 
       return navigation.navigate('AppLoading')
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError('NativeFB Login', error)
       Alert.alert(translate('login.error.facebook'))
     }
@@ -108,10 +110,10 @@ class Login extends Component {
   }
 
   render () {
-    const { email, password } = this.state
+    const { email, password, isLoading } = this.state
     const topBar = <TopBar title='createAccount.login' onBack={this.onBack} />
     return (
-      <Container topBar={topBar}>
+      <Container isLoading={isLoading} topBar={topBar}>
         <KeyboardAwareScrollView extraScrollHeight={170} enableOnAndroid>
           <View style={styles.view}>
             <View style={styles.topFlex}>

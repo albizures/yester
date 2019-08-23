@@ -39,6 +39,7 @@ class CreateAccount extends Component {
     try {
       const { token, expires, profile } = await onLoginWithFB()
       debugInfo('Profile: ', profile, expires)
+      this.setState({ isLoading: true })
       await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
       // AsyncStorage.setItem('userToken', credentials.sessionToken)
 
@@ -55,6 +56,7 @@ class CreateAccount extends Component {
 
       return navigation.navigate('AppLoading')
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError('FB Create Account:', JSON.stringify(error))
       Alert.alert(translate('signup.error.facebook'))
     }
