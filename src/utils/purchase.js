@@ -9,8 +9,9 @@ const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
 
 export const status = {
-  EXPIRE_SUBSCRIPTION: '2',
+  FIRST_STEPS: '0',
   SUBSCRIBED: '1',
+  EXPIRED: '2',
 }
 
 export const eventTypes = {
@@ -55,11 +56,7 @@ export const buySubscription = async (productId) => {
     const purchaseMade = await Purchases.makePurchase(productId)
 
     if (purchaseMade.purchaserInfo.activeEntitlements.length === 0) {
-      try {
-        await removeSubscription()
-      } catch (error) {
-        debugError('removeSubscription', error)
-      }
+      await removeSubscription()
       return Alert.alert("We couldn't process your payment")
     }
 
