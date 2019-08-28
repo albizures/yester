@@ -30,9 +30,9 @@ class Subscription extends Component {
         priceDetails: 'subscription.priceDetails',
       },
       [status.EVEN_REQUIRE.code]: {
-        title: 'subscription.title',
-        subtitle: 'subscription.subtitle',
-        priceDetails: 'subscription.priceDetails',
+        title: 'subscription.even.title',
+        subtitle: 'subscription.even.subtitle',
+        priceDetails: 'subscription.even.priceDetails',
       },
       [status.EXPIRED.code]: {
         title: 'subscription.expired.title',
@@ -40,11 +40,14 @@ class Subscription extends Component {
         priceDetails: 'subscription.expired.priceDetails',
       },
     },
-    status: status.ODD_REQUIRE,
+    currentStatus: status.ODD_REQUIRE,
   }
 
   async componentDidMount () {
-    this.setState({ status: status.EXPIRED })
+    const { navigation } = this.props
+    const currentStatus = navigation.getParam('currentStatus')
+    debugInfo('currentStatus', currentStatus)
+    this.setState({ currentStatus })
     screen('Subscription', {})
     try {
       const entitlements = await getEntitlements()
@@ -94,8 +97,8 @@ class Subscription extends Component {
 
   render () {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
-    const { entitlements, screenText, status } = this.state
-    const text = screenText[status.code]
+    const { entitlements, screenText, currentStatus } = this.state
+    const text = screenText[currentStatus.code]
 
     return (
       <View style={{ position: 'relative' }}>
