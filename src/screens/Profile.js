@@ -10,10 +10,8 @@ import icons from '../utils/icons'
 import withUser, { shapeContextUser } from '../components/withUser'
 import { isSetupFinished } from '../utils/session'
 import { screen } from '../utils/analytics'
-import http from '../utils/http'
-import debugFactory from 'debug'
-
-const debugInfo = debugFactory('yester:Profile:info')
+// import debugFactory from 'debug'
+// const debugInfo = debugFactory('yester:Profile:info')
 // const debugError = debugFactory('yester:Profile:error')
 
 class Profile extends Component {
