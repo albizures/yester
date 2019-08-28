@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
@@ -256,5 +256,22 @@ export const isAuthorized = async (user, purchaserInfo) => {
     } else {
       return saveUserSubscriptionStatus(status.EXPIRED, purchaserInfo)
     }
+  }
+}
+
+export const authorizeAction = async (props, callback) => {
+  const {
+    navigation,
+    contextUser: { user },
+  } = props
+  const authorized = isAuthorized(user)
+  if (authorized) {
+    callback()
+  } else {
+    Alert.alert(
+      'Pending subscription',
+      'You have to be subscribed to receive a daily question. Hop on and start your subscription',
+      [{ text: 'Cancel' }, { text: 'OK', onPress: () => navigation.navigate('Subscription') }]
+    )
   }
 }
