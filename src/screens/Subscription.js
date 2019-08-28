@@ -27,17 +27,17 @@ class Subscription extends Component {
       [status.ODD_REQUIRE.code]: {
         title: 'subscription.title',
         subtitle: 'subscription.subtitle',
-        belowButton: 'subscription.belowButton',
+        priceDetails: 'subscription.priceDetails',
       },
       [status.EVEN_REQUIRE.code]: {
         title: 'subscription.title',
         subtitle: 'subscription.subtitle',
-        belowButton: 'subscription.belowButton',
+        priceDetails: 'subscription.priceDetails',
       },
       [status.EXPIRED.code]: {
         title: 'subscription.expired.title',
         subtitle: 'subscription.expired.subtitle',
-        belowButton: 'subscription.expired.belowButton',
+        priceDetails: 'subscription.expired.priceDetails',
       },
     },
     status: status.ODD_REQUIRE,
@@ -122,9 +122,9 @@ class Subscription extends Component {
               disabled={entitlements.length === 0}
             />
             <Body1
-              keyName={text.belowButton}
+              keyName={text.priceDetails}
               data={{ price: translate('subscription.price') }}
-              style={styles.belowButtonText}
+              style={styles.priceDetailsText}
             />
             <Body1
               keyName='subscription.restore'
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     textAlign,
     marginBottom: height * 0.05,
   },
-  belowButtonText: {
+  priceDetailsText: {
     color,
     textAlign,
     marginTop: height * 0.01,
