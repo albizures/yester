@@ -44,9 +44,11 @@ class Subscription extends Component {
 
   onStartTrial = async () => {
     const { navigation } = this.props
-    await buySubscription(this.state.entitlements.pro.monthly.identifier)
+    const { entitlements } = this.state
+
+    await buySubscription(entitlements.pro.monthly.identifier)
     track('Trial Started', {
-      item: this.state.entitlements.pro.monthly.identifier,
+      item: entitlements.pro.monthly.identifier,
       revenue: 0.0,
     })
     navigation.navigate('AppLoading')
