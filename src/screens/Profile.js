@@ -48,13 +48,15 @@ class Profile extends Component {
     })
     screen('Profile', {})
 
-    const { data = {} } = await http.getAPI('/v2/stories/stats')
-    const { Count: count, answered } = data
-    // debugInfo('data:', await http.getAPI('/v2/stories', { answered: true }))
+    // const { data = {} } = await http.getAPI('/v2/stories/stats')
+    const {
+      contextUser: { user },
+    } = this.props
+    const { questionCounter, storyCounter } = user
     this.setState({
       isLoading: false,
-      count,
-      answered,
+      questionCounter,
+      storyCounter,
     })
   }
 
@@ -74,8 +76,8 @@ class Profile extends Component {
   }
 
   render () {
-    const { isLoading, count, answered } = this.state
-    const completed = answered ? Math.round((answered / count) * 100) : '...'
+    const { isLoading, questionCounter, storyCounter } = this.state
+    const completed = storyCounter ? Math.round((storyCounter / questionCounter) * 100) : '...'
     const { name, email, country, state, gender, birthPlace, emailVerified } = this.state.user
     const location =
       birthPlace !== undefined ? birthPlace : `${country}, ${state ? state.substring(3, 5) : ''}`
@@ -111,7 +113,7 @@ class Profile extends Component {
           <Heading2 text={name} style={styles.nameText} />
           <Heading5
             keyName='profile.stories.answered'
-            data={{ answered: answered || '...', completed }}
+            data={{ answered: storyCounter || '...', completed }}
             style={{ marginBottom: 30, textAlign: 'center' }}
           />
         </View>
