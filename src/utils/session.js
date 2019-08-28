@@ -141,8 +141,8 @@ export const isSetupFinished = async (user) => {
   return { finished: true, params: user }
 }
 
-export const saveUserSubscriptionStatus = async (subscriptionStatus, purchaserInfo, trialDate) => {
-  const { code, tag, authorized } = subscriptionStatus
+export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, trialDate) => {
+  const { code, tag, authorized } = currentStatus
   debugInfo('purchaserInfo:', purchaserInfo)
   if (_.isEmpty(purchaserInfo)) return false
 
@@ -168,7 +168,6 @@ export const saveUserSubscriptionStatus = async (subscriptionStatus, purchaserIn
     email: currentUser.email,
     purchaser_info: purchaserInfo,
   })
-  return authorized
 }
 
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
@@ -234,6 +233,7 @@ export const isEven = (user) => {
 }
 
 export const isAuthorized = async (user, purchaserInfo) => {
+  let currentStatus = {}
   purchaserInfo = purchaserInfo || (await getPurchaserInfo()) || {}
   const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo
   const { storyCounter } = user
@@ -245,20 +245,23 @@ export const isAuthorized = async (user, purchaserInfo) => {
   if (!hasEverPurchased) {
     if (isEven(user)) {
       if (storyCounter <= 5) {
-        return saveUserSubscriptionStatus(status.WELCOME, purchaserInfo)
+        currentStatus = status.WELCOME
       } else {
-        return saveUserSubscriptionStatus(status.EVEN_REQUIRE, purchaserInfo)
+        currentStatus = status.EVEN_REQUIRE
       }
     } else {
-      return saveUserSubscriptionStatus(status.ODD_REQUIRE, purchaserInfo)
+      currentStatus = status.ODD_REQUIRE
     }
   } else {
     if (activeEntitlements.includes('pro')) {
-      return saveUserSubscriptionStatus(status.PRO, purchaserInfo)
+      currentStatus = status.PRO
     } else {
-      return saveUserSubscriptionStatus(status.EXPIRED, purchaserInfo)
+      currentStatus = status.EXPIRED
     }
   }
+  saveUserSubscriptionStatus(currentStatus, purchaserInfo)
+  // return status.EXPIRED
+  return currentStatus
 }
 
 export const authorizeAction = async (props, callback) => {
@@ -266,14 +269,18 @@ export const authorizeAction = async (props, callback) => {
     navigation,
     contextUser: { user },
   } = props
-  const authorized = isAuthorized(user)
-  if (authorized) {
+  const currentStatus = await isAuthorized(user)
+  debugInfo('currentStatus', currentStatus)
+  if (currentStatus.authorized) {
     callback()
   } else {
     Alert.alert(
       'Pending subscription',
       'You have to be subscribed to receive a daily question. Hop on and start your subscription',
-      [{ text: 'Cancel' }, { text: 'OK', onPress: () => navigation.navigate('Subscription') }]
+      [
+        { text: 'Cancel' },
+        { text: 'OK', onPress: () => navigation.navigate('Subscription', { currentStatus }) },
+      ]
     )
   }
 }
