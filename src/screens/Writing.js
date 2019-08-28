@@ -154,7 +154,7 @@ class Writing extends Component {
               action: NavigationActions.navigate({
                 routeName: 'MyStory',
                 action: NavigationActions.navigate({
-                  routeName: 'Home',
+                  routeName: 'Stories',
                   params: { storyId: data.id },
                 }),
               }),
