@@ -32,15 +32,17 @@ export default class Home extends Component {
   willFocusListener = null
 
   async componentDidMount () {
-    const { addListener } = this.props.navigation
+    const {
+      navigation,
+      contextUser: { user },
+    } = this.props
+    const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
 
-    const { navigation } = this.props
     this.setState({
       isLoading: true,
     })
 
-    const storyId = navigation.getParam('storyId')
     try {
       const { data: question } = await http.getAPI('/v2/questions')
       // const question = {
@@ -60,16 +62,6 @@ export default class Home extends Component {
     }
 
     this.setState({ isLoading: false })
-
-    if (storyId) {
-      Animated.spring(this.state.positionToast, {
-        toValue: 40,
-        bounciness: 3,
-        speed: 3,
-      }).start()
-
-      this.timeout = setTimeout(this.closeToast, 5000)
-    }
   }
 
   load = () => {
