@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
-import { setupPurchases } from '../utils/purchase'
+import { setupPurchases, status } from '../utils/purchase'
 import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
@@ -81,9 +81,9 @@ class AppLoading extends Component {
         return navigation.navigate('SetupBirthDate', params)
       }
 
-      const authorized = await isAuthorized(user)
-      if (!authorized) {
-        return navigation.navigate('Subscription')
+      const currentStatus = await isAuthorized(user)
+      if (currentStatus === status.ODD_REQUIRE) {
+        return navigation.navigate('Subscription', { currentStatus })
       }
 
       await this.getAges()
