@@ -7,6 +7,7 @@ import { LoginManager } from 'react-native-fbsdk'
 import { sendTags } from '../utils/notifications'
 import { getPurchaserInfo, status } from '../utils/purchase'
 import moment from 'moment'
+import _ from 'lodash'
 import debugFactory from 'debug'
 
 export const Storage = new StorageHelper().getStorage()
@@ -143,6 +144,7 @@ export const isSetupFinished = async (user) => {
 export const saveUserSubscriptionStatus = async (subscriptionStatus, purchaserInfo, trialDate) => {
   const { code, tag, authorized } = subscriptionStatus
   debugInfo('purchaserInfo:', purchaserInfo)
+  if (_.isEmpty(purchaserInfo)) return false
 
   const entitlement = purchaserInfo['activeEntitlements'][0]
   const subscription = purchaserInfo['activeSubscriptions'][0]
