@@ -20,13 +20,14 @@ import IconButton from '../components/IconButton'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import http from '../utils/http'
+import { authorizeAction } from '../utils/session'
 import moment from 'moment'
 import { translate } from '../components/Translate'
 import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:Reading:error')
-const debugInfo = debugFactory('yester:Reading:info')
+// const debugInfo = debugFactory('yester:Reading:info')
 
 class Reading extends Component {
   static propTypes = {
@@ -94,13 +95,14 @@ class Reading extends Component {
     return (props) => <Heading1 {...props} style={[props.style, { fontSize: 40 }]} />
   }
 
-  onEdit = () => {
+  onEdit = async () => {
     const { navigation } = this.props
-    const { title: question, content, ageId, storyId } = this.state
-
-    track('Edit Story', { title: question })
-
-    navigation.replace('Writing', { ageId, question, storyId, content })
+    await authorizeAction(this.props, () => {
+      const { title: question, content, ageId, storyId } = this.state
+      const params = { ageId, question, storyId, content }
+      track('Edit Story', { title: question })
+      navigation.replace('Writing', params)
+    })
   }
 
   render () {

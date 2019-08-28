@@ -13,14 +13,17 @@ import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
 import { translate } from '../../components/Translate'
 import { screen, track } from '../../utils/analytics'
+import { authorizeAction } from '../../utils/session'
+import withUser, { shapeContextUser } from '../../components/withUser'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Home:info')
 const debugError = debugFactory('yester:Home:error')
 
-export default class Home extends Component {
+class Home extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   state = {
@@ -39,12 +42,8 @@ export default class Home extends Component {
     const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
 
-    this.setState({
-      isLoading: true,
-    })
-
-    try {
-      const { data: question } = await http.getAPI('/v2/questions')
+    this.setState({ isLoading: true })
+    await authorizeAction(this.props, async () => {
       // const question = {
       //   age_id: 'Age#31',
       //   category: 'Family',
@@ -52,16 +51,17 @@ export default class Home extends Component {
       //   id: 'Question#0099',
       //   sub_category: '',
       // }
-
-      this.setState({ question })
-    } catch (error) {
-      debugError('today question:', error.response)
-      if (error.response.status !== 404) {
-        Alert.alert(translate('home.error.today.question'))
+      try {
+        const { data: question } = await http.getAPI('/v2/questions')
+        this.setState({ isLoading: false, question })
+      } catch (error) {
+        this.setState({ isLoading: false })
+        debugError('today question:', error.response)
+        if (error.response.status !== 404) {
+          Alert.alert(translate('home.error.today.question'))
+        }
       }
-    }
-
-    this.setState({ isLoading: false })
+    })
   }
 
   load = () => {
@@ -185,6 +185,8 @@ export default class Home extends Component {
     )
   }
 }
+
+export default withUser(Home)
 
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
