@@ -7,20 +7,20 @@ import Tabs from './Tabs'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
 import { Title, Heading4, Heading3 } from '../../components'
-import http from '../../utils/http'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
-import { translate } from '../../components/Translate'
 import { screen, track } from '../../utils/analytics'
+import withUser, { shapeContextUser } from '../../components/withUser'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Stories:info')
 const debugError = debugFactory('yester:Stories:error')
 
-export default class Stories extends Component {
+class Stories extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   state = {
@@ -186,6 +186,8 @@ export default class Stories extends Component {
     )
   }
 }
+
+export default withUser(Stories)
 
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
