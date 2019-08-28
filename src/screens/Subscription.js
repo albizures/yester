@@ -5,10 +5,11 @@ import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
 import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } from '../components'
+import { translate } from '../components/Translate'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { logOut } from '../utils/session'
-import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchase'
+import { getEntitlements, makePurchase, restoreSubscription, status } from '../utils/purchase'
 import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 
@@ -22,15 +23,32 @@ class Subscription extends Component {
 
   state = {
     entitlements: [],
+    screenText: {
+      [status.ODD_REQUIRE.code]: {
+        title: 'subscription.title',
+        subtitle: 'subscription.subtitle',
+        belowButton: 'subscription.belowButton',
+      },
+      [status.EVEN_REQUIRE.code]: {
+        title: 'subscription.title',
+        subtitle: 'subscription.subtitle',
+        belowButton: 'subscription.belowButton',
+      },
+      [status.EXPIRED.code]: {
+        title: 'subscription.expired.title',
+        subtitle: 'subscription.expired.subtitle',
+        belowButton: 'subscription.expired.belowButton',
+      },
+    },
+    status: status.ODD_REQUIRE,
   }
 
   async componentDidMount () {
+    this.setState({ status: status.EXPIRED })
     screen('Subscription', {})
     try {
       const entitlements = await getEntitlements()
-      this.setState({
-        entitlements,
-      })
+      this.setState({ entitlements })
     } catch (e) {
       debugError('componentDidMount', e)
     }
@@ -76,7 +94,8 @@ class Subscription extends Component {
 
   render () {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
-    const { entitlements } = this.state
+    const { entitlements, screenText, status } = this.state
+    const text = screenText[status.code]
 
     return (
       <View style={{ position: 'relative' }}>
@@ -84,8 +103,12 @@ class Subscription extends Component {
         <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
             <Title keyName='subscription.close' style={styles.closeText} onPress={this.onLogOut} />
-            <Heading1 keyName='subscription.try' style={styles.tryText} />
-            <Heading5 keyName='subscription.price' style={styles.priceText} />
+            <Heading1 keyName={text.title} style={styles.titleText} />
+            <Heading5
+              keyName={text.subtitle}
+              data={{ price: translate('subscription.price') }}
+              style={styles.subtitleText}
+            />
             {
               // <Image source={icons.ballon} style={styles.ballonImage} />
             }
@@ -93,12 +116,16 @@ class Subscription extends Component {
             <Heading4 keyName='subscription.features' style={styles.featuresText} />
 
             <Button
-              title='subscription.start'
+              title='subscription.action'
               onPress={this.onStartTrial}
               type={types.OUTLINED}
               disabled={entitlements.length === 0}
             />
-            <Body1 keyName='subscription.priceAfter' style={styles.priceAfterText} />
+            <Body1
+              keyName={text.belowButton}
+              data={{ price: translate('subscription.price') }}
+              style={styles.belowButtonText}
+            />
             <Body1
               keyName='subscription.restore'
               style={styles.restoreText}
@@ -168,12 +195,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: height * 0.03,
   },
-  tryText: {
+  titleText: {
     color,
     textAlign,
     marginBottom: height * 0.01,
   },
-  priceText: {
+  subtitleText: {
     color,
     fontWeight: 'bold',
     textAlign,
@@ -195,7 +222,7 @@ const styles = StyleSheet.create({
     textAlign,
     marginBottom: height * 0.05,
   },
-  priceAfterText: {
+  belowButtonText: {
     color,
     textAlign,
     marginTop: height * 0.01,
