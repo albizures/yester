@@ -2,26 +2,14 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
-import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
-import http, { instance, original } from '../utils/http'
+import { setupPurchases } from '../utils/purchase'
+import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import {
-  sendTags,
-  getPermissionSubscriptionState,
-  checkNotificationsStatus,
-} from '../utils/notifications'
+import { getPermissionSubscriptionState, checkNotificationsStatus } from '../utils/notifications'
 // import moment from 'moment'
-import {
-  isSubscribed,
-  isSetupFinished,
-  getToken,
-  setLocale,
-  removeSubscription,
-  saveUserSubscriptionStatus,
-  logOut,
-} from '../utils/session'
+import { isSetupFinished, getToken, setLocale, logOut, isAuthorized } from '../utils/session'
 import { identifyAnalytics } from '../utils/analytics'
 import debugFactory from 'debug'
 
@@ -42,21 +30,6 @@ class AppLoading extends Component {
   constructor (props) {
     super(props)
     this.bootstrap()
-  }
-
-  returnResponse = (response) => {
-    return response
-  }
-
-  unauthorizedInterceptor = async (error) => {
-    const { status } = error.response
-    const { navigation } = this.props
-
-    if (status === 401) {
-      await removeSubscription()
-      navigation.navigate('Subscription')
-    }
-    return error
   }
 
   getAges = async () => {
@@ -108,40 +81,10 @@ class AppLoading extends Component {
         return navigation.navigate('SetupBirthDate', params)
       }
 
-      const hasSubscription = await isSubscribed(user)
-      const purchaserInfo = await getPurchaserInfo()
-
-      // const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
-
-      const { activeEntitlements = [] } = purchaserInfo || {}
-      debugInfo('Active entitlements: ', activeEntitlements)
-      if (activeEntitlements === 'undefined' || !activeEntitlements.includes('pro')) {
-        if (hasSubscription) {
-          await removeSubscription()
-        }
-        sendTags({ subscriptionStatus: 'none' })
+      const authorized = await isAuthorized(user)
+      if (!authorized) {
         return navigation.navigate('Subscription')
       }
-      sendTags({ subscriptionStatus: 'pro' })
-
-      // checking expiration dates
-      /*
-      const subscriptionsAreActive = activeSubscriptions.every((subscriptionName) => {
-        const nowDate = moment()
-        const expirationDate = moment(allExpirationDates[subscriptionName])
-
-        return expirationDate.isAfter(nowDate)
-      })
-
-      if (!subscriptionsAreActive) {
-        await removeSubscription()
-        return navigation.navigate('Subscription')
-      }
-      */
-      await saveUserSubscriptionStatus(status.SUBSCRIBED)
-
-      instance.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
-      original.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
 
       await this.getAges()
       const lastScreen = navigation.getParam('lastScreen', 'App')
