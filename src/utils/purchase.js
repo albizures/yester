@@ -2,16 +2,18 @@ import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
-import { saveUserSubscriptionStatus, removeSubscription, updateUserAttribute } from './session'
+import { saveUserSubscriptionStatus } from './session'
 import moment from 'moment'
 
 const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
 
 export const status = {
-  FIRST_STEPS: '0',
-  SUBSCRIBED: '1',
-  EXPIRED: '2',
+  WELCOME: { code: '0', tag: 'welcome', authorized: true },
+  PRO: { code: '1', tag: 'pro', authorized: true },
+  EXPIRED: { code: '2', tag: 'expired', authorized: false },
+  ODD_REQUIRE: { code: '3', tag: 'odd_require_trial', authorized: false },
+  EVEN_REQUIRE: { code: '4', tag: 'even_require_trial', authorized: false },
 }
 
 export const eventTypes = {
@@ -26,8 +28,8 @@ export const setupPurchases = async (user) => {
     Purchases.setDebugLogsEnabled(false)
     Purchases.setup(REVENUECAT_API_KEY, userId)
     Purchases.setAllowSharingStoreAccount(true)
-  } catch (error) {
-    debugError('setupPurchases', error)
+  } catch (err) {
+    debugError('setupPurchases', err)
   }
 }
 
@@ -36,49 +38,47 @@ export const getEntitlements = async () => {
     const entitlements = await Purchases.getEntitlements()
     debugInfo('Available entitlements:', entitlements)
     return entitlements
-  } catch (error) {
-    debugError('getEntitlements', error)
+  } catch (err) {
+    debugError('getEntitlements', err)
   }
 }
 
 export const getPurchaserInfo = async () => {
   try {
     const purchaserInfo = await Purchases.getPurchaserInfo()
-    debugInfo('Purchaser info:', purchaserInfo)
     return purchaserInfo
-  } catch (error) {
-    debugError('getPurchaserInfo:', error)
+  } catch (err) {
+    debugError('getPurchaserInfo:', err)
   }
 }
 
-export const buySubscription = async (productId) => {
+export const makePurchase = async (productId) => {
   try {
-    const purchaseMade = await Purchases.makePurchase(productId)
+    const { purchaserInfo } = await Purchases.makePurchase(productId)
+    const { activeEntitlements = [], activeSubscriptions = [] } = purchaserInfo
 
-    if (purchaseMade.purchaserInfo.activeEntitlements.length === 0) {
-      await removeSubscription()
+    if (activeEntitlements.length === 0) {
       return Alert.alert("We couldn't process your payment")
     }
 
-    const { activeSubscriptions = [] } = purchaseMade.purchaserInfo
     if (activeSubscriptions.length === 0) {
       return Alert.alert("We couldn't process your payment")
     }
 
     try {
-      await saveUserSubscriptionStatus(status.SUBSCRIBED)
-      await updateUserAttribute('trial_date', moment().format())
-    } catch (error) {
+      await saveUserSubscriptionStatus(status.PRO, purchaserInfo, moment().format())
+    } catch (err) {
+      debugError(err)
       Alert.alert("We couldn't update your suscription, please contact us")
     }
-  } catch (e) {
-    if (!e.userCancelled) {
-      debugError(`Error handling ${JSON.stringify(e)}`)
-      debugError(e.code, e.message, e)
+  } catch (err) {
+    if (!err.userCancelled) {
+      debugError(`Error handling ${JSON.stringify(err)}`)
+      debugError(err.code, err.message, err)
       Alert.alert(`We couldn't process your payment`)
     } else {
-      debugError(`User cancelled ${JSON.stringify(e)}`)
-      debugError(e.code, e.message, e)
+      debugError(`User cancelled ${JSON.stringify(err)}`)
+      debugError(err.code, err.message, err)
       Alert.alert(
         'Process has been cancelled.\n\nIf you already have a subscription with us 👍, please tap on Restore Subscription.'
       )
@@ -96,8 +96,8 @@ export const restoreSubscription = async () => {
       return Alert.alert('Great! Your subscription has been restored.')
     }
     return restore
-  } catch (e) {
-    debugError('Restoring: ', e)
+  } catch (err) {
+    debugError('Restoring: ', err)
     Alert.alert(`We couldn't process your restore transaction.`)
   }
 }
@@ -107,7 +107,7 @@ export const resetPurchases = async () => {
     const resetObject = await Purchases.reset()
     debugInfo('Reseting: ', resetObject)
     return resetObject
-  } catch (e) {
-    debugError('Reseting: ', e)
+  } catch (err) {
+    debugError('Reseting: ', err)
   }
 }

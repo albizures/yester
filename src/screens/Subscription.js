@@ -8,7 +8,7 @@ import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } fro
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { logOut } from '../utils/session'
-import { getEntitlements, buySubscription, restoreSubscription } from '../utils/purchase'
+import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchase'
 import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 
@@ -46,7 +46,7 @@ class Subscription extends Component {
     const { navigation } = this.props
     const { entitlements } = this.state
 
-    await buySubscription(entitlements.pro.monthly.identifier)
+    await makePurchase(entitlements.pro.monthly.identifier)
     track('Trial Started', {
       item: entitlements.pro.monthly.identifier,
       revenue: 0.0,
