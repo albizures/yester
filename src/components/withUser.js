@@ -20,6 +20,13 @@ export const shapeContextUser = {
     email: PropTypes.string.isRequired,
     userId: PropTypes.string.isRequired,
     emailVerified: PropTypes.boolean,
+    created: PropTypes.string,
+    purchaserInfo: PropTypes.object,
+    questionCounter: PropTypes.number,
+    storyCounter: PropTypes.number,
+    lastAnswer: PropTypes.string,
+    lastQuestion: PropTypes.string,
+    maxLength: PropTypes.number,
   }),
 }
 
