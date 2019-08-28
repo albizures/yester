@@ -1,11 +1,14 @@
 import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
-import debugFactory from 'debug'
-import moment from 'moment'
 import { AsyncStorage } from 'react-native'
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
+import { sendTags } from '../utils/notifications'
+import { getPurchaserInfo, status } from '../utils/purchase'
+import moment from 'moment'
+import debugFactory from 'debug'
+
 export const Storage = new StorageHelper().getStorage()
 
 Auth.configure({ storage: Storage })
@@ -71,6 +74,9 @@ export const sanitizeUser = async (user) => {
   if (!user) {
     return {}
   }
+
+  const { data: stats = {} } = await http.getAPI('/v2/stories/stats')
+
   return {
     country: user['country'],
     state: user['state'],
@@ -85,8 +91,14 @@ export const sanitizeUser = async (user) => {
     lastName: user['family_name'],
     email: user['email'],
     userId: user['user_id'],
-    subscriptionStatus: user['subscription_status'],
     emailVerified: user['email_verified'],
+    created: user['created'],
+    purchaserInfo: user['purchaser_info'],
+    questionCounter: stats['questionCounter'],
+    storyCounter: stats['storyCounter'],
+    lastAnswer: stats['lastAnswer'],
+    lastQuestion: stats['lastQuestion'],
+    maxLength: stats['maxLength'],
   }
 }
 
@@ -95,8 +107,8 @@ export const getAPIUser = async () => {
     debugInfo('API call get user')
     const { data: user } = await http.getAPI('/v2/users/')
     return user
-  } catch (e) {
-    debugError(e)
+  } catch (err) {
+    debugError(err)
   }
 }
 
@@ -104,8 +116,8 @@ export const postAPIUser = async (user) => {
   try {
     debugInfo('API call post user')
     await http.postAPI('/v2/users/', user)
-  } catch (e) {
-    debugError(e)
+  } catch (err) {
+    debugError(err)
   }
 }
 
@@ -128,15 +140,33 @@ export const isSetupFinished = async (user) => {
   return { finished: true, params: user }
 }
 
-export const isSubscribed = async (user) => {
-  if (!user.subscriptionStatus) {
-    return false
+export const saveUserSubscriptionStatus = async (subscriptionStatus, purchaserInfo, trialDate) => {
+  const { code, tag, authorized } = subscriptionStatus
+  debugInfo('purchaserInfo:', purchaserInfo)
+
+  const entitlement = purchaserInfo['activeEntitlements'][0]
+  const subscription = purchaserInfo['activeSubscriptions'][0]
+  const expiration = purchaserInfo['latestExpirationDate']
+  const lastPurchase = purchaserInfo['purchaseDatesForActiveEntitlements'][entitlement]
+
+  purchaserInfo = {
+    entitlement,
+    subscription,
+    expiration,
+    last_purchase: lastPurchase,
+    status: code,
+    authorized,
+    last_auth: moment().format(),
+    trial_date: trialDate,
   }
 
-  if (user.subscriptionStatus !== '1') {
-    return false
-  }
-  return true
+  sendTags({ subscriptionStatus: tag })
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    purchaser_info: purchaserInfo,
+  })
+  return authorized
 }
 
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
@@ -149,14 +179,6 @@ export const saveUserData = async ({ birthDate, country, state, gender, birthPla
     platform: platform,
     birthdate: birthDate,
     gender: gender,
-  })
-}
-
-export const saveUserSubscriptionStatus = async (subscriptionStatus) => {
-  const currentUser = await Auth.currentAuthenticatedUser()
-  await postAPIUser({
-    email: currentUser.email,
-    subscription_status: subscriptionStatus,
   })
 }
 
@@ -196,19 +218,43 @@ export const cleanUserNotifications = async () => {
   })
 }
 
-// TODO: Use this.updateUserAttribute
-export const removeSubscription = async () => {
-  const currentUser = await Auth.currentAuthenticatedUser()
-  await postAPIUser({
-    email: currentUser.email,
-    subscription_status: '',
-  })
-}
-
 export const setLocale = (locale) => {
   locale = locale || 'en'
   debugInfo('Setting app language: ', locale)
   setHeaderLocale(locale)
   moment.locale(locale)
   strings.setLanguage(locale)
+}
+
+export const isEven = (user) => {
+  const hour = moment(user.created).hour()
+  return hour % 2 === 0
+}
+
+export const isAuthorized = async (user, purchaserInfo) => {
+  purchaserInfo = purchaserInfo || (await getPurchaserInfo()) || {}
+  const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo
+  const { storyCounter } = user
+  debugInfo('activeEntitlements:', activeEntitlements)
+
+  const purchasedProducts = Object.keys(allExpirationDates)
+  const hasEverPurchased = purchasedProducts.length > 0
+
+  if (!hasEverPurchased) {
+    if (isEven(user)) {
+      if (storyCounter <= 5) {
+        return saveUserSubscriptionStatus(status.WELCOME, purchaserInfo)
+      } else {
+        return saveUserSubscriptionStatus(status.EVEN_REQUIRE, purchaserInfo)
+      }
+    } else {
+      return saveUserSubscriptionStatus(status.ODD_REQUIRE, purchaserInfo)
+    }
+  } else {
+    if (activeEntitlements.includes('pro')) {
+      return saveUserSubscriptionStatus(status.PRO, purchaserInfo)
+    } else {
+      return saveUserSubscriptionStatus(status.EXPIRED, purchaserInfo)
+    }
+  }
 }

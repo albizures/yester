@@ -72,6 +72,7 @@ export const checkPermissions = () => {
 
 export const getPermissionSubscriptionState = (callback) => {
   try {
+    // Asyncronous
     OneSignal.getPermissionSubscriptionState(callback)
   } catch (error) {
     debugError('getPermissionSubscriptionState', error)
