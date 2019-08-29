@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Image, Dimensions, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, Image, Dimensions, KeyboardAvoidingView, Alert } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
 import { translate } from '../../components/Translate'
@@ -12,9 +12,10 @@ import Picker from '../../components/Picker'
 import TopBar from '../../components/TopBar'
 import { extractSetupParams } from '../../utils'
 import { screen } from '../../utils/analytics'
-import debugFactory from 'debug'
 import withUser, { shapeContextUser } from '../../components/withUser'
+import moment from 'moment'
 
+import debugFactory from 'debug'
 const debugError = debugFactory('yester:BirthDate:error')
 const debugInfo = debugFactory('yester:BirthDate:info')
 
@@ -78,19 +79,31 @@ class BirthDate extends Component {
       birthPlace,
       updateSetup,
     } = this.state
-    if (birthDate) {
-      navigation.navigate('SetupPlace', {
-        birthDate,
-        country,
-        state,
-        countryName,
-        stateName,
-        givenName,
-        gender,
-        birthPlace,
-        updateSetup,
-      })
+
+    if (!birthDate) {
+      return Alert.alert(translate('setup.age.birthdate.alert'))
     }
+    if (!gender) {
+      return Alert.alert(translate('setup.age.gender.alert'))
+    }
+    const momentBirth = moment(birthDate)
+    const momentNow = moment()
+    const ageYears = momentNow.diff(momentBirth, 'years')
+    if (ageYears < 13) {
+      return Alert.alert(translate('setup.age.birthdate.minor.alert'))
+    }
+
+    navigation.navigate('SetupPlace', {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      givenName,
+      gender,
+      birthPlace,
+      updateSetup,
+    })
   }
 
   onChangeGender = (gender, index) => {
