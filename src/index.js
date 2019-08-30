@@ -253,7 +253,8 @@ export default class App extends Component {
   state = {}
   async componentDidMount () {
     console.log('Disabling debug', debugFactory.disable())
-    // debugFactory.enable('yester:http*, yester:Home*')
+    // debugFactory.enable('yester:*')
+    // debugFactory.enable('yester:http*, yester:purchase*')
     SplashScreen.hide()
 
     initNotifications()
