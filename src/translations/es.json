@@ -165,6 +165,8 @@
   "home.toast.story.saved": "Historia guardada!",
   "home.toast.read.story.now": "Lee tu historia ahora.",
   "home.error.today.question": "No pudimos obtener tu pregunta de hoy.",
+  "home.alertItem.title": "Sin suscripción activa",
+  "home.alertItem.subtitle": "Continúa escribiendo tu historia",
   "questionCard.write": "Escribe y Vive de Nuevo",
   "questionCard.skip": "Escribir después",
   "writing.topbar": "Escribiendo",

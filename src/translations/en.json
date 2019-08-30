@@ -165,6 +165,8 @@
   "home.toast.story.saved": "Story saved!",
   "home.toast.read.story.now": "Read your story now.",
   "home.error.today.question": "We couldn't get your daily question.",
+  "home.alertItem.title": "No active subscription",
+  "home.alertItem.subtitle": "Continue writing your great story",
   "questionCard.write": "Write and Live Again",
   "questionCard.skip": "Write Later",
   "writing.topbar": "Writing",
