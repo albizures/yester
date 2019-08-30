@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, FlatList, Alert, Image, Dimensions, Animated, Text } from 'react-native'
 import QuestionItem from './QuestionItem'
+import AlertItem from './AlertItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
 import Container from '../../components/Container'
@@ -57,9 +58,21 @@ class Home extends Component {
       } catch (error) {
         this.setState({ isLoading: false })
         debugError('today question:', error.response)
-        if (error.response.status !== 404) {
-          Alert.alert(translate('home.error.today.question'))
+        if (error.response.status === 404) {
+          debugError('There is not a new question ready.')
+          return
         }
+        if (error.response.status === 402) {
+          const { data } = error.response
+          debugError(data.message)
+          this.setState({
+            alertItem: {
+              description: 'Please subscribe here! 😊   👉',
+            },
+          })
+          return
+        }
+        Alert.alert(translate('home.error.today.question'))
       }
     })
   }
@@ -148,7 +161,7 @@ class Home extends Component {
   }
 
   render () {
-    const { isLoading, question, positionToast } = this.state
+    const { isLoading, question, positionToast, alertItem } = this.state
     const topBarTitle = (
       <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
@@ -160,6 +173,9 @@ class Home extends Component {
         <View style={styles.view}>
           {question && (
             <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />
+          )}
+          {alertItem && (
+            <AlertItem text={alertItem.description} onPress={this.onWriteTodayQuestion} />
           )}
           {!isLoading && <Tabs onPressItem={this.onPressItem} answered={false} />}
         </View>

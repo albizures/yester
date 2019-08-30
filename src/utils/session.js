@@ -259,6 +259,7 @@ export const isAuthorized = async (user, purchaserInfo) => {
       currentStatus = status.EXPIRED
     }
   }
+  currentStatus = status.EXPIRED
   saveUserSubscriptionStatus(currentStatus, purchaserInfo)
   // return status.EXPIRED
   return currentStatus
@@ -271,9 +272,9 @@ export const authorizeAction = async (props, callback) => {
   } = props
   const currentStatus = await isAuthorized(user)
   debugInfo('currentStatus', currentStatus)
-  if (currentStatus.authorized) {
-    callback()
-  } else {
+
+  callback()
+  if (!currentStatus.authorized) {
     Alert.alert(
       'Pending subscription',
       'You have to be subscribed to receive a daily question. Hop on and start your subscription',
