@@ -128,6 +128,8 @@
   "login.error": "There was an error. Try again later.",
   "login.error.notAuthorized": "The username or password is incorrect. Please try again.",
   "login.error.userNotFound": "This username does not exist in Yester. Please try again.",
+  "login.alert.noEmail": "Please enter your Email in order to Log in",
+  "login.alert.noPassword": "Please enter your Password in order to Log in",
   "settings.title": "Settings",
   "settings.item.facebook": "Connect with Facebook",
   "settings.item.language": "Language",

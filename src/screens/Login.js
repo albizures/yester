@@ -67,6 +67,14 @@ class Login extends Component {
   onLogin = async () => {
     const { navigation } = this.props
     const { email, password } = this.state
+
+    if (!email) {
+      return Alert.alert(translate('login.alert.noEmail'))
+    }
+    if (!password) {
+      return Alert.alert(translate('login.alert.noPassword'))
+    }
+
     try {
       await logIn(email, password)
 
