@@ -35,6 +35,7 @@ const icons = {
   cardLove: require('../assets/illustrations/cards/love.png'),
   cardReligion: require('../assets/illustrations/cards/religion.png'),
   cardWork: require('../assets/illustrations/cards/work.png'),
+  bang: require('../assets/bang-disabled.png'),
 }
 
 export const ages = {
@@ -58,11 +59,11 @@ export const categories = {
   'Category#08': icons.cardWork,
 }
 
-export const getAgeIcon = id => {
+export const getAgeIcon = (id) => {
   return ages[id] || icons.ageYoungAdult
 }
 
-export const getCategoryIllustration = id => {
+export const getCategoryIllustration = (id) => {
   return categories[id] || icons.cardFamily
 }
 
