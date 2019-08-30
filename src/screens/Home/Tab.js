@@ -24,6 +24,16 @@ export default class Tab extends Component {
     lastEvaluatedKey: this.props.initialEvaluatedKey,
     stories: this.props.initialStories,
     endReached: !this.props.initialEvaluatedKey,
+    screenText: {
+      [true]: {
+        emptyTitle: 'home.empty.tab.stories.title',
+        emptySubtitle: 'home.empty.tab.stories.subtitle',
+      },
+      [false]: {
+        emptyTitle: 'home.empty.tab.questions.title',
+        emptySubtitle: 'home.empty.tab.questions.subtitle',
+      },
+    },
   }
 
   onEndReached = (info) => {
@@ -44,7 +54,6 @@ export default class Tab extends Component {
     }
     try {
       const { data } = await http.getAPI('/v2/stories', queryParams)
-
       const stories = currentStories.concat(data.items)
 
       this.setState({
@@ -60,6 +69,7 @@ export default class Tab extends Component {
 
   renderItem = ({ item }) => {
     const { onPressItem } = this.props
+
     const {
       content,
       story,
@@ -90,15 +100,15 @@ export default class Tab extends Component {
   }
 
   render () {
-    const { stories } = this.state
+    const { answered } = this.props
+    const { stories, screenText } = this.state
+    const text = screenText[answered]
+
     const content =
       stories.length === 0 ? (
         <View style={styles.noStoriesContainer}>
-          <Heading4
-            style={[styles.message, styles.highlightMessage]}
-            keyName={'home.empty.tab.title'}
-          />
-          <Heading5 style={styles.message} keyName={'home.empty.tab.subtitle'} />
+          <Heading4 style={[styles.message, styles.highlightMessage]} keyName={text.emptyTitle} />
+          <Heading5 style={styles.message} keyName={text.emptySubtitle} />
         </View>
       ) : (
         <FlatList
