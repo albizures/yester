@@ -160,8 +160,12 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.myStory'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/feed.png'),
-          inactive: require('./assets/feed-disabled.png'),
+          active: require('./assets/read.png'),
+          inactive: require('./assets/read.png'),
+          iconSize: {
+            height: 18,
+            width: 21,
+          },
         }),
       }),
     },

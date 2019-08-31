@@ -4,18 +4,14 @@ import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 
 // TODO use Animated.View to animate the icon
-const TabIcon = ({ focused, src, activeSrc }) => {
+const TabIcon = ({ focused, src, activeSrc, iconSize }) => {
   const source = focused ? activeSrc : src
   const style = focused ? styles.active : styles.inactive
+  iconSize = iconSize || styles.iconSize
+
   return (
     <View style={style}>
-      <Image
-        style={{
-          height: 20,
-          width: 20,
-        }}
-        source={source}
-      />
+      <Image style={iconSize} source={source} />
     </View>
   )
 }
@@ -24,10 +20,10 @@ const styles = StyleSheet.create({
   active: {
     backgroundColor: colors.governorBay,
     padding: 18,
-    borderRadius: PixelRatio.roundToNearestPixel((20 + (18 * 2)) / 2),
+    borderRadius: PixelRatio.roundToNearestPixel((20 + 18 * 2) / 2),
     marginBottom: 10,
     shadowColor: colors.black,
-    shadowOpacity: 0.20,
+    shadowOpacity: 0.2,
     shadowRadius: 4,
     shadowOffset: {
       width: 0,
@@ -37,20 +33,22 @@ const styles = StyleSheet.create({
   inactive: {
     padding: 0,
   },
+  iconSize: {
+    height: 20,
+    width: 20,
+  },
 })
 
 TabIcon.propTypes = {
   focused: PropTypes.bool.isRequired,
   src: PropTypes.number.isRequired,
   activeSrc: PropTypes.number.isRequired,
+  iconSize: PropTypes.object,
 }
 
-export const tabBarIcon = ({ active, inactive }) => {
+export const tabBarIcon = ({ active, inactive, iconSize }) => {
   const Icon = ({ focused }) => (
-    <TabIcon
-      activeSrc={active}
-      src={inactive}
-      focused={focused} />
+    <TabIcon activeSrc={active} src={inactive} focused={focused} iconSize={iconSize} />
   )
   Icon.propTypes = {
     focused: PropTypes.bool,
