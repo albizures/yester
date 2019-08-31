@@ -273,15 +273,16 @@ export const authorizeAction = async (props, callback) => {
   const currentStatus = await isAuthorized(user)
   debugInfo('currentStatus', currentStatus)
 
-  callback()
+  callback(currentStatus)
   if (!currentStatus.authorized) {
     Alert.alert(
       'Pending subscription',
-      'You have to be subscribed to receive a daily question. Hop on and start your subscription',
+      'You need an active subscription to receive your daily question or to write and edit new stories.\nPlease start your subscription now. 👇',
       [
         { text: 'Cancel' },
         { text: 'OK', onPress: () => navigation.navigate('Subscription', { currentStatus }) },
       ]
     )
   }
+  return currentStatus
 }
