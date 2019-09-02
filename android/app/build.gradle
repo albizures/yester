@@ -105,7 +105,7 @@ android {
         applicationId "com.yester.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1628
+        versionCode 1631
         versionName "0.6.0"
     }
     splits {
