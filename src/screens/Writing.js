@@ -61,19 +61,29 @@ class Writing extends Component {
     this.keyboardDidHideSub.remove()
   }
 
+  componentDidMount () {
+    this.content.current.focus()
+  }
+
+  onKeyboardDidShow = (event) => {
+    if (!this.isFocused) {
+      return
+    }
+    this.keyboardHeight = event.endCoordinates.height
+    this.positionateScroll()
+  }
+
   onKeyboardDidHide = () => {
-    this.setState({ shift: 20 })
+    this.setState({ shift: 20, scrollOffset: 0 })
   }
 
   componentDidUpdate (prevProps, prevState) {
-    const didScrollOffsetChanged = prevState.scrollOffset !== this.state.scrollOffset
-
-    if (didScrollOffsetChanged) {
+    setTimeout(() => {
       this.scroll.current.scrollTo({
         y: this.state.scrollOffset + this.scrollPosition,
         animated: true,
       })
-    }
+    }, 50)
   }
 
   getNewScrollOffset (cursorPosition, viewport) {
@@ -102,25 +112,45 @@ class Writing extends Component {
       return
     }
 
+    if (!keyboardHeight) {
+      return
+    }
+
     const percentagePosition = (100 * selection.start) / content.length / 100
+
+    if (percentagePosition > 1) {
+      return
+    }
 
     UIManager.measure(
       findNodeHandle(this.content.current),
       (originX, originY, width, height, pageX, pageY) => {
+        pageY = parseInt(pageY)
         const cursorPositionInTextInput = parseInt(height * percentagePosition)
         const cursorPosition = cursorPositionInTextInput + pageY - headerOffset
         const viewport = [headerOffset, windowHeight - keyboardHeight - 100]
-
         const scrollOffset = this.getNewScrollOffset(cursorPosition, viewport)
 
-        this.setState({ shift: keyboardHeight, scrollOffset })
+        this.setState({ shift: keyboardHeight + 20, scrollOffset })
+
+        debugInfo(
+          `
+          selection: ${JSON.stringify(this.selection)},
+          keyboardHeight: ${JSON.stringify(this.keyboardHeight)},
+          scrollPosition: ${this.scrollPosition},
+          content.lenght: ${content.length},
+          percentagePosition: ${percentagePosition},
+          isFocused: ${this.isFocused},
+
+          height: ${height},
+          pageY: ${pageY},
+          cursorPositionInTextInput: ${cursorPositionInTextInput},
+          cursorPosition: ${cursorPosition},
+          viewport: ${viewport}
+          scrollOffset: ${scrollOffset}`
+        )
       }
     )
-  }
-
-  onKeyboardDidShow = (event) => {
-    this.keyboardHeight = event.endCoordinates.height
-    this.positionateScroll()
   }
 
   onFocus = () => {
@@ -128,6 +158,7 @@ class Writing extends Component {
   }
 
   onBlur = () => {
+    Keyboard.dismiss()
     this.isFocused = false
   }
 
@@ -176,16 +207,29 @@ class Writing extends Component {
   onBack = () => {
     const { navigation } = this.props
     Alert.alert(translate('writing.unsaved.title'), translate('writing.unsaved.message'), [
-      { text: 'Cancel' },
-      { text: 'OK', onPress: () => navigation.navigate('Home') },
+      {
+        text: 'Cancel',
+        onPress: () => {
+          this.content.current.focus()
+        },
+      },
+
+      {
+        text: 'Ok',
+        onPress: () => {
+          setTimeout(() => {
+            navigation.navigate('MyStory')
+          }, 150)
+        },
+      },
     ])
+    Keyboard.dismiss()
   }
 
   onContentSizeChange = (event) => {
     if (!this.isFocused) {
       return
     }
-
     this.positionateScroll()
   }
 
@@ -197,8 +241,8 @@ class Writing extends Component {
 
   onSelectionChange = (event) => {
     const { selection } = event.nativeEvent
-
     this.selection = selection
+    this.positionateScroll()
   }
 
   onScrollPositionMove = (event) => {
@@ -228,6 +272,7 @@ class Writing extends Component {
         scroll
         scrollEvents={scrollEvents}
         scrollRef={this.scroll}
+        keyboardDismissMode='none'
         isLoading={isLoading}
         topBar={topBar}
       >
