@@ -30,27 +30,27 @@ class Notificacions extends Component {
 
   componentDidMount () {
     screen('Notifications', {})
-    getPermissionSubscriptionState((status) => {
+    getPermissionSubscriptionState((notifStatus) => {
       const { notifications } = this.props.contextUser.user
       this.setState({
         subscriptionEnabled: notifications,
       })
 
       debugInfo('DidMount notifications: ', notifications)
-      debugInfo('DidMount Status: ', status)
-      if (notifications !== status.subscriptionEnabled) {
+      debugInfo('DidMount notifStatus: ', notifStatus)
+      if (notifications !== notifStatus.subscriptionEnabled) {
         setSubscription(notifications)
       }
     })
   }
 
   onPress = async () => {
-    getPermissionSubscriptionState(async (status) => {
-      debugInfo('OnPress Status: ', status)
-      const { hasPrompted, notificationsEnabled } = status
+    getPermissionSubscriptionState(async (notifStatus) => {
+      debugInfo('OnPress Status: ', notifStatus)
+      const { hasPrompted, notificationsEnabled } = notifStatus
       const { updateUser } = this.props.contextUser
       const { subscriptionEnabled } = this.state
-      track('Notifications', { status: !subscriptionEnabled })
+      track('Notifications', { notifStatus: !subscriptionEnabled })
 
       if (!hasPrompted && !subscriptionEnabled) {
         registerForPushNotifications()

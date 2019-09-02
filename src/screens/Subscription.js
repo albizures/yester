@@ -8,8 +8,8 @@ import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } fro
 import { translate } from '../components/Translate'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { logOut } from '../utils/session'
-import { getEntitlements, makePurchase, restoreSubscription, status } from '../utils/purchase'
+import { logOut, subscriptionStatus } from '../utils/session'
+import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchase'
 import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 
@@ -24,23 +24,23 @@ class Subscription extends Component {
   state = {
     entitlements: [],
     screenText: {
-      [status.ODD_REQUIRE.code]: {
+      [subscriptionStatus.ODD_REQUIRE.code]: {
         title: 'subscription.title',
         subtitle: 'subscription.subtitle',
         priceDetails: 'subscription.priceDetails',
       },
-      [status.EVEN_REQUIRE.code]: {
+      [subscriptionStatus.EVEN_REQUIRE.code]: {
         title: 'subscription.even.title',
         subtitle: 'subscription.even.subtitle',
         priceDetails: 'subscription.even.priceDetails',
       },
-      [status.EXPIRED.code]: {
+      [subscriptionStatus.EXPIRED.code]: {
         title: 'subscription.expired.title',
         subtitle: 'subscription.expired.subtitle',
         priceDetails: 'subscription.expired.priceDetails',
       },
     },
-    currentStatus: status.ODD_REQUIRE,
+    currentStatus: subscriptionStatus.ODD_REQUIRE,
   }
 
   async componentDidMount () {
@@ -52,8 +52,8 @@ class Subscription extends Component {
     try {
       const entitlements = await getEntitlements()
       this.setState({ entitlements })
-    } catch (e) {
-      debugError('componentDidMount', e)
+    } catch (err) {
+      debugError('getEntitlements', err)
     }
   }
 

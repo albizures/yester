@@ -105,9 +105,9 @@ export const checkNotificationsStatus = async (user) => {
     if (email) OneSignal.setEmail(email)
     configureNotifications()
 
-    getPermissionSubscriptionState(async (status) => {
-      debugInfo('checkNotificationsStatus: ', status)
-      await updateUserAttribute('notifications', status.subscriptionEnabled)
+    getPermissionSubscriptionState(async (notifStatus) => {
+      debugInfo('checkNotificationsStatus: ', notifStatus)
+      await updateUserAttribute('notifications', notifStatus.subscriptionEnabled)
     })
   } catch (error) {
     debugError('checkNotificationsStatus', error)

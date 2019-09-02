@@ -5,7 +5,7 @@ import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
 import { sendTags } from '../utils/notifications'
-import { getPurchaserInfo, status } from '../utils/purchase'
+import { getPurchaserInfo } from '../utils/purchase'
 import moment from 'moment'
 import _ from 'lodash'
 import DeviceInfo from 'react-native-device-info'
@@ -17,6 +17,14 @@ Auth.configure({ storage: Storage })
 
 const debugInfo = debugFactory('yester:session:info')
 const debugError = debugFactory('yester:session:error')
+
+export const subscriptionStatus = {
+  WELCOME: { code: '0', tag: 'welcome', authorized: true },
+  PRO: { code: '1', tag: 'pro', authorized: true },
+  EXPIRED: { code: '2', tag: 'expired', authorized: false },
+  ODD_REQUIRE: { code: '3', tag: 'odd_require_trial', authorized: false },
+  EVEN_REQUIRE: { code: '4', tag: 'even_require_trial', authorized: false },
+}
 
 export const extractTokenFromSession = async () => {
   const currentSession = await Auth.currentSession()
@@ -246,23 +254,22 @@ export const isAuthorized = async (user, purchaserInfo) => {
   if (!hasEverPurchased) {
     if (isEven(user)) {
       if (storyCounter <= 5) {
-        currentStatus = status.WELCOME
+        currentStatus = subscriptionStatus.WELCOME
       } else {
-        currentStatus = status.EVEN_REQUIRE
+        currentStatus = subscriptionStatus.EVEN_REQUIRE
       }
     } else {
-      currentStatus = status.ODD_REQUIRE
+      currentStatus = subscriptionStatus.ODD_REQUIRE
     }
   } else {
     if (activeEntitlements.includes('pro')) {
-      currentStatus = status.PRO
+      currentStatus = subscriptionStatus.PRO
     } else {
-      currentStatus = status.EXPIRED
+      currentStatus = subscriptionStatus.EXPIRED
     }
   }
-  currentStatus = status.EXPIRED
+  // currentStatus = subscriptionStatus.EXPIRED
   saveUserSubscriptionStatus(currentStatus, purchaserInfo)
-  // return status.EXPIRED
   return currentStatus
 }
 
@@ -291,7 +298,7 @@ export const authorizeAction = async (props, callback) => {
 export const loginWithFacebook = async (fbSession) => {
   const { token, expires, profile } = fbSession
 
-  debugInfo('Profile: ', profile, expires)
+  // debugInfo('Profile: ', profile, expires)
   await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
   // AsyncStorage.setItem('userToken', credentials.sessionToken)
 

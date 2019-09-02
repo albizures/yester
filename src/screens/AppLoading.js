@@ -2,14 +2,20 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
-import { setupPurchases, status } from '../utils/purchase'
+import { identifyPurchaser, setupPurchases } from '../utils/purchase'
 import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
 import { getPermissionSubscriptionState, checkNotificationsStatus } from '../utils/notifications'
-// import moment from 'moment'
-import { isSetupFinished, getToken, setLocale, logOut, isAuthorized } from '../utils/session'
+import {
+  isSetupFinished,
+  getToken,
+  setLocale,
+  logOut,
+  isAuthorized,
+  subscriptionStatus,
+} from '../utils/session'
 import { identifyAnalytics } from '../utils/analytics'
 import debugFactory from 'debug'
 
@@ -66,12 +72,13 @@ class AppLoading extends Component {
       if (!user.email) throw new Error('User has no email')
 
       identifyAnalytics(user)
-      await setupPurchases(user)
+      await setupPurchases()
+      await identifyPurchaser(user)
 
-      getPermissionSubscriptionState((status) => {
-        debugInfo('Status: ', status)
+      getPermissionSubscriptionState((notifStatus) => {
+        debugInfo('notifStatus: ', notifStatus)
         // If notifications are set to true in the cloud but hasn't been prompted in current device
-        if (!status.hasPrompted && user.notifications) {
+        if (!notifStatus.hasPrompted && user.notifications) {
           checkNotificationsStatus(user)
         }
       })
@@ -82,7 +89,7 @@ class AppLoading extends Component {
       }
 
       const currentStatus = await isAuthorized(user)
-      if (currentStatus === status.ODD_REQUIRE) {
+      if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
         return navigation.navigate('Subscription', { currentStatus })
       }
 
