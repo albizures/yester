@@ -43,7 +43,6 @@ export default class SignUp extends Component {
         attributes: {
           given_name: firstName,
           family_name: lastName,
-          locale: strings.getLanguage(),
         },
       })
       await logIn(email, password)
@@ -54,7 +53,7 @@ export default class SignUp extends Component {
         email: currentUser.attributes.email,
         given_name: currentUser.attributes['given_name'],
         family_name: currentUser.attributes['family_name'],
-        locale: currentUser.attributes['locale'],
+        locale: strings.getLanguage(),
         platform: Platform.OS,
         build: DeviceInfo.getBuildNumber(),
         version: DeviceInfo.getVersion(),

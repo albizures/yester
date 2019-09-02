@@ -1,6 +1,6 @@
-import { Auth } from 'aws-amplify'
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { View, Text, StyleSheet, Alert, Image, Dimensions, StatusBar } from 'react-native'
+import PropTypes from 'prop-types'
 import icons from '../utils/icons'
 import colors from '../utils/colors'
 import Button from '../components/Button'
@@ -10,10 +10,8 @@ import Container from '../components/Container'
 import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
 import { translate } from '../components/Translate'
-import { View, Text, StyleSheet, Alert, Image, Dimensions, StatusBar, Platform } from 'react-native'
 import { screen } from '../utils/analytics'
-import { postAPIUser } from '../utils/session'
-import DeviceInfo from 'react-native-device-info'
+import { loginWithFacebook } from '../utils/session'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:CreateAccount:info')
@@ -35,29 +33,14 @@ class CreateAccount extends Component {
 
   onFBNativeLogin = async () => {
     const { onLoginWithFB, navigation } = this.props
-
     try {
-      const { token, expires, profile } = await onLoginWithFB()
-      debugInfo('Profile: ', profile, expires)
+      const fbSession = await onLoginWithFB()
       this.setState({ isLoading: true })
-      await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
-      // AsyncStorage.setItem('userToken', credentials.sessionToken)
-
-      const currentUser = await Auth.currentAuthenticatedUser()
-      await postAPIUser({
-        email: currentUser.email,
-        given_name: profile['first_name'],
-        family_name: profile['last_name'],
-        platform: Platform.OS,
-        build: DeviceInfo.getBuildNumber(),
-        version: DeviceInfo.getVersion(),
-        email_verified: true,
-      })
-
+      loginWithFacebook(fbSession)
       return navigation.navigate('AppLoading')
-    } catch (error) {
+    } catch (err) {
       this.setState({ isLoading: false })
-      debugError('FB Create Account:', JSON.stringify(error))
+      debugError('FB Create Account:', JSON.stringify(err))
       Alert.alert(translate('signup.error.facebook'))
     }
   }

@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
-import { AsyncStorage, Alert } from 'react-native'
+import { AsyncStorage, Alert, Platform } from 'react-native'
 import { strings } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
@@ -8,6 +8,7 @@ import { sendTags } from '../utils/notifications'
 import { getPurchaserInfo, status } from '../utils/purchase'
 import moment from 'moment'
 import _ from 'lodash'
+import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
 
 export const Storage = new StorageHelper().getStorage()
@@ -285,4 +286,24 @@ export const authorizeAction = async (props, callback) => {
     )
   }
   return currentStatus
+}
+
+export const loginWithFacebook = async (fbSession) => {
+  const { token, expires, profile } = fbSession
+
+  debugInfo('Profile: ', profile, expires)
+  await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
+  // AsyncStorage.setItem('userToken', credentials.sessionToken)
+
+  const currentUser = await Auth.currentAuthenticatedUser()
+  await postAPIUser({
+    email: currentUser.email,
+    given_name: profile['first_name'],
+    family_name: profile['last_name'],
+    platform: Platform.OS,
+    build: DeviceInfo.getBuildNumber(),
+    version: DeviceInfo.getVersion(),
+    locale: strings.getLanguage(),
+    email_verified: true,
+  })
 }
