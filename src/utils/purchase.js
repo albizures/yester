@@ -2,19 +2,11 @@ import Purchases from 'react-native-purchases'
 import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
-import { saveUserSubscriptionStatus } from './session'
+import { saveUserSubscriptionStatus, subscriptionStatus } from './session'
 import moment from 'moment'
 
 const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
-
-export const status = {
-  WELCOME: { code: '0', tag: 'welcome', authorized: true },
-  PRO: { code: '1', tag: 'pro', authorized: true },
-  EXPIRED: { code: '2', tag: 'expired', authorized: false },
-  ODD_REQUIRE: { code: '3', tag: 'odd_require_trial', authorized: false },
-  EVEN_REQUIRE: { code: '4', tag: 'even_require_trial', authorized: false },
-}
 
 export const eventTypes = {
   INFO: 'INFO',
@@ -22,12 +14,11 @@ export const eventTypes = {
   PURCHASE: 'PURCHASE',
 }
 
-export const setupPurchases = async (user) => {
-  const { userId } = user
+export const setupPurchases = async () => {
   try {
-    Purchases.setDebugLogsEnabled(false)
-    Purchases.setup(REVENUECAT_API_KEY, userId)
+    Purchases.setup(REVENUECAT_API_KEY)
     Purchases.setAllowSharingStoreAccount(true)
+    Purchases.setDebugLogsEnabled(false)
   } catch (err) {
     debugError('setupPurchases', err)
   }
@@ -66,7 +57,7 @@ export const makePurchase = async (productId) => {
     }
 
     try {
-      await saveUserSubscriptionStatus(status.PRO, purchaserInfo, moment().format())
+      await saveUserSubscriptionStatus(subscriptionStatus.PRO, purchaserInfo, moment().format())
     } catch (err) {
       debugError(err)
       Alert.alert("We couldn't update your suscription, please contact us")
@@ -109,5 +100,16 @@ export const resetPurchases = async () => {
     return resetObject
   } catch (err) {
     debugError('Reseting: ', err)
+  }
+}
+
+export const identifyPurchaser = async (user) => {
+  const { userId } = user
+  try {
+    const purchaserInfo = await Purchases.identify(userId)
+    debugInfo('identifyPurchaser: ', purchaserInfo)
+    return purchaserInfo
+  } catch (err) {
+    debugError('identifyPurchaser: ', err)
   }
 }
