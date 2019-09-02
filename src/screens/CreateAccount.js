@@ -36,7 +36,8 @@ class CreateAccount extends Component {
     try {
       const fbSession = await onLoginWithFB()
       this.setState({ isLoading: true })
-      loginWithFacebook(fbSession)
+      await loginWithFacebook(fbSession)
+
       return navigation.navigate('AppLoading')
     } catch (err) {
       this.setState({ isLoading: false })

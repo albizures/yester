@@ -42,7 +42,7 @@ class Login extends Component {
     try {
       const fbSession = await onLoginWithFB()
       this.setState({ isLoading: true })
-      loginWithFacebook(fbSession)
+      await loginWithFacebook(fbSession)
 
       return navigation.navigate('AppLoading')
     } catch (error) {
