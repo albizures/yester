@@ -59,8 +59,14 @@ class Subscription extends Component {
 
   onLogOut = async () => {
     const { navigation } = this.props
-    await logOut()
-    navigation.navigate('CreateAccount')
+    const { currentStatus } = this.state
+
+    if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
+      await logOut()
+      return navigation.navigate('CreateAccount')
+    }
+
+    navigation.navigate('Home')
   }
 
   onStartTrial = async () => {
