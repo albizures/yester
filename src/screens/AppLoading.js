@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
-import { identifyPurchaser, setupPurchases } from '../utils/purchase'
+import { setupPurchases } from '../utils/purchases'
 import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
@@ -72,8 +72,8 @@ class AppLoading extends Component {
       if (!user.email) throw new Error('User has no email')
 
       identifyAnalytics(user)
-      await setupPurchases()
-      await identifyPurchaser(user)
+      await setupPurchases(user)
+      // await identifyPurchaser(user)
 
       getPermissionSubscriptionState((notifStatus) => {
         debugInfo('notifStatus: ', notifStatus)

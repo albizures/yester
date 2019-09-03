@@ -5,7 +5,7 @@ import { strings, translate } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
 import { sendTags } from '../utils/notifications'
-import { getPurchaserInfo } from '../utils/purchase'
+import { getPurchaserInfo } from '../utils/purchases'
 import moment from 'moment'
 import _ from 'lodash'
 import DeviceInfo from 'react-native-device-info'
@@ -268,7 +268,7 @@ export const isAuthorized = async (user, purchaserInfo) => {
       currentStatus = subscriptionStatus.EXPIRED
     }
   }
-  // currentStatus = subscriptionStatus.EXPIRED
+  // currentStatus = subscriptionStatus.EVEN_REQUIRE
   saveUserSubscriptionStatus(currentStatus, purchaserInfo)
   return currentStatus
 }

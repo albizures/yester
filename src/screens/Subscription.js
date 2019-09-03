@@ -9,7 +9,7 @@ import { translate } from '../components/Translate'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
 import { logOut, subscriptionStatus } from '../utils/session'
-import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchase'
+import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchases'
 import { screen, track } from '../utils/analytics'
 import debugFactory from 'debug'
 

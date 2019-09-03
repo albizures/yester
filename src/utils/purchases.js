@@ -14,9 +14,10 @@ export const eventTypes = {
   PURCHASE: 'PURCHASE',
 }
 
-export const setupPurchases = async () => {
+export const setupPurchases = async (user) => {
+  const { userId } = user
   try {
-    Purchases.setup(REVENUECAT_API_KEY)
+    Purchases.setup(REVENUECAT_API_KEY, userId)
     Purchases.setAllowSharingStoreAccount(true)
     Purchases.setDebugLogsEnabled(false)
   } catch (err) {
