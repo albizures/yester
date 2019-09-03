@@ -23,7 +23,7 @@ class Subscription extends Component {
 
   state = {
     entitlements: [],
-    screenText: {
+    conditionalText: {
       [subscriptionStatus.ODD_REQUIRE.code]: {
         title: 'subscription.title',
         subtitle: 'subscription.subtitle',
@@ -103,8 +103,8 @@ class Subscription extends Component {
 
   render () {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
-    const { entitlements, screenText, currentStatus } = this.state
-    const text = screenText[currentStatus.code]
+    const { entitlements, conditionalText, currentStatus } = this.state
+    const text = conditionalText[currentStatus.code]
 
     return (
       <View style={{ position: 'relative' }}>

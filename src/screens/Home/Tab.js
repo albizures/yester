@@ -24,7 +24,7 @@ export default class Tab extends Component {
     lastEvaluatedKey: this.props.initialEvaluatedKey,
     stories: this.props.initialStories,
     endReached: !this.props.initialEvaluatedKey,
-    screenText: {
+    conditionalText: {
       [true]: {
         emptyTitle: 'home.empty.tab.stories.title',
         emptySubtitle: 'home.empty.tab.stories.subtitle',
@@ -101,8 +101,8 @@ export default class Tab extends Component {
 
   render () {
     const { answered } = this.props
-    const { stories, screenText } = this.state
-    const text = screenText[answered]
+    const { stories, conditionalText } = this.state
+    const text = conditionalText[answered]
 
     const content =
       stories.length === 0 ? (

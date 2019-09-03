@@ -8,7 +8,7 @@ import { subscriptionStatus } from '../../utils/session'
 const AlertItem = (props) => {
   const { currentStatus, onPress } = props
 
-  const screenText = {
+  const conditionalText = {
     [subscriptionStatus.ODD_REQUIRE.code]: {
       message: 'home.alertItem.message.trial',
     },
@@ -20,7 +20,7 @@ const AlertItem = (props) => {
     },
   }
 
-  const text = screenText[currentStatus.code]
+  const text = conditionalText[currentStatus.code]
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>

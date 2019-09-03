@@ -28,10 +28,28 @@ export default class ConfirmAccount extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
+  state = {
+    conditionalText: {
+      [true]: {
+        title: 'confirm.title',
+        subtitle: 'confirm.subtitle',
+        submit: 'confirm.submit',
+      },
+      [false]: {
+        title: 'confirm.title.profile',
+        subtitle: 'confirm.subtitle.profile',
+        submit: 'confirm.submit.profile',
+      },
+    },
+  }
+
   constructor (props) {
-    super()
+    super(props)
     const { navigation } = props
+    const { conditionalText } = this.state
+
     this.state = {
+      conditionalText,
       code: '',
       email: navigation.getParam('email'),
       number: navigation.getParam('number'),
@@ -89,7 +107,8 @@ export default class ConfirmAccount extends Component {
   }
 
   render () {
-    const { code, email, number, signUpVerify, isLoading } = this.state
+    const { code, email, number, signUpVerify, isLoading, conditionalText } = this.state
+    const text = conditionalText[signUpVerify]
 
     const skipElement = (
       <TouchableOpacity>
@@ -99,23 +118,14 @@ export default class ConfirmAccount extends Component {
 
     const topBar = <TopBar title='confirm.topbar' onBack={!signUpVerify ? this.onBack : null} />
 
-    let titleKeyName = 'confirm.title'
-    let subtitleKeyName = 'confirm.subtitle'
-    let submitKeyName = 'confirm.submit'
-    if (!signUpVerify) {
-      titleKeyName = 'confirm.profile.title'
-      subtitleKeyName = 'confirm.profile.subtitle'
-      submitKeyName = 'confirm.profile.submit'
-    }
-
     return (
       <Container isLoading={isLoading} topBar={topBar}>
         <KeyboardAvoidingView enabled behavior='position'>
           <View style={styles.container}>
             <View style={styles.topFlex}>
               <Image source={icons.feather} style={styles.image} />
-              <Heading2 keyName={titleKeyName} style={styles.titleText} />
-              <Heading4 keyName={subtitleKeyName} style={styles.subtitleText} />
+              <Heading2 keyName={text.title} style={styles.titleText} />
+              <Heading4 keyName={text.subtitle} style={styles.subtitleText} />
               <Heading4 keyName='confirm.label' />
               <Heading3
                 text='{contact}'
@@ -139,7 +149,7 @@ export default class ConfirmAccount extends Component {
                   onPress={this.onPressResend}
                 />
               </TouchableOpacity>
-              <Button title={submitKeyName} onPress={this.onPressContinue} />
+              <Button title={text.submit} onPress={this.onPressContinue} />
               {signUpVerify ? skipElement : null}
             </View>
           </View>

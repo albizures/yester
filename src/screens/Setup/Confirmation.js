@@ -11,6 +11,10 @@ import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
 import { checkNotificationsStatus } from '../../utils/notifications'
 import { screen } from '../../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Confirmation:error')
+const debugInfo = debugFactory('yester:Confirmation:info')
 
 class Confirmation extends Component {
   static propTypes = {
@@ -18,10 +22,28 @@ class Confirmation extends Component {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
+  state = {
+    conditionalText: {
+      [false]: {
+        title: 'setup.confirmation.title',
+        subtitle: 'setup.confirmation.subtitle',
+        continue: 'setup.confirmation.continue',
+      },
+      [true]: {
+        title: 'setup.confirmation.title.update',
+        subtitle: 'setup.confirmation.subtitle.update',
+        continue: 'setup.confirmation.continue.update',
+      },
+    },
+  }
+
   constructor (props) {
     super(props)
     const { navigation } = this.props
+    const { conditionalText } = this.state
+
     this.state = {
+      conditionalText,
       ...extractSetupParams(navigation),
       isLoading: false,
     }
@@ -79,15 +101,9 @@ class Confirmation extends Component {
   }
 
   render () {
-    const { givenName, stateName, updateSetup, isLoading } = this.state
-    let titleKeyName = 'setup.confirmation.title'
-    let subtitleKeyName = 'setup.confirmation.subtitle'
-    let continueKeyName = 'setup.confirmation.continue'
-    if (updateSetup) {
-      titleKeyName = 'setup.confirmation.update.title'
-      subtitleKeyName = 'setup.confirmation.update.subtitle'
-      continueKeyName = 'setup.confirmation.update.continue'
-    }
+    const { isLoading, givenName, stateName, conditionalText, updateSetup } = this.state
+    debugInfo(conditionalText, updateSetup)
+    const text = conditionalText[updateSetup]
 
     return (
       <Container isLoading={isLoading} style={styles.container}>
@@ -95,18 +111,18 @@ class Confirmation extends Component {
 
         <View style={styles.topFlex}>
           <Heading2
-            keyName={titleKeyName}
+            keyName={text.title}
             data={{ state: stateName, givenName }}
             style={styles.titleText}
           />
 
-          <Heading4 keyName={subtitleKeyName} style={styles.subtitleText} />
+          <Heading4 keyName={text.subtitle} style={styles.subtitleText} />
         </View>
 
         <View style={styles.bottomFlex}>
           <Body2 keyName='setup.confirmation.edit' style={styles.editText} onPress={this.onEdit} />
 
-          <Button title={continueKeyName} onPress={this.onContinue} type={Button.OUTLINED} />
+          <Button title={text.continue} onPress={this.onContinue} type={Button.OUTLINED} />
         </View>
       </Container>
     )
