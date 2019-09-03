@@ -54,6 +54,7 @@ import Terms from './screens/Terms'
 import About from './screens/About'
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
+import icons from './utils/icons'
 import { Storage, sanitizeUser, setLocale } from './utils/session'
 import { setupAnalytics } from './utils/analytics'
 
@@ -150,8 +151,12 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.feed'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/feed.png'),
-          inactive: require('./assets/feed-disabled.png'),
+          active: icons.bottombarWriteActive,
+          inactive: icons.bottombarWriteInactive,
+          iconSize: {
+            width: 29,
+            height: 19,
+          },
         }),
       }),
     },
@@ -160,11 +165,11 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.myStory'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/read.png'),
-          inactive: require('./assets/read.png'),
+          active: icons.bottombarReadActive,
+          inactive: icons.bottombarReadInactive,
           iconSize: {
-            height: 18,
             width: 21,
+            height: 18,
           },
         }),
       }),
@@ -174,8 +179,12 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.profile'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/profile.png'),
-          inactive: require('./assets/profile-disabled.png'),
+          active: icons.bottombarProfileActive,
+          inactive: icons.bottombarProfileInactive,
+          iconSize: {
+            width: 21,
+            height: 20,
+          },
         }),
       }),
     },
@@ -184,8 +193,12 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.settings'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/settings.png'),
-          inactive: require('./assets/settings-disabled.png'),
+          active: icons.bottombarSettingsActive,
+          inactive: icons.bottombarSettingsInactive,
+          iconSize: {
+            width: 23,
+            height: 22,
+          },
         }),
       }),
     },
@@ -259,6 +272,7 @@ export default class App extends Component {
     console.log('Disabling debug', debugFactory.disable())
     // debugFactory.enable('yester:*')
     // debugFactory.enable('yester:http*, yester:purchase*')
+    // debugFactory.enable('yester:Writing*')
     SplashScreen.hide()
 
     initNotifications()
