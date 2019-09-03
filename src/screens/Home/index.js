@@ -36,15 +36,12 @@ class Home extends Component {
   willFocusListener = null
 
   async componentDidMount () {
-    const {
-      navigation,
-      contextUser: { user },
-    } = this.props
+    const { navigation } = this.props
     const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
 
     this.setState({ isLoading: true })
-    await authorizeAction(this.props, async () => {
+    await authorizeAction(this.props, async (currentStatus) => {
       // const question = {
       //   age_id: 'Age#31',
       //   category: 'Family',
@@ -56,7 +53,9 @@ class Home extends Component {
         const { data: question } = await http.getAPI('/v2/questions')
         this.setState({ isLoading: false, question })
       } catch (error) {
-        this.setState({ isLoading: false })
+        this.setState({
+          isLoading: false,
+        })
         debugError('today question:', error.response)
         if (error.response.status === 404) {
           debugError('There is not a new question ready.')
@@ -65,11 +64,7 @@ class Home extends Component {
         if (error.response.status === 402) {
           const { data } = error.response
           debugError(data.message)
-          this.setState({
-            alertItem: {
-              description: 'Please subscribe here! 😊   👉',
-            },
-          })
+          this.setState({ currentStatus })
           return
         }
         Alert.alert(translate('home.error.today.question'))
@@ -138,6 +133,12 @@ class Home extends Component {
     })
   }
 
+  onPressAlertItem = () => {
+    const { navigation } = this.props
+    const { currentStatus } = this.state
+    navigation.navigate('Subscription', { currentStatus })
+  }
+
   onPressItem = (item) => {
     const { navigation } = this.props
     const { ageId, category, question, questionId, storyId, content, categoryId } = item
@@ -161,7 +162,7 @@ class Home extends Component {
   }
 
   render () {
-    const { isLoading, question, positionToast, alertItem } = this.state
+    const { isLoading, question, positionToast, currentStatus } = this.state
     const topBarTitle = (
       <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
@@ -174,8 +175,8 @@ class Home extends Component {
           {question && (
             <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />
           )}
-          {alertItem && (
-            <AlertItem text={alertItem.description} onPress={this.onWriteTodayQuestion} />
+          {currentStatus && (
+            <AlertItem currentStatus={currentStatus} onPress={this.onPressAlertItem} />
           )}
           {!isLoading && <Tabs onPressItem={this.onPressItem} answered={false} />}
         </View>

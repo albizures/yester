@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
 import { AsyncStorage, Alert, Platform } from 'react-native'
-import { strings } from '../components/Translate'
+import { strings, translate } from '../components/Translate'
 import http, { instance, setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
 import { sendTags } from '../utils/notifications'
@@ -284,11 +284,14 @@ export const authorizeAction = async (props, callback) => {
   callback(currentStatus)
   if (!currentStatus.authorized) {
     Alert.alert(
-      'Pending subscription',
-      'You need an active subscription to receive your daily question or to write and edit new stories.\nPlease start your subscription now. 👇',
+      translate('subscription.status.alert.title'),
+      translate('subscription.status.alert.message'),
       [
-        { text: 'Cancel' },
-        { text: 'OK', onPress: () => navigation.navigate('Subscription', { currentStatus }) },
+        { text: translate('subscription.status.alert.cancel') },
+        {
+          text: translate('subscription.status.alert.ok'),
+          onPress: () => navigation.navigate('Subscription', { currentStatus }),
+        },
       ]
     )
   }

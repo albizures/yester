@@ -1,13 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import colors from '../../utils/colors'
-import icons from '../../utils/icons'
-import { Title, Heading3, Description } from '../../components'
-import IconButton from '../../components/IconButton'
+import { Title, Heading3 } from '../../components'
+import { subscriptionStatus } from '../../utils/session'
 
 const AlertItem = (props) => {
-  const { text, onPress } = props
+  const { currentStatus, onPress } = props
+
+  const screenText = {
+    [subscriptionStatus.ODD_REQUIRE.code]: {
+      message: 'home.alertItem.message.trial',
+    },
+    [subscriptionStatus.EVEN_REQUIRE.code]: {
+      message: 'home.alertItem.message.trial',
+    },
+    [subscriptionStatus.EXPIRED.code]: {
+      message: 'home.alertItem.message.expired',
+    },
+  }
+
+  const text = screenText[currentStatus.code]
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
@@ -15,17 +28,9 @@ const AlertItem = (props) => {
         <View style={styles.topView}>
           <Title keyName='home.alertItem.title' style={styles.dayTopicText} />
         </View>
-        <View style={styles.newTextContainer}>
-          <Description keyName='home.alertItem.subtitle' style={styles.newText} />
-        </View>
         <View style={styles.bottomView}>
           <View style={{ flex: 1 }}>
-            <Heading3 text={text} numberOfLines={2} style={{ flexWrap: 'wrap' }} />
-          </View>
-          <View style={styles.iconView}>
-            <IconButton>
-              <Image source={icons.bang} style={styles.icon} />
-            </IconButton>
+            <Heading3 keyName={text.message} numberOfLines={2} style={{ flexWrap: 'wrap' }} />
           </View>
         </View>
       </View>
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     paddingHorizontal: 20,
     paddingVertical: 16,
-    backgroundColor: colors.royalBlue,
+    backgroundColor: colors.bittersweet,
   },
   bottomView: {
     flexDirection: 'row',
@@ -63,20 +68,12 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     alignItems: 'stretch',
   },
-  iconView: {
-    marginLeft: 10,
-    width: 40,
-  },
-  icon: {
-    width: 17,
-    height: 17,
-  },
   newTextContainer: {
     marginTop: 10,
     marginHorizontal: 10,
   },
   newText: {
-    color: colors.royalBlue,
+    color: colors.mineShaft,
     fontWeight: 'bold',
   },
   dayTopicText: {
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
 })
 
 AlertItem.propTypes = {
-  text: PropTypes.string.isRequired,
+  currentStatus: PropTypes.object.isRequired,
   onPress: PropTypes.func.isRequired,
 }
 export default AlertItem
