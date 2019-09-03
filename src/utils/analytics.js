@@ -30,7 +30,7 @@ export const identifyAnalytics = async (user) => {
   }
 }
 
-export const track = (event, properties) => {
+export const track = async (event, properties) => {
   try {
     analytics.track(event, properties)
   } catch (error) {
@@ -38,7 +38,7 @@ export const track = (event, properties) => {
   }
 }
 
-export const screen = (name, properties) => {
+export const screen = async (name, properties) => {
   try {
     analytics.screen(name, properties)
   } catch (error) {
