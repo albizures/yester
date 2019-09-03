@@ -3,14 +3,16 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet, Linking, Platform } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
-import { logOut } from '../utils/session'
+import { logOut, isAuthorized, subscriptionStatus } from '../utils/session'
 import SettingsItem, { types } from '../components/SettingsItem'
 import { translate } from '../components/Translate'
 import { resetAnalytics, screen, track } from '../utils/analytics'
+import withUser, { shapeContextUser } from '../components/withUser'
 
-export default class Settings extends Component {
+class Settings extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   willFocusListener = null
@@ -46,8 +48,18 @@ export default class Settings extends Component {
     Linking.openURL('https://www.yester.app')
   }
 
-  onPressManage = () => {
-    track('Manage Subscription', {})
+  onPressManage = async () => {
+    const {
+      navigation,
+      contextUser: { user },
+    } = this.props
+
+    const currentStatus = await isAuthorized(user)
+    track('Manage Subscription', { subscriptionStatus: currentStatus.tag })
+
+    if (currentStatus !== subscriptionStatus.PRO) {
+      return navigation.navigate('Subscription', { currentStatus })
+    }
     Platform.OS === 'ios'
       ? Linking.openURL('https://apps.apple.com/account/subscriptions')
       : Linking.openURL('https://play.google.com/store/account/subscriptions')
@@ -111,3 +123,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 })
+
+export default withUser(Settings)

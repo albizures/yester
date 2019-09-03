@@ -180,7 +180,7 @@
   "subscription.status.alert.cancel": "Cancel",
   "subscription.status.alert.ok": "Ok",
   "subscription.status.alert.title": "Pending subscription",
-  "subscription.status.alert.message": "You need an active subscription to receive your new daily question and to write stories.\n\nPlease subscribe. 👇",
+  "subscription.status.alert.message": "You need an active subscription to receive your new daily questions and to write stories.\n\nPlease subscribe. 👇",
   "terms.title": "Terms and Conditions",
   "textInput.show": "SHOW",
   "textInput.hide": "HIDE",
