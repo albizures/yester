@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   },
   contentToast: {
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 8,
     height: 59,
   },
   closeContainer: {
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     backgroundColor: colors.mantis,
-    fontSize: 40,
+    fontSize: 36,
     color: colors.white,
   },
   container: {
