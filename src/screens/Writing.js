@@ -21,7 +21,6 @@ import { translate } from '../components/Translate'
 import colors from '../utils/colors'
 import http from '../utils/http'
 import { screen, track } from '../utils/analytics'
-import { isAuthorized } from '../utils/session'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:Writing:error')
@@ -134,7 +133,7 @@ class Writing extends Component {
         const scrollOffset = this.getNewScrollOffset(cursorPosition, viewport)
 
         this.setState({ shift: keyboardHeight + 20, scrollOffset })
-
+        /*
         debugInfo(
           `
           selection: ${JSON.stringify(this.selection)},
@@ -151,6 +150,7 @@ class Writing extends Component {
           viewport: ${viewport}
           scrollOffset: ${scrollOffset}`
         )
+        */
       }
     )
   }
@@ -181,7 +181,9 @@ class Writing extends Component {
         content: content,
       })
       await updateStats()
-      await isAuthorized(this.props)
+      // Commented because when navegate to My Story and then open Questions
+      // authorizeAction is called, so here isn't necessary to call this.
+      // await isAuthorized(this.props)
 
       navigation.dispatch(
         StackActions.reset({
