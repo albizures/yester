@@ -266,7 +266,7 @@ export const isAuthorized = async (props, purchaserInfo) => {
 
   if (!hasEverPurchased) {
     if (isEven(user)) {
-      if (storyCounter <= 5) {
+      if (storyCounter < 5) {
         currentStatus = subscriptionStatus.WELCOME
       } else {
         currentStatus = subscriptionStatus.EVEN_REQUIRE
