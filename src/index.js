@@ -55,7 +55,7 @@ import About from './screens/About'
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
 import icons from './utils/icons'
-import { Storage, sanitizeUser, setLocale } from './utils/session'
+import { Storage, sanitizeUser, setLocale, sanitizeStats } from './utils/session'
 import { setupAnalytics } from './utils/analytics'
 
 const debugInfo = debugFactory('yester:index:info')
@@ -313,6 +313,12 @@ export default class App extends Component {
     setLocale(user.locale)
   }
 
+  updateStats = async () => {
+    debugInfo('Updating context stats')
+    const stats = await sanitizeStats()
+    this.setState({ stats })
+  }
+
   updateAges = (ages) => {
     // debugInfo('Updating ages', ages)
     this.setState({
@@ -328,10 +334,12 @@ export default class App extends Component {
   }
 
   render () {
-    const { user, ages, agesList } = this.state
+    const { user, stats, ages, agesList } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
+      updateStats: this.updateStats,
       user,
+      stats,
     }
     const agesContextValue = {
       updateAges: this.updateAges,

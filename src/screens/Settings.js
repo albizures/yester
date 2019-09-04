@@ -49,12 +49,8 @@ class Settings extends Component {
   }
 
   onPressManage = async () => {
-    const {
-      navigation,
-      contextUser: { user },
-    } = this.props
-
-    const currentStatus = await isAuthorized(user)
+    const { navigation } = this.props
+    const currentStatus = await isAuthorized(this.props)
     track('Manage Subscription', { subscriptionStatus: currentStatus.tag })
 
     if (currentStatus !== subscriptionStatus.PRO) {

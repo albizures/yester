@@ -79,6 +79,7 @@ class Writing extends Component {
 
   componentDidUpdate (prevProps, prevState) {
     setTimeout(() => {
+      if (!this.scroll.current) return
       this.scroll.current.scrollTo({
         y: this.state.scrollOffset + this.scrollPosition,
         animated: true,
@@ -164,7 +165,10 @@ class Writing extends Component {
 
   onSave = async () => {
     this.setState({ isLoading: true })
-    const { navigation } = this.props
+    const {
+      navigation,
+      contextUser: { updateStats },
+    } = this.props
     const { title, content } = this.state
     const storyId = navigation.getParam('storyId')
 
@@ -175,6 +179,7 @@ class Writing extends Component {
         title: title,
         content: content,
       })
+      await updateStats()
 
       navigation.dispatch(
         StackActions.reset({

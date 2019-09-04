@@ -56,7 +56,7 @@ class AppLoading extends Component {
   async bootstrap () {
     const {
       navigation,
-      contextUser: { updateUser },
+      contextUser: { updateUser, updateStats },
     } = this.props
 
     try {
@@ -66,8 +66,9 @@ class AppLoading extends Component {
         debugInfo('No token found, sending user to Auth flow')
         return navigation.navigate('Auth')
       }
-      // Set user in context
+      // Set user and stats in context
       await updateUser()
+      await updateStats()
       const { user } = this.props.contextUser
       if (!user.email) throw new Error('User has no email')
 
@@ -88,7 +89,7 @@ class AppLoading extends Component {
         return navigation.navigate('SetupBirthDate', params)
       }
 
-      const currentStatus = await isAuthorized(user)
+      const currentStatus = await isAuthorized(this.props)
       if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
         return navigation.navigate('Subscription', { currentStatus })
       }

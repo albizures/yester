@@ -85,8 +85,6 @@ export const sanitizeUser = async (user) => {
     return {}
   }
 
-  const { data: stats = {} } = await http.getAPI('/v2/stories/stats')
-
   return {
     country: user['country'],
     state: user['state'],
@@ -104,6 +102,12 @@ export const sanitizeUser = async (user) => {
     emailVerified: user['email_verified'],
     created: user['created'],
     purchaserInfo: user['purchaser_info'],
+  }
+}
+
+export const sanitizeStats = async () => {
+  const { data: stats = {} } = await http.getAPI('/v2/stories/stats')
+  return {
     questionCounter: stats['questionCounter'],
     storyCounter: stats['storyCounter'],
     lastAnswer: stats['lastAnswer'],
@@ -241,11 +245,14 @@ export const isEven = (user) => {
   return hour % 2 === 0
 }
 
-export const isAuthorized = async (user, purchaserInfo) => {
+export const isAuthorized = async (props, purchaserInfo) => {
+  const {
+    contextUser: { user, stats },
+  } = props
   let currentStatus = {}
   purchaserInfo = purchaserInfo || (await getPurchaserInfo()) || {}
   const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo
-  const { storyCounter } = user
+  const { storyCounter } = stats
   debugInfo('activeEntitlements:', activeEntitlements)
 
   const purchasedProducts = Object.keys(allExpirationDates)
@@ -274,11 +281,8 @@ export const isAuthorized = async (user, purchaserInfo) => {
 }
 
 export const authorizeAction = async (props, callback) => {
-  const {
-    navigation,
-    contextUser: { user },
-  } = props
-  const currentStatus = await isAuthorized(user)
+  const { navigation } = props
+  const currentStatus = await isAuthorized(props)
   debugInfo('currentStatus', currentStatus)
 
   callback(currentStatus)

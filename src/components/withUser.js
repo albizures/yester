@@ -7,6 +7,7 @@ export const UserProvider = Provider
 
 export const shapeContextUser = {
   updateUser: PropTypes.func.isRequired,
+  updateStats: PropTypes.func.isRequired,
   user: PropTypes.shape({
     country: PropTypes.string,
     state: PropTypes.string,
@@ -22,6 +23,8 @@ export const shapeContextUser = {
     emailVerified: PropTypes.boolean,
     created: PropTypes.string,
     purchaserInfo: PropTypes.object,
+  }),
+  stats: PropTypes.shape({
     questionCounter: PropTypes.number,
     storyCounter: PropTypes.number,
     lastAnswer: PropTypes.string,

@@ -46,11 +46,10 @@ class Profile extends Component {
     })
     screen('Profile', {})
 
-    // const { data = {} } = await http.getAPI('/v2/stories/stats')
     const {
-      contextUser: { user },
+      contextUser: { stats },
     } = this.props
-    const { questionCounter, storyCounter } = user
+    const { questionCounter, storyCounter } = stats
     this.setState({
       isLoading: false,
       questionCounter,
