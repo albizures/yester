@@ -77,9 +77,10 @@ class Tabs extends Component {
       ({ error, items }) => !error && items.length === 0
     )
     const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(firstAgeWithoutStories)
+    const index = indexOfFirstAgeWithoutStories === 0 ? 0 : indexOfFirstAgeWithoutStories - 1
 
     return {
-      index: indexOfFirstAgeWithoutStories - 1,
+      index: index,
       agesByStory,
     }
   }
