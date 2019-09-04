@@ -79,6 +79,12 @@ export const getUserBypassCache = () =>
     bypassCache: true, // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
   })
 
+export const getCurrentEmail = async () => {
+  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = currentUser.email || currentUser.attributes.email
+  return email
+}
+
 export const sanitizeUser = async (user) => {
   user = await getAPIUser()
   if (!user) {
@@ -176,17 +182,17 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
   }
 
   sendTags({ subscriptionStatus: tag })
-  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = await getCurrentEmail()
   await postAPIUser({
-    email: currentUser.email,
+    email,
     purchaser_info: purchaserInfo,
   })
 }
 
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
-  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = await getCurrentEmail()
   await postAPIUser({
-    email: currentUser.email,
+    email,
     country: country,
     state: state,
     birthplace: birthPlace,
@@ -200,9 +206,9 @@ export const updateUserAttribute = async (name, value) => {
   // TODO async storage to compare local and cloud attributes
   // const user = await sanitizeUser()
   // if (user[name] !== value) {
-  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = await getCurrentEmail()
   await postAPIUser({
-    email: currentUser.email,
+    email,
     [name]: value,
   })
   // }
@@ -210,9 +216,9 @@ export const updateUserAttribute = async (name, value) => {
 
 // NOTE this is only for dev purposes
 export const cleanUserData = async () => {
-  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = await getCurrentEmail()
   await postAPIUser({
-    email: currentUser.email,
+    email,
     country: '',
     state: '',
     birthplace: '',
@@ -225,9 +231,9 @@ export const cleanUserData = async () => {
 
 // NOTE this is only for dev purposes
 export const cleanUserNotifications = async () => {
-  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = await getCurrentEmail()
   await postAPIUser({
-    email: currentUser.email,
+    email,
     notifications: '',
   })
 }
@@ -309,9 +315,9 @@ export const loginWithFacebook = async (fbSession) => {
   await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
   // AsyncStorage.setItem('userToken', credentials.sessionToken)
 
-  const currentUser = await Auth.currentAuthenticatedUser()
+  const email = await getCurrentEmail()
   await postAPIUser({
-    email: currentUser.email,
+    email,
     given_name: profile['first_name'],
     family_name: profile['last_name'],
     platform: Platform.OS,
