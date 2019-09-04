@@ -20,14 +20,16 @@ class ModalCard extends React.Component {
 
   onWrite = async () => {
     const { navigation } = this.props
-    await authorizeAction(this.props, () => {
-      const params = {
-        ageId: navigation.getParam('ageId'),
-        questionId: navigation.getParam('questionId'),
-        question: navigation.getParam('question'),
-        storyId: navigation.getParam('storyId'),
+    await authorizeAction(this.props, (currentStatus) => {
+      if (currentStatus.authorized) {
+        const params = {
+          ageId: navigation.getParam('ageId'),
+          questionId: navigation.getParam('questionId'),
+          question: navigation.getParam('question'),
+          storyId: navigation.getParam('storyId'),
+        }
+        return navigation.navigate('Writing', params)
       }
-      navigation.navigate('Writing', params)
     })
   }
 

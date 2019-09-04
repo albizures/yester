@@ -97,11 +97,13 @@ class Reading extends Component {
 
   onEdit = async () => {
     const { navigation } = this.props
-    await authorizeAction(this.props, () => {
-      const { title: question, content, ageId, storyId } = this.state
-      const params = { ageId, question, storyId, content }
-      track('Edit Story', { title: question })
-      navigation.replace('Writing', params)
+    await authorizeAction(this.props, (currentStatus) => {
+      if (currentStatus.authorized) {
+        const { title: question, content, ageId, storyId } = this.state
+        const params = { ageId, question, storyId, content }
+        track('Edit Story', { title: question })
+        return navigation.replace('Writing', params)
+      }
     })
   }
 

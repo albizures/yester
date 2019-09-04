@@ -183,7 +183,7 @@
   "subscription.status.alert.cancel": "Cancelar",
   "subscription.status.alert.ok": "Ok",
   "subscription.status.alert.title": "Suscripción pendiente",
-  "subscription.status.alert.message": "Necesitas una suscripción activa para recibir tus nuevas preguntas del día y para escribir historias.\n\nPor favor suscríbete. 👇",
+  "subscription.status.alert.message": "Necesitas una suscripción activa para recibir tus nuevas preguntas del día y para escribir o editar historias.\n\nPor favor suscríbete. 👇",
   "terms.title": "Términos y Condiciones",
   "textInput.show": "MOSTRAR",
   "textInput.hide": "ESCONDER",
