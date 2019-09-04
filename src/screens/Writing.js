@@ -21,6 +21,7 @@ import { translate } from '../components/Translate'
 import colors from '../utils/colors'
 import http from '../utils/http'
 import { screen, track } from '../utils/analytics'
+import { isAuthorized } from '../utils/session'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:Writing:error')
@@ -180,6 +181,7 @@ class Writing extends Component {
         content: content,
       })
       await updateStats()
+      await isAuthorized(this.props)
 
       navigation.dispatch(
         StackActions.reset({
