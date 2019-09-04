@@ -49,21 +49,6 @@ class BirthDate extends Component {
     this.setState({
       givenName: user.givenName,
     })
-
-    /* To turn user into CONFIRMED status: */
-    // TODO Remove this:
-    /*
-    try {
-      if (user['createdBy'] === 'admin') {
-        let userNC = await Auth.signIn(user.email, USER_PASSWORD_ADMIN)
-        const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
-        userNC = await Auth.signIn(user.email, USER_PASSWORD_DEFAULT)
-        await updateUserAttribute('createdBy', 'admin_confirmed')
-        debugInfo('complete:', complete)
-      }
-    } catch (error) {
-      debugError(error)
-    } */
   }
 
   onContinue = () => {
