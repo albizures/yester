@@ -86,7 +86,8 @@ class Profile extends Component {
 
   render () {
     const { isLoading, questionCounter, storyCounter, user, conditionalText } = this.state
-    const completed = storyCounter ? Math.round((storyCounter / questionCounter) * 100) : '...'
+    // const completed = storyCounter ? Math.round((storyCounter / questionCounter) * 100) : '...'
+    const completed = storyCounter ? Math.round((storyCounter / 305) * 100) : '...'
     const {
       name,
       email,
