@@ -20,12 +20,24 @@ class Profile extends Component {
     navigation: PropTypes.object.isRequired,
   }
 
+  state = {
+    conditionalText: {
+      [true]: {
+        subscriptionStatus: 'profile.subscriptionStatus.active',
+      },
+      [false]: {
+        subscriptionStatus: 'profile.subscriptionStatus.inactive',
+      },
+    },
+  }
+
   constructor (props) {
-    super()
+    super(props)
+    const { conditionalText } = this.state
     const {
       contextUser: { user },
     } = props
-    this.state = { user, isLoading: true }
+    this.state = { conditionalText, user, isLoading: true }
   }
 
   willFocusListener = null
@@ -73,9 +85,21 @@ class Profile extends Component {
   }
 
   render () {
-    const { isLoading, questionCounter, storyCounter } = this.state
+    const { isLoading, questionCounter, storyCounter, user, conditionalText } = this.state
     const completed = storyCounter ? Math.round((storyCounter / questionCounter) * 100) : '...'
-    const { name, email, country, state, gender, birthPlace, emailVerified } = this.state.user
+    const {
+      name,
+      email,
+      country,
+      state,
+      gender,
+      birthPlace,
+      emailVerified,
+      purchaserInfo: { authorized },
+    } = user
+
+    const text = conditionalText[authorized]
+
     const location =
       birthPlace !== undefined ? birthPlace : `${country}, ${state ? state.substring(3, 5) : ''}`
 
@@ -101,7 +125,7 @@ class Profile extends Component {
     }
 
     return (
-      <Container topBar={topBar} isLoading={isLoading} style={styles.container}>
+      <Container scroll topBar={topBar} isLoading={isLoading} style={styles.container}>
         <View style={styles.topFlex}>
           <Image
             source={gender === 'male' ? icons.profileMan : icons.profileWoman}
@@ -118,6 +142,11 @@ class Profile extends Component {
         <View style={styles.bottomFlex}>
           <Divider style={{ width: 323 }} />
           <View style={styles.item}>
+            <Description keyName='profile.subscriptionStatus' />
+            <Heading5 keyName={text.subscriptionStatus} style={{ fontWeight: 'bold' }} />
+          </View>
+          <Divider style={{ width: 323 }} />
+          <View style={styles.item}>
             <Description keyName='profile.email' />
             <Heading5 text={email} style={{ fontWeight: 'bold' }} onPress={this.onPressVerify} />
             {verificationElement}
@@ -128,15 +157,13 @@ class Profile extends Component {
             <Heading5 text={location} style={{ fontWeight: 'bold' }} />
           </View>
           <Divider style={{ width: 323 }} />
-          <View style={styles.edit}>
-            <TouchableOpacity>
-              <Description
-                keyName='profile.edit'
-                style={styles.editLabel}
-                onPress={this.onPressEdit}
-              />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.edit}>
+            <Description
+              keyName='profile.edit'
+              style={styles.editLabel}
+              onPress={this.onPressEdit}
+            />
+          </TouchableOpacity>
         </View>
       </Container>
     )
