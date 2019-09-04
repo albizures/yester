@@ -18,9 +18,13 @@ const TabIcon = ({ focused, src, activeSrc, iconSize }) => {
 
 const styles = StyleSheet.create({
   active: {
+    height: 60,
+    width: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: colors.governorBay,
-    padding: 18,
-    borderRadius: PixelRatio.roundToNearestPixel((20 + 18 * 2) / 2),
+    // padding: 18,
+    borderRadius: PixelRatio.roundToNearestPixel(60), // (20 + 18 * 2) / 2),
     marginBottom: 10,
     shadowColor: colors.black,
     shadowOpacity: 0.2,
