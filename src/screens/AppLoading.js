@@ -62,8 +62,7 @@ class AppLoading extends Component {
       // Set user and stats in context
       await updateUser()
       await updateStats()
-      await updateAuthorization()
-      const { user, currentStatus } = this.props.contextUser
+      const { user } = this.props.contextUser
 
       if (!user.email) throw new Error('User has no email')
 
@@ -84,6 +83,8 @@ class AppLoading extends Component {
         return navigation.navigate('SetupBirthDate', params)
       }
 
+      await updateAuthorization()
+      const { currentStatus } = this.props.contextUser
       if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
         return navigation.navigate('Subscription', { currentStatus })
       }
