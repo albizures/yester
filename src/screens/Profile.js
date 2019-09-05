@@ -117,7 +117,7 @@ class Profile extends Component {
         <View style={styles.verification}>
           <Description keyName='profile.verifiedEmail.unconfirmed' style={{ color: 'red' }} />
           <Heading5
-            keyName='profile.verifiedEmail.confirm'
+            keyName='profile.verifiedEmail.confirmAction'
             style={styles.confirmText}
             onPress={this.onPressVerify}
           />

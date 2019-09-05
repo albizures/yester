@@ -19,11 +19,21 @@ const debugInfo = debugFactory('yester:session:info')
 const debugError = debugFactory('yester:session:error')
 
 export const subscriptionStatus = {
-  WELCOME: { code: '0', tag: 'welcome', authorized: true },
-  PRO: { code: '1', tag: 'pro', authorized: true },
-  EXPIRED: { code: '2', tag: 'expired', authorized: false },
-  ODD_REQUIRE: { code: '3', tag: 'odd_require_trial', authorized: false },
-  EVEN_REQUIRE: { code: '4', tag: 'even_require_trial', authorized: false },
+  PREVIEW: { code: '0', tag: 'preview', authorized: true, keyName: 'subscription.name.preview' },
+  PRO: { code: '1', tag: 'pro', authorized: true, keyName: 'subscription.name.pro' },
+  EXPIRED: { code: '2', tag: 'expired', authorized: false, keyName: 'subscription.name.expired' },
+  ODD_REQUIRE: {
+    code: '3',
+    tag: 'odd_require_trial',
+    authorized: false,
+    keyName: 'subscription.name.odd_require',
+  },
+  EVEN_REQUIRE: {
+    code: '4',
+    tag: 'even_require_trial',
+    authorized: false,
+    keyName: 'subscription.name.even_require',
+  },
 }
 
 export const extractTokenFromSession = async () => {
@@ -267,7 +277,7 @@ export const isAuthorized = async (props, purchaserInfo) => {
   if (!hasEverPurchased) {
     if (isEven(user)) {
       if (storyCounter < 5) {
-        currentStatus = subscriptionStatus.WELCOME
+        currentStatus = subscriptionStatus.PREVIEW
       } else {
         currentStatus = subscriptionStatus.EVEN_REQUIRE
       }
@@ -291,19 +301,32 @@ export const authorizeAction = async (props, callback) => {
   const currentStatus = await isAuthorized(props)
   debugInfo('currentStatus', currentStatus)
 
+  const conditionalText = {
+    [subscriptionStatus.ODD_REQUIRE.code]: {
+      title: 'subscription.status.alert.title',
+      message: 'subscription.status.alert.message',
+    },
+    [subscriptionStatus.EVEN_REQUIRE.code]: {
+      title: 'subscription.status.alert.title.even',
+      message: 'subscription.status.alert.message.even',
+    },
+    [subscriptionStatus.EXPIRED.code]: {
+      title: 'subscription.status.alert.title',
+      message: 'subscription.status.alert.message',
+    },
+  }
+
+  const text = conditionalText[currentStatus.code]
+
   callback(currentStatus)
   if (!currentStatus.authorized) {
-    Alert.alert(
-      translate('subscription.status.alert.title'),
-      translate('subscription.status.alert.message'),
-      [
-        { text: translate('subscription.status.alert.cancel') },
-        {
-          text: translate('subscription.status.alert.ok'),
-          onPress: () => navigation.navigate('Subscription', { currentStatus }),
-        },
-      ]
-    )
+    Alert.alert(translate(text.title), translate(text.message), [
+      { text: translate('subscription.status.alert.cancel') },
+      {
+        text: translate('subscription.status.alert.ok'),
+        onPress: () => navigation.navigate('Subscription', { currentStatus }),
+      },
+    ])
   }
   return currentStatus
 }
