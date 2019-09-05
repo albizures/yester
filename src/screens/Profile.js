@@ -8,7 +8,7 @@ import Divider from '../components/Divider'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import withUser, { shapeContextUser } from '../components/withUser'
-import { isSetupFinished } from '../utils/session'
+import { isSetupFinished, subscriptionStatus } from '../utils/session'
 import { screen } from '../utils/analytics'
 // import debugFactory from 'debug'
 // const debugInfo = debugFactory('yester:Profile:info')
@@ -35,9 +35,9 @@ class Profile extends Component {
     super(props)
     const { conditionalText } = this.state
     const {
-      contextUser: { user },
+      contextUser: { user, currentStatus },
     } = props
-    this.state = { conditionalText, user, isLoading: true }
+    this.state = { conditionalText, user, currentStatus, isLoading: true }
   }
 
   willFocusListener = null
@@ -84,20 +84,25 @@ class Profile extends Component {
     }
   }
 
+  onPressSubscribe = async () => {
+    const { navigation } = this.props
+    const { currentStatus } = this.state
+    return navigation.navigate('Subscription', { currentStatus })
+  }
+
   render () {
-    const { isLoading, questionCounter, storyCounter, user, conditionalText } = this.state
+    const {
+      isLoading,
+      questionCounter,
+      storyCounter,
+      user,
+      conditionalText,
+      currentStatus,
+    } = this.state
     // const completed = storyCounter ? Math.round((storyCounter / questionCounter) * 100) : '...'
     const completed = storyCounter ? Math.round((storyCounter / 305) * 100) : '...'
-    const {
-      name,
-      email,
-      country,
-      state,
-      gender,
-      birthPlace,
-      emailVerified,
-      purchaserInfo: { authorized },
-    } = user
+    const { name, email, country, state, gender, birthPlace, emailVerified } = user
+    const { authorized, keyName: subscriptionStatusName } = currentStatus
 
     const text = conditionalText[authorized]
 
@@ -125,6 +130,19 @@ class Profile extends Component {
       )
     }
 
+    let subscriptionElement
+    if (currentStatus !== subscriptionStatus.PRO) {
+      subscriptionElement = (
+        <View style={styles.subscription}>
+          <Heading5
+            keyName='profile.subscriptionStatus.subscribeAction'
+            style={styles.confirmText}
+            onPress={this.onPressSubscribe}
+          />
+        </View>
+      )
+    }
+
     return (
       <Container scroll topBar={topBar} isLoading={isLoading} style={styles.container}>
         <View style={styles.topFlex}>
@@ -144,7 +162,8 @@ class Profile extends Component {
           <Divider style={{ width: 323 }} />
           <View style={styles.item}>
             <Description keyName='profile.subscriptionStatus' />
-            <Heading5 keyName={text.subscriptionStatus} style={{ fontWeight: 'bold' }} />
+            <Heading5 keyName={subscriptionStatusName} style={{ fontWeight: 'bold' }} />
+            {subscriptionElement}
           </View>
           <Divider style={{ width: 323 }} />
           <View style={styles.item}>
@@ -200,14 +219,21 @@ const styles = StyleSheet.create({
     width: 300,
     minHeight: height * 0.1,
     alignItems: 'flex-start',
-    paddingVertical: height * 0.025,
+    paddingVertical: height * 0.02,
   },
   verification: {
     flexDirection: 'row',
     width: 300,
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
-    marginTop: height * 0.015,
+    marginTop: height * 0.005,
+  },
+  subscription: {
+    flexDirection: 'row',
+    width: 300,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    marginTop: height * 0.005,
   },
   confirmText: {
     fontWeight: 'bold',
