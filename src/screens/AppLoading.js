@@ -8,14 +8,7 @@ import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
 import { getPermissionSubscriptionState, checkNotificationsStatus } from '../utils/notifications'
-import {
-  isSetupFinished,
-  getToken,
-  setLocale,
-  logOut,
-  isAuthorized,
-  subscriptionStatus,
-} from '../utils/session'
+import { isSetupFinished, getToken, setLocale, logOut, subscriptionStatus } from '../utils/session'
 import { identifyAnalytics } from '../utils/analytics'
 import debugFactory from 'debug'
 
@@ -56,7 +49,7 @@ class AppLoading extends Component {
   async bootstrap () {
     const {
       navigation,
-      contextUser: { updateUser, updateStats },
+      contextUser: { updateUser, updateStats, updateAuthorization },
     } = this.props
 
     try {
@@ -69,7 +62,9 @@ class AppLoading extends Component {
       // Set user and stats in context
       await updateUser()
       await updateStats()
-      const { user } = this.props.contextUser
+      await updateAuthorization()
+      const { user, currentStatus } = this.props.contextUser
+
       if (!user.email) throw new Error('User has no email')
 
       identifyAnalytics(user)
@@ -89,7 +84,6 @@ class AppLoading extends Component {
         return navigation.navigate('SetupBirthDate', params)
       }
 
-      const currentStatus = await isAuthorized(this.props)
       if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
         return navigation.navigate('Subscription', { currentStatus })
       }

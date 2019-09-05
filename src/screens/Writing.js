@@ -181,9 +181,8 @@ class Writing extends Component {
         content: content,
       })
       await updateStats()
-      // Commented because when navegate to My Story and then open Questions
-      // authorizeAction is called, so here isn't necessary to call this.
-      // await isAuthorized(this.props)
+      // It's not necessary to update Authorization, because it's done
+      // when navegate to My Story and then open Questions
 
       navigation.dispatch(
         StackActions.reset({

@@ -55,7 +55,7 @@ import About from './screens/About'
 import { tabBarIcon } from './components/TabIcon'
 import colors from './utils/colors'
 import icons from './utils/icons'
-import { Storage, sanitizeUser, setLocale, sanitizeStats } from './utils/session'
+import { Storage, sanitizeUser, setLocale, sanitizeStats, isAuthorized } from './utils/session'
 import { setupAnalytics } from './utils/analytics'
 
 const debugInfo = debugFactory('yester:index:info')
@@ -319,6 +319,14 @@ export default class App extends Component {
     this.setState({ stats })
   }
 
+  updateAuthorization = async () => {
+    debugInfo('Updating context currentStatus')
+    const { user, stats } = this.state
+    const currentStatus = await isAuthorized(user, stats)
+    this.setState({ currentStatus })
+    return currentStatus
+  }
+
   updateAges = (ages) => {
     // debugInfo('Updating ages', ages)
     this.setState({
@@ -334,12 +342,14 @@ export default class App extends Component {
   }
 
   render () {
-    const { user, stats, ages, agesList } = this.state
+    const { user, stats, currentStatus, ages, agesList } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
       updateStats: this.updateStats,
+      updateAuthorization: this.updateAuthorization,
       user,
       stats,
+      currentStatus,
     }
     const agesContextValue = {
       updateAges: this.updateAges,

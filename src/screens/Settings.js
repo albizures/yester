@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { View, StyleSheet, Linking, Platform } from 'react-native'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
-import { logOut, isAuthorized, subscriptionStatus } from '../utils/session'
+import { logOut, subscriptionStatus } from '../utils/session'
 import SettingsItem, { types } from '../components/SettingsItem'
 import { translate } from '../components/Translate'
 import { resetAnalytics, screen, track } from '../utils/analytics'
@@ -49,8 +49,10 @@ class Settings extends Component {
   }
 
   onPressManage = async () => {
-    const { navigation } = this.props
-    const currentStatus = await isAuthorized(this.props)
+    const {
+      navigation,
+      contextUser: { currentStatus },
+    } = this.props
     track('Manage Subscription', { subscriptionStatus: currentStatus.tag })
 
     if (currentStatus !== subscriptionStatus.PRO) {

@@ -31,6 +31,12 @@ export const shapeContextUser = {
     lastQuestion: PropTypes.string,
     maxLength: PropTypes.number,
   }),
+  currentStatus: PropTypes.shape({
+    code: PropTypes.string,
+    tag: PropTypes.string,
+    authorized: PropTypes.bool,
+    keyName: PropTypes.string,
+  }),
 }
 
 export default (Component) => {

@@ -261,13 +261,10 @@ export const isEven = (user) => {
   return hour % 2 === 0
 }
 
-export const isAuthorized = async (props, purchaserInfo) => {
-  const {
-    contextUser: { user, stats },
-  } = props
+export const isAuthorized = async (user, stats) => {
   let currentStatus = {}
-  purchaserInfo = purchaserInfo || (await getPurchaserInfo()) || {}
-  const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo
+  const purchaserInfo = await getPurchaserInfo()
+  const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
   const { storyCounter } = stats
   debugInfo('activeEntitlements:', activeEntitlements)
 
@@ -297,8 +294,11 @@ export const isAuthorized = async (props, purchaserInfo) => {
 }
 
 export const authorizeAction = async (props, callback) => {
-  const { navigation } = props
-  const currentStatus = await isAuthorized(props)
+  const {
+    navigation,
+    contextUser: { updateAuthorization },
+  } = props
+  const currentStatus = await updateAuthorization()
   debugInfo('currentStatus', currentStatus)
 
   const conditionalText = {
