@@ -23,6 +23,8 @@ export const shapeContextUser = {
     emailVerified: PropTypes.boolean,
     created: PropTypes.string,
     purchaserInfo: PropTypes.object,
+    givenName: PropTypes.string,
+    lastName: PropTypes.string,
   }),
   stats: PropTypes.shape({
     questionCounter: PropTypes.number,
