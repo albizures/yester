@@ -205,22 +205,22 @@ class Stories extends Component {
         </Animated.View>
 
         {this.state.modalVisible && (
-          <View>
-            <View
-              style={{
-                width,
-                height,
-                position: 'absolute',
-                backgroundColor: 'rgba(49, 49, 49, 0.67)',
-              }}
-            />
-            <BottomDrawer
-              props={this.props}
-              visible={this.state.modalVisible}
-              onOk={this.onOk}
-              onSubscribe={this.onSubscribe}
-            />
-          </View>
+          <View
+            style={{
+              width,
+              height,
+              position: 'absolute',
+              backgroundColor: 'rgba(49, 49, 49, 0.67)',
+            }}
+          />
+        )}
+        {this.state.modalVisible && (
+          <BottomDrawer
+            props={this.props}
+            visible={this.state.modalVisible}
+            onOk={this.onOk}
+            onSubscribe={this.onSubscribe}
+          />
         )}
       </Container>
     )
