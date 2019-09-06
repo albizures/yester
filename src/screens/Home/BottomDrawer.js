@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Modal, Image, Dimensions } from 'react-native'
+import { View, StyleSheet, Modal, Image, Dimensions, Text } from 'react-native'
 import colors from '../../utils/colors'
+import icons from '../../utils/icons'
 import { Title, Heading5, Body1 } from '../../components'
 import Button from '../../components/Button'
 import Divider from '../../components/Divider'
@@ -13,37 +14,48 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
   } = props
   const { givenName } = user
 
-  const conditionalText = {
-    [subscriptionStatus.ODD_REQUIRE.code]: {
-      message: 'home.alertItem.message.trial',
-    },
-    [subscriptionStatus.EVEN_REQUIRE.code]: {
-      message: 'home.alertItem.message.trial',
-    },
-    [subscriptionStatus.EXPIRED.code]: {
-      message: 'home.alertItem.message.expired',
-    },
-  }
-
-  const text = conditionalText[currentStatus.code]
+  const completed = stats.storyCounter ? Math.round((stats.storyCounter / 305) * 100) : 0
 
   const showLeft = currentStatus === subscriptionStatus.PREVIEW
   let left = 5 - stats.storyCounter
   left = left < 0 ? 0 : left
+
   let actions = (
-    <View style={styles.actionsRow}>
-      <Body1 style={styles.secondAction} keyName='home.bottomDrawer.dismiss' onPress={onOk} />
-      <Button title='home.bottomDrawer.button.ok' onPress={onOk} style={styles.button} />
+    <View style={{ width: '100%' }}>
+      <Divider style={{ width: 323, marginBottom: 18 }} />
+      <Title style={styles.secondTitle} keyName='home.bottomDrawer.secondTitle' />
+      <View style={styles.statsRow}>
+        <Image source={icons.pirChart} style={{ width: 22, height: 22, marginRight: 12 }} />
+        <Text style={{ textAlignVertical: 'top', marginRight: 23 }}>
+          <Heading5 keyName='home.bottomDrawer.stories1' />
+          <Heading5
+            style={{ fontWeight: 'bold' }}
+            keyName='home.bottomDrawer.stories2'
+            data={{ storyCounter: stats.storyCounter }}
+          />
+          <Heading5 keyName='home.bottomDrawer.stories3' />
+          <Heading5
+            style={{ fontWeight: 'bold' }}
+            keyName='home.bottomDrawer.stories4'
+            data={{ completed }}
+          />
+          <Heading5 keyName='home.bottomDrawer.stories5' />
+        </Text>
+      </View>
+      <View style={styles.actionsRow}>
+        <Body1 style={styles.secondAction} text=' ' onPress={onOk} />
+        <Button title='home.bottomDrawer.button.ok' onPress={onOk} style={styles.button} />
+      </View>
     </View>
   )
   if (showLeft) {
     actions = (
       <View style={{ width: '100%' }}>
         <Divider style={{ width: 323, marginBottom: 18 }} />
-        <View style={{ flexDirection: 'row' }}>
-          <Image />
+        <View style={styles.statsRow}>
+          <Image source={icons.alertCircle} style={{ width: 22, height: 22, marginRight: 12 }} />
           <Heading5
-            style={{ fontStyle: 'italic', marginBottom: 37 }}
+            style={{ fontStyle: 'italic', textAlignVertical: 'top', marginRight: 23 }}
             keyName='home.bottomDrawer.storiesLeft'
             data={{ left: left }}
           />
@@ -61,10 +73,10 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
   }
 
   return (
-    <Modal animationType='slide' transparent visible={visible}>
+    <Modal animationType='slide' transparent visible={visible} onRequestClose={onOk}>
       <View style={styles.modalContainer}>
-        <View style={[styles.card, { height: showLeft ? 350 : 225 }]}>
-          <View style={styles.contentBottom}>
+        <View style={styles.card}>
+          <View style={styles.container}>
             <View style={styles.divider} />
             <Title
               style={styles.title}
@@ -99,9 +111,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   card: {
-    width,
-    height: 226,
-    overflow: 'hidden',
+    width: '100%',
+    height: 360,
+    // overflow: 'hidden',
     borderTopStartRadius: 30,
     borderTopEndRadius: 30,
     borderWidth: 0.5,
@@ -114,17 +126,17 @@ const styles = StyleSheet.create({
       height: 30,
     },
   },
-  contentBottom: {
+  container: {
     width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    paddingBottom: 27,
     paddingTop: 12,
     paddingHorizontal: 23,
   },
   divider: {
     width: 97,
     height: 3,
+    alignSelf: 'center',
     borderWidth: 0,
     borderRadius: 1.5,
     borderColor: colors.mischka,
@@ -135,12 +147,24 @@ const styles = StyleSheet.create({
     marginTop: 33,
     marginBottom: 13,
   },
+  secondTitle: {
+    color: colors.governorBay,
+    fontWeight: 'bold',
+    marginBottom: 13,
+  },
+  statsRow: {
+    maxWidth: '100%',
+    flexDirection: 'row',
+    marginRight: 23,
+  },
   actionsRow: {
     width: '100%',
     height: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 27,
   },
   button: { width: 150 },
   secondAction: {
