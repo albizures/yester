@@ -34,6 +34,11 @@ class Subscription extends Component {
         subtitle: 'subscription.even.subtitle',
         priceDetails: 'subscription.even.priceDetails',
       },
+      [subscriptionStatus.PREVIEW.code]: {
+        title: 'subscription.even.title',
+        subtitle: 'subscription.even.subtitle',
+        priceDetails: 'subscription.even.priceDetails',
+      },
       [subscriptionStatus.EXPIRED.code]: {
         title: 'subscription.expired.title',
         subtitle: 'subscription.expired.subtitle',
