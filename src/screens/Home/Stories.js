@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, FlatList, Alert, Image, Dimensions, Animated, Text } from 'react-native'
+import { View, StyleSheet, FlatList, Image, Dimensions, Animated, Text } from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
+import BottomDrawer from './BottomDrawer'
 import Container from '../../components/Container'
 import TopBar from '../../components/TopBar'
 import { Title, Heading4, Heading3 } from '../../components'
@@ -23,10 +24,21 @@ class Stories extends Component {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
-  state = {
-    isLoading: true,
-    item: {},
-    positionToast: new Animated.Value(-100),
+  constructor (props) {
+    super(props)
+    const {
+      contextUser: { user, stats, currentStatus },
+    } = props
+
+    this.state = {
+      isLoading: true,
+      item: {},
+      positionToast: new Animated.Value(-100),
+      modalVisible: false,
+      user,
+      stats,
+      currentStatus,
+    }
   }
 
   willFocusListener = null
@@ -36,25 +48,12 @@ class Stories extends Component {
     const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
 
-    /*
-    this.setState({
-      isLoading: true,
-    })
-    try {
-      const { data: question } = await http.getAPI('/v2/questions')
-      this.setState({ question })
-    } catch (error) {
-      debugError('today question:', error.response)
-      if (error.response.status !== 404) {
-        Alert.alert(translate('home.error.today.question'))
-      }
-    }
-*/
     this.setState({ isLoading: false })
 
     const { positionToast } = this.state
     const storyId = navigation.getParam('storyId')
     if (storyId) {
+      /*
       Animated.spring(positionToast, {
         toValue: 40,
         bounciness: 3,
@@ -62,11 +61,31 @@ class Stories extends Component {
       }).start()
 
       this.timeout = setTimeout(this.closeToast, 5000)
+      */
+      this.setModalVisible(true)
+      // this.timeout = setTimeout(() => this.setModalVisible(false), 6000)
     }
   }
 
   load = () => {
+    // this.setModalVisible(true)
     screen('My Story', { age: 'childhood' })
+  }
+
+  setModalVisible (visible) {
+    this.setState({ modalVisible: visible })
+  }
+
+  onSubscribe = () => {
+    const {
+      navigation,
+      contextUser: { currentStatus },
+    } = this.props
+    navigation.navigate('Subscription', { currentStatus })
+  }
+
+  onOk = () => {
+    this.setModalVisible(false)
   }
 
   onPressToast = () => {
@@ -150,12 +169,14 @@ class Stories extends Component {
 
   render () {
     const { isLoading, question, positionToast } = this.state
+
     const topBarTitle = (
       <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
       </View>
     )
     const topBar = <TopBar title={topBarTitle} />
+
     return (
       <Container topBar={topBar} isLoading={isLoading} style={styles.container}>
         <View style={styles.view}>
@@ -182,6 +203,25 @@ class Stories extends Component {
             </View>
           </View>
         </Animated.View>
+
+        {this.state.modalVisible && (
+          <View>
+            <View
+              style={{
+                width,
+                height,
+                position: 'absolute',
+                backgroundColor: 'rgba(49, 49, 49, 0.67)',
+              }}
+            />
+            <BottomDrawer
+              props={this.props}
+              visible={this.state.modalVisible}
+              onOk={this.onOk}
+              onSubscribe={this.onSubscribe}
+            />
+          </View>
+        )}
       </Container>
     )
   }
@@ -189,7 +229,7 @@ class Stories extends Component {
 
 export default withUser(Stories)
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   toastContainer: {
     position: 'absolute',
