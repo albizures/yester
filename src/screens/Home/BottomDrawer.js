@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Modal, Image, Dimensions, Text } from 'react-native'
+import { View, StyleSheet, Image, Dimensions, Text } from 'react-native'
+import Modal from 'react-native-modal'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import { Title, Heading5, Body1 } from '../../components'
@@ -22,10 +23,9 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
 
   let actions = (
     <View style={{ width: '100%' }}>
-      <Divider style={{ width: 323, marginBottom: 18 }} />
       <Title style={styles.secondTitle} keyName='home.bottomDrawer.secondTitle' />
       <View style={styles.statsRow}>
-        <Image source={icons.pirChart} style={{ width: 22, height: 22, marginRight: 12 }} />
+        <Image source={icons.pieChart} style={{ width: 22, height: 22, marginRight: 12 }} />
         <Text style={{ textAlignVertical: 'top', marginRight: 23 }}>
           <Heading5 keyName='home.bottomDrawer.stories1' />
           <Heading5
@@ -51,7 +51,6 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
   if (showLeft) {
     actions = (
       <View style={{ width: '100%' }}>
-        <Divider style={{ width: 323, marginBottom: 18 }} />
         <View style={styles.statsRow}>
           <Image source={icons.alertCircle} style={{ width: 22, height: 22, marginRight: 12 }} />
           <Heading5
@@ -73,7 +72,16 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
   }
 
   return (
-    <Modal animationType='slide' transparent visible={visible} onRequestClose={onOk}>
+    <Modal
+      isVisible={visible}
+      backdropColor='transparent'
+      swipeDirection='down'
+      onSwipeComplete={onOk}
+      onBackButtonPress={onOk}
+      onBackdropPress={onOk}
+      animationInTiming={500}
+      style={{ margin: 0 }}
+    >
       <View style={styles.modalContainer}>
         <View style={styles.card}>
           <View style={styles.container}>
@@ -84,6 +92,8 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
               data={{ name: givenName }}
             />
             <Heading5 style={{ marginBottom: 33 }} keyName='home.bottomDrawer.message' />
+
+            <Divider style={{ width: 323, marginBottom: 18 }} />
 
             {actions}
           </View>
