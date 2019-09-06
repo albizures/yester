@@ -42,6 +42,8 @@ const icons = {
   bottombarProfileInactive: require('../assets/profile_inactive_icon.png'),
   bottombarSettingsActive: require('../assets/settings_active_icon.png'),
   bottombarSettingsInactive: require('../assets/settings_inactive_icon.png'),
+  alertCircle: require('../assets/alert-circle.png'),
+  pieChart: require('../assets/pie-chart.png'),
 }
 
 export const ages = {
