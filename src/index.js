@@ -263,11 +263,11 @@ const RootStack = createSwitchNavigator(
 export default class App extends Component {
   state = {}
   async componentDidMount () {
-    console.log('Disabling debug', debugFactory.disable())
+    SplashScreen.hide()
+    debugFactory.disable()
     // debugFactory.enable('yester:*')
     // debugFactory.enable('yester:index*, yester:notifications*, yester:AppLoading*')
     // debugFactory.enable('yester:Writing*')
-    SplashScreen.hide()
 
     initNotifications()
     addEventListener('received', this.onReceived)
