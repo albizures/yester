@@ -10,40 +10,32 @@ export const initNotifications = () => {
   try {
     OneSignal.init(ONESIGNAL_APPID, { kOSSettingsKeyAutoPrompt: false })
     OneSignal.setLogLevel(0, 0)
-  } catch (error) {
-    debugError('initNotifications', error)
+  } catch (err) {
+    debugError('initNotifications', err)
   }
 }
 
 export const addEventListener = (eventName, callback) => {
   try {
     OneSignal.addEventListener(eventName, callback)
-  } catch (error) {
-    debugError('addEventListener', error)
+  } catch (err) {
+    debugError('addEventListener', err)
   }
 }
 
 export const removeEventListener = (eventName, callback) => {
   try {
     OneSignal.removeEventListener(eventName, callback)
-  } catch (error) {
-    debugError('removeEventListener', error)
-  }
-}
-
-export const configureNotifications = (eventName, callback) => {
-  try {
-    OneSignal.configure()
-  } catch (error) {
-    debugError('configureNotifications', error)
+  } catch (err) {
+    debugError('removeEventListener', err)
   }
 }
 
 export const sendTags = (tagsObject) => {
   try {
     OneSignal.sendTags(tagsObject)
-  } catch (error) {
-    debugError('sendTags', error)
+  } catch (err) {
+    debugError('sendTags', err)
   }
 }
 
@@ -55,8 +47,8 @@ export const requestPermissions = () => {
       sound: true,
     }
     OneSignal.requestPermissions(permissions)
-  } catch (error) {
-    debugError('requestPermissions', error)
+  } catch (err) {
+    debugError('requestPermissions', err)
   }
 }
 
@@ -65,8 +57,8 @@ export const checkPermissions = () => {
     OneSignal.checkPermissions((permissions) => {
       debugInfo(permissions)
     })
-  } catch (error) {
-    debugError('checkPermissions', error)
+  } catch (err) {
+    debugError('checkPermissions', err)
   }
 }
 
@@ -74,42 +66,54 @@ export const getPermissionSubscriptionState = (callback) => {
   try {
     // Asyncronous
     OneSignal.getPermissionSubscriptionState(callback)
-  } catch (error) {
-    debugError('getPermissionSubscriptionState', error)
+  } catch (err) {
+    debugError(err)
   }
 }
+
+// TODO work on this, to be the only source of truth
+/*
+export const getNotificationsStatus = async (user) => {
+  const { notifications } = user
+  try {
+    await OneSignal.getPermissionSubscriptionState((status) => {
+      Object.assign(status, { userNotifications: notifications })
+      return status
+    })
+  } catch (err) {
+    debugError(err)
+  }
+}
+*/
 
 export const setSubscription = (enable) => {
   try {
     OneSignal.setSubscription(enable)
-  } catch (error) {
-    debugError('setSubscription', error)
+  } catch (err) {
+    debugError('setSubscription', err)
   }
 }
 
 export const registerForPushNotifications = async () => {
   try {
     await OneSignal.registerForPushNotifications()
-  } catch (error) {
-    debugError('registerForPushNotifications', error)
+  } catch (err) {
+    debugError('registerForPushNotifications', err)
   }
 }
 
-export const checkNotificationsStatus = async (user) => {
+export const setNotificationsStatus = async (user) => {
+  const { userId, email } = user
   try {
-    const { userId, email } = user
-
     await registerForPushNotifications()
-
     if (userId) OneSignal.setExternalUserId(userId)
     if (email) OneSignal.setEmail(email)
-    configureNotifications()
 
     getPermissionSubscriptionState(async (notifStatus) => {
-      debugInfo('checkNotificationsStatus: ', notifStatus)
+      debugInfo('setNotificationsStatus: ', notifStatus)
       await updateUserAttribute('notifications', notifStatus.subscriptionEnabled)
     })
-  } catch (error) {
-    debugError('checkNotificationsStatus', error)
+  } catch (err) {
+    debugError('setNotificationsStatus', err)
   }
 }

@@ -9,7 +9,7 @@ import colors from '../../utils/colors'
 import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
-import { checkNotificationsStatus } from '../../utils/notifications'
+import { setNotificationsStatus } from '../../utils/notifications'
 import { screen } from '../../utils/analytics'
 import debugFactory from 'debug'
 
@@ -69,7 +69,7 @@ class Confirmation extends Component {
       platform: Platform.OS,
     })
 
-    await checkNotificationsStatus(user)
+    await setNotificationsStatus(user)
     await updateUser()
     navigation.navigate('AppLoading')
   }

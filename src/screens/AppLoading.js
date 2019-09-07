@@ -7,7 +7,7 @@ import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import { getPermissionSubscriptionState, checkNotificationsStatus } from '../utils/notifications'
+import { getPermissionSubscriptionState, setNotificationsStatus } from '../utils/notifications'
 import { isSetupFinished, getToken, setLocale, logOut, subscriptionStatus } from '../utils/session'
 import { identifyAnalytics } from '../utils/analytics'
 import debugFactory from 'debug'
@@ -73,8 +73,8 @@ class AppLoading extends Component {
       getPermissionSubscriptionState((notifStatus) => {
         debugInfo('notifStatus: ', notifStatus)
         // If notifications are set to true in the cloud but hasn't been prompted in current device
-        if (!notifStatus.hasPrompted && user.notifications) {
-          checkNotificationsStatus(user)
+        if (user.notifications !== false && !notifStatus.hasPrompted) {
+          setNotificationsStatus(user)
         }
       })
 

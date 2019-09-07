@@ -8,8 +8,6 @@ import {
 } from 'react-navigation'
 import Amplify, { Hub } from 'aws-amplify'
 import SplashScreen from 'react-native-splash-screen'
-import debugFactory from 'debug'
-import { translate } from './components/Translate'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,
@@ -19,13 +17,6 @@ import {
   HOST,
   // REDIRECT_URI,
 } from 'react-native-dotenv'
-import {
-  initNotifications,
-  configureNotifications,
-  addEventListener,
-  removeEventListener,
-  sendTags,
-} from './utils/notifications'
 import { UserProvider } from './components/withUser'
 import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
@@ -53,10 +44,13 @@ import AppLoading from './screens/AppLoading'
 import Terms from './screens/Terms'
 import About from './screens/About'
 import { tabBarIcon } from './components/TabIcon'
+import { translate } from './components/Translate'
 import colors from './utils/colors'
 import icons from './utils/icons'
 import { Storage, sanitizeUser, setLocale, sanitizeStats, isAuthorized } from './utils/session'
+import { initNotifications, addEventListener, removeEventListener } from './utils/notifications'
 import { setupAnalytics } from './utils/analytics'
+import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:index:info')
 
@@ -271,7 +265,7 @@ export default class App extends Component {
   async componentDidMount () {
     console.log('Disabling debug', debugFactory.disable())
     // debugFactory.enable('yester:*')
-    // debugFactory.enable('yester:http*, yester:purchase*')
+    // debugFactory.enable('yester:index*, yester:notifications*, yester:AppLoading*')
     // debugFactory.enable('yester:Writing*')
     SplashScreen.hide()
 
@@ -279,7 +273,6 @@ export default class App extends Component {
     addEventListener('received', this.onReceived)
     addEventListener('opened', this.onOpened)
     addEventListener('ids', this.onIds)
-    configureNotifications()
 
     setupAnalytics()
   }

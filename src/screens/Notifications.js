@@ -30,14 +30,13 @@ class Notificacions extends Component {
 
   componentDidMount () {
     screen('Notifications', {})
-    getPermissionSubscriptionState((notifStatus) => {
-      const { notifications } = this.props.contextUser.user
-      this.setState({
-        subscriptionEnabled: notifications,
-      })
+    const { notifications } = this.props.contextUser.user
+    this.setState({
+      subscriptionEnabled: notifications,
+    })
 
-      debugInfo('DidMount notifications: ', notifications)
-      debugInfo('DidMount notifStatus: ', notifStatus)
+    getPermissionSubscriptionState((notifStatus) => {
+      debugInfo('notifStatus: ', notifStatus)
       if (notifications !== notifStatus.subscriptionEnabled) {
         setSubscription(notifications)
       }
