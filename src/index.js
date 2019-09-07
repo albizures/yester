@@ -280,7 +280,6 @@ export default class App extends Component {
     addEventListener('opened', this.onOpened)
     addEventListener('ids', this.onIds)
     configureNotifications()
-    sendTags({ subscriptionStatus: 'none' })
 
     setupAnalytics()
   }
