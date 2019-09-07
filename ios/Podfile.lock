@@ -18,7 +18,7 @@ PODS:
     - glog
   - glog (0.3.5)
   - JKBigInteger2 (0.0.5)
-  - OneSignal (2.10.0)
+  - OneSignal (2.10.1)
   - Purchases (2.3.0)
   - React (0.59.8):
     - React/Core (= 0.59.8)
@@ -36,9 +36,9 @@ PODS:
   - react-native-fbsdk/Share (0.10.1):
     - FBSDKShareKit (~> 5.0.0)
     - React
-  - react-native-onesignal (3.2.14):
-    - OneSignal (= 2.10.0)
-    - React
+  - react-native-onesignal (3.3.2):
+    - OneSignal (= 2.10.1)
+    - React (< 1.0.0, >= 0.13.0)
   - react-native-splash-screen (3.2.0):
     - React
   - React/Core (0.59.8):
@@ -190,11 +190,11 @@ SPEC CHECKSUMS:
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
-  OneSignal: 0f5ff711d9f25da54885e4ab06ef0abc221a46ef
+  OneSignal: 8fb749fa07f88006403c9b659a570fb7fb74519a
   Purchases: 75f0143a1dfc086fc8d4a21910706e171885df80
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
   react-native-fbsdk: 38ee580e77319d03f8ed0bf4a020cbfd70dc4d2d
-  react-native-onesignal: 4d16f59736eb92e892fb009cb66a7c508fdeead0
+  react-native-onesignal: 93d50629a3f38df9df81178280ce7e7da6c29f05
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   ReactNativeLocalization: 00800abad36a2a902b131c690d3e6143198ccc8a
   RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
@@ -203,6 +203,6 @@ SPEC CHECKSUMS:
   RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: ba932e91be2285828fd5586eb72c7e3d0f533bf7
+PODFILE CHECKSUM: 22ed98795c6ed56885187c0fb572ce48075571b9
 
 COCOAPODS: 1.7.4
