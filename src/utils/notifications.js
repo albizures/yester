@@ -39,6 +39,11 @@ export const sendTags = (tagsObject) => {
   }
 }
 
+export const sendUserNotificationsTags = (user) => {
+  const { givenName: name, country, gender } = user
+  sendTags({ name, country, gender })
+}
+
 export const requestPermissions = () => {
   try {
     const permissions = {

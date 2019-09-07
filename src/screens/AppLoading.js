@@ -7,7 +7,11 @@ import http from '../utils/http'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
 import { strings, translate } from '../components/Translate'
-import { getPermissionSubscriptionState, setNotificationsStatus } from '../utils/notifications'
+import {
+  getPermissionSubscriptionState,
+  setNotificationsStatus,
+  sendUserNotificationsTags,
+} from '../utils/notifications'
 import { isSetupFinished, getToken, setLocale, logOut, subscriptionStatus } from '../utils/session'
 import { identifyAnalytics } from '../utils/analytics'
 import debugFactory from 'debug'
@@ -82,6 +86,8 @@ class AppLoading extends Component {
       if (!finished) {
         return navigation.navigate('SetupBirthDate', params)
       }
+
+      sendUserNotificationsTags(user)
 
       await updateAuthorization()
       const { currentStatus } = this.props.contextUser
