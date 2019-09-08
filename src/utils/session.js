@@ -118,6 +118,7 @@ export const sanitizeUser = async (user) => {
     emailVerified: user['email_verified'],
     created: user['created'],
     purchaserInfo: user['purchaser_info'],
+    auth: user['auth'],
   }
 }
 
@@ -177,7 +178,10 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
 
   const entitlement = purchaserInfo['activeEntitlements'][0]
   const subscription = purchaserInfo['activeSubscriptions'][0]
-  const expiration = purchaserInfo['latestExpirationDate']
+  const expiration =
+    purchaserInfo['latestExpirationDate'] !== null
+      ? purchaserInfo['latestExpirationDate']
+      : undefined
   const lastPurchase = purchaserInfo['purchaseDatesForActiveEntitlements'][entitlement]
 
   purchaserInfo = {
@@ -185,10 +189,13 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
     subscription,
     expiration,
     last_purchase: lastPurchase,
-    status: code,
+    trial_date: trialDate,
+  }
+
+  const auth = {
     authorized,
     last_auth: moment().format(),
-    trial_date: trialDate,
+    status: code,
   }
 
   sendTags({ subscriptionStatus: tag })
@@ -196,6 +203,7 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
   await postAPIUser({
     email,
     purchaser_info: purchaserInfo,
+    auth,
   })
 }
 
