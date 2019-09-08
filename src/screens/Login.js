@@ -64,6 +64,7 @@ class Login extends Component {
     }
 
     try {
+      this.setState({ isLoading: true })
       await logIn(email, password)
       const currentUser = await Auth.currentAuthenticatedUser()
       await postAPIUser({
@@ -76,6 +77,7 @@ class Login extends Component {
 
       return navigation.navigate('AppLoading')
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError('Login', error)
       if (error.code === 'NotAuthorizedException') {
         Alert.alert(translate('login.error.notAuthorized'))
