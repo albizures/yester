@@ -80,14 +80,14 @@ export const makePurchase = async (productId) => {
 
 export const restoreSubscription = async () => {
   try {
-    const restore = await Purchases.restoreTransactions()
-    debugInfo('Restoring: ', restore)
-    if (restore.activeEntitlements[0] === undefined) {
+    const purchaserInfo = await Purchases.restoreTransactions()
+    debugInfo('Restoring: ', purchaserInfo)
+    if (purchaserInfo.activeEntitlements[0] === undefined) {
       Alert.alert(`You don't have an active subscription to be restored.`)
     } else {
       return Alert.alert('Great! Your subscription has been restored.')
     }
-    return restore
+    return purchaserInfo
   } catch (err) {
     debugError('Restoring: ', err)
     Alert.alert(`We couldn't process your restore transaction.`)
@@ -96,9 +96,9 @@ export const restoreSubscription = async () => {
 
 export const resetPurchases = async () => {
   try {
-    const resetObject = await Purchases.reset()
-    debugInfo('Reseting: ', resetObject)
-    return resetObject
+    const purchaserInfo = await Purchases.reset()
+    debugInfo('Reseting: ', purchaserInfo)
+    return purchaserInfo
   } catch (err) {
     debugError('Reseting: ', err)
   }
