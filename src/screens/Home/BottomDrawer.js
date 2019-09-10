@@ -80,6 +80,7 @@ const BottomDrawer = ({ props, visible, onOk, onSubscribe }) => {
       onBackButtonPress={onOk}
       onBackdropPress={onOk}
       animationInTiming={500}
+      animationOutTiming={500}
       style={{ margin: 0 }}
     >
       <View style={styles.modalContainer}>
