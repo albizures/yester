@@ -33,15 +33,9 @@ target 'Yester' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-  
-
-
-  pod 'RNPurchases', :path => '../node_modules/react-native-purchases',
-  :inhibit_warnings => true
 
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
   # Pods for Yester
-
 
   target 'YesterTests' do
     inherit! :search_paths
