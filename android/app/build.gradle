@@ -194,9 +194,6 @@ android {
 }
 
 dependencies {
-    implementation(project(':react-native-device-info')) {
-        exclude group: 'com.google.android.gms'
-    }
     implementation project(':@segment_analytics-react-native')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-purchases')
