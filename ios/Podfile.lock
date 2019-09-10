@@ -142,7 +142,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
-  - react-native-onesignal (from `../node_modules/react-native-onesignal/react-native-onesignal.podspec`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -197,7 +197,7 @@ EXTERNAL SOURCES:
   react-native-fbsdk:
     :path: "../node_modules/react-native-fbsdk"
   react-native-onesignal:
-    :path: "../node_modules/react-native-onesignal/react-native-onesignal.podspec"
+    :path: "../node_modules/react-native-onesignal"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   React-RCTActionSheet:
@@ -275,6 +275,6 @@ SPEC CHECKSUMS:
   RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: c2e5707e5a316c411c50c5e75a13a2e91be07697
+PODFILE CHECKSUM: ca47b786d45b32af62d781781f6ecf1e931eed74
 
 COCOAPODS: 1.7.4

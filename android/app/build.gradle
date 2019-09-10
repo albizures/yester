@@ -194,7 +194,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-onesignal')
     implementation project(':react-native-purchases')
     implementation project(':amazon-cognito-identity-js')
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'

@@ -34,9 +34,6 @@ target 'Yester' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   
-  pod 'react-native-onesignal',
-  :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",
-  :inhibit_warnings => true
 
 
   pod 'RNPurchases', :path => '../node_modules/react-native-purchases',
@@ -70,10 +67,6 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     if target.name == "React"
-      target.remove_from_project
-    end
-
-    if target.name == "yoga"
       target.remove_from_project
     end
   end
