@@ -200,7 +200,6 @@ dependencies {
     implementation project(':@segment_analytics-react-native')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-purchases')
-    implementation project(':react-native-splash-screen')
     implementation project(':amazon-cognito-identity-js')
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation project(':react-native-localization')

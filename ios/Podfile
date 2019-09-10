@@ -43,7 +43,6 @@ target 'Yester' do
   :inhibit_warnings => true
 
   pod 'ReactNativeLocalization', :path => '../node_modules/react-native-localization'
-  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   # Pods for Yester
