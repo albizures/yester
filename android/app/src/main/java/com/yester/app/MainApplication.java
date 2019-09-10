@@ -1,7 +1,11 @@
 package com.yester.app;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.facebook.react.PackageList;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
@@ -37,17 +41,19 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNDeviceInfo(),
-            new RNAnalyticsPackage(),
-            new ReactNativeOneSignalPackage(),
-            new RNPurchasesPackage(),
-            new SplashScreenReactPackage(),
-            new RNAWSCognitoPackage(),
-            new FBSDKPackage(mCallbackManager),
-            new ReactNativeLocalizationPackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MainReactPackage());
+      // packages.add(new RNDeviceInfo());
+      // packages.add(new RNAnalyticsPackage());
+      // packages.add(new ReactNativeOneSignalPackage());
+      // packages.add(new RNPurchasesPackage());
+      // packages.add(new SplashScreenReactPackage());
+      // packages.add(new RNAWSCognitoPackage());
+      // packages.add(new FBSDKPackage());
+      // packages.add(new ReactNativeLocalizationPackage());
+      return packages;
     }
 
     @Override
