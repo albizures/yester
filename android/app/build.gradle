@@ -194,7 +194,6 @@ android {
 }
 
 dependencies {
-    implementation project(':@segment_analytics-react-native')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-purchases')
     implementation project(':amazon-cognito-identity-js')

@@ -7,7 +7,6 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.reactlibrary.RNPurchasesPackage;
 import com.amazonaws.RNAWSCognitoPackage;
@@ -41,7 +40,6 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MainReactPackage());
-      // packages.add(new RNAnalyticsPackage());
       // packages.add(new ReactNativeOneSignalPackage());
       // packages.add(new RNPurchasesPackage());
       // packages.add(new RNAWSCognitoPackage());

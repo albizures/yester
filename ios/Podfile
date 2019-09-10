@@ -43,7 +43,6 @@ target 'Yester' do
   :inhibit_warnings => true
 
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
-  pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   # Pods for Yester
 
 
