@@ -68,12 +68,14 @@ class Login extends Component {
       this.setState({ isLoading: true })
       await logIn(email, password)
       const currentUser = await Auth.currentAuthenticatedUser()
+      const build = await DeviceInfo.getBuildNumber()
+      const version = await DeviceInfo.getVersion()
       await postAPIUser({
         email: currentUser.attributes.email,
         locale: strings.getLanguage(),
         platform: Platform.OS,
-        build: DeviceInfo.getBuildNumber(),
-        version: DeviceInfo.getVersion(),
+        build,
+        version,
       })
 
       return navigation.navigate('AppLoading')

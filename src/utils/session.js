@@ -347,13 +347,15 @@ export const loginWithFacebook = async (fbSession) => {
   // AsyncStorage.setItem('userToken', credentials.sessionToken)
 
   const email = await getCurrentEmail()
+  const build = await DeviceInfo.getBuildNumber()
+  const version = await DeviceInfo.getVersion()
   await postAPIUser({
     email,
     given_name: profile['first_name'],
     family_name: profile['last_name'],
     platform: Platform.OS,
-    build: DeviceInfo.getBuildNumber(),
-    version: DeviceInfo.getVersion(),
+    build,
+    version,
     locale: strings.getLanguage(),
     email_verified: true,
   })
