@@ -11,7 +11,6 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.reactlibrary.RNPurchasesPackage;
-import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import com.amazonaws.RNAWSCognitoPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -48,7 +47,6 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new ReactNativeOneSignalPackage());
       // packages.add(new RNPurchasesPackage());
       // packages.add(new RNAWSCognitoPackage());
-      // packages.add(new ReactNativeLocalizationPackage());
       return packages;
     }
 

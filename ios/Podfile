@@ -42,7 +42,6 @@ target 'Yester' do
   pod 'RNPurchases', :path => '../node_modules/react-native-purchases',
   :inhibit_warnings => true
 
-  pod 'ReactNativeLocalization', :path => '../node_modules/react-native-localization'
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   # Pods for Yester

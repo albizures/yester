@@ -114,7 +114,7 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
-  - ReactNativeLocalization (2.1.2):
+  - ReactNativeLocalization (2.1.6):
     - React
   - RNAnalytics (1.1.0-beta.0):
     - Analytics
@@ -268,13 +268,13 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
-  ReactNativeLocalization: 00800abad36a2a902b131c690d3e6143198ccc8a
+  ReactNativeLocalization: 9abfb1717d6c6f2e3a4e444c4402d52acbf784cc
   RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
   RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
   RNDeviceInfo: bdc3e922b2ed0f086e9d9ab534e61bc316f08576
   RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 9e4cf6f06e884afa003fdfc4effdf00345e466df
+PODFILE CHECKSUM: e445a61a141b4b87fd75a4a32762f4de482a9753
 
 COCOAPODS: 1.7.4
