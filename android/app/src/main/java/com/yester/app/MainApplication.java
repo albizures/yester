@@ -11,7 +11,6 @@ import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.reactlibrary.RNPurchasesPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.amazonaws.RNAWSCognitoPackage;
@@ -51,7 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new RNPurchasesPackage());
       // packages.add(new SplashScreenReactPackage());
       // packages.add(new RNAWSCognitoPackage());
-      // packages.add(new FBSDKPackage());
       // packages.add(new ReactNativeLocalizationPackage());
       return packages;
     }

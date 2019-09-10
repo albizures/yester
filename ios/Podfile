@@ -38,7 +38,6 @@ target 'Yester' do
   :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",
   :inhibit_warnings => true
 
-  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
   pod 'RNPurchases', :path => '../node_modules/react-native-purchases',
   :inhibit_warnings => true
