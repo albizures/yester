@@ -13,6 +13,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <RNSplashScreen.h>
 #import <React/RCTLinkingManager.h>
+// #import <StoreKit/StoreKit.h>
 
 @implementation AppDelegate
 
@@ -24,8 +25,10 @@
                                             initialProperties:nil];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
-
+  
+  // [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
   [[FBSDKApplicationDelegate sharedInstance] application:application
+   
     didFinishLaunchingWithOptions:launchOptions];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -67,5 +70,30 @@
   return [RCTLinkingManager application:application openURL:url
                       sourceApplication:sourceApplication annotation:annotation];
 }
-
+/*
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+  for(SKPaymentTransaction *transaction in transactions){
+    switch(transaction.transactionState){
+      case SKPaymentTransactionStatePurchasing:
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        NSLog(@"Transaction state -> Purchasing");
+        break;
+      case SKPaymentTransactionStatePurchased:
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        NSLog(@"Transaction state -> Purchased");
+        break;
+      case SKPaymentTransactionStateRestored:
+        NSLog(@"Transaction state -> Restored");
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        break;
+      case SKPaymentTransactionStateFailed:
+        if(transaction.error.code == SKErrorPaymentCancelled){
+          NSLog(@"Transaction state -> Cancelled");
+        }
+        [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        break;
+    }
+  }
+}
+*/
 @end

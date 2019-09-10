@@ -39,22 +39,18 @@ target 'Yester' do
   :path => "../node_modules/react-native-onesignal/react-native-onesignal.podspec",
   :inhibit_warnings => true
 
-  #pod 'FBSDKCoreKit', '~>4.40.0'
-  #pod 'FBSDKLoginKit', '~>4.40.0'
-  #pod 'FBSDKShareKit', '~>4.40.0'
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
   pod 'RNPurchases', :path => '../node_modules/react-native-purchases',
   :inhibit_warnings => true
 
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
   pod 'ReactNativeLocalization', :path => '../node_modules/react-native-localization'
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
   pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
   pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
   # Pods for Yester
 
-  # pod 'RNAnalytics', :path => '../node_modules/@segment/analytics-react-native'
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
   target 'YesterTests' do
     inherit! :search_paths

@@ -7,23 +7,30 @@ import { capitalize } from '../../utils'
 import Button, { types } from '../../components/Button'
 import { Heading2, Heading5, Heading3 } from '../../components'
 import withAges, { shapeContextAges } from '../../components/withAges'
+import withUser, { shapeContextUser } from '../../components/withUser'
 import { track } from '../../utils/analytics'
+import { authorizeAction } from '../../utils/session'
 
 class ModalCard extends React.Component {
   static propTypes = {
-    contextAges: PropTypes.shape(shapeContextAges).isRequired,
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
+    contextAges: PropTypes.shape(shapeContextAges).isRequired,
   }
 
-  onWrite = () => {
+  onWrite = async () => {
     const { navigation } = this.props
-
-    const ageId = navigation.getParam('ageId')
-    const questionId = navigation.getParam('questionId')
-    const question = navigation.getParam('question')
-    const storyId = navigation.getParam('storyId')
-
-    navigation.navigate('Writing', { ageId, questionId, question, storyId })
+    await authorizeAction(this.props, (currentStatus) => {
+      if (currentStatus.authorized) {
+        const params = {
+          ageId: navigation.getParam('ageId'),
+          questionId: navigation.getParam('questionId'),
+          question: navigation.getParam('question'),
+          storyId: navigation.getParam('storyId'),
+        }
+        return navigation.navigate('Writing', params)
+      }
+    })
   }
 
   onSkip = () => {
@@ -75,7 +82,7 @@ class ModalCard extends React.Component {
   }
 }
 
-export default withAges(ModalCard)
+export default withAges(withUser(ModalCard))
 
 const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({

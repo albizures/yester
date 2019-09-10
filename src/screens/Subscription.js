@@ -5,11 +5,16 @@ import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
 import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } from '../components'
+import { translate } from '../components/Translate'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { logOut } from '../utils/session'
-import { getEntitlements, buySubscription, restoreSubscription } from '../utils/purchase'
+import { logOut, subscriptionStatus } from '../utils/session'
+import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchases'
 import { screen, track } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Subscription:error')
+const debugInfo = debugFactory('yester:Subscription:info')
 
 class Subscription extends Component {
   static propTypes = {
@@ -18,31 +23,64 @@ class Subscription extends Component {
 
   state = {
     entitlements: [],
+    conditionalText: {
+      [subscriptionStatus.ODD_REQUIRE.code]: {
+        title: 'subscription.title',
+        subtitle: 'subscription.subtitle',
+        priceDetails: 'subscription.priceDetails',
+      },
+      [subscriptionStatus.EVEN_REQUIRE.code]: {
+        title: 'subscription.even.title',
+        subtitle: 'subscription.even.subtitle',
+        priceDetails: 'subscription.even.priceDetails',
+      },
+      [subscriptionStatus.PREVIEW.code]: {
+        title: 'subscription.even.title',
+        subtitle: 'subscription.even.subtitle',
+        priceDetails: 'subscription.even.priceDetails',
+      },
+      [subscriptionStatus.EXPIRED.code]: {
+        title: 'subscription.expired.title',
+        subtitle: 'subscription.expired.subtitle',
+        priceDetails: 'subscription.expired.priceDetails',
+      },
+    },
+    currentStatus: subscriptionStatus.ODD_REQUIRE,
   }
 
   async componentDidMount () {
+    const { navigation } = this.props
+    const currentStatus = navigation.getParam('currentStatus')
+    debugInfo('currentStatus', currentStatus)
+    this.setState({ currentStatus })
     screen('Subscription', {})
     try {
       const entitlements = await getEntitlements()
-      this.setState({
-        entitlements,
-      })
-    } catch (e) {
-      console.log('Error in  Subscription componentDidMount', e)
+      this.setState({ entitlements })
+    } catch (err) {
+      debugError('getEntitlements', err)
     }
   }
 
   onLogOut = async () => {
     const { navigation } = this.props
-    await logOut()
-    navigation.navigate('CreateAccount')
+    const { currentStatus } = this.state
+
+    if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
+      await logOut()
+      return navigation.navigate('CreateAccount')
+    }
+
+    navigation.navigate('Home')
   }
 
   onStartTrial = async () => {
     const { navigation } = this.props
-    await buySubscription(this.state.entitlements.pro.monthly.identifier)
+    const { entitlements } = this.state
+
+    await makePurchase(entitlements.pro.monthly.identifier)
     track('Trial Started', {
-      item: this.state.entitlements.pro.monthly.identifier,
+      item: entitlements.pro.monthly.identifier,
       revenue: 0.0,
     })
     navigation.navigate('AppLoading')
@@ -70,7 +108,8 @@ class Subscription extends Component {
 
   render () {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
-    const { entitlements } = this.state
+    const { entitlements, conditionalText, currentStatus } = this.state
+    const text = conditionalText[currentStatus.code]
 
     return (
       <View style={{ position: 'relative' }}>
@@ -78,8 +117,12 @@ class Subscription extends Component {
         <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
             <Title keyName='subscription.close' style={styles.closeText} onPress={this.onLogOut} />
-            <Heading1 keyName='subscription.try' style={styles.tryText} />
-            <Heading5 keyName='subscription.price' style={styles.priceText} />
+            <Heading1 keyName={text.title} style={styles.titleText} />
+            <Heading5
+              keyName={text.subtitle}
+              data={{ price: translate('subscription.price') }}
+              style={styles.subtitleText}
+            />
             {
               // <Image source={icons.ballon} style={styles.ballonImage} />
             }
@@ -87,12 +130,16 @@ class Subscription extends Component {
             <Heading4 keyName='subscription.features' style={styles.featuresText} />
 
             <Button
-              title='subscription.start'
+              title='subscription.action'
               onPress={this.onStartTrial}
               type={types.OUTLINED}
               disabled={entitlements.length === 0}
             />
-            <Body1 keyName='subscription.priceAfter' style={styles.priceAfterText} />
+            <Body1
+              keyName={text.priceDetails}
+              data={{ price: translate('subscription.price') }}
+              style={styles.priceDetailsText}
+            />
             <Body1
               keyName='subscription.restore'
               style={styles.restoreText}
@@ -162,12 +209,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: height * 0.03,
   },
-  tryText: {
+  titleText: {
     color,
     textAlign,
     marginBottom: height * 0.01,
   },
-  priceText: {
+  subtitleText: {
     color,
     fontWeight: 'bold',
     textAlign,
@@ -189,7 +236,7 @@ const styles = StyleSheet.create({
     textAlign,
     marginBottom: height * 0.05,
   },
-  priceAfterText: {
+  priceDetailsText: {
     color,
     textAlign,
     marginTop: height * 0.01,

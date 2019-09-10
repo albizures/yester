@@ -1,6 +1,6 @@
-import { Auth } from 'aws-amplify'
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { View, Text, StyleSheet, Alert, Image, Dimensions, StatusBar } from 'react-native'
+import PropTypes from 'prop-types'
 import icons from '../utils/icons'
 import colors from '../utils/colors'
 import Button from '../components/Button'
@@ -10,17 +10,12 @@ import Container from '../components/Container'
 import TextDivider from '../components/TextDivider'
 import withFBLogin from '../components/withFBLogin'
 import { translate } from '../components/Translate'
-import {
-  View,
-  Text,
-  StyleSheet,
-  AsyncStorage,
-  Alert,
-  Image,
-  Dimensions,
-  StatusBar,
-} from 'react-native'
-import { screen, track } from '../utils/analytics'
+import { screen } from '../utils/analytics'
+import { loginWithFacebook } from '../utils/session'
+import debugFactory from 'debug'
+
+const debugInfo = debugFactory('yester:CreateAccount:info')
+const debugError = debugFactory('yester:CreateAccount:error')
 
 class CreateAccount extends Component {
   static propTypes = {
@@ -29,7 +24,6 @@ class CreateAccount extends Component {
   }
 
   state = {
-    fbWebViewVisible: false,
     isLoading: false,
   }
 
@@ -39,25 +33,17 @@ class CreateAccount extends Component {
 
   onFBNativeLogin = async () => {
     const { onLoginWithFB, navigation } = this.props
-
     try {
-      const { token, expires, profile } = await onLoginWithFB()
-      const { sessionToken } = await Auth.federatedSignIn(
-        'facebook',
-        { token, expires_at: expires },
-        profile
-      )
-      AsyncStorage.setItem('userToken', sessionToken)
-      navigation.navigate('App')
-    } catch (error) {
-      console.log('FB Create Account:', error)
+      const fbSession = await onLoginWithFB()
+      this.setState({ isLoading: true })
+      await loginWithFacebook(fbSession)
+
+      return navigation.navigate('AppLoading')
+    } catch (err) {
+      this.setState({ isLoading: false })
+      debugError('FB Create Account:', JSON.stringify(err))
       Alert.alert(translate('signup.error.facebook'))
     }
-  }
-
-  onFBWebView = async () => {
-    track('To FBWebView', {})
-    this.props.navigation.navigate('FBWebView')
   }
 
   onSignIn = () => {
@@ -82,7 +68,7 @@ class CreateAccount extends Component {
           </View>
 
           <View style={styles.middleFlex}>
-            <Button title='createAccount.continue' onPress={this.onFBWebView} icon={icons.fb} />
+            <Button title='createAccount.continue' onPress={this.onFBNativeLogin} icon={icons.fb} />
             <Description keyName='createAccount.recommendation' style={styles.recommendationText} />
             <TextDivider>
               <Heading3 keyName='createAccount.or' />

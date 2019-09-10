@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, FlatList, Alert, Image, Dimensions, Animated, Text } from 'react-native'
 import QuestionItem from './QuestionItem'
+import AlertItem from './AlertItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
 import Container from '../../components/Container'
@@ -13,14 +14,17 @@ import icons from '../../utils/icons'
 import { indexToString, capitalize } from '../../utils'
 import { translate } from '../../components/Translate'
 import { screen, track } from '../../utils/analytics'
+import { authorizeAction } from '../../utils/session'
+import withUser, { shapeContextUser } from '../../components/withUser'
 import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:Home:info')
 const debugError = debugFactory('yester:Home:error')
 
-export default class Home extends Component {
+class Home extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   state = {
@@ -32,17 +36,12 @@ export default class Home extends Component {
   willFocusListener = null
 
   async componentDidMount () {
-    const { addListener } = this.props.navigation
+    const { navigation } = this.props
+    const { addListener } = navigation
     this.willFocusListener = addListener('willFocus', this.load)
 
-    const { navigation } = this.props
-    this.setState({
-      isLoading: true,
-    })
-
-    const storyId = navigation.getParam('storyId')
-    try {
-      const { data: question } = await http.get('/v1/questions')
+    this.setState({ isLoading: true })
+    await authorizeAction(this.props, async (currentStatus) => {
       // const question = {
       //   age_id: 'Age#31',
       //   category: 'Family',
@@ -50,26 +49,27 @@ export default class Home extends Component {
       //   id: 'Question#0099',
       //   sub_category: '',
       // }
-
-      this.setState({ question })
-    } catch (error) {
-      debugError('today question:', error.response)
-      if (error.response.status !== 404) {
+      try {
+        const { data: question } = await http.getAPI('/v2/questions')
+        this.setState({ isLoading: false, question })
+      } catch (error) {
+        this.setState({
+          isLoading: false,
+        })
+        debugError('today question:', error.response)
+        if (error.response.status === 404) {
+          debugError('There is not a new question ready.')
+          return
+        }
+        if (error.response.status === 402) {
+          const { data } = error.response
+          debugError(data.message)
+          this.setState({ currentStatus })
+          return
+        }
         Alert.alert(translate('home.error.today.question'))
       }
-    }
-
-    this.setState({ isLoading: false })
-
-    if (storyId) {
-      Animated.spring(this.state.positionToast, {
-        toValue: 40,
-        bounciness: 3,
-        speed: 3,
-      }).start()
-
-      this.timeout = setTimeout(this.closeToast, 5000)
-    }
+    })
   }
 
   load = () => {
@@ -133,6 +133,12 @@ export default class Home extends Component {
     })
   }
 
+  onPressAlertItem = () => {
+    const { navigation } = this.props
+    const { currentStatus } = this.state
+    navigation.navigate('Subscription', { currentStatus })
+  }
+
   onPressItem = (item) => {
     const { navigation } = this.props
     const { ageId, category, question, questionId, storyId, content, categoryId } = item
@@ -156,7 +162,7 @@ export default class Home extends Component {
   }
 
   render () {
-    const { isLoading, question, positionToast } = this.state
+    const { isLoading, question, positionToast, currentStatus } = this.state
     const topBarTitle = (
       <View style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
         <Image source={icons.logoWhite} style={styles.topBarImage} />
@@ -169,7 +175,10 @@ export default class Home extends Component {
           {question && (
             <QuestionItem text={question.description} onPress={this.onWriteTodayQuestion} />
           )}
-          {!isLoading && <Tabs onPressItem={this.onPressItem} />}
+          {currentStatus && (
+            <AlertItem currentStatus={currentStatus} onPress={this.onPressAlertItem} />
+          )}
+          {!isLoading && <Tabs onPressItem={this.onPressItem} answered={false} />}
         </View>
         <Animated.View style={[styles.toastContainer, { bottom: positionToast }]}>
           <View style={[styles.toast]}>
@@ -194,6 +203,8 @@ export default class Home extends Component {
   }
 }
 
+export default withUser(Home)
+
 const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
   toastContainer: {
@@ -215,7 +226,7 @@ const styles = StyleSheet.create({
   },
   contentToast: {
     paddingHorizontal: 15,
-    paddingVertical: 10,
+    paddingVertical: 8,
     height: 59,
   },
   closeContainer: {
@@ -238,7 +249,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     backgroundColor: colors.mantis,
-    fontSize: 40,
+    fontSize: 36,
     color: colors.white,
   },
   container: {

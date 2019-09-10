@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/'}
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.2, 0.99.99]'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -105,8 +115,8 @@ android {
         applicationId "com.yester.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1518
-        versionName "0.5.6"
+        versionCode 1707
+        versionName "0.6.0"
     }
     splits {
         abi {
@@ -143,9 +153,11 @@ android {
 }
 
 dependencies {
+    implementation(project(':react-native-device-info')) {
+        exclude group: 'com.google.android.gms'
+    }
     implementation project(':@segment_analytics-react-native')
     implementation project(':react-native-onesignal')
-    implementation project(':react-native-webview')
     implementation project(':react-native-purchases')
     implementation project(':react-native-splash-screen')
     implementation project(':react-native-fbsdk')

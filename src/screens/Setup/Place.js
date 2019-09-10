@@ -13,6 +13,10 @@ import http from '../../utils/http'
 import { extractSetupParams } from '../../utils'
 import { translate } from '../../components/Translate'
 import { screen } from '../../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Place:error')
+const debugInfo = debugFactory('yester:Place:info')
 
 export default class Place extends Component {
   static propTypes = {
@@ -39,7 +43,7 @@ export default class Place extends Component {
   async componentDidMount () {
     try {
       screen('Place', {})
-      const { data: countries } = await http.get('/v1/countries')
+      const { data: countries } = await http.getAPI('/v2/countries')
       this.getStates()
       this.setState({
         countries: countries.map(({ name, iso_code: isoCode }) => ({
@@ -48,7 +52,7 @@ export default class Place extends Component {
         })),
       })
     } catch (error) {
-      console.log('BirthDate', error)
+      debugError(error)
       Alert.alert(translate('setup.error'))
     }
   }
@@ -63,7 +67,7 @@ export default class Place extends Component {
   async getStates () {
     const { country } = this.state
     if (country) {
-      const { data: states } = await http.get('/v1/states/' + country)
+      const { data: states } = await http.getAPI('/v2/states/' + encodeURIComponent(country))
       this.setState({
         states: states.map(({ name, iso_code: isoCode }) => ({
           label: name,
@@ -81,7 +85,7 @@ export default class Place extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       updateSetup,
     } = this.state
@@ -93,7 +97,7 @@ export default class Place extends Component {
         state,
         countryName,
         stateName,
-        name,
+        givenName,
         gender,
         birthPlace: stateName + ', ' + countryName,
         updateSetup,

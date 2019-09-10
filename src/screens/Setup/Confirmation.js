@@ -9,8 +9,12 @@ import colors from '../../utils/colors'
 import { extractSetupParams } from '../../utils'
 import icons from '../../utils/icons'
 import withUser, { shapeContextUser } from '../../components/withUser'
-import { sendTags, checkNotificationsStatus } from '../../utils/notifications'
+import { setNotificationsStatus } from '../../utils/notifications'
 import { screen } from '../../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Confirmation:error')
+const debugInfo = debugFactory('yester:Confirmation:info')
 
 class Confirmation extends Component {
   static propTypes = {
@@ -18,10 +22,31 @@ class Confirmation extends Component {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
+  state = {
+    conditionalText: {
+      [false]: {
+        title: 'setup.confirmation.title',
+        subtitle: 'setup.confirmation.subtitle',
+        continue: 'setup.confirmation.continue',
+      },
+      [true]: {
+        title: 'setup.confirmation.title.update',
+        subtitle: 'setup.confirmation.subtitle.update',
+        continue: 'setup.confirmation.continue.update',
+      },
+    },
+  }
+
   constructor (props) {
     super(props)
     const { navigation } = this.props
-    this.state = extractSetupParams(navigation)
+    const { conditionalText } = this.state
+
+    this.state = {
+      conditionalText,
+      ...extractSetupParams(navigation),
+      isLoading: false,
+    }
   }
 
   componentDidMount () {
@@ -31,9 +56,10 @@ class Confirmation extends Component {
   onContinue = async () => {
     const {
       navigation,
-      contextUser: { updateUser },
+      contextUser: { updateUser, user },
     } = this.props
     const { birthDate, country, state, gender, birthPlace } = this.state
+    this.setState({ isLoading: true })
     await saveUserData({
       birthDate,
       country,
@@ -42,7 +68,8 @@ class Confirmation extends Component {
       birthPlace,
       platform: Platform.OS,
     })
-    await checkNotificationsStatus()
+
+    await setNotificationsStatus(user)
     await updateUser()
     navigation.navigate('AppLoading')
   }
@@ -55,7 +82,7 @@ class Confirmation extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       birthPlace,
       updateSetup,
@@ -66,7 +93,7 @@ class Confirmation extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       birthPlace,
       updateSetup,
@@ -74,34 +101,28 @@ class Confirmation extends Component {
   }
 
   render () {
-    const { name, stateName, updateSetup } = this.state
-    let titleKeyName = 'setup.confirmation.title'
-    let subtitleKeyName = 'setup.confirmation.subtitle'
-    let continueKeyName = 'setup.confirmation.continue'
-    if (updateSetup) {
-      titleKeyName = 'setup.confirmation.update.title'
-      subtitleKeyName = 'setup.confirmation.update.subtitle'
-      continueKeyName = 'setup.confirmation.update.continue'
-    }
+    const { isLoading, givenName, stateName, conditionalText, updateSetup } = this.state
+    debugInfo(conditionalText, updateSetup)
+    const text = conditionalText[updateSetup]
 
     return (
-      <Container style={styles.container}>
+      <Container isLoading={isLoading} style={styles.container}>
         <Image source={icons.confirmation} style={styles.image} />
 
         <View style={styles.topFlex}>
           <Heading2
-            keyName={titleKeyName}
-            data={{ state: stateName, name }}
+            keyName={text.title}
+            data={{ state: stateName, givenName }}
             style={styles.titleText}
           />
 
-          <Heading4 keyName={subtitleKeyName} style={styles.subtitleText} />
+          <Heading4 keyName={text.subtitle} style={styles.subtitleText} />
         </View>
 
         <View style={styles.bottomFlex}>
           <Body2 keyName='setup.confirmation.edit' style={styles.editText} onPress={this.onEdit} />
 
-          <Button title={continueKeyName} onPress={this.onContinue} type={Button.OUTLINED} />
+          <Button title={text.continue} onPress={this.onContinue} type={Button.OUTLINED} />
         </View>
       </Container>
     )
