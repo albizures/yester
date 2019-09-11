@@ -24,7 +24,7 @@ PODS:
   - glog (0.3.5)
   - JKBigInteger2 (0.0.5)
   - OneSignal (2.10.1)
-  - Purchases (2.3.0)
+  - Purchases (2.6.0)
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -124,8 +124,8 @@ PODS:
     - React
   - RNDeviceInfo (3.0.0):
     - React
-  - RNPurchases (2.2.1):
-    - Purchases (~> 2.3.0)
+  - RNPurchases (2.4.1):
+    - Purchases (~> 2.6.0)
     - React
   - yoga (0.60.5.React)
 
@@ -246,7 +246,7 @@ SPEC CHECKSUMS:
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   OneSignal: 8fb749fa07f88006403c9b659a570fb7fb74519a
-  Purchases: 75f0143a1dfc086fc8d4a21910706e171885df80
+  Purchases: c1d7501729e14fc61e564cc47fcd05eb99b19e81
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
   React-cxxreact: 8384287780c4999351ad9b6e7a149d9ed10a2395
@@ -272,7 +272,7 @@ SPEC CHECKSUMS:
   RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
   RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
   RNDeviceInfo: dddbef5ba86b57c5ddf155fa27c30fd9823cc799
-  RNPurchases: 4e36b6102f0b1a95c366bcc34072167daf54728a
+  RNPurchases: a5460c2fe4d9b121cb8c04b54365756d9563c474
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
 PODFILE CHECKSUM: edf69154192a7008896f33c0d4d666a454b3204e
