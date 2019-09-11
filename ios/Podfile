@@ -34,9 +34,6 @@ target 'Yester' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RNAWSCognito', :path => '../node_modules/amazon-cognito-identity-js'
-  # Pods for Yester
-
   target 'YesterTests' do
     inherit! :search_paths
     # Pods for testing
