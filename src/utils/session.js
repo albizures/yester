@@ -2,7 +2,7 @@ import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
 import { AsyncStorage, Alert, Platform } from 'react-native'
 import { strings, translate } from '../components/Translate'
-import http, { instance, setHeaderLocale } from './http'
+import http, { setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
 import { sendTags } from '../utils/notifications'
 import { getPurchaserInfo } from '../utils/purchases'
@@ -48,37 +48,18 @@ export const extractTokenFromCredentials = async () => {
 
 export const getToken = () => extractTokenFromCredentials()
 
-export const setAuthHeader = async (token) => {
-  try {
-    token = token || (await getToken())
-    debugInfo('Defining auth header')
-    if (token) {
-      instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
-    }
-  } catch (error) {
-    debugError('There is no token to set', error)
-  }
-}
-
-export const saveUserToken = async () => {
-  await setAuthHeader()
-}
-
 export const logIn = async (email, password) => {
   await Auth.signIn(email, password)
-  // await saveUserToken()
 }
 
 export const forgotPasswordSubmit = async (email, code, password) => {
   await Auth.forgotPasswordSubmit(email, code, password)
-  // await saveUserToken()
 }
 
 export const logOut = async () => {
   await AsyncStorage.clear()
-  delete instance.defaults.headers.common['Authorization']
   await Auth.signOut()
-  await LoginManager.logOut()
+  LoginManager.logOut()
   debugInfo('User logued out')
 }
 
