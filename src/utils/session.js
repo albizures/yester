@@ -102,34 +102,34 @@ export const sanitizeUser = async (user) => {
   }
 
   return {
-    country: user['country'],
-    state: user['state'],
-    birthPlace: user['birthplace'],
-    platform: user['platform'],
-    notifications: user['notifications'],
-    birthDate: user['birthdate'],
-    gender: user['gender'],
-    locale: user['locale'],
-    name: user['name'] || `${user['given_name']} ${user['family_name']}`,
+    country: user.country,
+    state: user.state,
+    birthPlace: user.birthplace,
+    platform: user.platform,
+    notifications: user.notifications,
+    birthDate: user.birthdate,
+    gender: user.gender,
+    locale: user.locale,
+    name: user.name || `${user['given_name']} ${user['family_name']}`,
     givenName: user['given_name'],
     lastName: user['family_name'],
-    email: user['email'],
+    email: user.email,
     userId: user['user_id'],
     emailVerified: user['email_verified'],
-    created: user['created'],
+    created: user.created,
     purchaserInfo: user['purchaser_info'],
-    auth: user['auth'],
+    auth: user.auth,
   }
 }
 
 export const sanitizeStats = async () => {
   const { data: stats = {} } = await http.getAPI('/v2/stories/stats')
   return {
-    questionCounter: stats['questionCounter'],
-    storyCounter: stats['storyCounter'],
-    lastAnswer: stats['lastAnswer'],
-    lastQuestion: stats['lastQuestion'],
-    maxLength: stats['maxLength'],
+    questionCounter: stats.questionCounter,
+    storyCounter: stats.storyCounter,
+    lastAnswer: stats.lastAnswer,
+    lastQuestion: stats.lastQuestion,
+    maxLength: stats.maxLength,
   }
 }
 
@@ -176,13 +176,13 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
   debugInfo('purchaserInfo:', purchaserInfo)
   if (_.isEmpty(purchaserInfo)) return false
 
-  const entitlement = purchaserInfo['activeEntitlements'][0]
-  const subscription = purchaserInfo['activeSubscriptions'][0]
+  const entitlement = purchaserInfo.activeEntitlements[0]
+  const subscription = purchaserInfo.activeSubscriptions[0]
   const expiration =
-    purchaserInfo['latestExpirationDate'] !== null
-      ? purchaserInfo['latestExpirationDate']
+    purchaserInfo.latestExpirationDate !== null
+      ? purchaserInfo.latestExpirationDate
       : undefined
-  const lastPurchase = purchaserInfo['purchaseDatesForActiveEntitlements'][entitlement]
+  const lastPurchase = purchaserInfo.purchaseDatesForActiveEntitlements[entitlement]
 
   purchaserInfo = {
     entitlement,
