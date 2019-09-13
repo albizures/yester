@@ -152,27 +152,10 @@ export const isSetupFinished = async (user) => {
   return { finished: true, params: user }
 }
 
-export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, trialDate) => {
+export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo) => {
   const { code, tag, authorized } = currentStatus
-  debugInfo('purchaserInfo:', purchaserInfo)
   if (_.isEmpty(purchaserInfo)) return false
-
-  const entitlement = purchaserInfo.activeEntitlements[0]
-  const subscription = purchaserInfo.activeSubscriptions[0]
-  const expiration =
-    purchaserInfo.latestExpirationDate !== null
-      ? purchaserInfo.latestExpirationDate
-      : undefined
-  const lastPurchase = purchaserInfo.purchaseDatesForActiveEntitlements[entitlement]
-
-  purchaserInfo = {
-    entitlement,
-    subscription,
-    expiration,
-    last_purchase: lastPurchase,
-    trial_date: trialDate,
-  }
-
+  const entitlement = entitlementTransformer(purchaserInfo)
   const auth = {
     authorized,
     last_auth: moment().format(),
@@ -183,9 +166,32 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
   const email = await getCurrentEmail()
   await postAPIUser({
     email,
-    purchaser_info: purchaserInfo,
+    entitlement,
     auth,
   })
+}
+
+export const entitlementTransformer = (purchaserInfo) => {
+  const {
+    entitlements: {
+      all: { pro = {} },
+    },
+  } = purchaserInfo
+  const entitlement = {
+    billingIssue: pro.billingIssueDetectedAt !== null ? pro.billingIssueDetectedAt : '',
+    expiration: pro.expirationDate,
+    id: pro.identifier,
+    active: pro.isActive,
+    sandbox: pro.isSandbox,
+    lastPurchase: pro.latestPurchaseDate,
+    originalPurchase: pro.originalPurchaseDate,
+    periodType: pro.periodType,
+    productId: pro.productIdentifier,
+    store: pro.store,
+    unsubscribed: pro.unsubscribeDetectedAt !== null ? pro.unsubscribeDetectedAt : '',
+    willRenew: pro.willRenew,
+  }
+  return entitlement
 }
 
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
@@ -253,12 +259,13 @@ export const isEven = (user) => {
 export const isAuthorized = async (user, stats) => {
   let currentStatus = {}
   const purchaserInfo = await getPurchaserInfo()
-  const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
+  debugInfo('isAuthorized purchaserInfo:', purchaserInfo)
+  const {
+    entitlements: { all, active },
+  } = purchaserInfo
   const { storyCounter } = stats
-  debugInfo('activeEntitlements:', activeEntitlements)
 
-  const purchasedProducts = Object.keys(allExpirationDates)
-  const hasEverPurchased = purchasedProducts.length > 0
+  const hasEverPurchased = !_.isEmpty(all)
 
   if (!hasEverPurchased) {
     if (isEven(user)) {
@@ -271,7 +278,7 @@ export const isAuthorized = async (user, stats) => {
       currentStatus = subscriptionStatus.ODD_REQUIRE
     }
   } else {
-    if (activeEntitlements.includes('pro')) {
+    if (!_.isEmpty(active.pro)) {
       currentStatus = subscriptionStatus.PRO
     } else {
       currentStatus = subscriptionStatus.EXPIRED
