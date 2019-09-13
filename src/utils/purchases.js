@@ -3,7 +3,7 @@ import { REVENUECAT_API_KEY } from 'react-native-dotenv'
 import { Alert } from 'react-native'
 import debugFactory from 'debug'
 import { saveUserSubscriptionStatus, subscriptionStatus } from './session'
-import moment from 'moment'
+import _ from 'lodash'
 
 const debugError = debugFactory('yester:purchase:error')
 const debugInfo = debugFactory('yester:purchase:info')
@@ -47,60 +47,31 @@ export const getPurchaserInfo = async () => {
 export const makePurchase = async (productId) => {
   try {
     const { purchaserInfo } = await Purchases.makePurchase(productId)
-    const { activeEntitlements = [], activeSubscriptions = [] } = purchaserInfo
-
-    if (activeEntitlements.length === 0) {
-      return Alert.alert("We couldn't process your payment")
-    }
-
-    if (activeSubscriptions.length === 0) {
-      return Alert.alert("We couldn't process your payment")
-    }
-
-    try {
-      await saveUserSubscriptionStatus(subscriptionStatus.PRO, purchaserInfo, moment().format())
-    } catch (err) {
-      debugError(err)
-      Alert.alert("We couldn't update your suscription, please contact us")
-    }
+    return purchaserInfo
   } catch (err) {
-    if (!err.userCancelled) {
-      debugError(`Error handling ${JSON.stringify(err)}`)
-      debugError(err.code, err.message, err)
-      Alert.alert(`We couldn't process your payment`)
-    } else {
-      debugError(`User cancelled ${JSON.stringify(err)}`)
-      debugError(err.code, err.message, err)
-      Alert.alert(
-        'Process has been cancelled.\n\nIf you already have a subscription with us 👍, please tap on Restore Subscription.'
-      )
-    }
+    debugError('Make purchase', err.code, err.message)
+    debugError(JSON.stringify(err))
+    throw err
   }
 }
 
-export const restoreSubscription = async () => {
+export const restoreTransactions = async () => {
   try {
     const purchaserInfo = await Purchases.restoreTransactions()
-    debugInfo('Restoring: ', purchaserInfo)
-    if (purchaserInfo.activeEntitlements[0] === undefined) {
-      Alert.alert(`You don't have an active subscription to be restored.`)
-    } else {
-      return Alert.alert('Great! Your subscription has been restored.')
-    }
     return purchaserInfo
   } catch (err) {
-    debugError('Restoring: ', err)
-    Alert.alert(`We couldn't process your restore transaction.`)
+    debugError('Restore transactions', err.code, err.message)
+    debugError(JSON.stringify(err))
+    throw err
   }
 }
 
-export const resetPurchases = async () => {
+export const resetPurchases = () => {
   try {
-    const purchaserInfo = await Purchases.reset()
-    debugInfo('Reseting: ', purchaserInfo)
-    return purchaserInfo
+    Purchases.reset()
   } catch (err) {
     debugError('Reseting: ', err)
+    throw err
   }
 }
 
