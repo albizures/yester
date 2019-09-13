@@ -150,6 +150,8 @@
   "setup.place.form.country.placeholder": "Select a country",
   "setup.place.form.state": "State",
   "setup.place.form.state.placeholder": "Select a state",
+  "setup.place.form.country.placeholder.loading": "Loading countries...",
+  "setup.place.form.state.placeholder.loading": "Loading states...",
   "setup.confirmation.title": "Alrighty,\n{givenName} from {state},\nnice to meet you 🤝",
   "setup.confirmation.subtitle": "This is where we start our journey of\nwriting your incredible story",
   "setup.confirmation.continue": "Let's Begin!",

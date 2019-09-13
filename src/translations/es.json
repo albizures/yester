@@ -157,6 +157,8 @@
   "setup.place.form.country.placeholder": "Selecciona un país",
   "setup.place.form.state": "Estado",
   "setup.place.form.state.placeholder": "Selecciona un Estado",
+  "setup.place.form.country.placeholder.loading": "Cargando países...",
+  "setup.place.form.state.placeholder.loading": "Cargando estados...",
   "setup.error": "No pudimos actualizar esta lista. Inténtalo de nuevo.",
   "signup.topbar": "Registrarse",
   "signup.title": "Únete a Yester",
