@@ -23,7 +23,7 @@ PODS:
     - glog
   - glog (0.3.5)
   - JKBigInteger2 (0.0.5)
-  - OneSignal (2.10.1)
+  - OneSignal (2.11.0)
   - Purchases (2.6.0)
   - React (0.60.5):
     - React-Core (= 0.60.5)
@@ -84,8 +84,8 @@ PODS:
   - react-native-fbsdk/Share (1.0.3):
     - FBSDKShareKit (~> 5.0)
     - React
-  - react-native-onesignal (3.3.2):
-    - OneSignal (= 2.10.1)
+  - react-native-onesignal (3.3.3):
+    - OneSignal (= 2.11.0)
     - React (< 1.0.0, >= 0.13.0)
   - react-native-splash-screen (3.2.0):
     - React
@@ -116,7 +116,7 @@ PODS:
     - React-Core (= 0.60.5)
   - ReactNativeLocalization (2.1.6):
     - React
-  - RNAnalytics (1.1.0-beta.0):
+  - RNAnalytics (1.1.0-beta.1):
     - Analytics
     - React
   - RNAWSCognito (3.0.15):
@@ -245,7 +245,7 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
-  OneSignal: 8fb749fa07f88006403c9b659a570fb7fb74519a
+  OneSignal: 1e2ed98358f87cb755e7262412ddb2949b8e5c55
   Purchases: c1d7501729e14fc61e564cc47fcd05eb99b19e81
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
@@ -255,7 +255,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
   react-native-fbsdk: 7bde3b84fc093d2c5e7fdccea03fe8fa9f112834
-  react-native-onesignal: 93d50629a3f38df9df81178280ce7e7da6c29f05
+  react-native-onesignal: 3886be8037dd177c94c7770b7669abe8f56be00a
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
@@ -269,7 +269,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
   ReactNativeLocalization: 9abfb1717d6c6f2e3a4e444c4402d52acbf784cc
-  RNAnalytics: 94d85620744346c63b309662fcf6fff4ec8fe75e
+  RNAnalytics: 05243c1fa17186f07be3eae30514b43aeb2e0578
   RNAWSCognito: b0b908817ce6547cdddaa7842bc166b4c5e7c128
   RNDeviceInfo: dddbef5ba86b57c5ddf155fa27c30fd9823cc799
   RNPurchases: a5460c2fe4d9b121cb8c04b54365756d9563c474
