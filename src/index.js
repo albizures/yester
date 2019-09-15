@@ -262,11 +262,11 @@ const RootStack = createSwitchNavigator(
 
 export default class App extends Component {
   state = {}
-  async componentDidMount () {
+  async componentDidMount() {
     SplashScreen.hide()
     debugFactory.disable()
     // debugFactory.enable('yester:*')
-    // debugFactory.enable('yester:index*, yester:notifications*, yester:AppLoading*')
+    //debugFactory.enable('yester:Place*, yester:Picker*')
     // debugFactory.enable('yester:Writing*')
 
     initNotifications()
@@ -277,24 +277,24 @@ export default class App extends Component {
     setupAnalytics()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     removeEventListener('received', this.onReceived)
     removeEventListener('opened', this.onOpened)
     removeEventListener('ids', this.onIds)
   }
 
-  onReceived (notification) {
+  onReceived(notification) {
     debugInfo('Notification received: ', notification)
   }
 
-  onOpened (openResult) {
+  onOpened(openResult) {
     debugInfo('Message: ', openResult.notification.payload.body)
     debugInfo('Data: ', openResult.notification.payload.additionalData)
     debugInfo('isActive: ', openResult.notification.isAppInFocus)
     debugInfo('openResult: ', openResult)
   }
 
-  onIds (device) {
+  onIds(device) {
     debugInfo('Listener ids device: ', device)
   }
 
@@ -333,7 +333,7 @@ export default class App extends Component {
     })
   }
 
-  render () {
+  render() {
     const { user, stats, currentStatus, ages, agesList } = this.state
     const userContextValue = {
       updateUser: this.updateUser,

@@ -33,7 +33,7 @@ class Login extends Component {
     password: '',
   }
 
-  componentDidMount () {
+  componentDidMount() {
     screen('Login', {})
   }
 
@@ -108,7 +108,7 @@ class Login extends Component {
     navigation.navigate('CreateAccount')
   }
 
-  render () {
+  render() {
     const { email, password, isLoading } = this.state
     const topBar = <TopBar title='createAccount.login' onBack={this.onBack} />
 
@@ -118,7 +118,11 @@ class Login extends Component {
 
     return (
       <Container isLoading={isLoading} topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={170} enableOnAndroid>
+        <KeyboardAwareScrollView
+          enableAutomaticScroll
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          enableOnAndroid
+        >
           <View style={styles.view}>
             <View style={styles.topFlex}>
               <Button
@@ -143,12 +147,17 @@ class Login extends Component {
                 keyboardType='email-address'
                 value={email}
                 onChangeText={(text) => this.onChange(text, 'email')}
+                setRef={(ref) => (this.emailInput = ref)}
+                onSubmitEditing={() => this.passwordInput.focus()}
+                blurOnSubmit={false}
               />
               <TextInput
                 title='signup.password'
                 password
                 value={password}
                 onChangeText={(text) => this.onChange(text, 'password')}
+                setRef={(ref) => (this.passwordInput = ref)}
+                onSubmitEditing={this.onLogin}
               />
               <Description
                 keyName='login.forgotPassword'
