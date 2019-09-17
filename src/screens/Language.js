@@ -1,16 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, StyleSheet, Alert } from 'react-native'
-import Container from '../components/Container'
 import TopBar from '../components/TopBar'
+import Container from '../components/Container'
+import { translate } from '../components/Translate'
 import SettingsItem from '../components/SettingsItem'
 import withUser, { shapeContextUser } from '../components/withUser'
-import {
-  updateUserAttribute,
-  // cleanUserNotifications,
-} from '../utils/session'
-import { translate } from '../components/Translate'
 import { screen } from '../utils/analytics'
+import { setAppLocale, updateUserAttribute } from '../utils/session'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:Language:error')
@@ -45,7 +42,7 @@ class Language extends Component {
     contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     const { locale } = props.contextUser.user
     this.state = {
@@ -56,7 +53,7 @@ class Language extends Component {
     // cleanUserNotifications()
   }
 
-  componentDidMount () {
+  componentDidMount() {
     screen('Language', {})
   }
 
@@ -73,6 +70,7 @@ class Language extends Component {
     this.setState({ isLoading: true, locale })
     try {
       await updateUserAttribute('locale', locale)
+      setAppLocale(locale)
       await updateUser()
       navigation.navigate('AppLoading', {
         lastScreen: 'Language',
@@ -84,7 +82,7 @@ class Language extends Component {
     }
   }
 
-  render () {
+  render() {
     const { isLoading, locale: currentLocale } = this.state
     const topBar = <TopBar title='language.title' onBack={this.onBack} />
 
