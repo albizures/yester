@@ -47,7 +47,7 @@ import { tabBarIcon } from './components/TabIcon'
 import { translate } from './components/Translate'
 import colors from './utils/colors'
 import icons from './utils/icons'
-import { Storage, sanitizeUser, setLocale, sanitizeStats, isAuthorized } from './utils/session'
+import { Storage, sanitizeUser, sanitizeStats, isAuthorized } from './utils/session'
 import { initNotifications, addEventListener, removeEventListener } from './utils/notifications'
 import { setupAnalytics } from './utils/analytics'
 import debugFactory from 'debug'
@@ -302,7 +302,6 @@ export default class App extends Component {
     debugInfo('Updating context user')
     const user = await sanitizeUser()
     this.setState({ user })
-    setLocale(user.locale)
   }
 
   updateStats = async () => {
