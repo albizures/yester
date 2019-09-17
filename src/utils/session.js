@@ -126,7 +126,13 @@ export const getAPIUser = async () => {
 
 export const postAPIUser = async (user) => {
   try {
+    const email = await getCurrentEmail()
+    if (_.isEmpty(email)) {
+      debugError('User is not authenticated, there was no postAPI call!')
+      return
+    }
     debugInfo('API call post user')
+    user.email = email
     await http.postAPI('/v2/users/', user)
   } catch (err) {
     debugError(err)
@@ -163,9 +169,7 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo) =
   }
 
   sendTags({ subscriptionStatus: tag })
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     entitlement,
     auth,
   })
@@ -195,9 +199,7 @@ export const entitlementTransformer = (purchaserInfo) => {
 }
 
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     country: country,
     state: state,
     birthplace: birthPlace,
@@ -211,9 +213,7 @@ export const updateUserAttribute = async (name, value) => {
   // TODO async storage to compare local and cloud attributes
   // const user = await sanitizeUser()
   // if (user[name] !== value) {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     [name]: value,
   })
   // }
@@ -221,9 +221,7 @@ export const updateUserAttribute = async (name, value) => {
 
 // NOTE this is only for dev purposes
 export const cleanUserData = async () => {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     country: '',
     state: '',
     birthplace: '',
@@ -236,19 +234,16 @@ export const cleanUserData = async () => {
 
 // NOTE this is only for dev purposes
 export const cleanUserNotifications = async () => {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     notifications: '',
   })
 }
 
-export const setLocale = (locale) => {
-  locale = locale || 'en'
-  debugInfo('Setting app language: ', locale)
+export const setAppLocale = (locale) => {
+  debugInfo('Setting app locale: ', locale)
+  strings.setLanguage(locale)
   setHeaderLocale(locale)
   moment.locale(locale)
-  strings.setLanguage(locale)
 }
 
 export const isEven = (user) => {
@@ -334,17 +329,14 @@ export const loginWithFacebook = async (fbSession) => {
   await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
   // AsyncStorage.setItem('userToken', credentials.sessionToken)
 
-  const email = await getCurrentEmail()
   const build = await DeviceInfo.getBuildNumber()
   const version = await DeviceInfo.getVersion()
   await postAPIUser({
-    email,
     given_name: profile['first_name'],
     family_name: profile['last_name'],
     platform: Platform.OS,
     build,
     version,
-    locale: strings.getLanguage(),
     email_verified: true,
   })
 }
