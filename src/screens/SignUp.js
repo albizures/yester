@@ -48,14 +48,11 @@ export default class SignUp extends Component {
       await logIn(email, password)
 
       // TODO Find the best way to allow manual name update.
-      const currentUser = await Auth.currentAuthenticatedUser()
       const build = await DeviceInfo.getBuildNumber()
       const version = await DeviceInfo.getVersion()
       await postAPIUser({
-        email: currentUser.attributes.email,
         given_name: currentUser.attributes['given_name'],
         family_name: currentUser.attributes['family_name'],
-        locale: strings.getLanguage(),
         platform: Platform.OS,
         build,
         version,
