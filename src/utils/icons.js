@@ -5,7 +5,6 @@ const icons = {
   buttonPlus: require('../assets/plus-circle.png'),
   childhood: require('../assets/images/tmp-childhood.png'),
   ballon: require('../assets/images/fly-balloon.png'),
-  emptyCard: require('../assets/images/tmp-emptyCard.png'),
   yester: require('../assets/images/tmp-yester.png'),
   feather: require('../assets/images/yester-feather.png'),
   flatFeather: require('../assets/feather.png'),
@@ -35,6 +34,16 @@ const icons = {
   cardLove: require('../assets/illustrations/cards/love.png'),
   cardReligion: require('../assets/illustrations/cards/religion.png'),
   cardWork: require('../assets/illustrations/cards/work.png'),
+  bottombarWriteActive: require('../assets/write_active_icon.png'),
+  bottombarWriteInactive: require('../assets/write_inactive_icon.png'),
+  bottombarReadActive: require('../assets/read_active_icon.png'),
+  bottombarReadInactive: require('../assets/read_inactive_icon.png'),
+  bottombarProfileActive: require('../assets/profile_active_icon.png'),
+  bottombarProfileInactive: require('../assets/profile_inactive_icon.png'),
+  bottombarSettingsActive: require('../assets/settings_active_icon.png'),
+  bottombarSettingsInactive: require('../assets/settings_inactive_icon.png'),
+  alertCircle: require('../assets/alert-circle.png'),
+  pieChart: require('../assets/pie-chart.png'),
 }
 
 export const ages = {
@@ -58,11 +67,11 @@ export const categories = {
   'Category#08': icons.cardWork,
 }
 
-export const getAgeIcon = id => {
+export const getAgeIcon = (id) => {
   return ages[id] || icons.ageYoungAdult
 }
 
-export const getCategoryIllustration = id => {
+export const getCategoryIllustration = (id) => {
   return categories[id] || icons.cardFamily
 }
 

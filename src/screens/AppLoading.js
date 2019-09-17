@@ -1,28 +1,28 @@
-import PropTypes from 'prop-types'
-import debugFactory from 'debug'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
-import { setupPurchases, getPurchaserInfo, status } from '../utils/purchase'
-import http, { instance, original } from '../utils/http'
+import { strings, translate } from '../components/Translate'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
-import { strings, translate } from '../components/Translate'
+import http from '../utils/http'
+import { setupPurchases } from '../utils/purchases'
+import { identifyAnalytics } from '../utils/analytics'
 import {
-  sendTags,
-  getPermissionSubscriptionState,
-  checkNotificationsStatus,
-} from '../utils/notifications'
-// import moment from 'moment'
-import {
-  isSubscribed,
-  isSetupFinished,
+  logOut,
   getToken,
-  setLocale,
-  removeSubscription,
-  saveUserSubscriptionStatus,
+  setAppLocale,
+  isSetupFinished,
+  subscriptionStatus,
+  updateUserAttribute,
 } from '../utils/session'
-import { identify } from '../utils/analytics'
+import {
+  setNotificationsStatus,
+  sendUserNotificationsTags,
+  getPermissionSubscriptionState,
+} from '../utils/notifications'
+import _ from 'lodash'
+import PropTypes from 'prop-types'
+import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:AppLoading:error')
 const debugInfo = debugFactory('yester:AppLoading:info')
@@ -38,24 +38,9 @@ class AppLoading extends Component {
     isLoading: true,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.bootstrap()
-  }
-
-  returnResponse = (response) => {
-    return response
-  }
-
-  unauthorizedInterceptor = async (error) => {
-    const { status } = error.response
-    const { navigation } = this.props
-
-    if (status === 401) {
-      await removeSubscription()
-      navigation.navigate('Subscription')
-    }
-    return error
   }
 
   getAges = async () => {
@@ -64,8 +49,8 @@ class AppLoading extends Component {
     } = this.props
 
     try {
-      debugInfo('Fetching ages')
-      const { data: ages } = await http.get('/v1/ages')
+      debugInfo('API call get ages')
+      const { data: ages } = await http.getAPI('/v2/ages')
       updateAges(ages)
     } catch (error) {
       Alert.alert(translate('loading.error'))
@@ -73,84 +58,86 @@ class AppLoading extends Component {
     }
   }
 
-  async bootstrap () {
+  async bootstrap() {
     const {
       navigation,
-      contextUser: { updateUser },
+      contextUser: { updateUser, updateStats, updateAuthorization },
     } = this.props
 
-    setLocale(strings.getLanguage())
-
     try {
+      await saveUserLocale()
       const userToken = await getToken()
       if (!userToken) {
         debugInfo('No token found, sending user to Auth flow')
         return navigation.navigate('Auth')
       }
-      // Set user in context
+      // Set user and stats in context
       await updateUser()
+      await updateStats()
+      await saveUserLocale()
       const { user } = this.props.contextUser
-      identify()
 
-      getPermissionSubscriptionState((status) => {
-        debugInfo('Status: ', status)
+      if (!user.email) throw new Error('User has no email')
+
+      identifyAnalytics(user)
+      await setupPurchases(user)
+      // await identifyPurchaser(user)
+
+      getPermissionSubscriptionState((notifStatus) => {
+        debugInfo('notifStatus: ', notifStatus)
         // If notifications are set to true in the cloud but hasn't been prompted in current device
-        if (!status.hasPrompted && user.notifications) {
-          checkNotificationsStatus()
+        if (user.notifications !== false && !notifStatus.hasPrompted) {
+          setNotificationsStatus(user)
         }
       })
 
-      const { finished, params } = await isSetupFinished()
+      const { finished, params } = await isSetupFinished(user)
       if (!finished) {
         return navigation.navigate('SetupBirthDate', params)
       }
 
-      await setupPurchases()
-      const hasSubscription = await isSubscribed()
-      const purchaserInfo = await getPurchaserInfo()
+      sendUserNotificationsTags(user)
 
-      // const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
-
-      const { activeEntitlements = [] } = purchaserInfo || {}
-      debugInfo('Active entitlements:', activeEntitlements)
-      if (activeEntitlements === 'undefined' || !activeEntitlements.includes('pro')) {
-        if (hasSubscription) {
-          await removeSubscription()
-        }
-        sendTags({ subscriptionStatus: 'none' })
-        return navigation.navigate('Subscription')
+      await updateAuthorization()
+      const { currentStatus } = this.props.contextUser
+      if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
+        return navigation.navigate('Subscription', { currentStatus })
       }
-      sendTags({ subscriptionStatus: 'pro' })
-
-      // checking expiration dates
-      /*
-      const subscriptionsAreActive = activeSubscriptions.every((subscriptionName) => {
-        const nowDate = moment()
-        const expirationDate = moment(allExpirationDates[subscriptionName])
-
-        return expirationDate.isAfter(nowDate)
-      })
-
-      if (!subscriptionsAreActive) {
-        await removeSubscription()
-        return navigation.navigate('Subscription')
-      }
-      */
-      await saveUserSubscriptionStatus(status.SUBSCRIBED)
-
-      instance.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
-      original.interceptors.request.use(this.returnResponse, this.unauthorizedInterceptor)
 
       await this.getAges()
       const lastScreen = navigation.getParam('lastScreen', 'App')
       navigation.navigate(lastScreen)
     } catch (error) {
+      logOut()
       navigation.navigate('Auth')
       debugError('bootstrap: ', error)
     }
   }
 
-  render () {
+  saveUserLocale = async () => {
+    console.log('getInterfaceLanguage:', strings.getInterfaceLanguage())
+    console.log('getLanguage', strings.getLanguage())
+    const locale = strings.getLanguage() || 'en'
+    const {
+      contextUser: { user, updateUser },
+    } = this.props
+
+    if (_.isEmpty(user)) {
+      setAppLocale(locale)
+      return
+    }
+
+    if (_.isEmpty(user.locale)) {
+      await updateUserAttribute('locale', locale)
+      await updateUser()
+    } else {
+      locale = user.locale
+    }
+
+    setAppLocale(locale)
+  }
+
+  render() {
     const { isLoading } = this.state
     return (
       <Container isLoading={isLoading}>

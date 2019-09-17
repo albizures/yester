@@ -8,10 +8,10 @@ export const extractSetupParams = (navigation) => ({
   state: navigation.getParam('state'),
   countryName: navigation.getParam('countryName'),
   stateName: navigation.getParam('stateName'),
-  name: navigation.getParam('name'),
+  givenName: navigation.getParam('givenName'),
   gender: navigation.getParam('gender', ''),
   birthPlace: navigation.getParam('birthPlace'),
   platform: navigation.getParam('platform'),
   notifications: navigation.getParam('notifications'),
-  updateSetup: navigation.getParam('updateSetup'),
+  updateSetup: navigation.getParam('updateSetup') || false,
 })

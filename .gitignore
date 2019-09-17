@@ -297,5 +297,4 @@ ios/Index/DataStore
 # Cocoapods
 ios/Pods/
 
-# Carthage
-ios/Carthage/
+!android/app/debug.keystore

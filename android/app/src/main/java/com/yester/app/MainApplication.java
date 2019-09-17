@@ -1,16 +1,12 @@
 package com.yester.app;
 
 import android.app.Application;
+import android.util.Log;
 
+import com.facebook.react.PackageList;
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
+import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.segment.analytics.reactnative.core.RNAnalyticsPackage;
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
-import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.reactlibrary.RNPurchasesPackage;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
-import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.amazonaws.RNAWSCognitoPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -37,17 +33,11 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new RNAnalyticsPackage(),
-            new ReactNativeOneSignalPackage(),
-            new RNCWebViewPackage(),
-            new RNPurchasesPackage(),
-            new SplashScreenReactPackage(),
-            new RNAWSCognitoPackage(),
-            new FBSDKPackage(mCallbackManager),
-            new ReactNativeLocalizationPackage()
-      );
+      @SuppressWarnings("UnnecessaryLocalVariable")
+      List<ReactPackage> packages = new PackageList(this).getPackages();
+      // Packages that cannot be autolinked yet can be added manually here, for example:
+      // packages.add(new MainReactPackage());
+      return packages;
     }
 
     @Override

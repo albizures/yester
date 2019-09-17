@@ -11,7 +11,6 @@ import {
   StatusBar,
   Platform,
 } from 'react-native'
-
 import { Heading1, Description, Heading2 } from '../components'
 import Container from '../components/Container'
 import TopBar from '../components/TopBar'
@@ -21,9 +20,14 @@ import IconButton from '../components/IconButton'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import http from '../utils/http'
+import { authorizeAction } from '../utils/session'
 import moment from 'moment'
 import { translate } from '../components/Translate'
 import { screen, track } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Reading:error')
+// const debugInfo = debugFactory('yester:Reading:info')
 
 class Reading extends Component {
   static propTypes = {
@@ -49,7 +53,7 @@ class Reading extends Component {
     try {
       const {
         data: { content, question_id: questionId, age_id: ageId, title, created },
-      } = await http.get('/v1/stories/' + encodeURIComponent(storyId))
+      } = await http.getAPI('/v2/stories/' + encodeURIComponent(storyId))
       this.setState({
         storyId,
         content,
@@ -61,9 +65,9 @@ class Reading extends Component {
     } catch (error) {
       Alert.alert(translate('reading.error'))
       navigation.goBack()
-      console.log(error)
-      console.log(error.message)
-      console.log(error.response)
+      debugError(error)
+      debugError(error.message)
+      debugError(error.response)
     }
 
     this.setState({ isLoading: false })
@@ -91,13 +95,16 @@ class Reading extends Component {
     return (props) => <Heading1 {...props} style={[props.style, { fontSize: 40 }]} />
   }
 
-  onEdit = () => {
+  onEdit = async () => {
     const { navigation } = this.props
-    const { title: question, content, ageId, storyId } = this.state
-
-    track('Edit Story', { title: question })
-
-    navigation.replace('Writing', { ageId, question, storyId, content })
+    await authorizeAction(this.props, (currentStatus) => {
+      if (currentStatus.authorized) {
+        const { title: question, content, ageId, storyId } = this.state
+        const params = { ageId, question, storyId, content }
+        track('Edit Story', { title: question })
+        return navigation.replace('Writing', params)
+      }
+    })
   }
 
   render () {

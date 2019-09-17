@@ -6,23 +6,17 @@ import {
   createSwitchNavigator,
   createBottomTabNavigator,
 } from 'react-navigation'
-import Amplify from 'aws-amplify'
+import Amplify, { Hub } from 'aws-amplify'
 import SplashScreen from 'react-native-splash-screen'
-import debugFactory from 'debug'
-import { translate } from './components/Translate'
 import {
   AWS_REGION,
   AWS_IDENTITY_POOL_ID,
   AWS_USER_POOL_ID,
   AWS_USER_CLIENT_POOL_ID,
+  COGNITO_DOMAIN,
+  HOST,
+  // REDIRECT_URI,
 } from 'react-native-dotenv'
-import {
-  initNotifications,
-  configureNotifications,
-  addEventListener,
-  removeEventListener,
-  sendTags,
-} from './utils/notifications'
 import { UserProvider } from './components/withUser'
 import { AgesProvider } from './components/withAges'
 import Onboarding from './screens/Onboarding'
@@ -37,8 +31,8 @@ import NewPassword from './screens/ForgotPassword/NewPassword'
 import CreateAccount from './screens/CreateAccount'
 import Subscription from './screens/Subscription'
 import ConfirmAccount from './screens/ConfirmAccount'
-import FBWebView from './screens/FBWebView'
 import Home from './screens/Home'
+import Stories from './screens/Home/Stories'
 import ModalCard from './screens/Home/ModalCard'
 import Writing from './screens/Writing'
 import Reading from './screens/Reading'
@@ -50,19 +44,25 @@ import AppLoading from './screens/AppLoading'
 import Terms from './screens/Terms'
 import About from './screens/About'
 import { tabBarIcon } from './components/TabIcon'
+import { translate } from './components/Translate'
 import colors from './utils/colors'
-import {
-  setAuthHeader,
-  Storage,
-  getUserBypassCache,
-  sanitizeUser,
-  setLocale,
-} from './utils/session'
+import icons from './utils/icons'
+import { Storage, sanitizeUser, sanitizeStats, isAuthorized } from './utils/session'
+import { initNotifications, addEventListener, removeEventListener } from './utils/notifications'
 import { setupAnalytics } from './utils/analytics'
+import debugFactory from 'debug'
 
 const debugInfo = debugFactory('yester:index:info')
 
 require('moment/locale/es.js')
+
+const oauth = {
+  domain: COGNITO_DOMAIN,
+  scope: ['email', 'profile', 'openid'],
+  // redirectSignIn: REDIRECT_URI,
+  // redirectSignOut: REDIRECT_URI,
+  responseType: 'token',
+}
 
 Amplify.configure({
   storage: Storage,
@@ -73,14 +73,19 @@ Amplify.configure({
     userPoolWebClientId: AWS_USER_CLIENT_POOL_ID,
     mandatorySignIn: true,
   },
+  oauth: oauth,
   API: {
     endpoints: [
       {
-        name: 'main',
-        endpoint: 'https://uw3pxmvc70.execute-api.us-east-1.amazonaws.com/dev/',
+        name: 'MainAPI',
+        endpoint: HOST,
       },
     ],
   },
+})
+
+Hub.listen('auth', (data) => {
+  debugInfo(data)
 })
 
 const SetupStack = createStackNavigator(
@@ -107,6 +112,17 @@ const FeedStack = createStackNavigator(
   }
 )
 
+const StoryStack = createStackNavigator(
+  {
+    Stories,
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+    initialRouteName: 'Stories',
+  }
+)
+
 const SettingsStack = createStackNavigator(
   {
     SettingsHome: Settings,
@@ -124,13 +140,31 @@ const SettingsStack = createStackNavigator(
 
 const MainTab = createBottomTabNavigator(
   {
-    MyStory: {
+    Feed: {
       screen: FeedStack,
+      navigationOptions: () => ({
+        title: translate('home.bottomBar.feed'),
+        tabBarIcon: tabBarIcon({
+          active: icons.bottombarWriteActive,
+          inactive: icons.bottombarWriteInactive,
+          iconSize: {
+            width: 29,
+            height: 19,
+          },
+        }),
+      }),
+    },
+    MyStory: {
+      screen: StoryStack,
       navigationOptions: () => ({
         title: translate('home.bottomBar.myStory'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/feed.png'),
-          inactive: require('./assets/feed-disabled.png'),
+          active: icons.bottombarReadActive,
+          inactive: icons.bottombarReadInactive,
+          iconSize: {
+            width: 21,
+            height: 18,
+          },
         }),
       }),
     },
@@ -139,8 +173,12 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.profile'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/profile.png'),
-          inactive: require('./assets/profile-disabled.png'),
+          active: icons.bottombarProfileActive,
+          inactive: icons.bottombarProfileInactive,
+          iconSize: {
+            width: 21,
+            height: 20,
+          },
         }),
       }),
     },
@@ -149,8 +187,12 @@ const MainTab = createBottomTabNavigator(
       navigationOptions: () => ({
         title: translate('home.bottomBar.settings'),
         tabBarIcon: tabBarIcon({
-          active: require('./assets/settings.png'),
-          inactive: require('./assets/settings-disabled.png'),
+          active: icons.bottombarSettingsActive,
+          inactive: icons.bottombarSettingsInactive,
+          iconSize: {
+            width: 23,
+            height: 22,
+          },
         }),
       }),
     },
@@ -158,7 +200,7 @@ const MainTab = createBottomTabNavigator(
   {
     animationEnabled: true,
     swipeEnabled: true,
-    initialRouteName: 'MyStory',
+    initialRouteName: 'Feed',
     headerMode: 'none',
     tabBarOptions: {
       activeTintColor: colors.white,
@@ -198,7 +240,6 @@ const AuthStack = createStackNavigator(
     CreateAccount,
     Subscription,
     ConfirmAccount,
-    FBWebView,
   },
   {
     headerMode: 'none',
@@ -221,50 +262,64 @@ const RootStack = createSwitchNavigator(
 
 export default class App extends Component {
   state = {}
-  async componentDidMount () {
+  async componentDidMount() {
     SplashScreen.hide()
-    await setAuthHeader()
+    debugFactory.disable()
+    // debugFactory.enable('yester:*')
+    //debugFactory.enable('yester:Place*, yester:Picker*')
+    // debugFactory.enable('yester:Writing*')
 
     initNotifications()
     addEventListener('received', this.onReceived)
     addEventListener('opened', this.onOpened)
     addEventListener('ids', this.onIds)
-    configureNotifications()
-    sendTags({ subscriptionStatus: 'none' })
 
     setupAnalytics()
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     removeEventListener('received', this.onReceived)
     removeEventListener('opened', this.onOpened)
     removeEventListener('ids', this.onIds)
   }
 
-  onReceived (notification) {
+  onReceived(notification) {
     debugInfo('Notification received: ', notification)
   }
 
-  onOpened (openResult) {
+  onOpened(openResult) {
     debugInfo('Message: ', openResult.notification.payload.body)
     debugInfo('Data: ', openResult.notification.payload.additionalData)
     debugInfo('isActive: ', openResult.notification.isAppInFocus)
     debugInfo('openResult: ', openResult)
   }
 
-  onIds (device) {
+  onIds(device) {
     debugInfo('Listener ids device: ', device)
   }
 
   updateUser = async () => {
-    debugInfo('Updating user')
-    const user = sanitizeUser(await getUserBypassCache())
-    setLocale(user.locale)
+    debugInfo('Updating context user')
+    const user = await sanitizeUser()
     this.setState({ user })
   }
 
+  updateStats = async () => {
+    debugInfo('Updating context stats')
+    const stats = await sanitizeStats()
+    this.setState({ stats })
+  }
+
+  updateAuthorization = async () => {
+    debugInfo('Updating context currentStatus')
+    const { user, stats } = this.state
+    const currentStatus = await isAuthorized(user, stats)
+    this.setState({ currentStatus })
+    return currentStatus
+  }
+
   updateAges = (ages) => {
-    debugInfo('Updating ages', ages)
+    // debugInfo('Updating ages', ages)
     this.setState({
       ages: ages.reduce(
         (agesObj, age) => ({
@@ -277,11 +332,15 @@ export default class App extends Component {
     })
   }
 
-  render () {
-    const { user, ages, agesList } = this.state
+  render() {
+    const { user, stats, currentStatus, ages, agesList } = this.state
     const userContextValue = {
       updateUser: this.updateUser,
+      updateStats: this.updateStats,
+      updateAuthorization: this.updateAuthorization,
       user,
+      stats,
+      currentStatus,
     }
     const agesContextValue = {
       updateAges: this.updateAges,

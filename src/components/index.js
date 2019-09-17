@@ -7,8 +7,7 @@ import colors from '../utils/colors'
 const createStyledText = (defaultStyles) => ({ keyName, data, text, style, ...props }) => {
   if (text !== undefined) {
     return (
-      <Text {...props}
-        style={defaultStyles.concat(style)} >
+      <Text {...props} style={defaultStyles.concat(style)}>
         {suppplant(text, data)}
       </Text>
     )
@@ -16,10 +15,7 @@ const createStyledText = (defaultStyles) => ({ keyName, data, text, style, ...pr
 
   if (keyName !== undefined) {
     return (
-      <Translate {...props}
-        style={defaultStyles.concat(style)}
-        keyName={keyName}
-        data={data} />
+      <Translate {...props} style={defaultStyles.concat(style)} keyName={keyName} data={data} />
     )
   }
 

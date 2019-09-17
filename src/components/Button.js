@@ -25,11 +25,12 @@ const Button = (props) => {
   const sizeStyle = sizeStyles[size]
 
   return (
-    <TouchableHighlight {...props} style={[props.style, styles.button, typeStyle.button, sizeStyle.button]}>
+    <TouchableHighlight
+      {...props}
+      style={[styles.button, typeStyle.button, sizeStyle.button, props.style]}
+    >
       <View style={styles.row}>
-        {icon && (
-          <Image source={icon} style={[styles.icon, typeStyle.icon]} />
-        )}
+        {icon && <Image source={icon} style={[styles.icon, typeStyle.icon]} />}
         <Heading3 keyName={title} style={[styles.text, typeStyle.text]} />
       </View>
     </TouchableHighlight>
@@ -42,10 +43,7 @@ Button.propTypes = {
   style: ViewPropTypes.style,
   title: PropTypes.string.isRequired,
   type: PropTypes.oneOf(Object.keys(types)),
-  icon: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.object,
-  ]),
+  icon: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
   size: PropTypes.oneOf(Object.keys(sizes)),
   disabled: PropTypes.bool,
 }

@@ -6,13 +6,14 @@ import RNPickerSelect from 'react-native-picker-select'
 import InputContainer, { types } from '../components/InputContainer'
 
 const Picker = (props) => {
-  const { title } = props
+  const { title, disabled } = props
+  if (disabled) styles.placeholder.color = colors.mischka
 
   return (
     <InputContainer {...props} title={title} type={types.PICKER}>
       <RNPickerSelect
         {...props}
-        style={pickerSelectStyles}
+        style={styles}
         useNativeAndroidPickerStyle={false}
         placeholderTextColor={colors.mineShaft}
         hideIcon
@@ -30,7 +31,7 @@ Picker.defaultProps = {
   editable: true,
 }
 
-const pickerSelectStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   inputIOS: {
     width: 300,
     height: 50,
@@ -61,6 +62,7 @@ const pickerSelectStyles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
   },
+  placeholder: {},
 })
 
 export default Picker

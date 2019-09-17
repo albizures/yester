@@ -1,15 +1,31 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Dimensions, Text, Linking, Platform } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Text,
+  Linking,
+  Platform,
+  Alert,
+  TouchableHighlight,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
 import Container from '../components/Container'
 import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } from '../components'
+import { translate } from '../components/Translate'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { logOut } from '../utils/session'
-import { getEntitlements, buySubscription, restoreSubscription } from '../utils/purchase'
+import { logOut, subscriptionStatus, saveUserSubscriptionStatus } from '../utils/session'
+import { getEntitlements, makePurchase, restoreTransactions } from '../utils/purchases'
 import { screen, track } from '../utils/analytics'
+import _ from 'lodash'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Subscription:error')
+const debugInfo = debugFactory('yester:Subscription:info')
 
 class Subscription extends Component {
   static propTypes = {
@@ -18,44 +34,113 @@ class Subscription extends Component {
 
   state = {
     entitlements: [],
+    conditionalText: {
+      [subscriptionStatus.ODD_REQUIRE.code]: {
+        title: 'subscription.title',
+        subtitle: 'subscription.subtitle',
+        priceDetails: 'subscription.priceDetails',
+      },
+      [subscriptionStatus.EVEN_REQUIRE.code]: {
+        title: 'subscription.even.title',
+        subtitle: 'subscription.even.subtitle',
+        priceDetails: 'subscription.even.priceDetails',
+      },
+      [subscriptionStatus.PREVIEW.code]: {
+        title: 'subscription.even.title',
+        subtitle: 'subscription.even.subtitle',
+        priceDetails: 'subscription.even.priceDetails',
+      },
+      [subscriptionStatus.EXPIRED.code]: {
+        title: 'subscription.expired.title',
+        subtitle: 'subscription.expired.subtitle',
+        priceDetails: 'subscription.expired.priceDetails',
+      },
+    },
+    currentStatus: subscriptionStatus.ODD_REQUIRE,
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
+    const { navigation } = this.props
+    const currentStatus = navigation.getParam('currentStatus')
+    debugInfo('currentStatus', currentStatus)
+    this.setState({ currentStatus })
     screen('Subscription', {})
     try {
       const entitlements = await getEntitlements()
-      this.setState({
-        entitlements,
-      })
-    } catch (e) {
-      console.log('Error in  Subscription componentDidMount', e)
+      this.setState({ entitlements })
+    } catch (err) {
+      debugError('getEntitlements', err)
     }
   }
 
   onLogOut = async () => {
     const { navigation } = this.props
-    await logOut()
-    navigation.navigate('CreateAccount')
+    const { currentStatus } = this.state
+
+    if (currentStatus === subscriptionStatus.ODD_REQUIRE) {
+      await logOut()
+      return navigation.navigate('CreateAccount')
+    }
+
+    navigation.navigate('Home')
   }
 
-  onStartTrial = async () => {
+  onContinue = async () => {
     const { navigation } = this.props
-    await buySubscription(this.state.entitlements.pro.monthly.identifier)
-    track('Trial Started', {
-      item: this.state.entitlements.pro.monthly.identifier,
-      revenue: 0.0,
-    })
-    navigation.navigate('AppLoading')
+    const { entitlements } = this.state
+    try {
+      const purchaserInfo = await makePurchase(entitlements.pro.monthly.identifier)
+      debugInfo('Make purchase purchaserInfo:', purchaserInfo)
+      const {
+        entitlements: { active },
+      } = purchaserInfo
+
+      if (_.isEmpty(active.pro)) {
+        return Alert.alert('Hey!', translate('subscription.onContinue.alert.notActive'))
+      }
+
+      track('Trial Started', {
+        item: entitlements.pro.monthly.identifier,
+        revenue: 0.0,
+      })
+
+      await saveUserSubscriptionStatus(subscriptionStatus.PRO, purchaserInfo)
+
+      navigation.navigate('AppLoading')
+    } catch (err) {
+      if (err.userCancelled) {
+        return Alert.alert('Hey!', translate('subscription.onContinue.alert.userCancelled'))
+      }
+      if (err.code === '6') {
+        return Alert.alert('Hey!', translate('subscription.onContinue.alert.alreadySubscribed'))
+      }
+      Alert.alert('Hey!', translate('subscription.onContinue.alert.error'))
+    }
   }
 
   onRestore = async () => {
-    track('Susbcription Restore', {
-      item: 'pro',
-      revenue: 4.99,
-    })
     const { navigation } = this.props
-    await restoreSubscription()
-    navigation.navigate('AppLoading')
+    try {
+      const purchaserInfo = await restoreTransactions()
+      const {
+        entitlements: { active },
+      } = purchaserInfo
+      debugInfo('Restore subscription purchaserInfo: ', purchaserInfo)
+
+      if (_.isEmpty(active.pro)) {
+        return Alert.alert('Hey!', translate('subscription.onRestore.alert.notActive'))
+      }
+
+      track('Susbcription Restore', {
+        item: 'pro',
+        revenue: 4.99,
+      })
+
+      Alert.alert('Hey!', translate('subscription.onRestore.alert.restored'))
+      navigation.navigate('AppLoading')
+    } catch (err) {
+      Alert.alert('Hey!', translate('subscription.onRestore.alert.error'))
+    }
   }
 
   onPressTerms = () => {
@@ -68,29 +153,47 @@ class Subscription extends Component {
     Linking.openURL('https://www.yester.app/privacy')
   }
 
-  render () {
+  render() {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
+    const { entitlements, conditionalText, currentStatus } = this.state
+    const text = conditionalText[currentStatus.code]
+
     return (
       <View style={{ position: 'relative' }}>
         <Image source={icons.subscription} style={styles.image} />
         <Container scroll style={styles.container}>
           <View style={styles.topFlex}>
             <Title keyName='subscription.close' style={styles.closeText} onPress={this.onLogOut} />
-            <Heading1 keyName='subscription.try' style={styles.tryText} />
-            <Heading5 keyName='subscription.price' style={styles.priceText} />
+            <Heading1 keyName={text.title} style={styles.titleText} />
+            <Heading5
+              keyName={text.subtitle}
+              data={{ price: translate('subscription.price') }}
+              style={styles.subtitleText}
+            />
             {
               // <Image source={icons.ballon} style={styles.ballonImage} />
             }
             <Heading3 keyName='subscription.slogan' style={styles.sloganText} />
             <Heading4 keyName='subscription.features' style={styles.featuresText} />
 
-            <Button title='subscription.start' onPress={this.onStartTrial} type={types.OUTLINED} />
-            <Body1 keyName='subscription.priceAfter' style={styles.priceAfterText} />
-            <Body1
-              keyName='subscription.restore'
-              style={styles.restoreText}
-              onPress={this.onRestore}
+            <Button
+              title='subscription.action'
+              onPress={this.onContinue}
+              type={types.OUTLINED}
+              disabled={entitlements.length === 0}
             />
+            <Body1
+              keyName={text.priceDetails}
+              data={{ price: translate('subscription.price') }}
+              style={styles.priceDetailsText}
+            />
+            <TouchableHighlight>
+              <Body1
+                keyName='subscription.restore'
+                style={styles.restoreText}
+                onPress={this.onRestore}
+              />
+            </TouchableHighlight>
           </View>
 
           <View style={styles.bottomFlex}>
@@ -155,12 +258,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: height * 0.03,
   },
-  tryText: {
+  titleText: {
     color,
     textAlign,
     marginBottom: height * 0.01,
   },
-  priceText: {
+  subtitleText: {
     color,
     fontWeight: 'bold',
     textAlign,
@@ -182,7 +285,7 @@ const styles = StyleSheet.create({
     textAlign,
     marginBottom: height * 0.05,
   },
-  priceAfterText: {
+  priceDetailsText: {
     color,
     textAlign,
     marginTop: height * 0.01,

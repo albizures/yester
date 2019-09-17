@@ -1,28 +1,28 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, Image, Dimensions, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, Image, Dimensions, KeyboardAvoidingView, Alert } from 'react-native'
 import Container from '../../components/Container'
 import { Heading2, Heading4, Description } from '../../components'
 import { translate } from '../../components/Translate'
 import Button from '../../components/Button'
-import { getUser, updateUserAttribute } from '../../utils/session'
 import colors from '../../utils/colors'
 import icons from '../../utils/icons'
 import DatePicker from '../../components/DatePicker'
 import Picker from '../../components/Picker'
 import TopBar from '../../components/TopBar'
 import { extractSetupParams } from '../../utils'
-import { Auth } from 'aws-amplify'
-import { USER_PASSWORD_ADMIN, USER_PASSWORD_DEFAULT } from 'react-native-dotenv'
 import { screen } from '../../utils/analytics'
-import debugFactory from 'debug'
+import withUser, { shapeContextUser } from '../../components/withUser'
+import moment from 'moment'
 
+import debugFactory from 'debug'
 const debugError = debugFactory('yester:BirthDate:error')
 const debugInfo = debugFactory('yester:BirthDate:info')
 
-export default class BirthDate extends Component {
+class BirthDate extends Component {
   static propTypes = {
     navigation: PropTypes.object.isRequired,
+    contextUser: PropTypes.shape(shapeContextUser).isRequired,
   }
 
   scroll = React.createRef()
@@ -32,10 +32,8 @@ export default class BirthDate extends Component {
     const { navigation } = this.props
     this.state = {
       ...extractSetupParams(navigation),
-      name: '',
       genders: [{ value: 'female', label: 'Female' }, { value: 'male', label: 'Male' }],
     }
-    // debugInfo('State: ', this.state)
   }
 
   onDidFocus = () => {
@@ -45,27 +43,12 @@ export default class BirthDate extends Component {
 
   async componentDidMount () {
     const { navigation } = this.props
+    const { user } = this.props.contextUser
     navigation.addListener('didFocus', this.onDidFocus)
     screen('BirthDate', {})
-    const user = await getUser()
     this.setState({
-      name: user.attributes.given_name,
+      givenName: user.givenName,
     })
-
-    /* To turn user into CONFIRMED status: */
-    // TODO Ask new password to user
-    try {
-      debugInfo('getUser:', user)
-      if (user.attributes['custom:createdBy'] === 'admin') {
-        let userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_ADMIN)
-        const complete = await Auth.completeNewPassword(userNC, USER_PASSWORD_DEFAULT)
-        userNC = await Auth.signIn(user.attributes.email, USER_PASSWORD_DEFAULT)
-        await updateUserAttribute('custom:createdBy', 'admin_confirmed')
-        debugInfo('complete:', complete)
-      }
-    } catch (error) {
-      debugError(error)
-    }
   }
 
   onContinue = () => {
@@ -76,24 +59,36 @@ export default class BirthDate extends Component {
       state,
       countryName,
       stateName,
-      name,
+      givenName,
       gender,
       birthPlace,
       updateSetup,
     } = this.state
-    if (birthDate) {
-      navigation.navigate('SetupPlace', {
-        birthDate,
-        country,
-        state,
-        countryName,
-        stateName,
-        name,
-        gender,
-        birthPlace,
-        updateSetup,
-      })
+
+    if (!birthDate) {
+      return Alert.alert(translate('setup.age.birthdate.alert'))
     }
+    if (!gender) {
+      return Alert.alert(translate('setup.age.gender.alert'))
+    }
+    const momentBirth = moment(birthDate)
+    const momentNow = moment()
+    const ageYears = momentNow.diff(momentBirth, 'years')
+    if (ageYears < 13) {
+      return Alert.alert(translate('setup.age.birthdate.minor.alert'))
+    }
+
+    navigation.navigate('SetupPlace', {
+      birthDate,
+      country,
+      state,
+      countryName,
+      stateName,
+      givenName,
+      gender,
+      birthPlace,
+      updateSetup,
+    })
   }
 
   onChangeGender = (gender, index) => {
@@ -127,7 +122,7 @@ export default class BirthDate extends Component {
   }
 
   render () {
-    const { name, birthDate, genders, gender, marginBottom } = this.state
+    const { givenName, birthDate, genders, gender, marginBottom } = this.state
     const topBarTitle = (
       <View style={{ height: 110, paddingHorizontal: 30 }}>
         <View
@@ -139,7 +134,7 @@ export default class BirthDate extends Component {
         >
           <Heading2
             keyName='setup.age.greeting'
-            data={{ name }}
+            data={{ givenName }}
             style={[{ color: colors.brightTurquoise }]}
           />
         </View>
@@ -208,6 +203,8 @@ export default class BirthDate extends Component {
     )
   }
 }
+
+export default withUser(BirthDate)
 
 const { height, width } = Dimensions.get('window')
 const styles = StyleSheet.create({

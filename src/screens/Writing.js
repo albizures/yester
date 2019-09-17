@@ -21,6 +21,10 @@ import { translate } from '../components/Translate'
 import colors from '../utils/colors'
 import http from '../utils/http'
 import { screen, track } from '../utils/analytics'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:Writing:error')
+const debugInfo = debugFactory('yester:Writing:info')
 
 class Writing extends Component {
   static propTypes = {
@@ -57,19 +61,30 @@ class Writing extends Component {
     this.keyboardDidHideSub.remove()
   }
 
+  componentDidMount () {
+    this.content.current.focus()
+  }
+
+  onKeyboardDidShow = (event) => {
+    if (!this.isFocused) {
+      return
+    }
+    this.keyboardHeight = event.endCoordinates.height
+    this.positionateScroll()
+  }
+
   onKeyboardDidHide = () => {
-    this.setState({ shift: 20 })
+    this.setState({ shift: 20, scrollOffset: 0 })
   }
 
   componentDidUpdate (prevProps, prevState) {
-    const didScrollOffsetChanged = prevState.scrollOffset !== this.state.scrollOffset
-
-    if (didScrollOffsetChanged) {
+    setTimeout(() => {
+      if (!this.scroll.current) return
       this.scroll.current.scrollTo({
         y: this.state.scrollOffset + this.scrollPosition,
         animated: true,
       })
-    }
+    }, 50)
   }
 
   getNewScrollOffset (cursorPosition, viewport) {
@@ -98,25 +113,46 @@ class Writing extends Component {
       return
     }
 
+    if (!keyboardHeight) {
+      return
+    }
+
     const percentagePosition = (100 * selection.start) / content.length / 100
+
+    if (percentagePosition > 1) {
+      return
+    }
 
     UIManager.measure(
       findNodeHandle(this.content.current),
       (originX, originY, width, height, pageX, pageY) => {
+        pageY = parseInt(pageY)
         const cursorPositionInTextInput = parseInt(height * percentagePosition)
         const cursorPosition = cursorPositionInTextInput + pageY - headerOffset
         const viewport = [headerOffset, windowHeight - keyboardHeight - 100]
-
         const scrollOffset = this.getNewScrollOffset(cursorPosition, viewport)
 
-        this.setState({ shift: keyboardHeight, scrollOffset })
+        this.setState({ shift: keyboardHeight + 20, scrollOffset })
+        /*
+        debugInfo(
+          `
+          selection: ${JSON.stringify(this.selection)},
+          keyboardHeight: ${JSON.stringify(this.keyboardHeight)},
+          scrollPosition: ${this.scrollPosition},
+          content.lenght: ${content.length},
+          percentagePosition: ${percentagePosition},
+          isFocused: ${this.isFocused},
+
+          height: ${height},
+          pageY: ${pageY},
+          cursorPositionInTextInput: ${cursorPositionInTextInput},
+          cursorPosition: ${cursorPosition},
+          viewport: ${viewport}
+          scrollOffset: ${scrollOffset}`
+        )
+        */
       }
     )
-  }
-
-  onKeyboardDidShow = (event) => {
-    this.keyboardHeight = event.endCoordinates.height
-    this.positionateScroll()
   }
 
   onFocus = () => {
@@ -124,22 +160,29 @@ class Writing extends Component {
   }
 
   onBlur = () => {
+    Keyboard.dismiss()
     this.isFocused = false
   }
 
   onSave = async () => {
     this.setState({ isLoading: true })
-    const { navigation } = this.props
+    const {
+      navigation,
+      contextUser: { updateStats },
+    } = this.props
     const { title, content } = this.state
     const storyId = navigation.getParam('storyId')
 
     track('Save Story', { title })
 
     try {
-      const { data } = await http.put('/v1/stories/' + encodeURIComponent(storyId), {
+      const { data } = await http.putAPI('/v2/stories/' + encodeURIComponent(storyId), {
         title: title,
         content: content,
       })
+      await updateStats()
+      // It's not necessary to update Authorization, because it's done
+      // when navegate to My Story and then open Questions
 
       navigation.dispatch(
         StackActions.reset({
@@ -150,7 +193,7 @@ class Writing extends Component {
               action: NavigationActions.navigate({
                 routeName: 'MyStory',
                 action: NavigationActions.navigate({
-                  routeName: 'Home',
+                  routeName: 'Stories',
                   params: { storyId: data.id },
                 }),
               }),
@@ -160,8 +203,8 @@ class Writing extends Component {
       )
     } catch (error) {
       // TODO add a custom response for validation type eg."string.min", "StoryAlreadyExists"
-      console.log(error)
-      console.log(error.response)
+      debugError(error)
+      debugError(error.response)
       this.setState({ isLoading: false })
       Alert.alert(translate('writing.error.save'))
     }
@@ -171,16 +214,30 @@ class Writing extends Component {
 
   onBack = () => {
     const { navigation } = this.props
-    navigation.navigate('Home')
+    Alert.alert(translate('writing.unsaved.title'), translate('writing.unsaved.message'), [
+      {
+        text: 'Cancel',
+        onPress: () => {
+          this.content.current.focus()
+        },
+      },
+
+      {
+        text: 'Ok',
+        onPress: () => {
+          setTimeout(() => {
+            navigation.navigate('MyStory')
+          }, 150)
+        },
+      },
+    ])
+    Keyboard.dismiss()
   }
 
   onContentSizeChange = (event) => {
     if (!this.isFocused) {
       return
     }
-
-    console.log('fuck')
-
     this.positionateScroll()
   }
 
@@ -192,8 +249,8 @@ class Writing extends Component {
 
   onSelectionChange = (event) => {
     const { selection } = event.nativeEvent
-
     this.selection = selection
+    this.positionateScroll()
   }
 
   onScrollPositionMove = (event) => {
@@ -223,6 +280,7 @@ class Writing extends Component {
         scroll
         scrollEvents={scrollEvents}
         scrollRef={this.scroll}
+        keyboardDismissMode='none'
         isLoading={isLoading}
         topBar={topBar}
       >

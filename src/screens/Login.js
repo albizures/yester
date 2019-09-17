@@ -1,11 +1,11 @@
+import React, { Component } from 'react'
+import { Alert, View, StyleSheet, Dimensions, Platform } from 'react-native'
 import { Auth } from 'aws-amplify'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { Alert, View, StyleSheet, Dimensions } from 'react-native'
 import icons from '../utils/icons'
 import colors from '../utils/colors'
-import { logIn, saveUserToken } from '../utils/session'
+import { logIn, postAPIUser, loginWithFacebook } from '../utils/session'
 import Button from '../components/Button'
 import { Heading2, Heading3, Description } from '../components'
 import Container from '../components/Container'
@@ -13,10 +13,13 @@ import withFBLogin from '../components/withFBLogin'
 import TextDivider from '../components/TextDivider'
 import TextInput from '../components/TextInput'
 import TopBar from '../components/TopBar'
-import { translate } from '../components/Translate'
+// import Loading from '../components/Loading'
+import { strings, translate } from '../components/Translate'
 import { screen } from '../utils/analytics'
+import DeviceInfo from 'react-native-device-info'
 import debugFactory from 'debug'
 
+const debugInfo = debugFactory('yester:Login:info')
 const debugError = debugFactory('yester:Login:error')
 
 class Login extends Component {
@@ -30,35 +33,51 @@ class Login extends Component {
     password: '',
   }
 
-  componentDidMount () {
+  componentDidMount() {
     screen('Login', {})
   }
 
-  onFBLogin = async () => {
+  onFBNativeLogin = async () => {
     const { onLoginWithFB, navigation } = this.props
 
     try {
-      const { token, expires, profile } = onLoginWithFB()
-      await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
-      await saveUserToken()
-      navigation.navigate('App')
+      const fbSession = await onLoginWithFB()
+      this.setState({ isLoading: true })
+      await loginWithFacebook(fbSession)
+
+      return navigation.navigate('AppLoading')
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError('NativeFB Login', error)
       Alert.alert(translate('login.error.facebook'))
     }
   }
 
-  onFBWebView = async () => {
-    this.props.navigation.navigate('FBWebView')
-  }
-
   onLogin = async () => {
     const { navigation } = this.props
     const { email, password } = this.state
+
+    if (!email) {
+      return Alert.alert(translate('login.alert.noEmail'))
+    }
+    if (!password) {
+      return Alert.alert(translate('login.alert.noPassword'))
+    }
+
     try {
+      this.setState({ isLoading: true })
       await logIn(email, password)
-      navigation.navigate('AppLoading')
+      const build = await DeviceInfo.getBuildNumber()
+      const version = await DeviceInfo.getVersion()
+      await postAPIUser({
+        platform: Platform.OS,
+        build,
+        version,
+      })
+
+      return navigation.navigate('AppLoading')
     } catch (error) {
+      this.setState({ isLoading: false })
       debugError('Login', error)
       if (error.code === 'NotAuthorizedException') {
         Alert.alert(translate('login.error.notAuthorized'))
@@ -86,15 +105,28 @@ class Login extends Component {
     navigation.navigate('CreateAccount')
   }
 
-  render () {
-    const { email, password } = this.state
+  render() {
+    const { email, password, isLoading } = this.state
     const topBar = <TopBar title='createAccount.login' onBack={this.onBack} />
+
+    /* if (isLoading) {
+      return <Loading isLoading={isLoading} />
+    } */
+
     return (
-      <Container topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={170} enableOnAndroid>
+      <Container isLoading={isLoading} topBar={topBar}>
+        <KeyboardAwareScrollView
+          enableAutomaticScroll
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          enableOnAndroid
+        >
           <View style={styles.view}>
             <View style={styles.topFlex}>
-              <Button title='createAccount.continue' icon={icons.fb} onPress={this.onFBWebView} />
+              <Button
+                title='createAccount.continue'
+                icon={icons.fb}
+                onPress={this.onFBNativeLogin}
+              />
               <Description
                 keyName='createAccount.recommendation'
                 style={styles.recommendationText}
@@ -112,12 +144,17 @@ class Login extends Component {
                 keyboardType='email-address'
                 value={email}
                 onChangeText={(text) => this.onChange(text, 'email')}
+                setRef={(ref) => (this.emailInput = ref)}
+                onSubmitEditing={() => this.passwordInput.focus()}
+                blurOnSubmit={false}
               />
               <TextInput
                 title='signup.password'
                 password
                 value={password}
                 onChangeText={(text) => this.onChange(text, 'password')}
+                setRef={(ref) => (this.passwordInput = ref)}
+                onSubmitEditing={this.onLogin}
               />
               <Description
                 keyName='login.forgotPassword'

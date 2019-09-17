@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { View, Alert, StyleSheet, Dimensions } from 'react-native'
+import { View, Alert, StyleSheet, Dimensions, Platform } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Auth } from 'aws-amplify'
-
 import Container from '../components/Container'
 import Button from '../components/Button'
 import { Heading2, Heading4 } from '../components'
@@ -11,6 +10,12 @@ import TopBar from '../components/TopBar'
 import TextInput from '../components/TextInput'
 import colors from '../utils/colors'
 import { strings, translate } from '../components/Translate'
+import { logIn, postAPIUser } from '../utils/session'
+import DeviceInfo from 'react-native-device-info'
+import debugFactory from 'debug'
+
+const debugError = debugFactory('yester:SignUp:error')
+const debugInfo = debugFactory('yester:SignUp:info')
 
 export default class SignUp extends Component {
   static propTypes = {
@@ -22,26 +27,45 @@ export default class SignUp extends Component {
     lastName: '',
     email: '',
     password: '',
+    isLoading: false,
   }
 
   onPress = async () => {
+    const { navigation } = this.props
     const { firstName, lastName, email, password } = this.state
 
+    this.setState({ isLoading: true })
+
     try {
-      const user = await Auth.signUp({
+      await Auth.signUp({
         username: email,
         password,
         attributes: {
           given_name: firstName,
           family_name: lastName,
-          locale: strings.getLanguage(),
         },
       })
+      await logIn(email, password)
 
-      this.props.navigation.navigate('ConfirmAccount', { user, email, password })
+      // TODO Find the best way to allow manual name update.
+      const build = await DeviceInfo.getBuildNumber()
+      const version = await DeviceInfo.getVersion()
+      await postAPIUser({
+        given_name: currentUser.attributes['given_name'],
+        family_name: currentUser.attributes['family_name'],
+        platform: Platform.OS,
+        build,
+        version,
+        email_verified: false,
+      })
+
+      return navigation.navigate('ConfirmAccount', { email, signUpVerify: true })
     } catch (error) {
-      console.log('Create Account: ', error)
-      Alert.alert(translate('signup.error'))
+      this.setState({ isLoading: false })
+      debugError(error)
+      if (error.code === 'UsernameExistsException') {
+        Alert.alert(translate('signup.usernameExistsException'))
+      } else Alert.alert(translate('signup.error'))
     }
   }
 
@@ -56,13 +80,16 @@ export default class SignUp extends Component {
     navigation.navigate('CreateAccount')
   }
 
-  render () {
-    const { firstName, lastName, email, password } = this.state
-
+  render() {
+    const { firstName, lastName, email, password, isLoading } = this.state
     const topBar = <TopBar title='signup.topbar' onBack={this.onBack} />
     return (
-      <Container scroll topBar={topBar}>
-        <KeyboardAwareScrollView extraScrollHeight={140} enableOnAndroid>
+      <Container isLoading={isLoading} scroll topBar={topBar}>
+        <KeyboardAwareScrollView
+          enableAutomaticScroll
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          enableOnAndroid
+        >
           <View style={styles.topFlex}>
             <Heading2 keyName='signup.title' style={styles.titleText} />
             <Heading4 keyName='signup.subtitle' style={styles.subtitleText} />
@@ -73,11 +100,17 @@ export default class SignUp extends Component {
               title='signup.firstName'
               value={firstName}
               onChangeText={(text) => this.onChange(text, 'firstName')}
+              setRef={(ref) => (this.firstNameInput = ref)}
+              onSubmitEditing={() => this.lastNameInput.focus()}
+              blurOnSubmit={false}
             />
             <TextInput
               title='signup.lastName'
               value={lastName}
               onChangeText={(text) => this.onChange(text, 'lastName')}
+              setRef={(ref) => (this.lastNameInput = ref)}
+              onSubmitEditing={() => this.emailInput.focus()}
+              blurOnSubmit={false}
             />
             <TextInput
               title='signup.email'
@@ -86,6 +119,9 @@ export default class SignUp extends Component {
               value={email}
               onChangeText={(text) => this.onChange(text.toLowerCase(), 'email')}
               description='signup.emailDescription'
+              setRef={(ref) => (this.emailInput = ref)}
+              onSubmitEditing={() => this.passwordInput.focus()}
+              blurOnSubmit={false}
             />
             <TextInput
               title='signup.password'
@@ -93,6 +129,8 @@ export default class SignUp extends Component {
               value={password}
               onChangeText={(text) => this.onChange(text, 'password')}
               description='signup.passwordDescription'
+              setRef={(ref) => (this.passwordInput = ref)}
+              onSubmitEditing={this.onPress}
             />
             <Button title='signup.submit' onPress={this.onPress} />
           </View>
@@ -105,13 +143,11 @@ export default class SignUp extends Component {
 const { height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   topFlex: {
-    flex: 0.25,
     justifyContent: 'flex-start',
     paddingTop: height * 0.045,
-    paddingBottom: height * 0.045,
+    marginBottom: height * 0.045,
   },
   bottomFlex: {
-    flex: 0.75,
     alignItems: 'center',
   },
   titleText: {

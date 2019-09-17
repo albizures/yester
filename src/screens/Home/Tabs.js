@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Dimensions, StyleSheet, View, Image } from 'react-native'
-import { TabView, TabBar, PagerScroll } from 'react-native-tab-view'
+import { TabView, TabBar } from 'react-native-tab-view'
 import { Title } from '../../components'
 // import Loading from '../../components/Loading'
 import Tab from './Tab'
@@ -25,6 +25,7 @@ class Tabs extends Component {
   static propTypes = {
     onPressItem: PropTypes.func.isRequired,
     contextAges: PropTypes.shape(shapeContextAges).isRequired,
+    answered: PropTypes.bool,
   }
 
   state = {
@@ -38,10 +39,13 @@ class Tabs extends Component {
   }
 
   async getStoriesByAge (id) {
+    const { answered } = this.props
+    const queryParams = {
+      age_id: id,
+      answered,
+    }
     try {
-      const { data = {} } = await http.get('/v1/stories', {
-        age_id: id,
-      })
+      const { data = {} } = await http.getAPI('/v2/stories', queryParams)
 
       const { items = [], lastEvaluatedKey } = data
       return [undefined, items, lastEvaluatedKey]
@@ -52,7 +56,6 @@ class Tabs extends Component {
 
   async getStoriesByAges () {
     const { agesList } = this.props.contextAges
-
     const agesByStory = {}
 
     const listOfAgesByStory = await Promise.all(
@@ -74,9 +77,10 @@ class Tabs extends Component {
       ({ error, items }) => !error && items.length === 0
     )
     const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(firstAgeWithoutStories)
+    const index = indexOfFirstAgeWithoutStories === 0 ? 0 : indexOfFirstAgeWithoutStories - 1
 
     return {
-      index: indexOfFirstAgeWithoutStories - 1,
+      index: index,
       agesByStory,
     }
   }
@@ -129,7 +133,7 @@ class Tabs extends Component {
   }
 
   renderScene = ({ route }) => {
-    const { onPressItem } = this.props
+    const { onPressItem, answered } = this.props
     const { agesByStory } = this.state
     const { items, lastEvaluatedKey } = agesByStory[route.key]
 
@@ -139,13 +143,14 @@ class Tabs extends Component {
         initialEvaluatedKey={lastEvaluatedKey}
         initialStories={items}
         age={route.key}
+        answered={answered}
       />
     )
   }
 
   render () {
     const { isLoading } = this.state
-    console.log('State', this.state)
+    debugInfo('State', this.state)
 
     if (isLoading) {
       return null // <Loading isLoading={isLoading} style={styles.loading} />
@@ -157,8 +162,7 @@ class Tabs extends Component {
         navigationState={this.state}
         renderScene={this.renderScene}
         renderTabBar={this.getTabBar}
-        renderPager={(props) => <PagerScroll {...props} />}
-        // renderPager={this.renderPager}
+        // renderPager={(props) => <PagerScroll {...props} />}
         onIndexChange={this.onIndexChange}
         initialLayout={initialLayout}
       />
