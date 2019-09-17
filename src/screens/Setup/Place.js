@@ -25,7 +25,7 @@ export default class Place extends Component {
 
   scroll = React.createRef()
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     const { navigation } = props
     const params = extractSetupParams(navigation)
@@ -37,16 +37,43 @@ export default class Place extends Component {
           .substring(0, 1) + '0',
       countries: [],
       states: [],
+      conditionalCountries: {
+        [true]: {
+          placeholder: 'setup.place.form.country.placeholder.loading',
+          disabled: true,
+        },
+        [false]: {
+          placeholder: 'setup.place.form.country.placeholder',
+          disabled: false,
+        },
+      },
+      conditionalStates: {
+        [true]: {
+          placeholder: 'setup.place.form.state.placeholder.loading',
+          disabled: true,
+        },
+        [false]: {
+          placeholder: 'setup.place.form.state.placeholder',
+          disabled: false,
+        },
+      },
     }
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     try {
       screen('Place', {})
       const { data: countries } = await http.getAPI('/v2/countries')
+      const bottomListCountries = countries.filter(
+        (country) => !['US'].includes(country['iso_code'])
+      )
+      const topListCountries = countries.filter((country) =>
+        ['US', 'GB'].includes(country['iso_code'])
+      )
+      const sortedList = topListCountries.concat(bottomListCountries)
       this.getStates()
       this.setState({
-        countries: countries.map(({ name, iso_code: isoCode }) => ({
+        countries: sortedList.map(({ name, iso_code: isoCode }) => ({
           label: name,
           value: isoCode,
         })),
@@ -57,14 +84,14 @@ export default class Place extends Component {
     }
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { country } = this.state
     if (prevState.country !== country) {
       this.getStates()
     }
   }
 
-  async getStates () {
+  async getStates() {
     const { country } = this.state
     if (country) {
       const { data: states } = await http.getAPI('/v2/states/' + encodeURIComponent(country))
@@ -146,8 +173,22 @@ export default class Place extends Component {
     }, 100)
   }
 
-  render () {
-    const { year, countries, states, country, state, marginBottom } = this.state
+  render() {
+    const {
+      year,
+      countries,
+      states,
+      country,
+      state,
+      marginBottom,
+      conditionalCountries,
+      conditionalStates,
+    } = this.state
+    const countriesAreEmpty = countries.length === 0
+    const loadingCountries = conditionalCountries[countriesAreEmpty]
+    const statesAreEmpty = states.length === 0
+    const loadingStates = conditionalStates[statesAreEmpty]
+
     const topBarTitle = (
       <View style={{ height: 110, paddingHorizontal: 30 }}>
         <View
@@ -212,9 +253,10 @@ export default class Place extends Component {
               onClose={this.onCloseModal}
               onValueChange={this.onChangeCountry}
               placeholder={{
-                label: translate('setup.place.form.country.placeholder'),
+                label: translate(loadingCountries.placeholder),
                 value: null,
               }}
+              disabled={loadingCountries.disabled}
               style={{ marginTop: 14 }}
             />
             <Picker
@@ -225,9 +267,10 @@ export default class Place extends Component {
               onClose={this.onCloseModal}
               onValueChange={this.onChangeState}
               placeholder={{
-                label: translate('setup.place.form.state.placeholder'),
+                label: translate(loadingStates.placeholder),
                 value: null,
               }}
+              disabled={loadingStates.disabled}
             />
             <Button
               title='setup.continue'

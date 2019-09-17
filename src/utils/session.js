@@ -2,7 +2,7 @@ import { Auth } from 'aws-amplify'
 import { StorageHelper } from '@aws-amplify/core'
 import { AsyncStorage, Alert, Platform } from 'react-native'
 import { strings, translate } from '../components/Translate'
-import http, { instance, setHeaderLocale } from './http'
+import http, { setHeaderLocale } from './http'
 import { LoginManager } from 'react-native-fbsdk'
 import { sendTags } from '../utils/notifications'
 import { getPurchaserInfo } from '../utils/purchases'
@@ -48,37 +48,18 @@ export const extractTokenFromCredentials = async () => {
 
 export const getToken = () => extractTokenFromCredentials()
 
-export const setAuthHeader = async (token) => {
-  try {
-    token = token || (await getToken())
-    debugInfo('Defining auth header')
-    if (token) {
-      instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
-    }
-  } catch (error) {
-    debugError('There is no token to set', error)
-  }
-}
-
-export const saveUserToken = async () => {
-  await setAuthHeader()
-}
-
 export const logIn = async (email, password) => {
   await Auth.signIn(email, password)
-  // await saveUserToken()
 }
 
 export const forgotPasswordSubmit = async (email, code, password) => {
   await Auth.forgotPasswordSubmit(email, code, password)
-  // await saveUserToken()
 }
 
 export const logOut = async () => {
   await AsyncStorage.clear()
-  delete instance.defaults.headers.common['Authorization']
   await Auth.signOut()
-  await LoginManager.logOut()
+  LoginManager.logOut()
   debugInfo('User logued out')
 }
 
@@ -102,34 +83,34 @@ export const sanitizeUser = async (user) => {
   }
 
   return {
-    country: user['country'],
-    state: user['state'],
-    birthPlace: user['birthplace'],
-    platform: user['platform'],
-    notifications: user['notifications'],
-    birthDate: user['birthdate'],
-    gender: user['gender'],
-    locale: user['locale'],
-    name: user['name'] || `${user['given_name']} ${user['family_name']}`,
+    country: user.country,
+    state: user.state,
+    birthPlace: user.birthplace,
+    platform: user.platform,
+    notifications: user.notifications,
+    birthDate: user.birthdate,
+    gender: user.gender,
+    locale: user.locale,
+    name: user.name || `${user['given_name']} ${user['family_name']}`,
     givenName: user['given_name'],
     lastName: user['family_name'],
-    email: user['email'],
+    email: user.email,
     userId: user['user_id'],
     emailVerified: user['email_verified'],
-    created: user['created'],
+    created: user.created,
     purchaserInfo: user['purchaser_info'],
-    auth: user['auth'],
+    auth: user.auth,
   }
 }
 
 export const sanitizeStats = async () => {
   const { data: stats = {} } = await http.getAPI('/v2/stories/stats')
   return {
-    questionCounter: stats['questionCounter'],
-    storyCounter: stats['storyCounter'],
-    lastAnswer: stats['lastAnswer'],
-    lastQuestion: stats['lastQuestion'],
-    maxLength: stats['maxLength'],
+    questionCounter: stats.questionCounter,
+    storyCounter: stats.storyCounter,
+    lastAnswer: stats.lastAnswer,
+    lastQuestion: stats.lastQuestion,
+    maxLength: stats.maxLength,
   }
 }
 
@@ -145,7 +126,13 @@ export const getAPIUser = async () => {
 
 export const postAPIUser = async (user) => {
   try {
+    const email = await getCurrentEmail()
+    if (_.isEmpty(email)) {
+      debugError('User is not authenticated, there was no postAPI call!')
+      return
+    }
     debugInfo('API call post user')
+    user.email = email
     await http.postAPI('/v2/users/', user)
   } catch (err) {
     debugError(err)
@@ -171,27 +158,10 @@ export const isSetupFinished = async (user) => {
   return { finished: true, params: user }
 }
 
-export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, trialDate) => {
+export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo) => {
   const { code, tag, authorized } = currentStatus
-  debugInfo('purchaserInfo:', purchaserInfo)
   if (_.isEmpty(purchaserInfo)) return false
-
-  const entitlement = purchaserInfo['activeEntitlements'][0]
-  const subscription = purchaserInfo['activeSubscriptions'][0]
-  const expiration =
-    purchaserInfo['latestExpirationDate'] !== null
-      ? purchaserInfo['latestExpirationDate']
-      : undefined
-  const lastPurchase = purchaserInfo['purchaseDatesForActiveEntitlements'][entitlement]
-
-  purchaserInfo = {
-    entitlement,
-    subscription,
-    expiration,
-    last_purchase: lastPurchase,
-    trial_date: trialDate,
-  }
-
+  const entitlement = entitlementTransformer(purchaserInfo)
   const auth = {
     authorized,
     last_auth: moment().format(),
@@ -199,18 +169,37 @@ export const saveUserSubscriptionStatus = async (currentStatus, purchaserInfo, t
   }
 
   sendTags({ subscriptionStatus: tag })
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
-    purchaser_info: purchaserInfo,
+    entitlement,
     auth,
   })
 }
 
+export const entitlementTransformer = (purchaserInfo) => {
+  const {
+    entitlements: {
+      all: { pro = {} },
+    },
+  } = purchaserInfo
+  const entitlement = {
+    billingIssue: pro.billingIssueDetectedAt !== null ? pro.billingIssueDetectedAt : '',
+    expiration: pro.expirationDate,
+    id: pro.identifier,
+    active: pro.isActive,
+    sandbox: pro.isSandbox,
+    lastPurchase: pro.latestPurchaseDate,
+    originalPurchase: pro.originalPurchaseDate,
+    periodType: pro.periodType,
+    productId: pro.productIdentifier,
+    store: pro.store,
+    unsubscribed: pro.unsubscribeDetectedAt !== null ? pro.unsubscribeDetectedAt : '',
+    willRenew: pro.willRenew,
+  }
+  return entitlement
+}
+
 export const saveUserData = async ({ birthDate, country, state, gender, birthPlace, platform }) => {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     country: country,
     state: state,
     birthplace: birthPlace,
@@ -224,9 +213,7 @@ export const updateUserAttribute = async (name, value) => {
   // TODO async storage to compare local and cloud attributes
   // const user = await sanitizeUser()
   // if (user[name] !== value) {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     [name]: value,
   })
   // }
@@ -234,9 +221,7 @@ export const updateUserAttribute = async (name, value) => {
 
 // NOTE this is only for dev purposes
 export const cleanUserData = async () => {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     country: '',
     state: '',
     birthplace: '',
@@ -249,19 +234,16 @@ export const cleanUserData = async () => {
 
 // NOTE this is only for dev purposes
 export const cleanUserNotifications = async () => {
-  const email = await getCurrentEmail()
   await postAPIUser({
-    email,
     notifications: '',
   })
 }
 
-export const setLocale = (locale) => {
-  locale = locale || 'en'
-  debugInfo('Setting app language: ', locale)
+export const setAppLocale = (locale) => {
+  debugInfo('Setting app locale: ', locale)
+  strings.setLanguage(locale)
   setHeaderLocale(locale)
   moment.locale(locale)
-  strings.setLanguage(locale)
 }
 
 export const isEven = (user) => {
@@ -272,12 +254,13 @@ export const isEven = (user) => {
 export const isAuthorized = async (user, stats) => {
   let currentStatus = {}
   const purchaserInfo = await getPurchaserInfo()
-  const { activeEntitlements = [], allExpirationDates = {} } = purchaserInfo || {}
+  debugInfo('isAuthorized purchaserInfo:', purchaserInfo)
+  const {
+    entitlements: { all, active },
+  } = purchaserInfo
   const { storyCounter } = stats
-  debugInfo('activeEntitlements:', activeEntitlements)
 
-  const purchasedProducts = Object.keys(allExpirationDates)
-  const hasEverPurchased = purchasedProducts.length > 0
+  const hasEverPurchased = !_.isEmpty(all)
 
   if (!hasEverPurchased) {
     if (isEven(user)) {
@@ -290,7 +273,7 @@ export const isAuthorized = async (user, stats) => {
       currentStatus = subscriptionStatus.ODD_REQUIRE
     }
   } else {
-    if (activeEntitlements.includes('pro')) {
+    if (!_.isEmpty(active.pro)) {
       currentStatus = subscriptionStatus.PRO
     } else {
       currentStatus = subscriptionStatus.EXPIRED
@@ -346,15 +329,14 @@ export const loginWithFacebook = async (fbSession) => {
   await Auth.federatedSignIn('facebook', { token, expires_at: expires }, profile)
   // AsyncStorage.setItem('userToken', credentials.sessionToken)
 
-  const email = await getCurrentEmail()
+  const build = await DeviceInfo.getBuildNumber()
+  const version = await DeviceInfo.getVersion()
   await postAPIUser({
-    email,
     given_name: profile['first_name'],
     family_name: profile['last_name'],
     platform: Platform.OS,
-    build: DeviceInfo.getBuildNumber(),
-    version: DeviceInfo.getVersion(),
-    locale: strings.getLanguage(),
+    build,
+    version,
     email_verified: true,
   })
 }

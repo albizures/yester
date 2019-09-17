@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Image, Dimensions, Text, Linking, Platform } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Text,
+  Linking,
+  Platform,
+  Alert,
+  TouchableHighlight,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import colors from '../utils/colors'
 import icons from '../utils/icons'
@@ -8,9 +18,10 @@ import { Title, Description, Heading1, Heading5, Heading3, Heading4, Body1 } fro
 import { translate } from '../components/Translate'
 import Button, { types } from '../components/Button'
 import Divider from '../components/Divider'
-import { logOut, subscriptionStatus } from '../utils/session'
-import { getEntitlements, makePurchase, restoreSubscription } from '../utils/purchases'
+import { logOut, subscriptionStatus, saveUserSubscriptionStatus } from '../utils/session'
+import { getEntitlements, makePurchase, restoreTransactions } from '../utils/purchases'
 import { screen, track } from '../utils/analytics'
+import _ from 'lodash'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:Subscription:error')
@@ -48,7 +59,7 @@ class Subscription extends Component {
     currentStatus: subscriptionStatus.ODD_REQUIRE,
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     const { navigation } = this.props
     const currentStatus = navigation.getParam('currentStatus')
     debugInfo('currentStatus', currentStatus)
@@ -74,26 +85,62 @@ class Subscription extends Component {
     navigation.navigate('Home')
   }
 
-  onStartTrial = async () => {
+  onContinue = async () => {
     const { navigation } = this.props
     const { entitlements } = this.state
+    try {
+      const purchaserInfo = await makePurchase(entitlements.pro.monthly.identifier)
+      debugInfo('Make purchase purchaserInfo:', purchaserInfo)
+      const {
+        entitlements: { active },
+      } = purchaserInfo
 
-    await makePurchase(entitlements.pro.monthly.identifier)
-    track('Trial Started', {
-      item: entitlements.pro.monthly.identifier,
-      revenue: 0.0,
-    })
-    navigation.navigate('AppLoading')
+      if (_.isEmpty(active.pro)) {
+        return Alert.alert('Hey!', translate('subscription.onContinue.alert.notActive'))
+      }
+
+      track('Trial Started', {
+        item: entitlements.pro.monthly.identifier,
+        revenue: 0.0,
+      })
+
+      await saveUserSubscriptionStatus(subscriptionStatus.PRO, purchaserInfo)
+
+      navigation.navigate('AppLoading')
+    } catch (err) {
+      if (err.userCancelled) {
+        return Alert.alert('Hey!', translate('subscription.onContinue.alert.userCancelled'))
+      }
+      if (err.code === '6') {
+        return Alert.alert('Hey!', translate('subscription.onContinue.alert.alreadySubscribed'))
+      }
+      Alert.alert('Hey!', translate('subscription.onContinue.alert.error'))
+    }
   }
 
   onRestore = async () => {
-    track('Susbcription Restore', {
-      item: 'pro',
-      revenue: 4.99,
-    })
     const { navigation } = this.props
-    await restoreSubscription()
-    navigation.navigate('AppLoading')
+    try {
+      const purchaserInfo = await restoreTransactions()
+      const {
+        entitlements: { active },
+      } = purchaserInfo
+      debugInfo('Restore subscription purchaserInfo: ', purchaserInfo)
+
+      if (_.isEmpty(active.pro)) {
+        return Alert.alert('Hey!', translate('subscription.onRestore.alert.notActive'))
+      }
+
+      track('Susbcription Restore', {
+        item: 'pro',
+        revenue: 4.99,
+      })
+
+      Alert.alert('Hey!', translate('subscription.onRestore.alert.restored'))
+      navigation.navigate('AppLoading')
+    } catch (err) {
+      Alert.alert('Hey!', translate('subscription.onRestore.alert.error'))
+    }
   }
 
   onPressTerms = () => {
@@ -106,7 +153,7 @@ class Subscription extends Component {
     Linking.openURL('https://www.yester.app/privacy')
   }
 
-  render () {
+  render() {
     const terms = Platform.OS === 'ios' ? 'subscription.terms.ios' : 'subscription.terms.android'
     const { entitlements, conditionalText, currentStatus } = this.state
     const text = conditionalText[currentStatus.code]
@@ -131,7 +178,7 @@ class Subscription extends Component {
 
             <Button
               title='subscription.action'
-              onPress={this.onStartTrial}
+              onPress={this.onContinue}
               type={types.OUTLINED}
               disabled={entitlements.length === 0}
             />
@@ -140,11 +187,13 @@ class Subscription extends Component {
               data={{ price: translate('subscription.price') }}
               style={styles.priceDetailsText}
             />
-            <Body1
-              keyName='subscription.restore'
-              style={styles.restoreText}
-              onPress={this.onRestore}
-            />
+            <TouchableHighlight>
+              <Body1
+                keyName='subscription.restore'
+                style={styles.restoreText}
+                onPress={this.onRestore}
+              />
+            </TouchableHighlight>
           </View>
 
           <View style={styles.bottomFlex}>
