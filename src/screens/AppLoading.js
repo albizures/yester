@@ -1,19 +1,27 @@
-import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Alert, View } from 'react-native'
 import Container from '../components/Container'
-import { setupPurchases } from '../utils/purchases'
-import http from '../utils/http'
+import { strings, translate } from '../components/Translate'
 import withUser, { shapeContextUser } from '../components/withUser'
 import withAges, { shapeContextAges } from '../components/withAges'
-import { strings, translate } from '../components/Translate'
+import http from '../utils/http'
+import { setupPurchases } from '../utils/purchases'
+import { identifyAnalytics } from '../utils/analytics'
 import {
-  getPermissionSubscriptionState,
+  logOut,
+  getToken,
+  setAppLocale,
+  isSetupFinished,
+  subscriptionStatus,
+  updateUserAttribute,
+} from '../utils/session'
+import {
   setNotificationsStatus,
   sendUserNotificationsTags,
+  getPermissionSubscriptionState,
 } from '../utils/notifications'
-import { isSetupFinished, getToken, setLocale, logOut, subscriptionStatus } from '../utils/session'
-import { identifyAnalytics } from '../utils/analytics'
+import _ from 'lodash'
+import PropTypes from 'prop-types'
 import debugFactory from 'debug'
 
 const debugError = debugFactory('yester:AppLoading:error')
@@ -30,7 +38,7 @@ class AppLoading extends Component {
     isLoading: true,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.bootstrap()
   }
@@ -50,14 +58,14 @@ class AppLoading extends Component {
     }
   }
 
-  async bootstrap () {
+  async bootstrap() {
     const {
       navigation,
       contextUser: { updateUser, updateStats, updateAuthorization },
     } = this.props
 
     try {
-      setLocale(strings.getLanguage())
+      await saveUserLocale()
       const userToken = await getToken()
       if (!userToken) {
         debugInfo('No token found, sending user to Auth flow')
@@ -66,6 +74,7 @@ class AppLoading extends Component {
       // Set user and stats in context
       await updateUser()
       await updateStats()
+      await saveUserLocale()
       const { user } = this.props.contextUser
 
       if (!user.email) throw new Error('User has no email')
@@ -105,7 +114,30 @@ class AppLoading extends Component {
     }
   }
 
-  render () {
+  saveUserLocale = async () => {
+    console.log('getInterfaceLanguage:', strings.getInterfaceLanguage())
+    console.log('getLanguage', strings.getLanguage())
+    const locale = strings.getLanguage() || 'en'
+    const {
+      contextUser: { user, updateUser },
+    } = this.props
+
+    if (_.isEmpty(user)) {
+      setAppLocale(locale)
+      return
+    }
+
+    if (_.isEmpty(user.locale)) {
+      await updateUserAttribute('locale', locale)
+      await updateUser()
+    } else {
+      locale = user.locale
+    }
+
+    setAppLocale(locale)
+  }
+
+  render() {
     const { isLoading } = this.state
     return (
       <Container isLoading={isLoading}>
