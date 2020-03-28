@@ -55,6 +55,7 @@ class AppLoading extends Component {
     } catch (error) {
       Alert.alert(translate('loading.error'))
       debugError('Error getting the ages', error)
+      updateAges([]);
     }
   }
 
@@ -65,7 +66,7 @@ class AppLoading extends Component {
     } = this.props
 
     try {
-      await saveUserLocale()
+      await this.saveUserLocale()
       const userToken = await getToken()
       if (!userToken) {
         debugInfo('No token found, sending user to Auth flow')
@@ -74,7 +75,7 @@ class AppLoading extends Component {
       // Set user and stats in context
       await updateUser()
       await updateStats()
-      await saveUserLocale()
+      await this.saveUserLocale()
       const { user } = this.props.contextUser
 
       if (!user.email) throw new Error('User has no email')
@@ -117,7 +118,7 @@ class AppLoading extends Component {
   saveUserLocale = async () => {
     console.log('getInterfaceLanguage:', strings.getInterfaceLanguage())
     console.log('getLanguage', strings.getLanguage())
-    const locale = strings.getLanguage() || 'en'
+    let locale = strings.getLanguage() || 'en'
     const {
       contextUser: { user, updateUser },
     } = this.props
