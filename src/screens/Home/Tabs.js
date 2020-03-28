@@ -159,10 +159,10 @@ class Tabs extends Component {
     return (
       <TabView
         style={{ flex: 1 }}
+        keyboardDismissMode="on-drag"
         navigationState={this.state}
         renderScene={this.renderScene}
         renderTabBar={this.getTabBar}
-        // renderPager={(props) => <PagerScroll {...props} />}
         onIndexChange={this.onIndexChange}
         initialLayout={initialLayout}
       />

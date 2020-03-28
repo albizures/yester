@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, StyleSheet, FlatList, Image, Dimensions, Animated, Text } from 'react-native'
+import Animated from 'react-native-reanimated';
+import { View, StyleSheet, FlatList, Image, Dimensions, Text } from 'react-native'
 import QuestionItem from './QuestionItem'
 import StoryItem from './StoryItem'
 import Tabs from './Tabs'
