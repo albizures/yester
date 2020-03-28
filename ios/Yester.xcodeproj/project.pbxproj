@@ -19,9 +19,9 @@
 		2DCD954D1E0B4F2C00145EB5 /* YesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* YesterTests.m */; };
 		3097C0C83B0C4BC49C0C4555 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 956ABA78548C4391B989AC56 /* Karla-Regular.ttf */; };
 		4FDA95282ECB49309421726C /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 506DB15852FD45B18D38AC42 /* Karla-BoldItalic.ttf */; };
-		6B180156D1C14B6A8EDA50BC /* libPods-YesterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E140796922F2AB85B4E30F63 /* libPods-YesterTests.a */; };
 		879867A7A4A84368B0CE1610 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B2D465195764778BC703069 /* Karla-Italic.ttf */; };
 		9888F03546794894995B1AFB /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C95D11BF811E44519F1C15BA /* Karla-Bold.ttf */; };
+		9EB8503D09E177E471BA85FB /* libPods-Yester-YesterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCE35FABECD3832ABA374F04 /* libPods-Yester-YesterTests.a */; };
 		C3A58AFE72C396810CB12A1E /* libPods-OneSignalNotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85FD8F9799F2711B34E65E93 /* libPods-OneSignalNotificationServiceExtension.a */; };
 		E01AB1399B3C6C23695ADB98 /* libPods-Yester.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC37EC5F2B3191AA8D2A598C /* libPods-Yester.a */; };
 		FC18453821826A2900B04FD8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC18453721826A2900B04FD8 /* StoreKit.framework */; };
@@ -88,6 +88,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YesterTests.m; sourceTree = "<group>"; };
 		0EFEBA7DC09276B52BF65AE5 /* Pods-YesterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YesterTests.release.xcconfig"; path = "Target Support Files/Pods-YesterTests/Pods-YesterTests.release.xcconfig"; sourceTree = "<group>"; };
+		12A7EEA80DD08ED4199164FD /* Pods-Yester-YesterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-YesterTests.release.xcconfig"; path = "Target Support Files/Pods-Yester-YesterTests/Pods-Yester-YesterTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Yester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Yester/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Yester/AppDelegate.m; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		2D02E4901E0B4A5D006451C7 /* Yester-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Yester-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		506DB15852FD45B18D38AC42 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-BoldItalic.ttf"; path = "../src/assets/fonts/Karla-BoldItalic.ttf"; sourceTree = "<group>"; };
+		57F82C40A991AC47279037BF /* Pods-Yester-YesterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-YesterTests.debug.xcconfig"; path = "Target Support Files/Pods-Yester-YesterTests/Pods-Yester-YesterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		70C28C64BB53297BF26EEDDF /* libPods-Yester-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Yester-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7769432B4D5467AC644A4369 /* Pods-Yester.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester.release.xcconfig"; path = "Target Support Files/Pods-Yester/Pods-Yester.release.xcconfig"; sourceTree = "<group>"; };
 		7FF3B24D10359DB086219B6C /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,10 +111,10 @@
 		A4D1A22D342C5038D69B30C4 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		AC37EC5F2B3191AA8D2A598C /* libPods-Yester.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Yester.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1BC17C63DC9D12F67342115 /* Pods-Yester-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Yester-tvOS/Pods-Yester-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		BCE35FABECD3832ABA374F04 /* libPods-Yester-YesterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Yester-YesterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDAD7E055925BF59864923A8 /* libPods-Yester-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Yester-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C18F9EA3AAD8CBB22CA0AA78 /* Pods-Yester-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Yester-tvOSTests/Pods-Yester-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C95D11BF811E44519F1C15BA /* Karla-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Bold.ttf"; path = "../src/assets/fonts/Karla-Bold.ttf"; sourceTree = "<group>"; };
-		E140796922F2AB85B4E30F63 /* libPods-YesterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YesterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8545C3C9A93FC43047DD6CC /* Pods-Yester.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester.debug.xcconfig"; path = "Target Support Files/Pods-Yester/Pods-Yester.debug.xcconfig"; sourceTree = "<group>"; };
 		F3115F24F4B5DE3B00CA4329 /* Pods-Yester-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Yester-tvOSTests/Pods-Yester-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		F41A1A06D2CF07093981A08F /* Pods-Yester-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Yester-tvOS/Pods-Yester-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,7 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B180156D1C14B6A8EDA50BC /* libPods-YesterTests.a in Frameworks */,
+				9EB8503D09E177E471BA85FB /* libPods-Yester-YesterTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,7 +225,7 @@
 				AC37EC5F2B3191AA8D2A598C /* libPods-Yester.a */,
 				70C28C64BB53297BF26EEDDF /* libPods-Yester-tvOS.a */,
 				BDAD7E055925BF59864923A8 /* libPods-Yester-tvOSTests.a */,
-				E140796922F2AB85B4E30F63 /* libPods-YesterTests.a */,
+				BCE35FABECD3832ABA374F04 /* libPods-Yester-YesterTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -259,6 +261,8 @@
 				F3115F24F4B5DE3B00CA4329 /* Pods-Yester-tvOSTests.release.xcconfig */,
 				86200CB59004B97E8FD021B3 /* Pods-YesterTests.debug.xcconfig */,
 				0EFEBA7DC09276B52BF65AE5 /* Pods-YesterTests.release.xcconfig */,
+				57F82C40A991AC47279037BF /* Pods-Yester-YesterTests.debug.xcconfig */,
+				12A7EEA80DD08ED4199164FD /* Pods-Yester-YesterTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -313,6 +317,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				69E65002E106BEE33CCA85D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -626,11 +631,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-YesterTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Yester-YesterTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		69E65002E106BEE33CCA85D4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Yester-YesterTests/Pods-Yester-YesterTests-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Yester-YesterTests/Pods-Yester-YesterTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A50EC91724D30B04512F2C15 /* [CP] Check Pods Manifest.lock */ = {
@@ -776,7 +799,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 86200CB59004B97E8FD021B3 /* Pods-YesterTests.debug.xcconfig */;
+			baseConfigurationReference = 57F82C40A991AC47279037BF /* Pods-Yester-YesterTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = Q896388R28;
@@ -808,7 +831,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0EFEBA7DC09276B52BF65AE5 /* Pods-YesterTests.release.xcconfig */;
+			baseConfigurationReference = 12A7EEA80DD08ED4199164FD /* Pods-Yester-YesterTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
