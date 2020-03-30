@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* YesterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* YesterTests.m */; };
+		00EE3AA124326BA20045EDFA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EE3AA024326BA20045EDFA /* File.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -87,6 +88,8 @@
 		00E356EE1AD99517003FC87E /* YesterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YesterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* YesterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YesterTests.m; sourceTree = "<group>"; };
+		00EE3A9F24326BA20045EDFA /* Yester-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yester-Bridging-Header.h"; sourceTree = "<group>"; };
+		00EE3AA024326BA20045EDFA /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		0EFEBA7DC09276B52BF65AE5 /* Pods-YesterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YesterTests.release.xcconfig"; path = "Target Support Files/Pods-YesterTests/Pods-YesterTests.release.xcconfig"; sourceTree = "<group>"; };
 		12A7EEA80DD08ED4199164FD /* Pods-Yester-YesterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Yester-YesterTests.release.xcconfig"; path = "Target Support Files/Pods-Yester-YesterTests/Pods-Yester-YesterTests.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Yester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yester.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,10 +207,12 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				00EE3AA024326BA20045EDFA /* File.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				00EE3A9F24326BA20045EDFA /* Yester-Bridging-Header.h */,
 			);
 			name = Yester;
 			sourceTree = "<group>";
@@ -417,7 +422,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
 				LastUpgradeCheck = 940;
-				ORGANIZATIONNAME = Facebook;
+				ORGANIZATIONNAME = Yester;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -426,6 +431,7 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = Q896388R28;
+						LastSwiftMigration = 1140;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -735,6 +741,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				00EE3AA124326BA20045EDFA /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -801,6 +808,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 57F82C40A991AC47279037BF /* Pods-Yester-YesterTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = Q896388R28;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -833,6 +841,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 12A7EEA80DD08ED4199164FD /* Pods-Yester-YesterTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = Q896388R28;
@@ -863,6 +872,7 @@
 			baseConfigurationReference = E8545C3C9A93FC43047DD6CC /* Pods-Yester.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Yester/Yester.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -888,6 +898,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yester.app;
 				PRODUCT_NAME = Yester;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Yester-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -898,6 +911,7 @@
 			baseConfigurationReference = 7769432B4D5467AC644A4369 /* Pods-Yester.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Yester/Yester.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -922,6 +936,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yester.app;
 				PRODUCT_NAME = Yester;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Yester-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
