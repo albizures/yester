@@ -1,22 +1,22 @@
 [
-    {
-      "id": 1,
-      "text": "childhood",
-      "skipped": 0
-    },
-    {
-      "id": 2,
-      "text": "adolescence",
-      "skipped": 0
-    },
-    {
-      "id": 3,
-      "text": "young adult",
-      "skipped": 0
-    },
-    {
-      "id": 4,
-      "text": "adulthood",
-      "skipped": 0
-    }
-  ]
+	{
+		"id": 1,
+		"text": "childhood",
+		"skipped": 0
+	},
+	{
+		"id": 2,
+		"text": "adolescence",
+		"skipped": 0
+	},
+	{
+		"id": 3,
+		"text": "young adult",
+		"skipped": 0
+	},
+	{
+		"id": 4,
+		"text": "adulthood",
+		"skipped": 0
+	}
+]

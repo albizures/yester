@@ -1,79 +1,80 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { ViewPropTypes, StyleSheet } from 'react-native'
-import colors from '../utils/colors'
-import RNDatePicker from 'react-native-datepicker'
-import InputContainer, { types } from '../components/InputContainer'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { ViewPropTypes, StyleSheet } from 'react-native';
+import colors from '../utils/colors';
+import RNDatePicker from 'react-native-datepicker';
+import InputContainer, { types } from '../components/InputContainer';
 
 const DatePicker = (props) => {
-  const { title, value } = props
+	const { title, value } = props;
 
-  return (
-    <InputContainer {...props} title={title} type={types.PICKER} >
-      <RNDatePicker {...props}
-        date={value}
-        mode='date'
-        placeholder='YYYY-MM-DD'
-        format='YYYY-MM-DD'
-        showIcon={false}
-        confirmBtnText='Done'
-        cancelBtnText='Cancel'
-        customStyles={customStyles}
-        style={{ width: 300 }}
-      />
-    </InputContainer>
-  )
-}
+	return (
+		<InputContainer {...props} title={title} type={types.PICKER}>
+			<RNDatePicker
+				{...props}
+				date={value}
+				mode='date'
+				placeholder='YYYY-MM-DD'
+				format='YYYY-MM-DD'
+				showIcon={false}
+				confirmBtnText='Done'
+				cancelBtnText='Cancel'
+				customStyles={customStyles}
+				style={{ width: 300 }}
+			/>
+		</InputContainer>
+	);
+};
 
 DatePicker.propTypes = {
-  style: ViewPropTypes.style,
-  title: PropTypes.string.isRequired,
-  value: PropTypes.string,
-}
+	style: ViewPropTypes.style,
+	title: PropTypes.string.isRequired,
+	value: PropTypes.string,
+};
 
 DatePicker.defaultProps = {
-  editable: true,
-}
+	editable: true,
+};
 
 const customStyles = StyleSheet.create({
-  dateTouchBody: {
-    flexDirection: 'row',
-    height: 50,
-    width: 300,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  dateIcon: {
-    width: 32,
-    height: 32,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  dateInput: {
-    flex: 1,
-    height: 50,
-    width: 300,
-    borderWidth: 0,
-    borderColor: '#fff',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingLeft: 20,
-  },
-  dateText: {
-    fontSize: 18,
-    color: colors.mineShaft,
-  },
-  placeholderText: {
-    fontSize: 18,
-    color: colors.mineShaft,
-  },
-  btnTextConfirm: {
-    fontSize: 16,
-    color: '#007AFF',
-  },
-  btnTextCancel: {
-    color: '#007AFF',
-  },
-})
+	dateTouchBody: {
+		flexDirection: 'row',
+		height: 50,
+		width: 300,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	dateIcon: {
+		width: 32,
+		height: 32,
+		marginLeft: 5,
+		marginRight: 5,
+	},
+	dateInput: {
+		flex: 1,
+		height: 50,
+		width: 300,
+		borderWidth: 0,
+		borderColor: '#fff',
+		alignItems: 'flex-start',
+		justifyContent: 'center',
+		paddingLeft: 20,
+	},
+	dateText: {
+		fontSize: 18,
+		color: colors.mineShaft,
+	},
+	placeholderText: {
+		fontSize: 18,
+		color: colors.mineShaft,
+	},
+	btnTextConfirm: {
+		fontSize: 16,
+		color: '#007AFF',
+	},
+	btnTextCancel: {
+		color: '#007AFF',
+	},
+});
 
-export default DatePicker
+export default DatePicker;

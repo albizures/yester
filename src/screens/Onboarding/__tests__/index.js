@@ -1,14 +1,16 @@
-import React from 'react'
-import renderer from 'react-test-renderer'
+import React from 'react';
+import renderer from 'react-test-renderer';
 
-import Onboarding from '../'
+import Onboarding from '../';
 const navigation = {
-  navigate: jest.fn(),
-}
+	navigate: jest.fn(),
+};
 
 describe('src/screens/Onboarding', () => {
-  it('should render', () => {
-    const tree = renderer.create(<Onboarding navigation={navigation} />).toJSON()
-    expect(tree).toMatchSnapshot()
-  })
-})
+	it('should render', () => {
+		const tree = renderer
+			.create(<Onboarding navigation={navigation} />)
+			.toJSON();
+		expect(tree).toMatchSnapshot();
+	});
+});
