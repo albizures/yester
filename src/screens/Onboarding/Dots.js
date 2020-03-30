@@ -1,20 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View } from 'react-native';
 
-import Dot from './Dot'
+import Dot from './Dot';
 
 const Dots = ({ steps, currentStep }) => (
-  <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-    {new Array(steps)
-      .fill(null)
-      .map((item, index) => <Dot key={index} active={index === currentStep} />) }
-  </View>
-)
+	<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+		{new Array(steps).fill(null).map((item, index) => (
+			<Dot key={index} active={index === currentStep} />
+		))}
+	</View>
+);
 
 Dots.propTypes = {
-  steps: PropTypes.number.isRequired,
-  currentStep: PropTypes.number.isRequired,
-}
+	steps: PropTypes.number.isRequired,
+	currentStep: PropTypes.number.isRequired,
+};
 
-export default Dots
+export default Dots;

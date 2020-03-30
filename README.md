@@ -1,7 +1,9 @@
 # yester
 
 ## Setup
+
 ### 1. Create .env file in the project root with the following variables:
+
 ```
 HOST=*****
 AWS_REGION=*****
