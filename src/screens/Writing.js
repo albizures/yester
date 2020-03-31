@@ -12,7 +12,7 @@ import {
 	Dimensions,
 	findNodeHandle,
 } from 'react-native';
-import { NavigationActions, StackActions } from 'react-navigation';
+import { CommonActions } from '@react-navigation/native';
 import { Description, Title } from '../components';
 import Container from '../components/Container';
 import TopBar from '../components/TopBar';
@@ -194,19 +194,15 @@ class Writing extends Component {
 			// when navegate to My Story and then open Questions
 
 			navigation.dispatch(
-				StackActions.reset({
+				CommonActions.reset({
 					index: 0,
-					actions: [
-						NavigationActions.navigate({
-							routeName: 'MainTab',
-							action: NavigationActions.navigate({
-								routeName: 'MyStory',
-								action: NavigationActions.navigate({
-									routeName: 'Stories',
-									params: { storyId: data.id },
-								}),
-							}),
-						}),
+					routes: [
+						{ name: 'MainTab' },
+						{ name: 'MyStory' },
+						{
+							name: 'Stories',
+							params: { storyId: data.id },
+						},
 					],
 				}),
 			);

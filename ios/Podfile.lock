@@ -264,6 +264,8 @@ PODS:
   - react-native-onesignal (3.6.5):
     - OneSignal (= 2.12.6)
     - React (< 1.0.0, >= 0.13.0)
+  - react-native-safe-area-context (0.7.3):
+    - React
   - react-native-splash-screen (3.2.0):
     - React
   - react-native-viewpager (3.3.0):
@@ -335,6 +337,8 @@ PODS:
   - RNAWSCognito (3.2.6):
     - JKBigInteger2 (= 0.0.5)
     - React
+  - RNCMaskedView (0.1.7):
+    - React
   - RNDeviceInfo (3.1.4):
     - React
   - RNGestureHandler (1.6.1):
@@ -344,6 +348,8 @@ PODS:
     - React
   - RNReanimated (1.7.1):
     - React
+  - RNScreens (2.4.0):
+    - React
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -352,6 +358,9 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
   - FlipperKit (~> 0.33.1)
   - FlipperKit/FlipperKitLayoutPlugin (~> 0.33.1)
   - FlipperKit/FlipperKitReactPlugin (~> 0.33.1)
@@ -373,6 +382,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -389,10 +399,12 @@ DEPENDENCIES:
   - ReactNativeLocalization (from `../node_modules/react-native-localization`)
   - "RNAnalytics (from `../node_modules/@segment/analytics-react-native`)"
   - RNAWSCognito (from `../node_modules/amazon-cognito-identity-js`)
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPurchases (from `../node_modules/react-native-purchases`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
+  - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -451,6 +463,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fbsdk"
   react-native-onesignal:
     :path: "../node_modules/react-native-onesignal"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-viewpager:
@@ -481,6 +495,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@segment/analytics-react-native"
   RNAWSCognito:
     :path: "../node_modules/amazon-cognito-identity-js"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
@@ -489,6 +505,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-purchases"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
+  RNScreens:
+    :path: "../node_modules/react-native-screens"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -497,7 +515,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
-  DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
+  DoubleConversion: 47f5e12307ec133177b173f5cffd5560b5bc65f3
   FBLazyVector: 545eccf4f6ef2de8fd450fd8a1edb3f913c7371a
   FBReactNativeSpec: 85c7f8347f4a6e911742228e89e245187afa298e
   FBSDKCoreKit: 3e41c402eb64ea7799c71833ff9e5690f27b9c42
@@ -510,8 +528,8 @@ SPEC CHECKSUMS:
   Flipper-PeerTalk: 116d8f857dc6ef55c7a5a75ea3ceaafe878aadc9
   Flipper-RSocket: 1260a31c05c238eabfa9bb8a64e3983049048371
   FlipperKit: 6dc9b8f4ef60d9e5ded7f0264db299c91f18832e
-  Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
-  glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  Folly: 2e9ac127d594c3b69263d101352cf65254b76227
+  glog: dcf9a21d5025ca3cf55197ca40d6ae4d6d526b95
   JKBigInteger2: e91672035c42328c48b7dd015b66812ddf40ca9b
   OneSignal: a6df91542d1cf133b9dd19d89f2b533d8f2d3163
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
@@ -527,6 +545,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 8e5913c4c6c54f0d3f9c9fc630c465a89cded65d
   react-native-fbsdk: 7bde3b84fc093d2c5e7fdccea03fe8fa9f112834
   react-native-onesignal: b77c201ba78bee36fd5e7725c6eb80a1180d351a
+  react-native-safe-area-context: 8260e5157617df4b72865f44006797f895b2ada7
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: 118e65d8c65c56fe48d12a35cdcf1fe7e027a366
   React-RCTActionSheet: 674afbc8b9c76e0a83520e0a51da29a70802c03f
@@ -542,13 +561,15 @@ SPEC CHECKSUMS:
   ReactNativeLocalization: 9abfb1717d6c6f2e3a4e444c4402d52acbf784cc
   RNAnalytics: 05243c1fa17186f07be3eae30514b43aeb2e0578
   RNAWSCognito: 21361658efef8a04f9b1751190a4f197447ec986
+  RNCMaskedView: 90dd32f5b786bd562e876e1421ea77c700cbf71e
   RNDeviceInfo: 9e88577c51bd42f65275e53bb0de0a0f728ed6b8
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNPurchases: a5460c2fe4d9b121cb8c04b54365756d9563c474
   RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
+  RNScreens: b5c0e1b2b04512919e78bd3898e144a157ce2363
   Yoga: 9db9ff2025ad21d1ac0a8b3c85d5ac4e7c29d525
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: cf7df104865a96d6cea692edc992e355314f51c4
+PODFILE CHECKSUM: 92d7bbe40ce8a2156ba0184bddd0368bbf6eb11d
 
 COCOAPODS: 1.8.4
