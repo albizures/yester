@@ -86,8 +86,8 @@ class Home extends Component {
 	};
 
 	onPressToast = () => {
-		const { navigation } = this.props;
-		const storyId = navigation.getParam('storyId');
+		const { navigation, route } = this.props;
+		const storyId = route.params.storyId;
 		this.closeToast();
 		navigation.navigate('Reading', { storyId });
 	};

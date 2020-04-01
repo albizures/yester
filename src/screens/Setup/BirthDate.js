@@ -36,9 +36,9 @@ class BirthDate extends Component {
 
 	constructor(props) {
 		super(props);
-		const { navigation } = this.props;
+		const { route } = this.props;
 		this.state = {
-			...extractSetupParams(navigation),
+			...extractSetupParams(route),
 			genders: [
 				{ value: 'female', label: 'Female' },
 				{ value: 'male', label: 'Male' },
@@ -47,8 +47,8 @@ class BirthDate extends Component {
 	}
 
 	onDidFocus = () => {
-		const { navigation } = this.props;
-		this.setState(extractSetupParams(navigation));
+		const { route } = this.props;
+		this.setState(extractSetupParams(route));
 	};
 
 	async componentDidMount() {

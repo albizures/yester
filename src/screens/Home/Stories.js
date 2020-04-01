@@ -52,14 +52,14 @@ class Stories extends Component {
 	willFocusListener = null;
 
 	async componentDidMount() {
-		const { navigation } = this.props;
+		const { navigation, route } = this.props;
 		const { addListener } = navigation;
 		this.willFocusListener = addListener('willFocus', this.load);
 
 		this.setState({ isLoading: false });
 
 		const { positionToast } = this.state;
-		const storyId = navigation.getParam('storyId');
+		const storyId = route.params.storyId;
 		if (storyId) {
 			/*
       Animated.spring(positionToast, {
@@ -97,8 +97,8 @@ class Stories extends Component {
 	};
 
 	onPressToast = () => {
-		const { navigation } = this.props;
-		const storyId = navigation.getParam('storyId');
+		const { navigation, route } = this.props;
+		const storyId = route.params.storyId;
 		this.closeToast();
 		navigation.navigate('Reading', { storyId });
 	};

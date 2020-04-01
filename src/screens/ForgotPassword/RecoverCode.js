@@ -20,10 +20,10 @@ export default class RecoverCode extends Component {
 	};
 
 	onPress = () => {
-		const { navigation } = this.props;
+		const { navigation, route } = this.props;
 		const { code } = this.state;
 
-		const email = navigation.getParam('email');
+		const email = route.params.email;
 
 		navigation.navigate('NewPassword', { code, email });
 	};

@@ -40,12 +40,15 @@ class CreateAccount extends Component {
 	}
 
 	onFBNativeLogin = async () => {
+		debugInfo('Starting login with facebook from CreateAccount');
 		const { onLoginWithFB, navigation } = this.props;
+
 		try {
 			const fbSession = await onLoginWithFB();
 			this.setState({ isLoading: true });
 			await loginWithFacebook(fbSession);
 
+			debugInfo('Login with facebook finished, going to AppLoading');
 			return navigation.navigate('AppLoading');
 		} catch (err) {
 			this.setState({ isLoading: false });

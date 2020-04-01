@@ -38,10 +38,7 @@ class AppLoading extends Component {
 		isLoading: true,
 	};
 
-	constructor(props) {
-		super(props);
-		this.bootstrap();
-	}
+	unsubscribeFocusListener = null;
 
 	getAges = async () => {
 		const {
@@ -59,9 +56,25 @@ class AppLoading extends Component {
 		}
 	};
 
+	componentDidMount() {
+		const { navigation } = this.props;
+
+		this.unsubscribeFocusListener = navigation.addListener('focus', () => {
+			this.bootstrap();
+		});
+	}
+
+	componentWillUnmount() {
+		if (this.unsubscribeFocusListener) {
+			this.unsubscribeFocusListener();
+		}
+	}
+
 	async bootstrap() {
+		debugInfo('bootstraping...');
 		const {
 			navigation,
+			route,
 			contextUser: { updateUser, updateStats, updateAuthorization },
 		} = this.props;
 
@@ -73,12 +86,14 @@ class AppLoading extends Component {
 				return navigation.navigate('Auth');
 			}
 			// Set user and stats in context
+			debugInfo('updating user and updating stats');
 			await updateUser();
 			await updateStats();
-			await this.saveUserLocale();
 			const { user } = this.props.contextUser;
 
-			if (!user.email) throw new Error('User has no email');
+			if (!user.email) {
+				throw new Error('User has no email');
+			}
 
 			identifyAnalytics(user);
 			await setupPurchases(user);
@@ -106,7 +121,7 @@ class AppLoading extends Component {
 			}
 
 			await this.getAges();
-			const lastScreen = navigation.getParam('lastScreen', 'App');
+			const { lastScreen = 'App' } = route.params || {};
 			navigation.navigate(lastScreen);
 		} catch (error) {
 			logOut();
@@ -116,8 +131,8 @@ class AppLoading extends Component {
 	}
 
 	saveUserLocale = async () => {
-		console.log('getInterfaceLanguage:', strings.getInterfaceLanguage());
-		console.log('getLanguage', strings.getLanguage());
+		debugInfo('getInterfaceLanguage:', strings.getInterfaceLanguage());
+		debugInfo('getLanguage', strings.getLanguage());
 		let locale = strings.getLanguage() || 'en';
 		const {
 			contextUser: { user, updateUser },

@@ -25,14 +25,14 @@ class ModalCard extends React.Component {
 	};
 
 	onWrite = async () => {
-		const { navigation } = this.props;
+		const { navigation, route } = this.props;
 		await authorizeAction(this.props, (currentStatus) => {
 			if (currentStatus.authorized) {
 				const params = {
-					ageId: navigation.getParam('ageId'),
-					questionId: navigation.getParam('questionId'),
-					question: navigation.getParam('question'),
-					storyId: navigation.getParam('storyId'),
+					ageId: route.params.ageId,
+					questionId: route.params.questionId,
+					question: route.params.question,
+					storyId: route.params.storyId,
 				};
 				return navigation.navigate('Writing', params);
 			}
@@ -40,18 +40,18 @@ class ModalCard extends React.Component {
 	};
 
 	onSkip = () => {
-		const { navigation } = this.props;
-		const question = navigation.getParam('question');
+		const { navigation, route } = this.props;
+		const question = route.params.question;
 		track('Skip Story', { title: question });
 		navigation.goBack();
 	};
 
 	render() {
-		const { navigation } = this.props;
+		const { route } = this.props;
 		const { ages } = this.props.contextAges;
-		const ageId = navigation.getParam('ageId');
-		const question = navigation.getParam('question', '');
-		const categoryId = navigation.getParam('categoryId');
+		const ageId = route.params.ageId;
+		const question = route.params.question || '';
+		const categoryId = route.params.categoryId;
 		const age = (ages[ageId] || {}).name;
 		const illustration = getCategoryIllustration(categoryId);
 

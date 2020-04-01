@@ -39,12 +39,12 @@ class Confirmation extends Component {
 
 	constructor(props) {
 		super(props);
-		const { navigation } = this.props;
+		const { route } = this.props;
 		const { conditionalText } = this.state;
 
 		this.state = {
 			conditionalText,
-			...extractSetupParams(navigation),
+			...extractSetupParams(route),
 			isLoading: false,
 		};
 	}

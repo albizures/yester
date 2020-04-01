@@ -78,7 +78,7 @@ export default class App extends Component {
 	async componentDidMount() {
 		SplashScreen.hide();
 		debugFactory.disable();
-		// debugFactory.enable('yester:*')
+		// debugFactory.enable('yester:*');
 		//debugFactory.enable('yester:Place*, yester:Picker*')
 		// debugFactory.enable('yester:Writing*')
 

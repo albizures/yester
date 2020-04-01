@@ -1,4 +1,7 @@
 import React from 'react';
+import colors from './utils/colors';
+import icons from './utils/icons';
+import { translate } from './components/Translate';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SettingsStack from './SettingsStack';
 import StoryStack from './StoryStack';
@@ -8,7 +11,7 @@ import { tabBarIcon } from './components/TabIcon';
 
 const Tab = createBottomTabNavigator();
 
-const Main = () => {
+const MainTab = () => {
 	return (
 		<Tab.Navigator
 			animationEnabled={true}
@@ -89,3 +92,5 @@ const Main = () => {
 		</Tab.Navigator>
 	);
 };
+
+export default MainTab;

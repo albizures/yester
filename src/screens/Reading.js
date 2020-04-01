@@ -44,8 +44,8 @@ class Reading extends Component {
 	};
 
 	async componentDidMount() {
-		const { navigation } = this.props;
-		const storyId = navigation.getParam('storyId');
+		const { navigation, route } = this.props;
+		const storyId = route.params.storyId;
 		screen('Reading', {});
 
 		this.setState({ isLoading: true });

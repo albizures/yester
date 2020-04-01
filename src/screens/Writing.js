@@ -40,8 +40,8 @@ class Writing extends Component {
 		shift: 20,
 		scrollOffset: 0,
 		isLoading: false,
-		title: this.props.navigation.getParam('question'),
-		content: this.props.navigation.getParam('content', ''),
+		title: this.props.route.params.question,
+		content: this.props.route.params.content || '',
 	};
 
 	componentWillMount() {
@@ -174,10 +174,11 @@ class Writing extends Component {
 		this.setState({ isLoading: true });
 		const {
 			navigation,
+			route,
 			contextUser: { updateStats },
 		} = this.props;
 		const { title, content } = this.state;
-		const storyId = navigation.getParam('storyId');
+		const storyId = route.params.storyId;
 
 		track('Save Story', { title });
 

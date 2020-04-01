@@ -9,7 +9,7 @@ import { Heading2, Heading4 } from '../components';
 import TopBar from '../components/TopBar';
 import TextInput from '../components/TextInput';
 import colors from '../utils/colors';
-import { strings, translate } from '../components/Translate';
+import { translate } from '../components/Translate';
 import { logIn, postAPIUser } from '../utils/session';
 import DeviceInfo from 'react-native-device-info';
 import debugFactory from 'debug';
@@ -31,7 +31,7 @@ export default class SignUp extends Component {
 	};
 
 	onPress = async () => {
-		const { navigation } = this.props;
+		const { navigation, currentUser } = this.props;
 		const { firstName, lastName, email, password } = this.state;
 
 		this.setState({ isLoading: true });
@@ -48,8 +48,8 @@ export default class SignUp extends Component {
 			await logIn(email, password);
 
 			// TODO Find the best way to allow manual name update.
-			const build = await DeviceInfo.getBuildNumber();
-			const version = await DeviceInfo.getVersion();
+			const build = DeviceInfo.getBuildNumber();
+			const version = DeviceInfo.getVersion();
 			await postAPIUser({
 				given_name: currentUser.attributes['given_name'],
 				family_name: currentUser.attributes['family_name'],

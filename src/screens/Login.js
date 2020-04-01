@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, View, StyleSheet, Dimensions, Platform } from 'react-native';
 import { Auth } from 'aws-amplify';
 import PropTypes from 'prop-types';
+import { CommonActions } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import icons from '../utils/icons';
 import colors from '../utils/colors';
@@ -38,6 +39,7 @@ class Login extends Component {
 	}
 
 	onFBNativeLogin = async () => {
+		debugInfo('Starting login with facebook from login');
 		const { onLoginWithFB, navigation } = this.props;
 
 		try {
@@ -45,6 +47,7 @@ class Login extends Component {
 			this.setState({ isLoading: true });
 			await loginWithFacebook(fbSession);
 
+			debugInfo('Navigating to app loading');
 			return navigation.navigate('AppLoading');
 		} catch (error) {
 			this.setState({ isLoading: false });
@@ -67,8 +70,8 @@ class Login extends Component {
 		try {
 			this.setState({ isLoading: true });
 			await logIn(email, password);
-			const build = await DeviceInfo.getBuildNumber();
-			const version = await DeviceInfo.getVersion();
+			const build = DeviceInfo.getBuildNumber();
+			const version = DeviceInfo.getVersion();
 			await postAPIUser({
 				platform: Platform.OS,
 				build,

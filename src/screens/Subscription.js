@@ -76,8 +76,8 @@ class Subscription extends Component {
 	};
 
 	async componentDidMount() {
-		const { navigation } = this.props;
-		const currentStatus = navigation.getParam('currentStatus');
+		const { route } = this.props;
+		const currentStatus = route.params.currentStatus;
 		debugInfo('currentStatus', currentStatus);
 		this.setState({ currentStatus });
 		screen('Subscription', {});

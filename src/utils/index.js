@@ -3,16 +3,16 @@ export const indexToString = (item, index) => index.toString();
 export const capitalize = (text = '') =>
 	text.charAt(0).toUpperCase() + text.substr(1);
 
-export const extractSetupParams = (navigation) => ({
-	birthDate: navigation.getParam('birthDate'),
-	country: navigation.getParam('country'),
-	state: navigation.getParam('state'),
-	countryName: navigation.getParam('countryName'),
-	stateName: navigation.getParam('stateName'),
-	givenName: navigation.getParam('givenName'),
-	gender: navigation.getParam('gender', ''),
-	birthPlace: navigation.getParam('birthPlace'),
-	platform: navigation.getParam('platform'),
-	notifications: navigation.getParam('notifications'),
-	updateSetup: navigation.getParam('updateSetup') || false,
+export const extractSetupParams = (route) => ({
+	birthDate: route.params.birthDate,
+	country: route.params.country,
+	state: route.params.state,
+	countryName: route.params.countryName,
+	stateName: route.params.stateName,
+	givenName: route.params.givenName,
+	gender: route.params.gender || '',
+	birthPlace: route.params.birthPlace,
+	platform: route.params.platform,
+	notifications: route.params.notifications,
+	updateSetup: route.params.updateSetup || false,
 });

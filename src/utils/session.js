@@ -353,6 +353,7 @@ export const loginWithFacebook = async (fbSession) => {
 	const { token, expires, profile } = fbSession;
 
 	// debugInfo('Profile: ', profile, expires)
+	debugInfo('adding fb token to cognito');
 	await Auth.federatedSignIn(
 		'facebook',
 		{ token, expires_at: expires },
@@ -360,8 +361,8 @@ export const loginWithFacebook = async (fbSession) => {
 	);
 	// AsyncStorage.setItem('userToken', credentials.sessionToken)
 
-	const build = await DeviceInfo.getBuildNumber();
-	const version = await DeviceInfo.getVersion();
+	const build = DeviceInfo.getBuildNumber();
+	const version = DeviceInfo.getVersion();
 	await postAPIUser({
 		given_name: profile['first_name'],
 		family_name: profile['last_name'],

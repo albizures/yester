@@ -21,11 +21,11 @@ export default class NewPassword extends Component {
 	};
 
 	onPress = async () => {
-		const { navigation } = this.props;
+		const { navigation, route } = this.props;
 		const { password } = this.state;
 
-		const code = navigation.getParam('code');
-		const email = navigation.getParam('email');
+		const code = route.params.code;
+		const email = route.params.email;
 
 		try {
 			await forgotPasswordSubmit(email, code, password);

@@ -33,8 +33,8 @@ export default class Place extends Component {
 
 	constructor(props) {
 		super(props);
-		const { navigation } = props;
-		const params = extractSetupParams(navigation);
+		const { route } = props;
+		const params = extractSetupParams(route);
 		this.state = {
 			...params,
 			year: moment(params.birthDate).format('YY').substring(0, 1) + '0',

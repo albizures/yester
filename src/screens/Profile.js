@@ -46,16 +46,17 @@ class Profile extends Component {
 		this.state = { conditionalText, user, currentStatus, isLoading: true };
 	}
 
-	willFocusListener = null;
+	unsubscribeFocusListener = null;
 
 	async componentDidMount() {
 		const { navigation } = this.props;
-		const { addListener } = navigation;
-		this.willFocusListener = addListener('willFocus', this.load);
+		this.unsubscribeFocusListener = navigation.addListener('focus', this.load);
 	}
 
 	componentWillUnmount() {
-		this.willFocusListener.remove();
+		if (this.unsubscribeFocusListener) {
+			this.unsubscribeFocusListener();
+		}
 	}
 
 	load = async () => {

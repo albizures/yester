@@ -51,15 +51,15 @@ export default class ConfirmAccount extends Component {
 
 	constructor(props) {
 		super(props);
-		const { navigation } = props;
+		const { route } = props;
 		const { conditionalText } = this.state;
 
 		this.state = {
 			conditionalText,
 			code: '',
-			email: navigation.getParam('email'),
-			number: navigation.getParam('number'),
-			signUpVerify: navigation.getParam('signUpVerify'),
+			email: route.params.email,
+			number: route.params.number,
+			signUpVerify: route.params.signUpVerify,
 			isLoading: false,
 		};
 	}
