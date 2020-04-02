@@ -42,12 +42,12 @@ class Home extends Component {
 		positionToast: new Animated.Value(-100),
 	};
 
-	willFocusListener = null;
+	unsubscribeFocusListener = null;
 
 	async componentDidMount() {
 		const { navigation } = this.props;
-		const { addListener } = navigation;
-		this.willFocusListener = addListener('willFocus', this.load);
+
+		this.unsubscribeFocusListener = navigation.addListener('focus', this.load);
 
 		this.setState({ isLoading: true });
 		await authorizeAction(this.props, async (currentStatus) => {
@@ -103,7 +103,10 @@ class Home extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.timeout);
-		this.willFocusListener.remove();
+
+		if (this.unsubscribeFocusListener) {
+			this.unsubscribeFocusListener();
+		}
 	}
 
 	renderChapter = ({ item }) => (
@@ -183,8 +186,7 @@ class Home extends Component {
 	render() {
 		const { isLoading, question, positionToast, currentStatus } = this.state;
 		const topBarTitle = (
-			<View
-				style={{ height: 51, alignItems: 'center', justifyContent: 'center' }}>
+			<View style={styles.topBar}>
 				<Image source={icons.logoWhite} style={styles.topBarImage} />
 			</View>
 		);
@@ -236,6 +238,11 @@ export default withUser(Home);
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
+	topBar: {
+		height: 51,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
 	toastContainer: {
 		position: 'absolute',
 		shadowColor: colors.shadow,

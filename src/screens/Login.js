@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, View, StyleSheet, Dimensions, Platform } from 'react-native';
-import { Auth } from 'aws-amplify';
 import PropTypes from 'prop-types';
-import { CommonActions } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import icons from '../utils/icons';
 import colors from '../utils/colors';
@@ -14,8 +12,7 @@ import withFBLogin from '../components/withFBLogin';
 import TextDivider from '../components/TextDivider';
 import TextInput from '../components/TextInput';
 import TopBar from '../components/TopBar';
-// import Loading from '../components/Loading'
-import { strings, translate } from '../components/Translate';
+import { translate } from '../components/Translate';
 import { screen } from '../utils/analytics';
 import DeviceInfo from 'react-native-device-info';
 import debugFactory from 'debug';
@@ -111,10 +108,6 @@ class Login extends Component {
 	render() {
 		const { email, password, isLoading } = this.state;
 		const topBar = <TopBar title='createAccount.login' onBack={this.onBack} />;
-
-		/* if (isLoading) {
-      return <Loading isLoading={isLoading} />
-    } */
 
 		return (
 			<Container isLoading={isLoading} topBar={topBar}>

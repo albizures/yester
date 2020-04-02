@@ -15,15 +15,18 @@ class Settings extends Component {
 		contextUser: PropTypes.shape(shapeContextUser).isRequired,
 	};
 
-	willFocusListener = null;
+	unsubscribeFocusListener = null;
 
 	componentDidMount() {
-		const { addListener } = this.props.navigation;
-		this.willFocusListener = addListener('willFocus', this.load);
+		const { navigation } = this.props;
+
+		this.unsubscribeFocusListener = navigation.addListener('focus', this.load);
 	}
 
 	componentWillUnmount() {
-		this.willFocusListener.remove();
+		if (this.unsubscribeFocusListener) {
+			this.unsubscribeFocusListener();
+		}
 	}
 
 	load = () => {

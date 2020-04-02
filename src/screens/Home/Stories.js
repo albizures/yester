@@ -49,29 +49,17 @@ class Stories extends Component {
 		};
 	}
 
-	willFocusListener = null;
+	unsubscribeFocusListener = null;
 
 	async componentDidMount() {
 		const { navigation, route } = this.props;
-		const { addListener } = navigation;
-		this.willFocusListener = addListener('willFocus', this.load);
+		this.unsubscribeFocusListener = navigation.addListener('focus', this.load);
 
 		this.setState({ isLoading: false });
 
-		const { positionToast } = this.state;
 		const storyId = route.params.storyId;
 		if (storyId) {
-			/*
-      Animated.spring(positionToast, {
-        toValue: 40,
-        bounciness: 3,
-        speed: 3,
-      }).start()
-
-      this.timeout = setTimeout(this.closeToast, 5000)
-      */
 			this.setModalVisible(true);
-			// this.timeout = setTimeout(() => this.setModalVisible(false), 6000)
 		}
 	}
 
@@ -115,7 +103,10 @@ class Stories extends Component {
 
 	componentWillUnmount() {
 		clearInterval(this.timeout);
-		this.willFocusListener.remove();
+
+		if (this.unsubscribeFocusListener) {
+			this.unsubscribeFocusListener();
+		}
 	}
 
 	renderChapter = ({ item }) => {
