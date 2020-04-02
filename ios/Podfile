@@ -62,6 +62,8 @@ target 'Yester' do
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'YesterTests' do
     inherit! :complete
     # Pods for testing

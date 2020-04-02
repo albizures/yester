@@ -14,6 +14,25 @@ import debugFactory from 'debug';
 const debugInfo = debugFactory('yester:Tabs:info');
 // const debugError = debugFactory('yester:Tabs:error')
 
+const getIndex = (listOfAgesByStory) => {
+	const firstAgeWithoutStories = listOfAgesByStory.find(
+		({ error, items }) => !error && items.length === 0,
+	);
+	const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(
+		firstAgeWithoutStories,
+	);
+
+	if (indexOfFirstAgeWithoutStories === -1) {
+		return 0;
+	}
+
+	if (indexOfFirstAgeWithoutStories !== 0) {
+		return indexOfFirstAgeWithoutStories - 1;
+	}
+
+	return indexOfFirstAgeWithoutStories;
+};
+
 const { width } = Dimensions.get('window');
 
 const initialLayout = {
@@ -73,30 +92,17 @@ class Tabs extends Component {
 			}),
 		);
 
-		const firstAgeWithoutStories = listOfAgesByStory.find(
-			({ error, items }) => !error && items.length === 0,
-		);
-		const indexOfFirstAgeWithoutStories = listOfAgesByStory.indexOf(
-			firstAgeWithoutStories,
-		);
-		const index =
-			indexOfFirstAgeWithoutStories === 0
-				? 0
-				: indexOfFirstAgeWithoutStories - 1;
+		const index = getIndex(listOfAgesByStory);
 
-		return {
-			index: index,
-			agesByStory,
-		};
-	}
-
-	async componentDidMount() {
-		const { index, agesByStory } = await this.getStoriesByAges();
 		this.setState({
 			index,
 			agesByStory,
 			isLoading: false,
 		});
+	}
+
+	componentDidMount() {
+		this.getStoriesByAges();
 	}
 
 	onIndexChange = (index) => this.setState({ index });
