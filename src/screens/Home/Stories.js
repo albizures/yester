@@ -306,6 +306,7 @@ const styles = StyleSheet.create({
 	},
 	view: {
 		flex: 1,
+		width: '100%',
 		backgroundColor: colors.athensGray,
 		paddingTop: 20,
 	},
