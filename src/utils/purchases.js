@@ -27,7 +27,7 @@ export const setupPurchases = async (user) => {
 
 export const getEntitlements = async () => {
 	try {
-		const entitlements = await Purchases.getEntitlements();
+		const entitlements = await Purchases.getOfferings();
 		debugInfo('Available entitlements:', entitlements);
 		return entitlements;
 	} catch (err) {
@@ -46,7 +46,7 @@ export const getPurchaserInfo = async () => {
 
 export const makePurchase = async (productId) => {
 	try {
-		const { purchaserInfo } = await Purchases.makePurchase(productId);
+		const { purchaserInfo } = await Purchases.purchasePackage(productId);
 		return purchaserInfo;
 	} catch (err) {
 		debugError('Make purchase', err.code, err.message);
