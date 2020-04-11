@@ -109,7 +109,10 @@ class AppLoading extends Component {
 
 			const { finished, params } = await isSetupFinished(user);
 			if (!finished) {
-				return navigation.navigate('SetupBirthDate', params);
+				return navigation.navigate('Setup', {
+					screen: 'SetupBirthDate',
+					params,
+				});
 			}
 
 			sendUserNotificationsTags(user);

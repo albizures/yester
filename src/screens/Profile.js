@@ -80,7 +80,11 @@ class Profile extends Component {
 		const { navigation } = this.props;
 		const { user } = this.state;
 		const { params } = await isSetupFinished(user);
-		return navigation.navigate('SetupBirthDate', params);
+
+		return navigation.navigate('Setup', {
+			screen: 'SetupBirthDate',
+			params,
+		});
 	};
 
 	onPressVerify = async () => {
