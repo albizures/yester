@@ -7,7 +7,9 @@ import InputContainer, { types } from '../components/InputContainer';
 
 const Picker = (props) => {
 	const { title, disabled } = props;
-	if (disabled) styles.placeholder.color = colors.mischka;
+	if (disabled) {
+		styles.placeholder.color = colors.mischka;
+	}
 
 	return (
 		<InputContainer {...props} title={title} type={types.PICKER}>
@@ -15,7 +17,6 @@ const Picker = (props) => {
 				{...props}
 				style={styles}
 				useNativeAndroidPickerStyle={false}
-				placeholderTextColor={colors.mineShaft}
 				hideIcon
 			/>
 		</InputContainer>
@@ -62,7 +63,9 @@ const styles = StyleSheet.create({
 		padding: 10,
 		fontSize: 16,
 	},
-	placeholder: {},
+	placeholder: {
+		color: colors.mineShaft,
+	},
 });
 
 export default Picker;
