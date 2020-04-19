@@ -34,6 +34,9 @@ class ModalCard extends React.Component {
 					question: route.params.question,
 					storyId: route.params.storyId,
 				};
+				// going back to close the modal
+				navigation.goBack();
+				// then going to write
 				return navigation.navigate('Writing', params);
 			}
 		});

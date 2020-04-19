@@ -198,11 +198,18 @@ class Writing extends Component {
 				CommonActions.reset({
 					index: 0,
 					routes: [
-						{ name: 'MainTab' },
-						{ name: 'MyStory' },
 						{
-							name: 'Stories',
-							params: { storyId: data.id },
+							name: 'App',
+							params: {
+								screen: 'MainTab',
+								params: {
+									screen: 'MyStory',
+									params: {
+										screen: 'Stories',
+										params: { storyId: data.id },
+									},
+								},
+							},
 						},
 					],
 				}),
@@ -215,7 +222,7 @@ class Writing extends Component {
 			Alert.alert(translate('writing.error.save'));
 		}
 
-		// this.setState({ isLoading: true })
+		this.setState({ isLoading: true });
 	};
 
 	onBack = () => {
@@ -235,7 +242,7 @@ class Writing extends Component {
 					text: 'Ok',
 					onPress: () => {
 						setTimeout(() => {
-							navigation.navigate('MyStory');
+							navigation.goBack();
 						}, 150);
 					},
 				},
