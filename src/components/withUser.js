@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const { Provider, Consumer } = React.createContext();
+export const Context = React.createContext();
+const { Provider, Consumer } = Context;
 
 export const UserProvider = Provider;
 

@@ -13,7 +13,8 @@ import {
 	AWS_USER_CLIENT_POOL_ID,
 	COGNITO_DOMAIN,
 	HOST,
-	// REDIRECT_URI,
+	BANNER_ID,
+	INTERSTITIAL_ID,
 } from 'react-native-dotenv';
 import { UserProvider } from './components/withUser';
 import { AgesProvider } from './components/withAges';
@@ -33,6 +34,7 @@ import {
 	removeEventListener,
 } from './utils/notifications';
 import { setupAnalytics } from './utils/analytics';
+import AppContext from './contexts/AppContext';
 import debugFactory from 'debug';
 
 const debugInfo = debugFactory('yester:index:info');
@@ -164,22 +166,36 @@ export default class App extends Component {
 		const statusBarStyle =
 			Platform.OS === 'ios' ? 'light-content' : 'dark-content';
 
+		const bannerId =
+			process.env.NODE_ENV === 'development'
+				? 'ca-app-pub-3940256099942544/6300978111'
+				: BANNER_ID;
+
+		const interstitialId =
+			process.env.NODE_ENV === 'development'
+				? 'ca-app-pub-3940256099942544/1033173712'
+				: INTERSTITIAL_ID;
+
 		return (
-			<NavigationContainer>
-				<AgesProvider value={agesContextValue}>
-					<UserProvider value={userContextValue}>
-						<View style={{ flex: 1 }}>
-							<StatusBar barStyle={statusBarStyle} />
-							<Stack.Navigator headerMode='none' initialRouteName='AppLoading'>
-								<Stack.Screen name='App' component={AppStack} />
-								<Stack.Screen name='Auth' component={AuthStack} />
-								<Stack.Screen name='AppLoading' component={AppLoading} />
-								<Stack.Screen name='Setup' component={SetupStack} />
-							</Stack.Navigator>
-						</View>
-					</UserProvider>
-				</AgesProvider>
-			</NavigationContainer>
+			<AppContext.Provider bannerId={bannerId} interstitialId={interstitialId}>
+				<NavigationContainer>
+					<AgesProvider value={agesContextValue}>
+						<UserProvider value={userContextValue}>
+							<View style={{ flex: 1 }}>
+								<StatusBar barStyle={statusBarStyle} />
+								<Stack.Navigator
+									headerMode='none'
+									initialRouteName='AppLoading'>
+									<Stack.Screen name='App' component={AppStack} />
+									<Stack.Screen name='Auth' component={AuthStack} />
+									<Stack.Screen name='AppLoading' component={AppLoading} />
+									<Stack.Screen name='Setup' component={SetupStack} />
+								</Stack.Navigator>
+							</View>
+						</UserProvider>
+					</AgesProvider>
+				</NavigationContainer>
+			</AppContext.Provider>
 		);
 	}
 }

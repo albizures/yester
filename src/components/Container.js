@@ -9,7 +9,7 @@ import {
 	ViewPropTypes,
 } from 'react-native';
 import { AdMobBanner } from 'react-native-admob';
-
+import { useAppContext } from '../contexts/AppContext';
 import ConditionalWrapper from './ConditionalWrapper';
 import Loading from './Loading';
 import colors from '../utils/colors';
@@ -17,6 +17,7 @@ import colors from '../utils/colors';
 const top = Platform.OS === 'ios' ? 20 : 0;
 
 const Container = (props) => {
+	const { bannerId } = useAppContext();
 	const {
 		scroll,
 		isLoading,
@@ -57,7 +58,7 @@ const Container = (props) => {
 					<View style={styles.adContainer}>
 						<AdMobBanner
 							adSize='banner'
-							adUnitID='ca-app-pub-3940256099942544/6300978111'
+							adUnitID={bannerId}
 							testDevices={[AdMobBanner.simulatorId]}
 							onAdFailedToLoad={(error) => console.error(error)}
 						/>

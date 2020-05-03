@@ -16,7 +16,56 @@ import withAges, { shapeContextAges } from '../../components/withAges';
 import withUser, { shapeContextUser } from '../../components/withUser';
 import { track } from '../../utils/analytics';
 import { authorizeAction } from '../../utils/session';
-import { AdMobInterstitial } from 'react-native-admob';
+import { useAppContext } from '../../contexts/AppContext';
+
+const WriteButton = (props) => {
+	const { navigation, updateAuthorization, route } = props;
+	const { showAd } = useAppContext();
+
+	const onWrite = async () => {
+		const currentStatus = await authorizeAction({
+			navigation,
+			contextUser: {
+				updateAuthorization,
+			},
+		});
+
+		if (!currentStatus.authorized) {
+			// in this case authorizeAction will show and alert
+			return;
+		}
+
+		const params = {
+			ageId: route.params.ageId,
+			questionId: route.params.questionId,
+			question: route.params.question,
+			storyId: route.params.storyId,
+		};
+
+		// going back to close the modal so
+		// is not open when closing writing screen
+		navigation.goBack();
+
+		// any posible error is logged and catched by the showAd
+		await showAd();
+
+		return navigation.navigate('Writing', params);
+	};
+
+	return (
+		<Button
+			title='questionCard.write'
+			onPress={onWrite}
+			style={{ marginBottom: 20 }}
+		/>
+	);
+};
+
+WriteButton.propTypes = {
+	navigation: PropTypes.object.isRequired,
+	updateAuthorization: PropTypes.func.isRequired,
+	route: PropTypes.object.isRequired,
+};
 
 class ModalCard extends React.Component {
 	static propTypes = {
@@ -25,37 +74,8 @@ class ModalCard extends React.Component {
 		contextAges: PropTypes.shape(shapeContextAges).isRequired,
 	};
 
-	onWrite = async () => {
-		const { navigation, route } = this.props;
-		const currentStatus = await authorizeAction(this.props);
-		if (currentStatus.authorized) {
-			const params = {
-				ageId: route.params.ageId,
-				questionId: route.params.questionId,
-				question: route.params.question,
-				storyId: route.params.storyId,
-			};
-			// going back to close the modal
-			navigation.goBack();
-
-			// then going to write
-			try {
-				await AdMobInterstitial.showAd();
-				AdMobInterstitial.addEventListener('adClosed', () => {
-					return navigation.navigate('Writing', params);
-				});
-			} catch (error) {
-				console.error(error);
-				return navigation.navigate('Writing', params);
-			}
-		}
-	};
-
 	async componentDidMount() {
-		AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
-		AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
 		try {
-			await AdMobInterstitial.requestAd();
 		} catch (error) {
 			console.error(error);
 		}
@@ -69,7 +89,8 @@ class ModalCard extends React.Component {
 	};
 
 	render() {
-		const { route } = this.props;
+		const { route, navigation } = this.props;
+		const { updateAuthorization } = this.props.contextUser;
 		const { ages } = this.props.contextAges;
 		const ageId = route.params.ageId;
 		const question = route.params.question || '';
@@ -102,10 +123,10 @@ class ModalCard extends React.Component {
 						</View>
 
 						<View style={styles.contentBottom}>
-							<Button
-								title='questionCard.write'
-								onPress={this.onWrite}
-								style={{ marginBottom: 20 }}
+							<WriteButton
+								navigation={navigation}
+								route={route}
+								updateAuthorization={updateAuthorization}
 							/>
 							<Button
 								title='questionCard.skip'

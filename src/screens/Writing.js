@@ -44,7 +44,13 @@ class Writing extends Component {
 		content: this.props.route.params.content || '',
 	};
 
-	componentWillMount() {
+	componentWillUnmount() {
+		this.keyboardDidShowSub.remove();
+		this.keyboardDidHideSub.remove();
+	}
+
+	componentDidMount() {
+		this.content.current.focus();
 		screen('Writing', {});
 		if (Platform.OS === 'ios') {
 			this.panResponder = PanResponder.create({
@@ -60,15 +66,6 @@ class Writing extends Component {
 			'keyboardDidHide',
 			this.onKeyboardDidHide,
 		);
-	}
-
-	componentWillUnmount() {
-		this.keyboardDidShowSub.remove();
-		this.keyboardDidHideSub.remove();
-	}
-
-	componentDidMount() {
-		this.content.current.focus();
 	}
 
 	onKeyboardDidShow = (event) => {
