@@ -192,7 +192,11 @@ class Home extends Component {
 		);
 		const topBar = <TopBar title={topBarTitle} />;
 		return (
-			<Container topBar={topBar} isLoading={isLoading} style={styles.container}>
+			<Container
+				ads
+				topBar={topBar}
+				isLoading={isLoading}
+				style={styles.container}>
 				<View style={styles.view}>
 					{question && (
 						<QuestionItem

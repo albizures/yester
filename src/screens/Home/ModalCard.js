@@ -16,6 +16,7 @@ import withAges, { shapeContextAges } from '../../components/withAges';
 import withUser, { shapeContextUser } from '../../components/withUser';
 import { track } from '../../utils/analytics';
 import { authorizeAction } from '../../utils/session';
+import { AdMobInterstitial } from 'react-native-admob';
 
 class ModalCard extends React.Component {
 	static propTypes = {
@@ -26,21 +27,39 @@ class ModalCard extends React.Component {
 
 	onWrite = async () => {
 		const { navigation, route } = this.props;
-		await authorizeAction(this.props, (currentStatus) => {
-			if (currentStatus.authorized) {
-				const params = {
-					ageId: route.params.ageId,
-					questionId: route.params.questionId,
-					question: route.params.question,
-					storyId: route.params.storyId,
-				};
-				// going back to close the modal
-				navigation.goBack();
-				// then going to write
+		const currentStatus = await authorizeAction(this.props);
+		if (currentStatus.authorized) {
+			const params = {
+				ageId: route.params.ageId,
+				questionId: route.params.questionId,
+				question: route.params.question,
+				storyId: route.params.storyId,
+			};
+			// going back to close the modal
+			navigation.goBack();
+
+			// then going to write
+			try {
+				await AdMobInterstitial.showAd();
+				AdMobInterstitial.addEventListener('adClosed', () => {
+					return navigation.navigate('Writing', params);
+				});
+			} catch (error) {
+				console.error(error);
 				return navigation.navigate('Writing', params);
 			}
-		});
+		}
 	};
+
+	async componentDidMount() {
+		AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/1033173712');
+		AdMobInterstitial.setTestDevices([AdMobInterstitial.simulatorId]);
+		try {
+			await AdMobInterstitial.requestAd();
+		} catch (error) {
+			console.error(error);
+		}
+	}
 
 	onSkip = () => {
 		const { navigation, route } = this.props;

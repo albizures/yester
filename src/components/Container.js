@@ -8,6 +8,7 @@ import {
 	StyleSheet,
 	ViewPropTypes,
 } from 'react-native';
+import { AdMobBanner } from 'react-native-admob';
 
 import ConditionalWrapper from './ConditionalWrapper';
 import Loading from './Loading';
@@ -27,6 +28,7 @@ const Container = (props) => {
 		scrollRef,
 		scrollEvents,
 		keyboardDismissMode,
+		ads = false,
 	} = props;
 	const refreshControl =
 		scroll && onRefresh && refreshing ? (
@@ -51,6 +53,16 @@ const Container = (props) => {
 			]}>
 			<Loading top={top} isLoading={isLoading}>
 				{topBar}
+				{ads && (
+					<View style={styles.adContainer}>
+						<AdMobBanner
+							adSize='banner'
+							adUnitID='ca-app-pub-3940256099942544/6300978111'
+							testDevices={[AdMobBanner.simulatorId]}
+							onAdFailedToLoad={(error) => console.error(error)}
+						/>
+					</View>
+				)}
 				<ConditionalWrapper
 					component={ScrollView}
 					condition={scroll}
@@ -73,11 +85,16 @@ Container.propTypes = {
 	style: ViewPropTypes.style,
 	scrollRef: PropTypes.object,
 	keyboardDismissMode: PropTypes.string,
+	ads: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
 	flex: {
 		flex: 1,
+	},
+	adContainer: {
+		paddingVertical: 16,
+		paddingHorizontal: 20,
 	},
 	container: {
 		flex: 1,

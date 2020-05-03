@@ -84,6 +84,8 @@ target 'Yester' do
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+  pod 'Google-Mobile-Ads-SDK'
+  pod 'react-native-admob', path: '../node_modules/react-native-admob'
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 

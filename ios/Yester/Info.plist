@@ -50,19 +50,19 @@
 	<key>FacebookDisplayName</key>
 	<string>Yester</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true />
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>NSAllowsArbitraryLoads</key>
-			<true />
+			<true/>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
@@ -94,6 +94,8 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3066582878577572~7098211185</string>
 </dict>
 </plist>

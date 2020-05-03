@@ -336,7 +336,9 @@ export const authorizeAction = async (props, callback) => {
 
 	const text = conditionalText[currentStatus.code];
 
-	callback(currentStatus);
+	if (callback) {
+		callback(currentStatus);
+	}
 	if (!currentStatus.authorized) {
 		Alert.alert(translate(text.title), translate(text.message), [
 			{ text: translate('subscription.status.alert.cancel') },
