@@ -22,7 +22,7 @@ const AppProvider = (props) => {
 				});
 			});
 		} catch (error) {
-			console.log(error);
+			console.error(error);
 		}
 	}, []);
 
@@ -39,10 +39,6 @@ const AppProvider = (props) => {
 		}
 
 		interstitialRef.current = AdMobInterstitial.requestAd();
-
-		interstitialRef.current.then(() => {
-			console.log('add area loaded');
-		});
 	}, [interstitialId]);
 
 	return <Context.Provider value={value}>{children}</Context.Provider>;
