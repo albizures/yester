@@ -30,6 +30,7 @@ const WriteButton = (props) => {
 			},
 		});
 
+		// this is going to be removed after removing the monthly suscription
 		if (!currentStatus.authorized) {
 			// in this case authorizeAction will show and alert
 			return;
@@ -46,8 +47,12 @@ const WriteButton = (props) => {
 		// is not open when closing writing screen
 		navigation.goBack();
 
-		// any posible error is logged and catched by the showAd
-		await showAd();
+		// this does nothing for now, but it will when
+		// there is no monthly suscription anymore
+		if (!currentStatus.authorized) {
+			// any possible error is logged and catched by the showAd
+			await showAd();
+		}
 
 		return navigation.navigate('Writing', params);
 	};
