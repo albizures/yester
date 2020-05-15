@@ -86,7 +86,7 @@ target 'Yester' do
   pod 'FBSDKShareKit'
   pod 'Google-Mobile-Ads-SDK'
   pod 'react-native-admob', path: '../node_modules/react-native-admob'
-
+  pod 'RNPurchases', :path => '../node_modules/react-native-purchases', :inhibit_warnings => true
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
   target 'YesterTests' do

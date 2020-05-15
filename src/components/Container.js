@@ -12,12 +12,16 @@ import { AdMobBanner } from 'react-native-admob';
 import { useAppContext } from '../contexts/AppContext';
 import ConditionalWrapper from './ConditionalWrapper';
 import Loading from './Loading';
+import { useUserContext } from '../hooks';
 import colors from '../utils/colors';
 
 const top = Platform.OS === 'ios' ? 20 : 0;
 
 const Container = (props) => {
 	const { bannerId } = useAppContext();
+	const { updateAuthorization } = useUserContext();
+	const [showAds, setShowAds] = React.useState();
+
 	const {
 		scroll,
 		isLoading,
@@ -35,6 +39,22 @@ const Container = (props) => {
 		scroll && onRefresh && refreshing ? (
 			<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
 		) : undefined;
+
+	React.useEffect(() => {
+		let cancel = false;
+		if (!ads) {
+			return;
+		}
+
+		updateAuthorization().then((currentStatus) => {
+			if (!cancel) {
+				setShowAds(!currentStatus.authorized);
+			}
+		});
+		return () => {
+			cancel = true;
+		};
+	}, [updateAuthorization, ads]);
 
 	const ScrollViewProps = {
 		refreshControl,
@@ -54,7 +74,7 @@ const Container = (props) => {
 			]}>
 			<Loading top={top} isLoading={isLoading}>
 				{topBar}
-				{ads && (
+				{ads && showAds && (
 					<View style={styles.adContainer}>
 						<AdMobBanner
 							adSize='banner'
